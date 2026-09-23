@@ -99,7 +99,7 @@ ia memang gagal, dan pada data bersih ia lolos.
 Seluruh bank sekarang dikirim: **1.504 kalimat**. Tapi tidak semuanya jadi kartu di
 DOM sekaligus.
 
-Kalau semua kartu ditulis ke HTML, halaman ini jadi 10 MB dan ~75.000 node, dan
+Kalau semua kartu ditulis ke HTML, halaman ini jadi **18,19 MB** dan **137.697 node**, dan
 browser harus menata semuanya sebelum apa pun muncul. Yang membuat itu mahal:
 tema gelap, warna per kata, dan garis bawah ditulis **inline** di tiap kartu, jadi
 satu kartu ≈ 50 node.
@@ -117,10 +117,29 @@ Hasilnya, pada 1.504 kalimat (keduanya diukur, bukan diperkirakan:
 |---|---|---|
 | ukuran file | 18,19 MB | **1,72 MB** |
 | node saat dibuka | 137.697 | **2.427** |
-| node setelah discroll sampai bawah | 137.697 | bertambah bertahap |
+| node setelah discroll sampai bawah | 137.697 | **137.697 (sama)** |
 
 Angka "semua di HTML" naik dari 10,1 MB ke 18,19 MB karena separuh kalimatnya kini
 jauh lebih panjang, jadi tiap kartu lebih besar.
+
+**Batas yang jujur: cara ini mempercepat pembukaan, bukan scroll sampai ujung.** Kartu
+tidak pernah dilepas, jadi kalau pembaca men-scroll sampai kalimat terakhir, DOM-nya
+kembali sebesar versi "semua di HTML". Diukur saat men-scroll:
+
+| setelah | kartu di DOM | node |
+|---|---|---|
+| dibuka | 30 | 2.427 |
+| 10 kali scroll ke bawah | 330 | 29.422 |
+| sampai ujung | 1.504 | ~137.700 |
+
+Jadi yang diperbaiki: waktu buka (2.427 vs 137.697 node) dan pencarian, karena pencarian
+hanya menyentuh kartu yang ada di DOM. Yang **tidak** diperbaiki: biaya scroll saat sudah
+jauh ke bawah.
+
+Membatasi DOM saat scroll berarti melepas kartu di luar layar dan mendaur ulangnya, yaitu
+virtualisasi. Itu bukan yang diminta, dan di daftar baca seperti ini ia menuntut tinggi
+palsu supaya scrollbar tidak melompat. Kalau nanti terasa berat setelah scroll sangat
+jauh, itu perubahannya.
 
 Yang dibuang bukan kalimatnya, hanya biaya menatanya. Menaikkan jumlah kartu statis
 lewat `LANGSENT_FIRST=200 python3 scripts/build_page.py`.
