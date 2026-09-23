@@ -1,0 +1,46 @@
+file: pron/CEJC�ۣb�\_�����`�-_����`�-_ver202209/6_cejc_frequencylist_suw_hatuonkei.xlsx
+### CEJC pronunciation forms (発音形出現形): types=40,280 tokens=2,419,171
+  Zipf exponent alpha = 1.293
+  top    100 types cover  62.76% of tokens
+  top    500 types cover  81.10% of tokens
+  top  1,000 types cover  86.23% of tokens
+  top  2,000 types cover  90.32% of tokens
+  top  5,000 types cover  94.71% of tokens
+  top 10,000 types cover  97.16% of tokens
+  top 20,000 types cover  98.93% of tokens
+  top 40,280 types cover 100.00% of tokens
+  mean tokens per type = 60.1
+  mora-length distribution of PRODUCTION (tokens):
+    0 morae:   0.24%  (5,831 tokens, 56 types)
+    1 morae:  39.07%  (945,070 tokens, 773 types)
+    2 morae:  39.55%  (956,684 tokens, 7,113 types)
+    3 morae:  13.76%  (332,836 tokens, 12,498 types)
+    4 morae:   6.35%  (153,626 tokens, 14,534 types)
+    5 morae:   0.80%  (19,461 tokens, 3,402 types)
+    6 morae:   0.18%  (4,313 tokens, 1,360 types)
+    7 morae:   0.04%  (915 tokens, 322 types)
+    8 morae:   0.01%  (319 tokens, 129 types)
+    9 morae:   0.00%  (66 tokens, 47 types)
+    10 morae:   0.00%  (24 tokens, 21 types)
+    11 morae:   0.00%  (7 tokens, 6 types)
+    12 morae:   0.00%  (5 tokens, 5 types)
+    13 morae:   0.00%  (4 tokens, 4 types)
+    14 morae:   0.00%  (4 tokens, 4 types)
+    15 morae:   0.00%  (1 tokens, 1 types)
+    16 morae:   0.00%  (1 tokens, 1 types)
+    18 morae:   0.00%  (1 tokens, 1 types)
+    19 morae:   0.00%  (1 tokens, 1 types)
+    22 morae:   0.00%  (1 tokens, 1 types)
+    26 morae:   0.00%  (1 tokens, 1 types)
+  mean morae per word form = 1.90
+### CEJC written forms (書字形): types=32,343 tokens=2,419,171
+  Zipf exponent alpha = 1.327
+  top    100 types cover  68.37% of tokens
+  top    500 types cover  84.73% of tokens
+  top  1,000 types cover  88.95% of tokens
+  top  2,000 types cover  92.40% of tokens
+  top  5,000 types cover  96.02% of tokens
+  top 10,000 types cover  98.00% of tokens
+  top 20,000 types cover  99.40% of tokens
+  top 32,343 types cover 100.00% of tokens
+  mean tokens per type = 74.8

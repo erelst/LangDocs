@@ -1,0 +1,122 @@
+========================================================================
+1. CORPUS ANCHORS (CEJC 200 h)
+========================================================================
+  words per hour (all speakers)        12,095.85
+  utterance units per hour             2,889.43
+  utterance units per conversation     1,001.53
+  words per utterance unit             4.19
+  mean speaker slots per conversation  2.90
+  words per speaker per hour of talk   4,166.75
+  new word types per hour (Zipf)       ~0
+
+========================================================================
+2. VOCABULARY SIZE AND COVERAGE (Zipf, alpha = 1.29 measured)
+========================================================================
+  top    100 types ->  62.76% of spoken tokens
+  top    500 types ->  81.10% of spoken tokens
+  top  1,000 types ->  86.23% of spoken tokens
+  top  2,000 types ->  90.32% of spoken tokens
+  top  5,000 types ->  94.71% of spoken tokens
+  top 10,000 types ->  97.16% of spoken tokens
+  top 20,000 types ->  98.93% of spoken tokens
+  top 40,280 types -> 100.00% of spoken tokens
+  observed: 40,280 pronunciation types / 32,343 written types in 200 h
+  => ~201 new pronunciation types per hour of conversation
+
+========================================================================
+3. PHONOLOGICAL SPACE (morae)
+========================================================================
+  straight morae (直音, incl. ん/っ/ー)  76
+  contracted morae (拗音)               33
+  loanword morae (外来音)               25
+  total mora inventory                 ~134
+  mean morae per word token (measured)   1.90
+  mean morae per word type  (measured)   3.45
+  mora strings of length 2 (unconstrained) 17,956.00
+  mora strings of length 3 (unconstrained) 2,406,104
+  mora strings of length 4 (unconstrained) 322,417,936
+  mora strings of length 5 (unconstrained) 43,204,003,424
+  phonotactic filters (no word-initial っ/ー/ん, no *ti/*si etc.)
+  cut the raw count by roughly 0.6^L for native-shaped words
+
+========================================================================
+4. SENTENCE (UTTERANCE-UNIT) COMBINATORICS
+========================================================================
+  V=  1,000 (top-1k      ) V^4.19 = 3.62e+12
+  V=  2,000 (top-2k      ) V^4.19 = 6.59e+13
+  V=  5,000 (top-5k      ) V^4.19 = 3.05e+15
+  V= 10,000 (top-10k     ) V^4.19 = 5.56e+16
+  V= 40,280 (all CEJC    ) V^4.19 = 1.90e+19
+  V=100,000 (fluent adult) V^4.19 = 8.54e+20
+
+  grammatical filters applied to the raw product:
+    - POS-sequence legality (SOV, valence frames)      ~1e-3
+    - politeness/tense/polarity/aspect agreement       ~1e-2
+    - collocation / selectional preference             ~1e-2
+    - discourse felicity (topic, givenness)            ~1e-1
+    combined reduction ~1e-8   (order-of-magnitude)
+  => everyday usable sentence space ~ 3.05e+15 * 1e-8 = ~30,536,036
+  cross-check via POS patterns: 15^4.19 = 83,832.39
+  POS patterns x productive inflection (~600/predicate) = 50,299,436
+
+========================================================================
+5. LIFETIME PRODUCTION OF ONE SPEAKER
+========================================================================
+  survey: 12.7 conversations/day, 15.3 min each, 2.87 h/day of talk, 62,823.00 h over 60 y
+  words spoken in a lifetime   ~261,767,813
+  utterance units in a lifetime ~62,530,385
+  distinct word types used      ~10,000.00  (top-10k covers 97.2%)
+
+========================================================================
+6. QUESTIONS: RATE AND LIFETIME COUNT
+========================================================================
+  measured interrogative markers (CEJC, 200 h):
+    か (終助詞, sentence-final question)     24,713  10.22/1000 words
+    か (副助詞, embedded/indefinite)         38,219  15.80/1000 words
+    の (終助詞, question)                    13,747   5.68/1000 words
+    wh-words (何/誰/何処/何時..)             38,610  15.96/1000 words
+    all 終助詞 (ね よ か な の さ わ ぞ ぜ)   163,670  67.66/1000 words
+
+  particle-marked questions:  6.66% of all utterance units
+  add (a) rising-intonation-only questions (?-tagged in transcription)
+      (b) wh-questions with final か double-counted -> subtract
+  => best estimate: 15-20% of utterance units are questions
+  => lifetime questions per speaker ~9,379,558 to 12,506,077
+  => CEJC-extrapolated questions per hour of talk 433.41 to 577.89
+
+========================================================================
+7. REGISTER SPLIT: INTIMATE vs DISTANT / SERVICE
+========================================================================
+  survey partner involvement (9,272 conversations):
+    family                    5,642 partner-slots
+    friend/acquaintance       4,808 partner-slots
+    work/study                7,695 partner-slots
+    teacher-student           2,848 partner-slots
+    public-commercial         2,427 partner-slots
+    relative                    487 partner-slots
+    seen-but-unknown/stranger  1,405 partner-slots
+    remote                      904 partner-slots
+  57.7% of conversations involve close partners (family/friend/relative)
+  15.2% involve strangers / service personnel
+
+  politeness markers by register (per 1000 words):
+    casual chat 雑談       です 10.57   ます  4.31
+    business talk 用談     です 14.04   ます  6.58
+    meeting 会議           です 18.86   ます  9.23
+    classroom 授業         です 19.86   ます 11.64
+    at home 自宅           です  6.74   ます  2.70
+    at workplace 職場      です 20.66   ます  8.84
+    male speakers        です 13.99   ます  5.76
+    female speakers      です 10.86   ます  5.11
+  => polite forms are ~3x denser toward non-intimates (home 6.7 vs work 20.7)
+  => estimate: ~60% of daily words to intimates, ~40% to non-intimates/distant
+
+========================================================================
+8. HEADLINE NUMBERS
+========================================================================
+  A. distinct everyday sentence space      ~10^8 - 10^10 (usable), unbounded formally
+  B. sentences actually spoken per lifetime ~6.3e+07  (~63 million)
+  C. of those, questions                    ~11 million (17.5%)
+  D. distinct word types ever used          ~10,000 (97.2% coverage)
+  E. word forms available in the language   ~500,000 - 3,000,000 (lexicon)
+  F. morae                                  ~134 (inventory), 1.90/word, 3.45/type
