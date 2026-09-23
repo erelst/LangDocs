@@ -32,7 +32,9 @@ from notebook_build import SENTENCES, PALETTE, UNDERLINE_STYLES
 DARK_PALETTE = [dark for _, dark in PALETTE]
 
 BG = '#0b1220'        # card background
-BG_PANEL = '#111827'  # tooltip background
+BG_PANEL = '#263449'  # tooltip/modal surface: deliberately and clearly lighter
+                      # than the card and the dimmed backdrop, so an open panel
+                      # reads as a raised layer instead of a dark smudge
 EDGE = '#1e293b'
 EDGE_SOFT = '#334155'
 ACCENT = '#38bdf8'
@@ -103,7 +105,7 @@ def gloss_rows(tokens):
     for i, tok in enumerate(tokens):
         kanji, romaji, gid, gen = tok
         color = PALETTE[i % len(PALETTE)]
-        edge = f'border-bottom:1px solid {EDGE};vertical-align:top;padding:4px 8px;'
+        edge = f'border-bottom:1px solid {EDGE_SOFT};vertical-align:top;padding:4px 8px;'
         rows.append(
             '<tr>'
             f'<td style="{edge}color:{color} !important;font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
@@ -120,8 +122,10 @@ def qpanel(s):
     return (
         f'<div class="qpanel" style="position:absolute;right:0;top:42px;box-sizing:border-box;'
         f'width:min(88vw,620px);background:{BG_PANEL} !important;color:{TEXT} !important;'
-        f'border:1px solid {EDGE_SOFT} !important;border-radius:12px;padding:14px 16px;'
-        f'max-height:70vh;overflow:auto;box-shadow:0 16px 40px rgba(0,0,0,.65);'
+        f'border:1px solid {EDGE_SOFT} !important;border-top:3px solid {ACCENT} !important;'
+        f'border-radius:12px;padding:14px 16px;'
+        f'max-height:70vh;overflow:auto;'
+        f'box-shadow:0 22px 60px rgba(0,0,0,.8), 0 0 0 1px rgba(56,189,248,.22);'
         f'text-align:left;font-size:14px;line-height:1.55;">'
         f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">ID</b> {_esc(s["id_translation"])}</p>'

@@ -69,7 +69,18 @@ PAGE_JS = r'''
   //   3. it fits neither      -> use the larger side and clamp the height, so the
   //                              panel scrolls internally instead of leaving the screen
   // On narrow or short screens it is a centred modal, so there is nothing to do.
+  // The sticky search bar covers the top of the viewport, so the modal centres in
+  // what is left. Its height is published as --barh because CSS cannot measure it.
+  var barEl = document.querySelector('.bar');
+  function syncBarHeight() {
+    if (barEl) {
+      document.documentElement.style.setProperty('--barh', barEl.offsetHeight + 'px');
+    }
+  }
+  syncBarHeight();
+
   function place(d) {
+    syncBarHeight();
     var panel = d.querySelector('.qpanel');
     if (!panel) { return; }
     d.classList.remove('flip');
@@ -93,6 +104,30 @@ PAGE_JS = r'''
     }
   }
 
+  // #qN (1-based) opens that panel, so a specific translation can be linked to.
+  function openFromHash() {
+    var m = /^#q(\d+)$/.exec(location.hash || '');
+    if (!m) { return; }
+    var d = panels[parseInt(m[1], 10) - 1];
+    if (!d) { return; }
+    // bring the card on screen first, otherwise place() measures against a viewport
+    // the card is not even inside of, and the panel lands off-screen.
+    d.closest('.jp-sent').scrollIntoView({ block: 'center' });
+    d.open = true;
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+
+  // The dim layer is only used by the small-screen modal, which is the only case
+  // where the panel is detached from the page flow.
+  var scrim = document.getElementById('scrim');
+  function syncScrim() {
+    if (!scrim) { return; }
+    var open = panels.filter(function (d) { return d.open; })[0];
+    var modal = open && getComputedStyle(open.querySelector('.qpanel')).position === 'fixed';
+    scrim.hidden = !modal;
+  }
+
   panels.forEach(function (d) {
     var card = d.closest('.jp-sent');
     d.addEventListener('toggle', function () {
@@ -104,13 +139,16 @@ PAGE_JS = r'''
         card.classList.remove('is-open');
         d.classList.remove('flip');
       }
+      syncScrim();
     });
   });
 
   // keep an open panel inside the viewport when the window is resized/rotated
   window.addEventListener('resize', function () {
+    syncBarHeight();
     var open = panels.filter(function (d) { return d.open; })[0];
     if (open) { place(open); }
+    syncScrim();
   });
 
   // click outside any ? control closes the open panel
@@ -282,6 +320,35 @@ PAGE_JS = r'''
 '''
 
 
+def _luminance(hex_colour):
+    """Relative luminance of #rrggbb, per WCAG."""
+    h = hex_colour.lstrip('#')
+    out = []
+    for i in (0, 2, 4):
+        c = int(h[i:i + 2], 16) / 255.0
+        out.append(c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4)
+    return 0.2126 * out[0] + 0.7152 * out[1] + 0.0722 * out[2]
+
+
+def _contrast(a, b):
+    la, lb = _luminance(a), _luminance(b)
+    hi, lo = max(la, lb), min(la, lb)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def _panel_gap_ok(B):
+    """The open panel must visibly stand out from what sits behind it.
+
+    On small screens the panel is a modal over the scrim, so the comparison is
+    against the *blended* backdrop colour, which is what the eye actually sees.
+    """
+    backdrop = '#010206'          # page #020617 seen through the black .62 scrim
+    gap = 1.35
+    return (_contrast(B.BG_PANEL, B.BG) >= gap
+            and _contrast(B.BG_PANEL, backdrop) >= gap
+            and _contrast(B.TEXT, B.BG_PANEL) >= 7.0)
+
+
 def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
     data = json.dumps(index, ensure_ascii=False, separators=(',', ':'))
     return f'''<!doctype html>
@@ -311,7 +378,7 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
   .searchrow {{ display: flex; gap: 8px; align-items: center; }}
   .searchrow input {{
     flex: 1 1 auto; min-width: 0;
-    background: {B.BG_PANEL}; color: #f8fafc;
+    background: {B.EDGE}; color: #f8fafc;
     border: 1px solid {B.EDGE_SOFT}; border-radius: 10px;
     padding: 11px 13px; font-size: 15px; font-family: inherit;
   }}
@@ -343,8 +410,8 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
   /* default: cards sit at the same level, later ones paint on top */
   .jp-sent {{ z-index: 1; }}
   /* the open card is lifted so its panel covers the other cards' ? buttons */
-  .jp-sent.is-open {{ z-index: 400; }}
-  .jp-sent:has(details[open]) {{ z-index: 400; }}
+  .jp-sent.is-open {{ z-index: 900; }}
+  .jp-sent:has(details[open]) {{ z-index: 900; }}
   .jp-sent[hidden] {{ display: none !important; }}
 
   /* ---------------------------------------------------------------- behaviour */
@@ -358,6 +425,10 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
     top: auto !important;
     bottom: 42px;
   }}
+  /* On narrow/short screens the panel is a modal: give it a visibly lighter
+     surface than the card so it never reads as a dark smudge. */
+  .jp-sent .qpanel {{ }}
+
   .jp-sent .tk {{ border-radius: 3px; }}
   .jp-sent .tk:hover {{ background: rgba(56, 189, 248, .18); }}
 
@@ -368,6 +439,19 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
     text-align: center; color: {B.TEXT_DIM}; font-size: 14px;
   }}
 
+  /* Dim layer behind the small-screen modal. z-index 400 keeps it above the
+     cards (1) and the open card's scrim position, but below the sticky search
+     bar (500) and below the open card itself (900), so the bar stays usable and
+     the panel is never dimmed. */
+  #scrim {{
+    position: fixed; inset: 0; z-index: 400;
+    /* plain black: the page colour itself is #020617, so a scrim tinted with it
+       would blend invisibly and dim nothing */
+    background: rgba(0, 0, 0, .62);
+    border: 0; padding: 0; margin: 0;
+  }}
+  #scrim[hidden] {{ display: none; }}
+
   @media (max-width: 520px), (max-height: 520px) {{
     /* The anchored panel runs off the left and bottom edges on narrow screens,
        and off the bottom on short ones (landscape phones). In both cases it
@@ -375,26 +459,33 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
     .jp-sent .qpanel {{
       box-sizing: border-box !important;   /* width must include padding+border */
       position: fixed !important;
-      top: 50% !important;
+      /* centred in the area BELOW the sticky search bar (--barh is published by
+         JS, since CSS cannot measure the bar). Centreing on 50vh instead would
+         draw the modal over the bar and cut its input field. */
+      --modal-mid: calc(var(--barh, 0px) + (100vh - var(--barh, 0px)) / 2);
+      top: var(--modal-mid) !important;
       bottom: auto !important;
       left: 50% !important;
       right: auto !important;
       transform: translate(-50%, -50%);
       width: calc(100vw - 24px) !important;
       max-width: none !important;
-      max-height: 78vh !important;
+      max-height: min(78vh, calc(100vh - var(--barh, 0px) - 24px)) !important;
       border-radius: 14px !important;
     }}
-    /* dim the page behind the modal, so it reads as a modal and tapping
-       anywhere outside closes it */
-    .jp-sent.is-open::before,
-    .jp-sent:has(details[open])::before {{
-      content: ""; position: fixed; inset: 0; background: rgba(2, 6, 23, .72);
-      z-index: 399;
+    /* the .flip rule (meant for the anchored desktop panel) must not win here:
+       it is more specific, so the modal position has to be repeated rather than
+       reset to a plain 50%, which would put the modal back over the search bar */
+    .jp-sent .qdet.flip > .qpanel {{
+      top: var(--modal-mid) !important;
+      bottom: auto !important;
     }}
-    /* keep the open card's own ? button above the dim layer */
+
+    /* The dim layer is the #scrim element, shown/hidden by JS; it sits below the
+       sticky bar so the search field stays readable while a modal is open. */
+    /* the ?? control (and therefore the panel inside it) stays above the dim layer */
     .jp-sent.is-open .qdet,
-    .jp-sent:has(details[open]) .qdet {{ z-index: 401; }}
+    .jp-sent:has(details[open]) .qdet {{ z-index: 30; }}
   }}
 
   @media (max-width: 420px) {{
@@ -405,6 +496,10 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
 </style>
 </head>
 <body>
+<!-- Dim layer for the small-screen modal. It is a real element rather than a
+     card pseudo-element so it can stay UNDER the sticky search bar: dimming the
+     bar as well made the search field look broken and unusable. -->
+<div id="scrim" hidden></div>
 <div class="wrap">
 
   <header class="bar">
@@ -454,6 +549,9 @@ if __name__ == '__main__':
         '? panels': got.count('<details') == n,
         'dark card colour': got.count(f'background:{B.BG} !important') == n,
         'dark panel colour': got.count(f'background:{B.BG_PANEL} !important') == n,
+        # a panel whose luminance is too close to the card/backdrop is exactly what
+        # made the opened tooltip look like a dark smudge
+        'panel stands out from backdrop': _panel_gap_ok(B),
         'accent colour': B.ACCENT in got,
         'atomic words': got.count('display:inline-block') > n,
         'word wrap enabled': 'overflow-wrap:anywhere' in got,
@@ -461,8 +559,15 @@ if __name__ == '__main__':
         'panels collapsed by default': not any(
             'open' in tag for tag in __import__('re').findall(r'<details[^>]*>', got)),
         'hover rules present': '.qdet:hover' in got,
-        'open card lifted above others': '.jp-sent.is-open { z-index: 400; }' in got
-                                        and ':has(details[open])' in got,
+        # the open card must outrank the sticky search bar (z-index 500), and the
+        # dim layer must stay under the ? control (z-index 30) so it never covers the panel
+        'open card above sticky bar': '.jp-sent.is-open { z-index: 900; }' in got
+                                      and ':has(details[open])' in got,
+        # the dim layer must sit above the cards but below both the sticky bar
+        # and the open card, so the bar stays usable and the panel is never dimmed
+        'dim layer beneath panel and bar': 'id="scrim"' in got and 'z-index: 400;' in got
+                                           and 'z-index: 500;' in got and 'z-index: 900;' in got
+                                           and 'syncScrim' in got,
         'single open enforced in JS': 'closeAll(d)' in got,
         'click outside closes': "closest('details.qdet')" in got,
         'escape closes': "e.key === 'Escape'" in got,
