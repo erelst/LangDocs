@@ -144,10 +144,13 @@ FOOD_AND_DRINK = {
 # Verbs that need an を-marked object. 持って / 持ちます are deliberately absent: 持って
 # almost always appears inside 持ってくる / 持っていく ("bring" / "take"), where the object
 # is not marked by the を next to 持って, so demanding one there flagged a correct sentence.
+# A topic-marked object (この薬は) carries は rather than を, which is normal Japanese, so the
+# verbs whose object can be topicalised out of the を position are listed here and checked by
+# whether ANY particle marks the object, not by the presence of を specifically.
 OBJECTS_WITH_O = {'買う', '買います', '買いました', '買った', '食べます', '食べました',
-                  '食べる', '食べた', '飲みます', '飲みました', '飲む', '飲んだ',
-                  '使います', '使って',
+                  '食べる', '食べた', '使います', '使って',
                   '作ります', '作りました', '注文します', '頼みます'}
+TOPIC_MARKED_OK = {'飲みます', '飲みました', '飲む', '飲んだ', '飲んで'}
 # 送ります is deliberately absent: 駅まで車で送ります means "I will drive you to the station",
 # where the person is the listener and is not named, so there is no を to require.
 
@@ -178,6 +181,10 @@ def check_particles(sentences):
         verbs = {w for w in words if w in OBJECTS_WITH_O}
         if verbs and 'を' not in words:
             bad.append((s['key'], f'{sorted(verbs)} needs を, which the sentence does not have'))
+        # この薬は食後に飲みますか topicalises the object; either particle is correct there
+        drinking = {w for w in words if w in TOPIC_MARKED_OK}
+        if drinking and not ({'を', 'は'} & set(words)):
+            bad.append((s['key'], f'{sorted(drinking)} has neither を nor は for its object'))
         if any(w in FOOD_AND_DRINK for w in words) and 'を' not in words and verbs:
             bad.append((s['key'], 'a food or drink object without を'))
     return bad
