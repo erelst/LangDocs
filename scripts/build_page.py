@@ -331,20 +331,22 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
     margin-bottom: 14px;
   }}
   .searchrow {{ display: flex; gap: 8px; align-items: center; }}
+  /* The field uses the expanded panel's surface and outline, so the two dark
+     surfaces on the page match instead of inventing a third shade. */
   .searchrow input {{
     flex: 1 1 auto; min-width: 0;
-    background: {B.EDGE}; color: #f8fafc;
-    border: 1px solid {B.EDGE_SOFT}; border-radius: 10px;
+    background: {B.BG_PANEL}; color: #f8fafc;
+    border: 1px solid {B.BG_PANEL_EDGE}; border-radius: 10px;
     padding: 11px 13px; font-size: 15px; font-family: inherit;
   }}
-  .searchrow input::placeholder {{ color: #64748b; }}
+  .searchrow input::placeholder {{ color: {B.TEXT_PLACEHOLDER}; }}
   .searchrow input:focus {{
     outline: none; border-color: {B.ACCENT};
     box-shadow: 0 0 0 3px rgba(56, 189, 248, .18);
   }}
   .searchrow button {{
     flex: 0 0 auto; width: 40px; height: 40px; border-radius: 10px;
-    background: {B.EDGE}; color: #f8fafc; border: 1px solid {B.EDGE_SOFT};
+    background: {B.BG_PANEL}; color: #f8fafc; border: 1px solid {B.BG_PANEL_EDGE};
     font-size: 18px; line-height: 1; cursor: pointer; font-family: inherit;
   }}
   .searchrow button:hover {{ border-color: {B.ACCENT}; }}
@@ -444,7 +446,7 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
       <input id="q" type="search" autocomplete="off" autocapitalize="off"
              spellcheck="false" enterkeyhint="search"
              aria-label="Cari kalimat: kanji, romaji, Indonesia, atau Inggris"
-             placeholder="Cari: kanji / romaji / Indonesia / English">
+             placeholder="Cari: Kanji / Romaji / Indonesia / English">
       <button id="clear" type="button" title="Hapus pencarian" aria-label="Hapus pencarian" hidden>&#215;</button>
     </div>
     <div class="hint">

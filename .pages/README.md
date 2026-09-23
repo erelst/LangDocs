@@ -31,8 +31,9 @@ tidak perlu scrim, z-index, atau perhitungan posisi sama sekali.
 Warna dan register
 ------------------
 
-Blok kalimat memakai kartu `#0b1220` (seperti desain awal), dan panel `?` yang
-terbuka memakai `#070c14` yang **lebih gelap** dari kartunya.
+Blok kalimat memakai kartu `#0b1220` (seperti desain awal), kolom pencarian dan
+panel `?` yang terbuka memakai `#070c14` yang **lebih gelap** dari kartunya, jadi
+kedua permukaan gelap di halaman ini sama persis (bukan tiga nuansa berbeda).
 
 Karena isian gelap tidak bisa jauh dari kartu yang juga gelap (hanya 1.05:1),
 pemisah yang sebenarnya terlihat adalah **garis tepi panel** `#4a5a72` (2.67:1
@@ -59,6 +60,23 @@ Jadi bloknya tetap hanya kanji + romaji + `?`, dan pembedaan register muncul saa
 panel dibuka. Kalau ada blok yang warnanya beda di daftar, itu bug: verifikasi
 memang mengecek semua tombol `?` dan semua garis kartu harus satu warna.
 
-Kalimat yang saat ini terdaftar: 1 tetangga, 2 orang asing, 3 petugas toko, 4
-teman dekat, 5 orang yang sudah akrab, 6 teman. Semuanya akrab kecuali nomor 2
-dan 3, jadi saya tambahkan dulu supaya perbedaannya kelihatan.
+Daftar kalimat sekarang:
+
+| # | register | lawan bicara | isi |
+|---|---|---|---|
+| 1 | dekat / sopan | tetangga | sapaan pagi |
+| 2 | asing / sopan | orang asing | minta tunggu |
+| 3 | asing / sopan | petugas toko | tanya harga |
+| 4 | dekat / biasa | teman dekat | ajakan santai |
+| 5 | dekat / biasa | orang akrab | menyetujui |
+| 6 | dekat / sopan | teman | cerita panjang (uji word wrap) |
+| 7 | dekat / sopan | tetangga | basa-basi cuaca |
+| 8 | asing / sopan | orang asing | tanya arah (どちら) |
+| 9 | asing / sopan | orang asing | menawarkan bantuan |
+| 10 | dekat / biasa | teman dekat | tanya kabar tanpa か |
+
+Distribusinya 6 dekat dan 4 asing. Dasar pemilihannya dari CEJC: urutan partikel
+akhir (ね 38%, よ 21%, か 15,1%, な 9,1%, の 8,4%, さ 7,1%), frekuensi kata tanya
+(何 12,95/1.000; どう 1,96/1.000; 誰 0,57/1.000), dan temuan bahwa **です/ます** yang
+membedakan dekat vs asing (~3x: rumah 6,74 vs kantor 20,66 per 1.000 kata),
+bukan partikel tanya.

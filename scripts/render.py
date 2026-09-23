@@ -49,6 +49,7 @@ EDGE_SOFT = '#334155'
 ACCENT = '#38bdf8'
 TEXT = '#e5e7eb'
 TEXT_DIM = '#94a3b8'
+TEXT_PLACEHOLDER = '#8b99ad'  # search placeholder; above 4.5:1 on BG_PANEL
 
 
 def _esc(t):

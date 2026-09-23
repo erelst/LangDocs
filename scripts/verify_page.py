@@ -237,16 +237,27 @@ f.onload=function(){ (async function(){
   var inp=d.getElementById('q'), cnt=d.getElementById('count'), em=d.getElementById('empty');
   function vis(){return [].slice.call(d.querySelectorAll('.jp-sent')).filter(function(c){return !c.hasAttribute('hidden');});}
   function type(v){ inp.value=v; inp.dispatchEvent(new w.Event('input',{bubbles:true})); }
-  type('ohayo');   ok('search romaji "ohayo" -> 1', vis().length===1, cnt.textContent.trim());
+  var total=cards.length;
+  // A term can legitimately appear in several sentences (おはよう is in two), so
+  // these assert that matching WORKS, not that exactly one block survives.
+  // Narrowing precision is checked separately, with queries that really are unique.
+  function hits(n){ return vis().length+'/'+total+' '+cnt.textContent.trim(); }
+  type('ohayo');   ok('romaji search matches', vis().length>=1, hits());
   ok('highlight in romaji line', d.querySelectorAll('.romaji mark').length>0);
-  type('\u3053\u308c'); ok('search kanji -> 1', vis().length===1, cnt.textContent.trim());
+  type('\u3053\u308c'); ok('kanji search matches', vis().length>=1, hits());
   ok('highlight in kanji line', d.querySelectorAll('.kanji mark').length>0);
-  type('stasiun'); ok('highlight in panel too', d.querySelectorAll('.qpanel mark').length>0);
-  ok('search Indonesian -> 1', vis().length===1, cnt.textContent.trim());
-  type('station'); ok('search English -> 1', vis().length===1, cnt.textContent.trim());
-  type('kore ikura'); ok('multi-word AND -> 1', vis().length===1, cnt.textContent.trim());
+  type('stasiun'); ok('Indonesian search matches', vis().length>=1, hits());
+  ok('highlight in panel too', d.querySelectorAll('.qpanel mark').length>0);
+  type('station'); ok('English search matches', vis().length>=1, hits());
+  type('kore ikura'); ok('multi-word AND narrows to one', vis().length===1, hits());
+  type('cuaca bagus ya'); ok('multi-word AND across languages', vis().length===1, hits());
+  type('\u304a\u624b\u4f1d\u3044\u3057\u307e\u3057\u3087\u3046\u304b');
+  ok('unique kanji query -> exactly 1', vis().length===1, hits());
   type('zzzz');    ok('empty state shown', vis().length===0 && em.offsetHeight>0, em.textContent.trim().slice(0,26));
-  type('');        ok('cleared -> all visible', vis().length===cards.length, 'n='+vis().length);
+  type('');        ok('cleared -> all visible', vis().length===total, hits());
+  type('\u3059\u307f\u307e\u305b\u3093'); var multi=vis().length;
+  ok('multi-match query shows all hits', multi>=2, 'n='+multi);
+  type('');
 
   note('');
   note(FAIL.length? ('FAILURES: '+FAIL.join(', ')) : 'ALL CHECKS PASSED');
