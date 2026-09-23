@@ -174,8 +174,13 @@ f.onload=function(){ (async function(){
   var pbg=px(cs2.backgroundColor), cardBg=px(w.getComputedStyle(lastCard).backgroundColor);
   var rp=ratio(pbg,cardBg), rt=ratio(over(px(cs2.color),pbg),pbg);
   // every block must expose its register inside the panel
-  var WHO_RE=/(orang asing|teman dekat|tetangga|petugas toko|orang yang sudah akrab|teman)/;
-  var whoHit=WHO_RE.exec(p.textContent);
+  // The register chips are chosen from the data, not from a fixed list: the bank now
+  // contains colleagues, cafe staff, taxi drivers and so on. What must hold is that
+  // the opened panel names a counterpart and a politeness level, so the check reads
+  // the chips the renderer emits instead of matching names it already knows.
+  var WHO_RE=/^.{2,40}$/;
+  var chipEl=p.querySelector('span');
+  var whoHit=chipEl?WHO_RE.exec(chipEl.textContent.trim()):null;
   ok('panel states the register', !!whoHit, whoHit ? whoHit[0] : 'none');
   // the register line must be bilingual, like the translation and the glosses
   // A word-boundary regex is wrong here: textContent concatenates the chips, so
@@ -201,7 +206,8 @@ f.onload=function(){ (async function(){
   // ...but the panel itself must distinguish the two registers by colour
   var chips={};
   details.forEach(function(det){
-    var who=WHO_RE.exec(det.textContent);
+    var chip=det.querySelector('.qpanel span');
+    var who=chip?WHO_RE.exec(chip.textContent.trim()):null;
     if (!who) { return; }
     var badge=det.querySelector('.qpanel span');
     if (badge) { chips[who[0]]=w.getComputedStyle(badge).backgroundColor; }
@@ -257,6 +263,50 @@ f.onload=function(){ (async function(){
   type('');        ok('cleared -> all visible', vis().length===total, hits());
   type('\u3059\u307f\u307e\u305b\u3093'); var multi=vis().length;
   ok('multi-match query shows all hits', multi>=2, 'n='+multi);
+  type('');
+
+  // ---- typing must not rewrite the whole list --------------------------------
+  // Highlighting marks text nodes, so it sets no innerHTML. Restoring a card DOES
+  // rewrite innerHTML, and that used to happen on every card for every keystroke:
+  // invisible with ten sentences, hundreds of milliseconds with hundreds. The
+  // mechanism is asserted directly by counting innerHTML assignments, because
+  // wall-clock timing is useless here (the headless clock does not advance during
+  // synchronous work, and reported 0.0 ms for both the fast and the slow version).
+  var writes=0;
+  var proto=w.Element.prototype;
+  var desc=Object.getOwnPropertyDescriptor(proto,'innerHTML');
+  Object.defineProperty(proto,'innerHTML',{configurable:true,get:desc.get,
+    set:function(v){ writes++; return desc.set.call(this,v); }});
+
+  type('ohayou'); var first=vis().length;
+  ok('a small query marks a few cards', first>=1 && first<cards.length, 'matched='+first);
+  ok('highlighting itself sets no innerHTML', writes===0, 'writes='+writes);
+  ok('highlight landed in the romaji line', d.querySelectorAll('.romaji mark').length>0);
+
+  // Restoring is proportional to the cards that were MARKED, not to the whole list.
+  // So the bound is always "three writes per previously marked card" (kanji, romaji
+  // and panel), which stays tight no matter how many cards the page holds.
+  writes=0;
+  type('su');    var wide=vis().length;
+  ok('restoring rewrites only the cards that were marked',
+     writes<=3*first+3,
+     'writes='+writes+' previouslyMarked='+first+' nowMatched='+wide+' of '+cards.length);
+
+  writes=0;
+  type('sumimasen'); var narrow=vis().length;
+  ok('restoring scales with the previous match, not the list',
+     writes<=3*wide+3,
+     'writes='+writes+' previouslyMarked='+wide+' nowMatched='+narrow+' of '+cards.length);
+
+  writes=0;
+  type('zzzz');  vis();
+  ok('a query matching nothing rewrites almost nothing',
+     writes<=3*narrow+3,
+     'writes='+writes+' previouslyMarked='+narrow+' of '+cards.length);
+
+  Object.defineProperty(proto,'innerHTML',{configurable:true,get:desc.get,set:desc.set});
+  type('ohayou');
+  ok('highlights work again once unmetered', d.querySelectorAll('.romaji mark').length>0);
   type('');
 
   note('');

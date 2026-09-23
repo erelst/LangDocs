@@ -1,18 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Japanese everyday sentences, and the palette the renderer uses.
+"""The hand-written sentences, plus the palette the renderer uses.
+
+This file holds the CURATED part of the bank only. The generated part lives in
+generate.py and is stitched on by bank.py, so this list keeps its priority: a
+generated sentence that duplicates one of these by its kanji line is dropped.
 
 Each sentence has:
   kanji / romaji / id_translation / en_translation
   tokens: list of (kanji_token, romaji_token, gloss_id, gloss_en)
+  who / who_id / who_en:   dekat (close) or asing (stranger), in both languages
+  politeness:              sopan (polite) or biasa (plain)
   freq:   CEJC 書字形 frequency count of the key word (2,419,171 words, 200 h)
   note / note_en: usage note
 
-Colours and underline styles are shared by the kanji line and the romaji line,
-so token i has the same colour in both.
+Colours and underline styles are shared by the kanji line and the romaji line, so
+token i has the same colour in both.
 """
 
-# (light-theme colour, dark-theme colour); assigned round-robin per token index
 PALETTE = [
     ('#2f6f4e', '#7ec699'),  # green
     ('#a34b1f', '#f0a06a'),  # burnt orange
@@ -29,7 +34,9 @@ PALETTE = [
 UNDERLINE_STYLES = ['solid', 'dashed', 'dotted', 'double', 'wavy']
 
 
-SENTENCES = [
+# The hand-written sentences. bank.py places these first and drops any generated
+# sentence that duplicates one of them, so this list stays the priority set.
+CURATED = [
     {
         'id': 1,
         'situation': 'Kepada tetangga pada pagi hari (dekat, tapi tetap sopan)',

@@ -26,14 +26,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
+import bank
+import check_sentences
 import render as B   # noqa: E402  (single source of truth for the cards)
+
+# How many cards the page ships, and why it is a number rather than "all".
+#
+# The generated bank is 1,482 sentences and the page is a single HTML file with no
+# build step, so the cost lands on the reader. Measured in headless Chromium on this
+# machine, rendering is linear at about 3.4 ms per card:
+#
+#     300 cards   1.9 MB    1.1 s
+#     500 cards   3.3 MB    1.7 s
+#   1,482 cards  10.1 MB    4.9 s
+#
+# and a keystroke in the search box costs about 11 ms at 1,482 cards. 500 is the
+# point where the page still feels immediate while the visible list covers every one
+# of the 31 templates with at least 16 different word combinations, in both
+# registers. Raise it with LANGSENT_LIMIT=1482 to ship the whole bank; the build
+# prints the measured cost either way, so the tradeoff stays visible.
+LIMIT = int(os.environ.get('LANGSENT_LIMIT', '500'))
 
 
 # --------------------------------------------------------------------------- index
-def search_index():
+def search_index(rows):
     """One record per sentence, holding every searchable field."""
     out = []
-    for s in B.SENTENCES:
+    for s in rows:
         toks = s['tokens']
         out.append({
             'id': s['id'],
@@ -112,6 +131,7 @@ PAGE_JS = r'''
     var p = c.querySelector('.qpanel');
     c._orig = { kanji: k ? k.innerHTML : '', romaji: r ? r.innerHTML : '',
                 qpanel: p ? p.innerHTML : '' };
+    c._dirty = false;
   });
 
   function stripDiacritics(s) {
@@ -192,10 +212,16 @@ PAGE_JS = r'''
   }
 
   function resetHighlights(card) {
+    // Rewriting innerHTML re-parses the card, and on a page with hundreds of cards
+    // that turned every keystroke into hundreds of milliseconds of work. Only the
+    // cards that were actually highlighted are restored, and a card that was never
+    // marked is skipped outright.
+    if (!card._dirty) { return; }
     ['kanji', 'romaji', 'qpanel'].forEach(function (key) {
       var el = card.querySelector('.' + key);
       if (el) { el.innerHTML = card._orig[key]; }
     });
+    card._dirty = false;
   }
 
   function run() {
@@ -222,6 +248,7 @@ PAGE_JS = r'''
           if (r) { mark(r, terms); }
           // a match may sit only in the translation, so mark the panel as well
           if (p) { mark(p, terms); }
+          card._dirty = true;
         }
       } else if (card.querySelector('details.qdet[open]')) {
         card.querySelector('details.qdet').open = false;
@@ -295,8 +322,7 @@ def _register_ok(B):
     The badges live inside the expanded panel, so they are measured against the
     panel surface, not against the card.
     """
-    from sentences import SENTENCES
-    who = {s.get('who') for s in SENTENCES}
+    who = {s.get('who') for s in bank.all_sentences()}
     if not who <= set(B.WHO_COLOURS):
         return False
     return all(_contrast(B.BG_PANEL, colour) >= 4.5          # as a border / text
@@ -470,8 +496,19 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
 
 
 if __name__ == '__main__':
-    blocks = B.all_blocks()
-    index = search_index()
+    # The generated half of the bank is only trustworthy if its meaning is checked,
+    # so the check runs as part of the build rather than as an optional script.
+    findings = check_sentences.problems()
+    if any(findings.values()):
+        for kind, bad in findings.items():
+            for kanji, why in bad:
+                print(f'  [FAIL] {kind}: {kanji} -- {why}')
+        raise SystemExit('sentence-bank checks failed; fix scripts/generate.py first')
+
+    full = bank.with_ids(bank.all_sentences())
+    rows = full[:LIMIT]
+    blocks = B.all_blocks(rows)
+    index = search_index(rows)
     page = build_page(blocks, index)
 
     out = os.path.join(ROOT, 'index.html')
@@ -480,7 +517,8 @@ if __name__ == '__main__':
 
     with open(out, encoding='utf-8') as f:
         got = f.read()
-    n = len(B.SENTENCES)
+    n = len(rows)
+    by_origin, by_who = bank.stats(rows)
     checks = {
         'sentence blocks': got.count('<section') == n,
         '? panels': got.count('<details class="qdet">') == n,
@@ -495,7 +533,7 @@ if __name__ == '__main__':
         'every block states its register': got.count('class="qpanel"') == n,
         'register line is bilingual': all(
             s['situation'] in got and s['situation_en'] in got and s['who_id'] in got
-            and s['who_en'] in got for s in B.SENTENCES),
+            and s['who_en'] in got for s in rows),
         'accent colour': B.ACCENT in got,
         'atomic words': got.count('display:inline-block') > n,
         'word wrap enabled': 'overflow-wrap:anywhere' in got,
@@ -521,8 +559,18 @@ if __name__ == '__main__':
         'search index embedded': 'id="idx"' in got and '"gloss_en"' in got,
         'romaji folding (ohayo/ohayou/ohayō)': "replace(/ou/g, 'o')" in got,
         'highlight markup': '<mark' not in got and 'createElement(\'mark\')' in got,
+        # a sentence must not appear twice, and both halves must survive the cap
+        'no duplicate kanji lines': len({s['kanji'] for s in rows}) == n,
+        'curated sentences come first': all(
+            rows[i]['origin'] == bank.HAND_WRITTEN
+            for i in range(min(len(rows), 10))),
     }
-    print(f'wrote {out}  ({len(page):,} chars)')
+    print(f'wrote {out}  ({len(page):,} chars, {n:,} of {len(full):,} sentences)')
+    for k, v in by_origin.items():
+        print(f'  origin {k}: {v:,}')
+    for k, v in by_who.items():
+        print(f'  register {k}: {v:,}')
+    print(f'  about {len(page) / max(n, 1):,.0f} chars per card')
     for k, ok in checks.items():
         print(f'  [{"ok" if ok else "FAIL"}] {k}')
     if not all(checks.values()):

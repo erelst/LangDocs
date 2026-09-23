@@ -31,7 +31,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
-from sentences import SENTENCES, PALETTE, UNDERLINE_STYLES  # noqa: E402
+from sentences import PALETTE, UNDERLINE_STYLES  # noqa: E402
+from bank import all_sentences                    # noqa: E402
 
 # Register colours, so "close" and "stranger" are distinguishable at a glance even
 # though the blocks themselves carry no labels. Chosen to be light enough that the
@@ -179,18 +180,21 @@ def html_block(s):
     )
 
 
-def all_blocks():
-    """Every sentence as one HTML string, in data order."""
-    return ''.join(html_block(s) for s in SENTENCES)
+def all_blocks(sentences=None):
+    """Every sentence as one HTML string, in bank order."""
+    if sentences is None:
+        sentences = all_sentences()
+    return ''.join(html_block(s) for s in sentences)
 
 
 if __name__ == '__main__':
     # A quick sanity check when run directly; the full page is built by
     # scripts/build_page.py, which also verifies the result.
-    cards = all_blocks()
-    assert cards.count('<section') == len(SENTENCES), 'block count mismatch'
-    assert cards.count('<details') == len(SENTENCES), 'panel count mismatch'
-    print(f'{len(SENTENCES)} blocks, {len(cards):,} chars')
+    rows = all_sentences()
+    cards = all_blocks(rows)
+    assert cards.count('<section') == len(rows), 'block count mismatch'
+    assert cards.count('<details') == len(rows), 'panel count mismatch'
+    print(f'{len(rows)} blocks, {len(cards):,} chars')
     print(f'  card  {BG}')
     print(f'  panel {BG_PANEL}')
     print(f'  accent {ACCENT}')
