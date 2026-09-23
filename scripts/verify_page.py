@@ -12,9 +12,11 @@ This script loads the real page in Chromium, drives it the way a user does
 asserts the invariants that matter:
 
   * the ? button is reachable (not covered by another layer)
-  * the panel opens, fits fully on screen and is painted on top of everything
-  * the panel is measurably lighter than the dimmed backdrop (WCAG contrast)
-  * the sticky search bar stays above the dim layer and the modal clears it
+  * the panel opens IN FLOW: it stays inside the card's own box, so it cannot
+    cover the card's bottom edge, the next block, or the search bar
+  * expanding pushes the following content down instead of floating over it
+  * the panel is measurably lighter than the card it grows out of (WCAG contrast)
+  * the page never scrolls sideways because of the expansion
   * only one panel is open at a time; outside click and Escape close it
   * search matches kanji, romaji, Indonesian and English, and highlights
 
@@ -91,52 +93,88 @@ f.onload=function(){ (async function(){
   btn.click(); await sleep(500);
   var p=last.querySelector('.qpanel'), cs=w.getComputedStyle(p), r=p.getBoundingClientRect();
   ok('panel opens via real click', last.open && r.height>20, 'h='+Math.round(r.height));
-  ok('panel fully inside viewport',
-     r.top>=-1 && r.bottom<=w.innerHeight+1 && r.left>=-1 && r.right<=w.innerWidth+1,
-     [r.left,r.top,r.right,r.bottom].map(Math.round).join(','));
 
-  var pts=[[r.left+r.width/2,r.top+14],[r.left+r.width/2,r.top+r.height/2],[r.left+20,r.top+r.height-14]];
+  // ---- the panel must live INSIDE its own card ---------------------------
+  // This is the property that makes the overlap problem impossible: the panel is
+  // in-flow content, so the card grows to contain it.
+  var cardBox=lastCard.getBoundingClientRect();
+  var cs2=w.getComputedStyle(p);
+  ok('panel is in flow (not a floating layer)',
+     cs2.position==='static' || cs2.position==='relative',
+     'position='+cs2.position);
+  ok('panel inside its own card box',
+     r.top>=cardBox.top-0.5 && r.bottom<=cardBox.bottom+0.5 &&
+     r.left>=cardBox.left-0.5 && r.right<=cardBox.right+0.5,
+     'panel='+[r.left,r.top,r.right,r.bottom].map(Math.round).join(',')+
+     ' card='+[cardBox.left,cardBox.top,cardBox.right,cardBox.bottom].map(Math.round).join(','));
+  ok('panel clears the card bottom edge', r.bottom<=cardBox.bottom-0.5,
+     'gap='+Math.round(cardBox.bottom-r.bottom)+'px');
+
+  // An expanded panel may legitimately be taller than the screen (a long sentence
+  // has many glosses), so the page scrolls vertically. What must never happen is
+  // sideways overflow or the panel escaping its card horizontally.
+  ok('panel fits horizontally', r.left>=-0.5 && r.right<=w.innerWidth+0.5,
+     'panel='+Math.round(r.left)+'..'+Math.round(r.right)+' vw='+w.innerWidth);
+  var overflowX=d.documentElement.scrollWidth-w.innerWidth;
+  ok('no sideways scroll after expanding', overflowX<=1, 'overflowX='+overflowX+'px');
+
+  // Bring the whole expanded card on screen, then check the panel is really there
+  // and that nothing is drawn over it. elementFromPoint returns null off-screen,
+  // so only sample points inside the viewport.
+  lastCard.scrollIntoView({block:'start'});
+  await sleep(300);
+  r=p.getBoundingClientRect();
+  var lowest=(function(){
+    // scroll so the panel's bottom edge is visible, if the panel is that tall
+    if (r.bottom>w.innerHeight) { p.scrollIntoView({block:'end'}); }
+    return null;
+  })();
+  await sleep(300);
+  r=p.getBoundingClientRect();
+  // The sticky search bar legitimately covers the top of whatever is scrolled
+  // under it, so only sample the part of the panel that is below the bar.
+  var barRect=d.querySelector('.bar').getBoundingClientRect();
+  var inView=function(y){ return y>=barRect.bottom+2 && y<=w.innerHeight-2; };
+  var pts=[];
+  [0.08,0.5,0.92].forEach(function(fy){
+    var y=r.top+r.height*fy;
+    if (inView(y)) { pts.push([r.left+r.width/2, y]); }
+  });
+  var hiddenBehindBar = r.top < barRect.bottom;
+  if (!pts.length) { pts.push([r.left+r.width/2, Math.min(w.innerHeight-2, Math.max(2, r.top+20))]); }
   var seen=[], onTop=true;
   pts.forEach(function(pt){
     var h=d.elementFromPoint(Math.round(pt[0]),Math.round(pt[1]));
     seen.push(h?h.tagName+'.'+String(h.className).slice(0,12):'null');
     if(!(h===p||p.contains(h))) onTop=false; });
-  ok('panel painted above bar/scrim/cards', onTop, seen.join(' | '));
+  ok('panel drawn on top of everything', onTop, seen.join(' | ') + ' behindBar=' + hiddenBehindBar);
 
-  // ---- dim layer: present for the modal, absent for the anchored panel ---
-  var scrimEl=d.getElementById('scrim');
-  var scs=scrimEl?w.getComputedStyle(scrimEl):null;
-  var scrim=scrimEl?px(scs.backgroundColor):null;
-  // the page switches to the centred modal on EITHER a narrow or a short
-  // viewport, so the harness must test the same media query the CSS uses
-  var small=w.matchMedia('(max-width: 520px), (max-height: 520px)').matches;
-  ok('dim layer shown only for the modal',
-     small? (scrimEl && !scrimEl.hidden) : (scrimEl && scrimEl.hidden),
-     'hidden='+(scrimEl?scrimEl.hidden:'no-element')+' z='+(scs?scs.zIndex:'-'));
+  // every part of the panel must be reachable by scrolling, including its bottom
+  p.scrollIntoView({block:'end'}); await sleep(300);
+  var rb=p.getBoundingClientRect();
+  ok('panel bottom reachable by scrolling', rb.bottom<=w.innerHeight+1,
+     'panelBottom='+Math.round(rb.bottom)+' vh='+w.innerHeight);
 
+  // expanding must push the following card down, not cover it
+  var nextCard=cards[cards.indexOf(lastCard)+1];
+  if (nextCard) {
+    var nr=nextCard.getBoundingClientRect();
+    ok('expanded card pushes the next block down (no overlap)',
+       nr.top>=cardBox.bottom-0.5,
+       'nextTop='+Math.round(nr.top)+' cardBottom='+Math.round(cardBox.bottom));
+  }
+
+  // the search bar must never be covered or dimmed
   var barEl=d.querySelector('.bar'), br=barEl.getBoundingClientRect();
   var atBar=d.elementFromPoint(Math.round(br.left+br.width/2), Math.round(br.top+br.height/2));
-  ok('search bar stays above the dim layer',
-     !(scrimEl && scrimEl===atBar) && atBar!==null,
+  ok('search bar not covered', atBar!==null && !p.contains(atBar),
      'topAtBar='+(atBar?atBar.tagName+'.'+String(atBar.className).slice(0,16):'null'));
 
-  if (small && scrimEl && !scrimEl.hidden) {
-    var c1=cards[0].getBoundingClientRect();
-    var b1=d.elementFromPoint(2, Math.round(Math.max(c1.top, br.bottom)+6));
-    ok('cards behind are dimmed (scrim on top of card)',
-       b1!==null && b1.id==='scrim',
-       'topLeftOfCard='+(b1?(b1.id||b1.tagName+'.'+String(b1.className).slice(0,14)):'null'));
-  }
-  ok('modal clears the sticky bar', small? r.top>=br.bottom-0.5 : true,
-     'panelTop='+Math.round(r.top)+' barBottom='+Math.round(br.bottom));
-
-  // ---- the panel must read as a raised, lighter layer -------------------
-  var pageBg={r:2,g:6,b:23,a:1};
-  var backdrop=(scrim && scrimEl && !scrimEl.hidden) ? over(scrim,pageBg) : pageBg;
-  var pbg=over(px(cs.backgroundColor), backdrop);
-  var rp=ratio(pbg,backdrop), rt=ratio(over(px(cs.color),pbg),pbg);
-  ok('panel lighter than backdrop (>=1.35:1)', rp>=1.35,
-     'ratio='+rp.toFixed(2)+' '+cs.backgroundColor);
+  // ---- the panel must read as a raised surface --------------------------
+  var pbg=px(cs2.backgroundColor), cardBg=px(w.getComputedStyle(lastCard).backgroundColor);
+  var rp=ratio(pbg,cardBg), rt=ratio(over(px(cs2.color),pbg),pbg);
+  ok('panel clearly lighter than its card (>=1.35:1)', rp>=1.35,
+     'ratio='+rp.toFixed(2)+' panel='+cs2.backgroundColor);
   ok('panel text readable (>=7:1)', rt>=7, 'ratio='+rt.toFixed(1));
 
   // ---- one at a time, and the two ways out ------------------------------

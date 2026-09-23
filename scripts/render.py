@@ -10,7 +10,11 @@ Layout per block
 ----------------
   kanji line
   romaji line
-  ? button on the right  ->  opens the Indonesian + English translation
+  ? button on the right  ->  expands the Indonesian + English translation IN PLACE
+
+The ? panel is in-flow content of the card, so opening it grows the card. There
+is no floating layer, no scrim and no z-index juggling: the panel simply cannot
+cover the card's own bottom edge or another block.
 
 Nothing else belongs in a block: no number, no situation label, no frequency.
 
@@ -72,32 +76,38 @@ def gloss_rows(tokens):
         kanji, romaji, gid, gen = tok
         color = DARK_PALETTE[i % len(DARK_PALETTE)]
         edge = f'border-bottom:1px solid {EDGE_SOFT};vertical-align:top;padding:4px 8px;'
+        # The cells carry classes so the page CSS can restack them on a narrow
+        # screen, where four nowrap columns cannot fit inside the card.
         rows.append(
             '<tr>'
-            f'<td style="{edge}color:{color} !important;font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
-            f'<td style="{edge}color:{TEXT_DIM} !important;font-style:italic;white-space:nowrap;">{_esc(romaji)}</td>'
-            f'<td style="{edge}color:{TEXT} !important;">{_esc(gid)}</td>'
-            f'<td style="{edge}color:{TEXT_DIM} !important;">{_esc(gen)}</td>'
+            f'<td class="gk" style="{edge}color:{color} !important;font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
+            f'<td class="gr" style="{edge}color:{TEXT_DIM} !important;font-style:italic;white-space:nowrap;">{_esc(romaji)}</td>'
+            f'<td class="gi" style="{edge}color:{TEXT} !important;">{_esc(gid)}</td>'
+            f'<td class="ge" style="{edge}color:{TEXT_DIM} !important;">{_esc(gen)}</td>'
             '</tr>'
         )
     return ''.join(rows)
 
 
 def qpanel(s):
-    """The panel revealed by the ? button."""
+    """The panel expanded by the ? button.
+
+    It is a normal in-flow block INSIDE the sentence card: opening it makes the
+    card grow instead of floating a layer over the page, so the panel can never
+    overlap its own card's border, a neighbouring card, or the search bar.
+    """
     return (
-        f'<div class="qpanel" style="position:absolute;right:0;top:42px;box-sizing:border-box;'
-        f'width:min(88vw,620px);background:{BG_PANEL} !important;color:{TEXT} !important;'
+        f'<div class="qpanel" style="box-sizing:border-box;background:{BG_PANEL} !important;'
+        f'color:{TEXT} !important;'
         f'border:1px solid {EDGE_SOFT} !important;border-top:3px solid {ACCENT} !important;'
-        f'border-radius:12px;padding:14px 16px;'
-        f'max-height:70vh;overflow:auto;'
-        f'box-shadow:0 22px 60px rgba(0,0,0,.8), 0 0 0 1px rgba(56,189,248,.22);'
+        f'border-radius:12px;padding:14px 16px;margin-top:14px;'
+        f'box-shadow:0 10px 26px rgba(0,0,0,.45);'
         f'text-align:left;font-size:14px;line-height:1.55;">'
         f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">ID</b> {_esc(s["id_translation"])}</p>'
         f'<p style="margin:0 0 12px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">EN</b> {_esc(s["en_translation"])}</p>'
-        f'<table style="border-collapse:collapse;width:100%;font-size:13.5px;">'
+        f'<table class="gloss" style="border-collapse:collapse;width:100%;font-size:13.5px;">'
         f'{gloss_rows(s["tokens"])}</table>'
         f'<div style="margin-top:12px;padding-top:10px;border-top:1px dashed {EDGE_SOFT};'
         f'font-size:13px;color:{TEXT_DIM} !important;">'
@@ -108,19 +118,17 @@ def qpanel(s):
 
 
 def html_block(s):
-    """One block: kanji line, romaji line, and the ? tooltip. Nothing else."""
+    """One block: kanji line, romaji line, and the ? expander. Nothing else.
+
+    DOM order matters: the <details> sits AFTER the romaji line, so the panel
+    expands underneath the sentence. Its <summary> is absolutely positioned, so
+    the ? button still appears at the card's top-right corner while the collapsed
+    <details> contributes no height.
+    """
     return (
         f'<section class="jp-sent" style="position:relative;background:{BG} !important;'
         f'border:1px solid {EDGE} !important;border-left:5px solid {ACCENT} !important;border-radius:12px;'
         f'margin:16px 0;padding:16px 58px 16px 18px;overflow:visible;">'
-        # ? control: display:block + list-style:none removes the triangle without CSS
-        '<details class="qdet" style="position:absolute;right:10px;top:10px;z-index:30;">'
-        '<summary title="Terjemahan / Translation" aria-label="Terjemahan dan arti per kata" '
-        f'style="display:block;list-style:none;cursor:pointer;width:34px;height:34px;'
-        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE} !important;'
-        f'color:#f8fafc !important;font-weight:700;font-size:17px;border:2px solid {ACCENT} !important;'
-        'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
-        f'{qpanel(s)}</details>'
         # kanji line
         '<div class="kanji" style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc !important;'
         f'white-space:normal;overflow-wrap:anywhere;padding-right:6px;">'
@@ -129,6 +137,15 @@ def html_block(s):
         f'<div class="romaji" style="font-size:15px;line-height:1.85;font-style:italic;color:{TEXT_DIM} !important;'
         'margin-top:3px;white-space:normal;overflow-wrap:anywhere;">'
         f'{token_spans(s["tokens"], 1)}</div>'
+        # ? expander. display:block + list-style:none removes the triangle without CSS,
+        # and the panel is in-flow so the card grows to hold it.
+        '<details class="qdet">'
+        '<summary title="Terjemahan / Translation" aria-label="Terjemahan dan arti per kata" '
+        f'style="display:block;list-style:none;cursor:pointer;width:34px;height:34px;'
+        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE} !important;'
+        f'color:#f8fafc !important;font-weight:700;font-size:17px;border:2px solid {ACCENT} !important;'
+        'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
+        f'{qpanel(s)}</details>'
         '</section>'
     )
 

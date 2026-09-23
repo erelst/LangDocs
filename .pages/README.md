@@ -18,7 +18,12 @@ Sebelum commit, periksa hasil render sungguhan (bukan hanya kode):
     python3 scripts/verify_page.py
 
 Verifikasi itu membuka halaman di Chromium headless dan menguji 7 ukuran layar:
-tombol `?` bisa diklik, panel terbuka dan tidak terpotong, panel tergambar di
-atas bar pencarian dan lapisan peredup, kontras panel cukup, hanya satu panel
-terbuka, klik di luar / Escape menutup, dan pencarian cocok untuk kanji, romaji,
-Indonesia, maupun Inggris.
+tombol `?` bisa diklik, panel terbuka **di dalam kotak bloknya sendiri** (jadi
+tidak mungkin menutupi batas blok, blok berikutnya, atau bar pencarian), blok
+berikutnya terdorong ke bawah bukan tertimpa, tidak ada geser horizontal,
+kontras panel cukup, hanya satu panel terbuka, klik di luar / Escape menutup,
+dan pencarian cocok untuk kanji, romaji, Indonesia, maupun Inggris.
+
+Catatan desain: panel `?` adalah **expand/collapse** (isi blok, bukan lapisan
+mengambang). Karena ikut alur dokumen, blok tumbuh menampung panelnya, sehingga
+tidak perlu scrim, z-index, atau perhitungan posisi sama sekali.
