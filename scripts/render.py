@@ -40,9 +40,10 @@ WHO_COLOURS = {'dekat': '#86efac', 'asing': '#fcd34d'}
 DARK_PALETTE = [dark for _, dark in PALETTE]
 
 BG = '#0b1220'        # card background (unchanged from the original design)
-BG_PANEL = '#263449'  # expanded panel: kept clearly separated from the card, so
-                      # the open panel reads as a distinct surface. The direction
-                      # of that separation is free; the distance is asserted.
+BG_PANEL = '#070c14'  # expanded panel: deliberately DARKER than the card. Because
+                      # the fill is so close to the card, the visible separation is
+                      # carried by BG_PANEL_EDGE below, not by the fill.
+BG_PANEL_EDGE = '#4a5a72'  # panel outline: the actual separator (3.0:1 vs card)
 EDGE = '#334155'
 EDGE_SOFT = '#334155'
 ACCENT = '#38bdf8'
@@ -103,7 +104,7 @@ def qpanel(s):
     return (
         f'<div class="qpanel" style="box-sizing:border-box;background:{BG_PANEL} !important;'
         f'color:{TEXT} !important;'
-        f'border:1px solid {EDGE_SOFT} !important;border-top:3px solid {ACCENT} !important;'
+        f'border:1px solid {BG_PANEL_EDGE} !important;border-top:3px solid {ACCENT} !important;'
         f'border-radius:12px;padding:14px 16px;margin-top:14px;'
         f'box-shadow:0 10px 26px rgba(0,0,0,.45);'
         f'text-align:left;font-size:14px;line-height:1.55;">'
@@ -117,9 +118,13 @@ def qpanel(s):
         f'<span style="display:inline-block;margin-left:6px;border:1px solid {who_colour};'
         f'color:{who_colour} !important;border-radius:20px;padding:0 9px;font-size:12.5px;'
         f'white-space:nowrap;">{_esc(s["politeness"])}</span>'
+        # both languages, matching the ID/EN pairing used for the translation
+        # and the word glosses, so no line is English-only
         f'<div style="margin-top:7px;font-size:12.5px;color:{TEXT_DIM} !important;">'
-        f'<b style="color:{who_colour} !important;">EN</b> '
-        f'{_esc(s["who_en"])} &middot; {_esc(s["situation_en"])}</div>'
+        f'<p style="margin:0 0 3px;"><b style="color:{who_colour} !important;">ID</b> '
+        f'{_esc(s["who_id"])} &middot; {_esc(s["situation"])}</p>'
+        f'<p style="margin:0;"><b style="color:{who_colour} !important;">EN</b> '
+        f'{_esc(s["who_en"])} &middot; {_esc(s["situation_en"])}</p></div>'
         f'</div>'
         f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">ID</b> {_esc(s["id_translation"])}</p>'

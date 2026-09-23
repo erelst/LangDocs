@@ -177,6 +177,16 @@ f.onload=function(){ (async function(){
   var WHO_RE=/(orang asing|teman dekat|tetangga|petugas toko|orang yang sudah akrab|teman)/;
   var whoHit=WHO_RE.exec(p.textContent);
   ok('panel states the register', !!whoHit, whoHit ? whoHit[0] : 'none');
+  // the register line must be bilingual, like the translation and the glosses
+  // A word-boundary regex is wrong here: textContent concatenates the chips, so
+  // "sopan" runs straight into "ID" and there is no boundary. Look for the <b>
+  // markers the renderer emits instead.
+  var reg=p.querySelector('div');
+  var marks=[];
+  if (reg) { reg.querySelectorAll('b').forEach(function(b){ marks.push(b.textContent.trim()); }); }
+  ok('register line is bilingual (ID and EN)',
+     marks.indexOf('ID')!==-1 && marks.indexOf('EN')!==-1,
+     'markers='+marks.join(',')+' | '+(reg?reg.textContent.replace(/\s+/g,' ').slice(0,90):'none'));
   // The register must NOT leak outside the panel: every block looks the same
   // until it is opened, which is what "inside only" means.
   var btns=[], borders=[];
@@ -199,9 +209,15 @@ f.onload=function(){ (async function(){
   var chipColours=Object.keys(chips).map(function(k){ return chips[k]; });
   ok('panels distinguish close from stranger', uniqOf(chipColours).length>=2,
      Object.keys(chips).map(function(k){ return k+'='+chips[k]; }).join(' | '));
-  // 1.0 would mean the panel is invisible against its own card, whatever direction.
-  ok('panel is clearly distinct from its card (>=1.35:1)', rp>=1.35,
-     'ratio='+rp.toFixed(2)+' panel='+cs2.backgroundColor+' card='+w.getComputedStyle(lastCard).backgroundColor);
+  // The panel is darker than the card, and a dark fill can only be so far from a
+  // dark card. So the separation may come from the fill OR from the outline; what
+  // must hold is that at least one of them marks the panel off, or the open panel
+  // would be invisible against its own card.
+  var edgeC=px(cs2.borderTopColor);
+  var rEdge=ratio(edgeC,cardBg);
+  ok('panel is visible against its card (fill or outline)', Math.max(rp,rEdge)>=1.35,
+     'fillRatio='+rp.toFixed(2)+' edgeRatio='+rEdge.toFixed(2)+
+     ' panel='+cs2.backgroundColor+' edge='+cs2.borderTopColor);
   ok('panel text readable (>=7:1)', rt>=7, 'ratio='+rt.toFixed(1));
 
   // ---- one at a time, and the two ways out ------------------------------

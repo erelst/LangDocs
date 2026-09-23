@@ -274,14 +274,19 @@ def _contrast(a, b):
 
 
 def _panel_gap_ok(B):
-    """The expanded panel must read as a surface distinct from the card.
+    """The expanded panel must be visible against the card it grows out of.
 
-    The *direction* of that separation is a design choice (lighter or darker) and
-    is deliberately not asserted; the *distance* is, so the two can never collapse
-    into one flat block that makes the open panel hard to see.
+    The panel is DARKER than the card here, and a dark fill can only be so far from
+    a dark card. So the separation is not required to come from the fill: what must
+    hold is that *something* marks the panel edge, either a light-enough fill or a
+    light-enough outline. A future edit that removes both would make the open panel
+    invisible, and this catches it.
     """
-    return (_contrast(B.BG_PANEL, B.BG) >= 1.35
-            and _contrast(B.TEXT, B.BG_PANEL) >= 7.0)
+    fill_gap = _contrast(B.BG_PANEL, B.BG)
+    edge_gap = _contrast(B.BG_PANEL_EDGE, B.BG)
+    return (max(fill_gap, edge_gap) >= 1.35
+            and _contrast(B.TEXT, B.BG_PANEL) >= 7.0
+            and _contrast(B.BG_PANEL_EDGE, B.BG_PANEL) >= 1.35)
 
 
 def _register_ok(B):
@@ -479,14 +484,16 @@ if __name__ == '__main__':
         '? panels': got.count('<details class="qdet">') == n,
         'card colour applied': got.count(f'background:{B.BG} !important') == n,
         'panel colour applied': got.count(f'background:{B.BG_PANEL} !important') == n,
+        'panel outline applied': got.count(f'border:1px solid {B.BG_PANEL_EDGE} !important') == n,
         # a panel whose luminance is too close to the card/backdrop is exactly what
         # made the opened tooltip look like a dark smudge
-        'panel is visually distinct from the card': _panel_gap_ok(B),
+        'panel is visible against the card (fill or outline)': _panel_gap_ok(B),
         'register colours are readable inside the panel': _register_ok(B),
-        # every block must say who it is for, inside the panel
-        'every block states its register': got.count('class="qpanel"') == n
-                                           and all(k in got for k in
-                                                   ('orang asing', 'sopan', 'biasa')),
+        # every block must say who it is for, inside the panel, in BOTH languages
+        'every block states its register': got.count('class="qpanel"') == n,
+        'register line is bilingual': all(
+            s['situation'] in got and s['situation_en'] in got and s['who_id'] in got
+            and s['who_en'] in got for s in B.SENTENCES),
         'accent colour': B.ACCENT in got,
         'atomic words': got.count('display:inline-block') > n,
         'word wrap enabled': 'overflow-wrap:anywhere' in got,

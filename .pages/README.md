@@ -32,13 +32,18 @@ Warna dan register
 ------------------
 
 Blok kalimat memakai kartu `#0b1220` (seperti desain awal), dan panel `?` yang
-terbuka memakai `#263449` supaya jelas berbeda dari kartunya (kontras 1.49:1).
-Arah perbedaan itu bebas; yang diuji adalah **jaraknya** harus minimal 1.35:1,
-supaya panel tidak bisa menyatu dengan kartunya. Teks panel 10.2:1.
+terbuka memakai `#070c14` yang **lebih gelap** dari kartunya.
+
+Karena isian gelap tidak bisa jauh dari kartu yang juga gelap (hanya 1.05:1),
+pemisah yang sebenarnya terlihat adalah **garis tepi panel** `#526179` (2.98:1
+terhadap kartu), ditambah garis aksen biru di tepi atas. Jadi warna panel
+dipertahankan gelap, dan panelnya tetap kelihatan batasnya.
 
 Kalau salah satu terlalu terang atau terlalu gelap di layarmu, ubah di
-`scripts/render.py`: `BG` untuk kartu, `BG_PANEL` untuk panel. Build akan menolak
-kalau jaraknya kurang dari 1.35:1 atau teksnya di bawah 7:1.
+`scripts/render.py`: `BG` (kartu), `BG_PANEL` (isian panel), `BG_PANEL_EDGE`
+(garis tepi panel). Build akan menolak kalau tidak ada satu pun dari isian atau
+garis tepi yang cukup memisahkan panel dari kartu, atau kalau teksnya di bawah
+7:1.
 
 Register (kepada siapa kalimat dipakai) dibedakan **di dalam panel saja**. Di luar,
 semua blok tampil seragam: tombol `?` dan garis kiri kartu warnanya sama untuk
@@ -47,7 +52,8 @@ semua kalimat. Begitu sebuah blok dibuka, panelnya menampilkan:
   * chip `tetangga` / `orang asing` / `petugas toko` / `teman dekat` / `teman`,
     berwarna hijau `#86efac` (dekat) atau kuning `#fcd34d` (asing / petugas)
   * chip `sopan` / `biasa`
-  * satu baris keterangan situasi dalam bahasa Inggris
+  * dua baris keterangan situasi, `ID` lalu `EN`, sama seperti terjemahan dan arti
+    per kata, supaya tidak ada baris yang hanya berbahasa Inggris
 
 Jadi bloknya tetap hanya kanji + romaji + `?`, dan pembedaan register muncul saat
 panel dibuka. Kalau ada blok yang warnanya beda di daftar, itu bug: verifikasi
