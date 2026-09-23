@@ -220,9 +220,61 @@ Setelah Anda setujui, saya isi format ini dengan seluruh daftar kalimat
 '''
 
 
-def code_cell(src):
-    return {"cell_type": "code", "execution_count": None, "metadata": {},
-            "outputs": [], "source": src.splitlines(keepends=True)}
+def code_cell(src, outputs=None, exec_count=None):
+    return {"cell_type": "code", "execution_count": exec_count, "metadata": {},
+            "outputs": outputs or [], "source": src.splitlines(keepends=True)}
+
+
+def html_output(html):
+    return [{
+        'output_type': 'display_data',
+        'data': {'text/html': html,
+                 'text/plain': ['<IPython.core.display.HTML object>']},
+        'metadata': {},
+    }]
+
+
+def stream_output(text):
+    return [{'output_type': 'stream', 'name': 'stdout', 'text': text}]
+
+
+def _ensure_ipython():
+    """Real IPython in Jupyter; a tiny stub when building on a machine without it.
+
+    Only the build-time execution needs this. The notebook source keeps the genuine
+    `from IPython.display import HTML, display`, so it runs unchanged in Jupyter.
+    """
+    try:
+        import IPython.display  # noqa: F401
+        return
+    except ImportError:
+        pass
+    import types
+    ip = types.ModuleType('IPython')
+    disp = types.ModuleType('IPython.display')
+
+    class HTML:
+        def __init__(self, data):
+            self.data = data
+
+    def display(*objs):
+        for o in objs:
+            print(f'[HTML {len(getattr(o, "data", ""))} chars]')
+
+    disp.HTML = HTML
+    disp.display = display
+    ip.display = disp
+    sys.modules['IPython'] = ip
+    sys.modules['IPython.display'] = disp
+
+
+def run_cells(*sources):
+    """Execute cell sources in order, sharing one namespace (like Jupyter)."""
+    _ensure_ipython()
+    ns = {}
+    for src in sources:
+        exec(compile(src, '<cell>', 'exec'), ns)
+    return ns
 
 
 def md_cell(src):
@@ -231,17 +283,27 @@ def md_cell(src):
 
 
 def build():
-    css_cell = (
+    css_src = (
         'from IPython.display import HTML, display\n'
         'display(HTML(' + repr(STYLE_CELL) + '))\n'
     )
+    # Execute the three real cells in order, exactly as Jupyter would, then store
+    # each cell's output. GitHub renders these saved outputs.
+    ns = run_cells(css_src, DATA_CELL, RENDERER_CELL)
+    cards_html = ''.join(ns['html_block'](s) for s in ns['SENTENCES'])
+    plain = '<IPython.core.display.HTML object>'
+
     return {
         "cells": [
             md_cell(INTRO_MD),
-            md_cell(CSS_MD), code_cell(css_cell),
-            md_cell(DATA_MD), code_cell(DATA_CELL),
-            md_cell(RENDER_MD), code_cell(RENDERER_CELL),
-            md_cell(SHOW_MD), code_cell(DISPLAY_CELL),
+            md_cell(CSS_MD),
+            code_cell(css_src, html_output(STYLE_CELL), 1),
+            md_cell(DATA_MD),
+            code_cell(DATA_CELL, stream_output('6 kalimat prototipe\n'), 2),
+            md_cell(RENDER_MD),
+            code_cell(RENDERER_CELL, [], 3),
+            md_cell(SHOW_MD),
+            code_cell(DISPLAY_CELL, html_output(cards_html), 4),
             md_cell(ASK_MD),
         ],
         "metadata": {
@@ -261,9 +323,26 @@ if __name__ == '__main__':
     with open(out, 'w', encoding='utf-8') as f:
         json.dump(nb, f, ensure_ascii=False, indent=1)
         f.write('\n')
+
+    # ---- verification -------------------------------------------------------
     with open(out, encoding='utf-8') as f:
         chk = json.load(f)
-    assert chk['nbformat'] == 4 and chk['nbformat_minor'] == 5
-    n_md = sum(c['cell_type'] == 'markdown' for c in chk['cells'])
-    print(f'wrote {out}: {len(chk["cells"])} cells ({n_md} markdown, '
-          f'{len(chk["cells"]) - n_md} code)')
+    assert chk['nbformat'] == 4 and chk['nbformat_minor'] == 5, 'bad nbformat'
+    codes = [c for c in chk['cells'] if c['cell_type'] == 'code']
+    n_html = sum(1 for c in codes
+                 if any(o.get('data', {}).get('text/html') for o in c['outputs']))
+    cards = next(o['data']['text/html'] for c in codes for o in c['outputs']
+                 if o.get('data', {}).get('text/html', '').count('<section') > 0)
+    assert n_html == 2, f'expected 2 cells with HTML output (CSS + cards), got {n_html}'
+    assert cards.count('<section') == len(SENTENCES), 'missing sentence blocks'
+    assert cards.count('<details') == len(SENTENCES), 'missing ? panels'
+    assert 'display:inline-block' in cards, 'tokens are not atomic'
+    assert 'overflow-wrap:anywhere' in cards, 'word wrap missing'
+    print(f'wrote {out}')
+    print(f'  cells={len(chk["cells"])} '
+          f'(md={sum(c["cell_type"] == "markdown" for c in chk["cells"])}, '
+          f'code={len(codes)})')
+    print(f'  code cells with HTML output: {n_html}')
+    print(f'  sentence blocks in output:   {cards.count("<section")}')
+    print(f'  ? panels in output:          {cards.count("<details")}')
+    print(f'  output size:                 {len(cards):,} chars')
