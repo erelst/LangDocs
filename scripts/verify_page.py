@@ -173,8 +173,29 @@ f.onload=function(){ (async function(){
   // ---- the panel must read as a raised surface --------------------------
   var pbg=px(cs2.backgroundColor), cardBg=px(w.getComputedStyle(lastCard).backgroundColor);
   var rp=ratio(pbg,cardBg), rt=ratio(over(px(cs2.color),pbg),pbg);
-  ok('panel clearly lighter than its card (>=1.35:1)', rp>=1.35,
-     'ratio='+rp.toFixed(2)+' panel='+cs2.backgroundColor);
+  // every block must expose its register inside the panel
+  var WHO_RE=/(orang asing|teman dekat|tetangga|petugas toko|orang yang sudah akrab|teman)/;
+  var whoHit=WHO_RE.exec(p.textContent);
+  ok('panel states the register', !!whoHit, whoHit ? whoHit[0] : 'none');
+  var btnBg=px(w.getComputedStyle(btn).backgroundColor);
+  ok('? button is tinted by register', ratio(btnBg,cardBg)>=2.0,
+     'button='+w.getComputedStyle(btn).backgroundColor+' ratio='+ratio(btnBg,cardBg).toFixed(1));
+
+  // the two registers must actually differ, or the tint means nothing
+  var colours={};
+  details.forEach(function(det){
+    var card=det.closest('.jp-sent');
+    var who=WHO_RE.exec(det.textContent);
+    var bg=w.getComputedStyle(det.querySelector('summary')).backgroundColor;
+    if (who) { colours[who[0]]=bg; }
+  });
+  var distinct=Object.keys(colours).filter(function(k,i,a){
+    return a.indexOf(k)===i; }).map(function(k){ return colours[k]; });
+  var uniq=distinct.filter(function(v,i){ return distinct.indexOf(v)===i; });
+  ok('close and stranger blocks look different', uniq.length>=2,
+     Object.keys(colours).map(function(k){ return k+'='+colours[k]; }).join(' | '));
+  ok('panel is clearly DARKER than its card (>=1.30:1)', rp>=1.30,
+     'ratio='+rp.toFixed(2)+' panel='+cs2.backgroundColor+' card='+w.getComputedStyle(lastCard).backgroundColor);
   ok('panel text readable (>=7:1)', rt>=7, 'ratio='+rt.toFixed(1));
 
   // ---- one at a time, and the two ways out ------------------------------

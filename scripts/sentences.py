@@ -34,6 +34,10 @@ SENTENCES = [
         'id': 1,
         'situation': 'Kepada tetangga pada pagi hari (dekat, tapi tetap sopan)',
         'situation_en': 'To a neighbour in the morning (familiar but polite)',
+        'who': 'dekat',                       # dekat / asing
+        'who_id': 'tetangga',
+        'who_en': 'neighbour',
+        'politeness': 'sopan',                   # sopan / biasa
         'kanji': 'おはようございます。',
         'romaji': 'Ohayou gozaimasu.',
         'id_translation': 'Selamat pagi.',
@@ -50,6 +54,10 @@ SENTENCES = [
         'id': 2,
         'situation': 'Kepada orang asing di jalan (sopan)',
         'situation_en': 'To a stranger on the street (polite)',
+        'who': 'asing',                       # dekat / asing
+        'who_id': 'orang asing',
+        'who_en': 'stranger',
+        'politeness': 'sopan',                   # sopan / biasa
         'kanji': 'すみません、ちょっと待ってください。',
         'romaji': 'Sumimasen, chotto matte kudasai.',
         'id_translation': 'Permisi, tolong tunggu sebentar.',
@@ -68,6 +76,10 @@ SENTENCES = [
         'id': 3,
         'situation': 'Kepada petugas toko (menanyakan harga)',
         'situation_en': 'To a shop attendant (asking the price)',
+        'who': 'asing',                       # dekat / asing
+        'who_id': 'petugas toko',
+        'who_en': 'shop attendant',
+        'politeness': 'sopan',                   # sopan / biasa
         'kanji': 'これ、いくらですか。',
         'romaji': 'Kore, ikura desu ka.',
         'id_translation': 'Ini berapa harganya?',
@@ -86,6 +98,10 @@ SENTENCES = [
         'id': 4,
         'situation': 'Kepada teman dekat (ajakan santai)',
         'situation_en': 'To a close friend (casual invitation)',
+        'who': 'dekat',                       # dekat / asing
+        'who_id': 'teman dekat',
+        'who_en': 'close friend',
+        'politeness': 'biasa',                   # sopan / biasa
         'kanji': '明日、一緒に行く?',
         'romaji': 'Ashita, issho ni iku?',
         'id_translation': 'Besok, pergi bersama?',
@@ -104,6 +120,10 @@ SENTENCES = [
         'id': 5,
         'situation': 'Menyetujui lawan bicara (dekat)',
         'situation_en': 'Agreeing with the other speaker (close)',
+        'who': 'dekat',                       # dekat / asing
+        'who_id': 'orang yang sudah akrab',
+        'who_en': 'someone you are close to',
+        'politeness': 'biasa',                   # sopan / biasa
         'kanji': 'そうだね。',
         'romaji': 'Sou da ne.',
         'id_translation': 'Iya, benar ya.',
@@ -121,6 +141,10 @@ SENTENCES = [
         'id': 6,
         'situation': 'Cerita panjang ke teman (menguji word wrap di layar kecil)',
         'situation_en': 'A longer story to a friend (tests word wrap on small screens)',
+        'who': 'dekat',                       # dekat / asing
+        'who_id': 'teman',
+        'who_en': 'friend',
+        'politeness': 'sopan',                   # sopan / biasa
         'kanji': '昨日、駅の近くの安いレストランで友達と一緒にご飯を食べたんだけど、とてもおいしかったです。',
         'romaji': 'Kinou, eki no chikaku no yasui resutoran de tomodachi to issho ni gohan o tabeta n da kedo, totemo oishikatta desu.',
         'id_translation': 'Kemarin saya makan bersama teman di restoran murah dekat stasiun, dan makanannya sangat enak.',

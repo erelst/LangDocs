@@ -33,14 +33,17 @@ sys.path.insert(0, HERE)
 
 from sentences import SENTENCES, PALETTE, UNDERLINE_STYLES  # noqa: E402
 
-# dark-mode palette: the second colour of each pair in sentences.PALETTE
+# Register colours, so "close" and "stranger" are distinguishable at a glance even
+# though the blocks themselves carry no labels. Chosen to be light enough that the
+# same value can be a border, a small badge, or emphasis text on the card.
+WHO_COLOURS = {'dekat': '#86efac', 'asing': '#fcd34d'}
 DARK_PALETTE = [dark for _, dark in PALETTE]
 
-BG = '#0b1220'        # card background
-BG_PANEL = '#263449'  # tooltip/modal surface: deliberately and clearly lighter
-                      # than the card and the dimmed backdrop, so an open panel
-                      # reads as a raised layer instead of a dark smudge
-EDGE = '#1e293b'
+BG = '#223047'        # card background: clearly above the dark page
+BG_PANEL = '#070c14'  # expanded panel: deliberately DARKER than the card, so the
+                      # open panel reads as a recessed inset rather than a lighter
+                      # block. Both directions are asserted in build_page.py.
+EDGE = '#334155'
 EDGE_SOFT = '#334155'
 ACCENT = '#38bdf8'
 TEXT = '#e5e7eb'
@@ -96,6 +99,7 @@ def qpanel(s):
     card grow instead of floating a layer over the page, so the panel can never
     overlap its own card's border, a neighbouring card, or the search bar.
     """
+    who_colour = WHO_COLOURS.get(s.get('who', ''), ACCENT)
     return (
         f'<div class="qpanel" style="box-sizing:border-box;background:{BG_PANEL} !important;'
         f'color:{TEXT} !important;'
@@ -103,6 +107,20 @@ def qpanel(s):
         f'border-radius:12px;padding:14px 16px;margin-top:14px;'
         f'box-shadow:0 10px 26px rgba(0,0,0,.45);'
         f'text-align:left;font-size:14px;line-height:1.55;">'
+        # register line: the only place the block says who the sentence is for,
+        # so the blocks themselves stay down to kanji + romaji + ?
+        f'<div style="margin:0 0 10px;padding-bottom:9px;'
+        f'border-bottom:1px solid {EDGE};">'
+        f'<span style="display:inline-block;background:{who_colour};color:#0b1220 !important;'
+        f'font-weight:800;border-radius:20px;padding:1px 10px;font-size:12.5px;'
+        f'white-space:nowrap;">{_esc(s["who_id"])}</span>'
+        f'<span style="display:inline-block;margin-left:6px;border:1px solid {who_colour};'
+        f'color:{who_colour} !important;border-radius:20px;padding:0 9px;font-size:12.5px;'
+        f'white-space:nowrap;">{_esc(s["politeness"])}</span>'
+        f'<div style="margin-top:7px;font-size:12.5px;color:{TEXT_DIM} !important;">'
+        f'<b style="color:{who_colour} !important;">EN</b> '
+        f'{_esc(s["who_en"])} &middot; {_esc(s["situation_en"])}</div>'
+        f'</div>'
         f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">ID</b> {_esc(s["id_translation"])}</p>'
         f'<p style="margin:0 0 12px;font-size:16px;color:#f8fafc !important;">'
@@ -124,10 +142,15 @@ def html_block(s):
     expands underneath the sentence. Its <summary> is absolutely positioned, so
     the ? button still appears at the card's top-right corner while the collapsed
     <details> contributes no height.
+
+    The ? button and the card's left border are tinted by register (close vs
+    stranger). The block deliberately gains no visible label, so the register is
+    explained inside the panel instead.
     """
+    who_colour = WHO_COLOURS.get(s.get('who', ''), ACCENT)
     return (
         f'<section class="jp-sent" style="position:relative;background:{BG} !important;'
-        f'border:1px solid {EDGE} !important;border-left:5px solid {ACCENT} !important;border-radius:12px;'
+        f'border:1px solid {EDGE} !important;border-left:5px solid {who_colour} !important;border-radius:12px;'
         f'margin:16px 0;padding:16px 58px 16px 18px;overflow:visible;">'
         # kanji line
         '<div class="kanji" style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc !important;'
@@ -140,11 +163,12 @@ def html_block(s):
         # ? expander. display:block + list-style:none removes the triangle without CSS,
         # and the panel is in-flow so the card grows to hold it.
         '<details class="qdet">'
-        '<summary title="Terjemahan / Translation" aria-label="Terjemahan dan arti per kata" '
+        '<summary title="Terjemahan / Translation, dan kepada siapa kalimat ini dipakai" '
+        'aria-label="Terjemahan, arti per kata, dan lawan bicara" '
         f'style="display:block;list-style:none;cursor:pointer;width:34px;height:34px;'
-        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE} !important;'
-        f'color:#f8fafc !important;font-weight:700;font-size:17px;border:2px solid {ACCENT} !important;'
-        'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
+        f'line-height:30px;text-align:center;border-radius:50%;background:{who_colour} !important;'
+        f'color:#0b1220 !important;font-weight:800;font-size:17px;border:2px solid {who_colour} !important;'
+        'box-shadow:0 2px 10px rgba(0,0,0,.55);user-select:none;">?</summary>'
         f'{qpanel(s)}</details>'
         '</section>'
     )

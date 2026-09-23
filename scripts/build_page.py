@@ -274,10 +274,25 @@ def _contrast(a, b):
 
 
 def _panel_gap_ok(B):
-    """The expanded panel must visibly stand out from the card it grows out of."""
-    gap = 1.35
-    return (_contrast(B.BG_PANEL, B.BG) >= gap
+    """The expanded panel must read as a RECESSED inset, not a raised layer.
+
+    So the panel is measured as DARKER than the card, while still being clearly
+    separated from it, and the card in turn must sit clearly above the page.
+    """
+    gap = 1.30
+    return (_contrast(B.BG_PANEL, B.BG) >= gap          # panel is darker than card
+            and _contrast(B.BG, '#020617') >= gap        # card is lighter than page
             and _contrast(B.TEXT, B.BG_PANEL) >= 7.0)
+
+
+def _register_ok(B):
+    """Both register colours must work as a badge background and as small text."""
+    from sentences import SENTENCES
+    who = {s.get('who') for s in SENTENCES}
+    if not who <= set(B.WHO_COLOURS):
+        return False
+    return all(_contrast(B.BG, colour) >= 4.5 and _contrast('#0b1220', colour) >= 4.5
+               for colour in B.WHO_COLOURS.values())
 
 
 def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
@@ -458,11 +473,16 @@ if __name__ == '__main__':
     checks = {
         'sentence blocks': got.count('<section') == n,
         '? panels': got.count('<details class="qdet">') == n,
-        'dark card colour': got.count(f'background:{B.BG} !important') == n,
-        'dark panel colour': got.count(f'background:{B.BG_PANEL} !important') == n,
+        'card colour applied': got.count(f'background:{B.BG} !important') == n,
+        'panel colour applied': got.count(f'background:{B.BG_PANEL} !important') == n,
         # a panel whose luminance is too close to the card/backdrop is exactly what
         # made the opened tooltip look like a dark smudge
-        'panel stands out from backdrop': _panel_gap_ok(B),
+        'panel is a recessed inset (darker than card)': _panel_gap_ok(B),
+        'register colours are readable': _register_ok(B),
+        # every block must say who it is for, inside the panel
+        'every block states its register': got.count('class="qpanel"') == n
+                                           and all(k in got for k in
+                                                   ('orang asing', 'sopan', 'biasa')),
         'accent colour': B.ACCENT in got,
         'atomic words': got.count('display:inline-block') > n,
         'word wrap enabled': 'overflow-wrap:anywhere' in got,

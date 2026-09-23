@@ -27,3 +27,26 @@ dan pencarian cocok untuk kanji, romaji, Indonesia, maupun Inggris.
 Catatan desain: panel `?` adalah **expand/collapse** (isi blok, bukan lapisan
 mengambang). Karena ikut alur dokumen, blok tumbuh menampung panelnya, sehingga
 tidak perlu scrim, z-index, atau perhitungan posisi sama sekali.
+
+Warna dan register
+------------------
+
+Panel `?` sengaja **lebih gelap** dari kartunya (kartu `#223047`, panel `#070c14`;
+kontras 1.48:1), jadi panel terbaca sebagai cekungan, bukan lapisan yang menonjol.
+Kalau salah satu terlalu terang atau terlalu gelap di layarmu, ubah di
+`scripts/render.py`: `BG` untuk kartu, `BG_PANEL` untuk panel. Build akan menolak
+kalau jaraknya kurang dari 1.30:1 atau teksnya di bawah 7:1, jadi tidak bisa
+diam-diam jadi tidak terbaca.
+
+Register (kepada siapa kalimat dipakai) dibedakan lewat warna, bukan label:
+
+  * hijau  `#86efac` = dekat / akrab
+  * kuning `#fcd34d` = orang asing / petugas
+
+Warna itu muncul di tombol `?` dan garis kiri kartu, lalu di dalam panel ada chip
+`tetangga` / `orang asing` plus chip `sopan` / `biasa`. Kartunya sendiri tetap
+hanya kanji + romaji + `?`, sesuai permintaan sebelumnya.
+
+Kalimat yang saat ini terdaftar: 1 tetangga, 2 orang asing, 3 petugas toko, 4
+teman dekat, 5 orang yang sudah akrab, 6 teman. Semuanya akrab kecuali nomor 2
+dan 3, jadi saya tambahkan dulu supaya perbedaannya kelihatan.
