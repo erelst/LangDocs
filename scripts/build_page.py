@@ -15,8 +15,12 @@ Page-level behaviour added here
 -------------------------------
 * only one ? panel open at a time
 * clicking outside, or pressing Escape, closes the open panel
-* the open panel is lifted above the other cards' ? buttons (z-index)
 * flexible search: kanji, romaji, Indonesian or English, and mixtures of them
+* a search scope (All / Japanese) and a romaji show/hide toggle
+* the list grows as the reader scrolls, so only a window of cards is ever in the DOM
+
+The card renderer lives in scripts/page.js, and the compact sentence data plus the
+colour constants from render.py are inlined into the page.
 """
 import json
 import os

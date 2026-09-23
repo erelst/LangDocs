@@ -1292,31 +1292,12 @@ def bank_combinations():
     return out
 
 
-def ordered_combinations():
-    """The generated bank, ordered so the first N rows are worth reading.
+def all_combinations():
+    """Every template x every word combination, deduplicated on the kanji line.
 
-    Taking the bank in template order would put every 食べます sentence before any
-    行きます sentence, so a page showing the first few hundred would be hundreds of
-    near-identical frames and, worse, almost entirely polite: the polite templates
-    happen to have the largest word cross-products. This walks the templates in
-    round-robin instead, one sentence each per pass, so the start of the list covers
-    every frame and both registers.
+    This is the full cross-product (millions of sentences) and is kept for inspection.
+    The page ships the bounded sample from bank_combinations() instead.
     """
-    per_template = {}
-    for s in all_combinations():
-        per_template.setdefault(s['template'], []).append(s)
-    order = [t['key'] for t in TEMPLATES]
-    out = []
-    for i in range(max(len(v) for v in per_template.values())):
-        for key in order:
-            rows = per_template[key]
-            if i < len(rows):
-                out.append(rows[i])
-    return out
-
-
-def all_combinations(with_translations=True):
-    """Every template x every word combination, deduplicated on the kanji line."""
     out = []
     seen = set()
     for template in TEMPLATES:
@@ -1336,14 +1317,10 @@ def all_combinations(with_translations=True):
                 'situation_en': template['situation_en'],
                 'filled': [c for c in cats],
             }
-            if with_translations:
-                choices = list(zip(cats, combo))
-                tid, ten, note, note_en = translations_for(template['key'], choices)
-                sentence.update({'id_translation': tid, 'en_translation': ten,
-                                 'note': note, 'note_en': note_en})
-            else:
-                sentence.update({'note': template['note'],
-                                 'note_en': template['note_en']})
+            choices = list(zip(cats, combo))
+            tid, ten, note, note_en = translations_for(template['key'], choices)
+            sentence.update({'id_translation': tid, 'en_translation': ten,
+                             'note': note, 'note_en': note_en})
             sentence.update(body)
             out.append(sentence)
     return out

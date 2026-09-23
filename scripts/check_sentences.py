@@ -102,19 +102,10 @@ def check_tense(sentences):
 
 
 # --------------------------------------------------------------- 3. particles
-# Which particle each verb in the bank actually selects. This is the table the
-# templates are written against; the check makes sure no template drifts from it.
-VERB_PARTICLE = {
-    '行きます': 'へ', '行く': 'に', '行った': None,
-    '食べます': 'を', '食べる': None, '食べたい': 'が',
-    '飲みます': 'を', '飲む': None,
-    '買いました': 'を', '買った': 'を',
-    '会います': 'に', '会った': 'に', '会いましょう': 'で', '会おう': 'で',
-    'あります': 'は', 'できます': 'が', 'ください': 'を',
-    '好き': 'が', '忘れました': 'を',
-}
-
-
+# There was a VERB_PARTICLE table here claiming to describe which particle each verb
+# selects. Nothing consulted it: the templates already carry the particle as a piece,
+# so a table duplicating that could only drift. check_particles() below does the real
+# checking, from the categories each template declares.
 def check_particles(sentences):
     """Every object slot must be marked by を, every person slot by に."""
     bad = []
