@@ -90,8 +90,8 @@ def token_spans(tokens, idx):
         # display:inline-block keeps each word atomic, so a narrow screen wraps
         # between words and never splits a word in half.
         out.append(
-            f'<span class="tk" style="display:inline-block;color:{color};'
-            f'border-bottom:{width} {style} {color};padding:0 3px;" '
+            f'<span class="tk" style="display:inline-block;color:{color} !important;'
+            f'border-bottom:{width} {style} {color} !important;padding:0 3px;" '
             f'title="{text}">{text}</span>'
         )
     return ''.join(out)
@@ -106,10 +106,10 @@ def gloss_rows(tokens):
         edge = f'border-bottom:1px solid {EDGE};vertical-align:top;padding:4px 8px;'
         rows.append(
             '<tr>'
-            f'<td style="{edge}color:{color};font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
-            f'<td style="{edge}color:{TEXT_DIM};font-style:italic;white-space:nowrap;">{_esc(romaji)}</td>'
-            f'<td style="{edge}color:{TEXT};">{_esc(gid)}</td>'
-            f'<td style="{edge}color:{TEXT_DIM};">{_esc(gen)}</td>'
+            f'<td style="{edge}color:{color} !important;font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
+            f'<td style="{edge}color:{TEXT_DIM} !important;font-style:italic;white-space:nowrap;">{_esc(romaji)}</td>'
+            f'<td style="{edge}color:{TEXT} !important;">{_esc(gid)}</td>'
+            f'<td style="{edge}color:{TEXT_DIM} !important;">{_esc(gen)}</td>'
             '</tr>'
         )
     return ''.join(rows)
@@ -119,20 +119,20 @@ def qpanel(s):
     """The panel revealed by the ? button."""
     return (
         f'<div class="qpanel" style="position:absolute;right:0;top:42px;'
-        f'width:min(88vw,620px);background:{BG_PANEL};color:{TEXT};'
-        f'border:1px solid {EDGE_SOFT};border-radius:12px;padding:14px 16px;'
+        f'width:min(88vw,620px);background:{BG_PANEL} !important;color:{TEXT} !important;'
+        f'border:1px solid {EDGE_SOFT} !important;border-radius:12px;padding:14px 16px;'
         f'max-height:70vh;overflow:auto;box-shadow:0 16px 40px rgba(0,0,0,.65);'
         f'text-align:left;font-size:14px;line-height:1.55;">'
-        f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc;">'
+        f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">ID</b> {_esc(s["id_translation"])}</p>'
-        f'<p style="margin:0 0 12px;font-size:16px;color:#f8fafc;">'
+        f'<p style="margin:0 0 12px;font-size:16px;color:#f8fafc !important;">'
         f'<b style="color:{ACCENT};">EN</b> {_esc(s["en_translation"])}</p>'
         f'<table style="border-collapse:collapse;width:100%;font-size:13.5px;">'
         f'{gloss_rows(s["tokens"])}</table>'
         f'<div style="margin-top:12px;padding-top:10px;border-top:1px dashed {EDGE_SOFT};'
-        f'font-size:13px;color:{TEXT_DIM};">'
-        f'<p style="margin:0 0 4px;"><b style="color:{ACCENT};">ID</b> {_esc(s["note"])}</p>'
-        f'<p style="margin:0;"><b style="color:{ACCENT};">EN</b> {_esc(s["note_en"])}</p>'
+        f'font-size:13px;color:{TEXT_DIM} !important;">'
+        f'<p style="margin:0 0 4px;"><b style="color:{ACCENT} !important;">ID</b> {_esc(s["note"])}</p>'
+        f'<p style="margin:0;"><b style="color:{ACCENT} !important;">EN</b> {_esc(s["note_en"])}</p>'
         '</div></div>'
     )
 
@@ -140,23 +140,23 @@ def qpanel(s):
 def html_block(s):
     """One block: kanji line, romaji line, and the ? tooltip. Nothing else."""
     return (
-        f'<section class="jp-sent" style="position:relative;background:{BG};'
-        f'border:1px solid {EDGE};border-left:5px solid {ACCENT};border-radius:12px;'
+        f'<section class="jp-sent" style="position:relative;background:{BG} !important;'
+        f'border:1px solid {EDGE} !important;border-left:5px solid {ACCENT} !important;border-radius:12px;'
         f'margin:16px 0;padding:16px 58px 16px 18px;overflow:visible;">'
         # ? control: display:block + list-style:none removes the triangle without CSS
         '<details class="qdet" style="position:absolute;right:10px;top:10px;z-index:30;">'
         '<summary title="Terjemahan / Translation" aria-label="Terjemahan dan arti per kata" '
         f'style="display:block;list-style:none;cursor:pointer;width:34px;height:34px;'
-        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE};'
-        f'color:#f8fafc;font-weight:700;font-size:17px;border:2px solid {ACCENT};'
+        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE} !important;'
+        f'color:#f8fafc !important;font-weight:700;font-size:17px;border:2px solid {ACCENT} !important;'
         'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
         f'{qpanel(s)}</details>'
         # kanji line
-        '<div style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc;'
+        '<div style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc !important;'
         f'white-space:normal;overflow-wrap:anywhere;padding-right:6px;">'
         f'{token_spans(s["tokens"], 0)}</div>'
         # romaji line
-        f'<div style="font-size:15px;line-height:1.85;font-style:italic;color:{TEXT_DIM};'
+        f'<div style="font-size:15px;line-height:1.85;font-style:italic;color:{TEXT_DIM} !important;'
         'margin-top:3px;white-space:normal;overflow-wrap:anywhere;">'
         f'{token_spans(s["tokens"], 1)}</div>'
         '</section>'
