@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-Data module: Japanese everyday sentences for the review notebook.
+"""Japanese everyday sentences, and the palette the renderer uses.
 
 Each sentence has:
   kanji / romaji / id_translation / en_translation

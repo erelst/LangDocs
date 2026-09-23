@@ -3,13 +3,13 @@
 """
 Build index.html for GitHub Pages.
 
-GitHub strips `style` attributes in Markdown and its notebook viewer always prints
-the code cells, so neither can show these cards as designed. GitHub Pages serves a
-plain HTML file untouched, so the dark cards, hover behaviour and JavaScript work
-in full here.
+GitHub strips `style` attributes in Markdown, so rendered Markdown cannot show
+these cards as designed. GitHub Pages serves a plain HTML file untouched, so the
+dark cards, hover behaviour and JavaScript work in full here.
 
-The blocks come from the same renderer used by JP-sentences.ipynb, so colours,
-underlines, wrapping and the ? panel have a single source of truth.
+The blocks come from scripts/render.py, so colours, underlines, wrapping and the
+? panel have a single source of truth.
+
 
 Page-level behaviour added here
 -------------------------------
@@ -26,7 +26,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
-import build_notebook as B   # noqa: E402  (same renderer + sentence data)
+import render as B   # noqa: E402  (single source of truth for the cards)
 
 
 # --------------------------------------------------------------------------- index
@@ -532,8 +532,7 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
 
 
 if __name__ == '__main__':
-    ns = B.run_cells(B.DATA_CELL, B.RENDERER_CELL)
-    blocks = ''.join(ns['html_block'](s) for s in ns['SENTENCES'])
+    blocks = B.all_blocks()
     index = search_index()
     page = build_page(blocks, index)
 
@@ -543,7 +542,7 @@ if __name__ == '__main__':
 
     with open(out, encoding='utf-8') as f:
         got = f.read()
-    n = len(ns['SENTENCES'])
+    n = len(B.SENTENCES)
     checks = {
         'sentence blocks': got.count('<section') == n,
         '? panels': got.count('<details') == n,
