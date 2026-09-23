@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Build JP-sentences.ipynb (prototype for review on GitHub).
+Build JP-sentences.ipynb (dark theme, kanji + romaji + ? only).
+
+Layout per block
+----------------
+  kanji line
+  romaji line
+  ? button on the right  ->  opens the Indonesian + English translation
+
+Nothing else is shown: no number, no situation label, no frequency, no footer.
 
 Cross-renderer strategy
 -----------------------
-* All visual properties that matter (colour, underline, wrapping, block
-  separation, tooltip panel) use INLINE styles, because GitHub's notebook
-  renderer strips <style> blocks but keeps inline style attributes.
-* The "?" control is <details>/<summary>, so click / tap works everywhere
-  (touch included). A <style> cell adds hover-open and nicer markers for a
-  local Jupyter / Colab session.
+* Dark styling is INLINE, so it also applies on GitHub, whose notebook renderer
+  keeps inline style attributes but drops <style> blocks.
+* The ? control is <details>/<summary> with display:block + list-style:none, so no
+  disclosure triangle appears on any browser without needing CSS.
+* Saved outputs are embedded, because GitHub renders a notebook from its outputs.
 """
 import json
 import os
@@ -21,134 +28,137 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 from notebook_build import SENTENCES, PALETTE, UNDERLINE_STYLES
 
+# dark-mode palette: the second colour of each pair in notebook_build.PALETTE
+DARK_PALETTE = [dark for _, dark in PALETTE]
+
+BG = '#0b1220'        # card background
+BG_PANEL = '#111827'  # tooltip background
+EDGE = '#1e293b'
+EDGE_SOFT = '#334155'
+ACCENT = '#38bdf8'
+TEXT = '#e5e7eb'
+TEXT_DIM = '#94a3b8'
+
 
 # --------------------------------------------------------------------------- CSS cell
 STYLE_CELL = r'''<style>
-/* Extra polish for a real Jupyter / Colab session. GitHub strips this block,
-   so every essential visual property is also set inline. */
-.jp-sent .qdet > summary { list-style: none; }
+/* Local Jupyter / Colab polish. GitHub drops this block, so every property that
+   matters (dark colours, no triangle, atomic words) is also set inline. */
 .jp-sent .qdet > summary::-webkit-details-marker { display: none; }
 .jp-sent .qdet > summary::marker { content: ""; }
-.jp-sent .qdet > summary { transition: transform .12s ease, background .12s ease; }
-.jp-sent .qdet:hover > summary { transform: scale(1.10); background: #b45309; }
-.jp-sent .qdet[open] > summary { background: #b45309; }
-.jp-sent .tk { border-radius: 2px; }
-.jp-sent .tk:hover { background: #fef9c3; }
-@media (prefers-color-scheme: dark) {
-  .jp-sent { background: #0b1220 !important; border-color: #334155 !important; }
-  .jp-sent .qpanel { background: #111827 !important; color: #e5e7eb !important;
-                     border-color: #334155 !important; }
-  .jp-sent .qpanel td { border-color: #334155 !important; }
-  .jp-sent .tk:hover { background: #1e293b; }
-}
+.jp-sent .qdet > summary { transition: transform .12s ease, border-color .12s ease; }
+.jp-sent .qdet:hover > summary { transform: scale(1.08); border-color: #f8fafc; }
+.jp-sent .qdet[open] > summary { border-color: #f59e0b; }
+.jp-sent .tk { border-radius: 3px; }
+.jp-sent .tk:hover { background: rgba(56, 189, 248, .18); }
 </style>'''
 
 
 # --------------------------------------------------------------------------- cell 1: data
 DATA_CELL = (
-    "# Setiap kalimat: kanji, romaji, terjemahan ID + EN, arti per kata, dan frekuensi CEJC.\n"
-    "# Frekuensi = berapa kali kata kunci muncul di CEJC (2.419.171 kata, 200 jam percakapan).\n"
+    "# Setiap kalimat: kanji, romaji, terjemahan ID + EN, dan arti per kata.\n"
+    "# Sumber kata: daftar frekuensi CEJC (2.419.171 kata, 200 jam percakapan).\n"
     "SENTENCES = " + json.dumps(SENTENCES, ensure_ascii=False, indent=1) + "\n\n"
     "print(len(SENTENCES), 'kalimat prototipe')\n"
 )
 
 
 # --------------------------------------------------------------------------- cell 2: renderer
-RENDERER_CELL = '''PALETTE = ''' + json.dumps([list(p) for p in PALETTE]) + '''
+RENDERER_CELL = '''# Warna gelap (mode gelap), 10 warna bergantian per kata.
+PALETTE = ''' + json.dumps(DARK_PALETTE) + '''
 UNDERLINE_STYLES = ''' + json.dumps(UNDERLINE_STYLES) + '''
+BG = \'''' + BG + '''\'
+BG_PANEL = \'''' + BG_PANEL + '''\'
+EDGE = \'''' + EDGE + '''\'
+EDGE_SOFT = \'''' + EDGE_SOFT + '''\'
+ACCENT = \'''' + ACCENT + '''\'
+TEXT = \'''' + TEXT + '''\'
+TEXT_DIM = \'''' + TEXT_DIM + '''\'
 
 def _esc(t):
     return str(t).replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 
 def token_spans(tokens, idx):
-    """One line of tokens. Token i gets the same colour in kanji and romaji."""
+    """One line of tokens; token i keeps the same colour on the kanji and romaji lines."""
     out = []
     for i, tok in enumerate(tokens):
-        light = PALETTE[i % len(PALETTE)][0]
+        color = PALETTE[i % len(PALETTE)]
         style = UNDERLINE_STYLES[i % len(UNDERLINE_STYLES)]
         width = '3px' if style == 'double' else '2px'
         text = _esc(tok[idx])
-        # display:inline-block keeps every word atomic, so a narrow screen wraps
-        # BETWEEN words and never breaks a word in half.
+        # display:inline-block keeps each word atomic, so a narrow screen wraps
+        # between words and never splits a word in half.
         out.append(
-            f'<span class="tk" style="display:inline-block;color:{light};'
-            f'border-bottom:{width} {style} {light};padding:0 3px;" '
+            f'<span class="tk" style="display:inline-block;color:{color};'
+            f'border-bottom:{width} {style} {color};padding:0 3px;" '
             f'title="{text}">{text}</span>'
         )
     return ''.join(out)
 
 
 def gloss_rows(tokens):
-    """Word-by-word table shown inside the ? panel."""
+    """Word-by-word table inside the ? panel."""
     rows = []
     for i, tok in enumerate(tokens):
         kanji, romaji, gid, gen = tok
-        light = PALETTE[i % len(PALETTE)][0]
-        edge = 'border-bottom:1px solid #e5e7eb;vertical-align:top;padding:3px 8px;'
+        color = PALETTE[i % len(PALETTE)]
+        edge = f'border-bottom:1px solid {EDGE};vertical-align:top;padding:4px 8px;'
         rows.append(
             '<tr>'
-            f'<td style="{edge}color:{light};font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
-            f'<td style="{edge}color:#374151;font-style:italic;white-space:nowrap;">{_esc(romaji)}</td>'
-            f'<td style="{edge}color:#0f172a;">ID&nbsp;{_esc(gid)}</td>'
-            f'<td style="{edge}color:#334155;">EN&nbsp;{_esc(gen)}</td>'
+            f'<td style="{edge}color:{color};font-weight:700;white-space:nowrap;">{_esc(kanji)}</td>'
+            f'<td style="{edge}color:{TEXT_DIM};font-style:italic;white-space:nowrap;">{_esc(romaji)}</td>'
+            f'<td style="{edge}color:{TEXT};">{_esc(gid)}</td>'
+            f'<td style="{edge}color:{TEXT_DIM};">{_esc(gen)}</td>'
             '</tr>'
         )
     return ''.join(rows)
 
 
 def qpanel(s):
-    """The panel revealed by clicking / tapping the ? button."""
+    """The panel revealed by the ? button."""
     return (
-        '<div class="qpanel" style="position:absolute;right:0;top:36px;'
-        'width:min(88vw,620px);background:#ffffff;color:#0f172a;'
-        'border:1px solid #cbd5e1;border-radius:10px;padding:12px 14px;'
-        'max-height:70vh;overflow:auto;'
-        'box-shadow:0 10px 30px rgba(0,0,0,.25);text-align:left;font-size:14px;line-height:1.5;">'
-        '<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:6px;">'
-        'Terjemahan / Translation</div>'
-        f'<p style="margin:0 0 4px;font-size:15px;"><b>ID</b> {_esc(s["id_translation"])}</p>'
-        f'<p style="margin:0 0 10px;font-size:15px;"><b>EN</b> {_esc(s["en_translation"])}</p>'
-        '<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:4px;">'
-        'Per kata / Word by word</div>'
-        f'<table style="border-collapse:collapse;width:100%;font-size:13px;">{gloss_rows(s["tokens"])}</table>'
-        '<div style="margin-top:10px;padding-top:8px;border-top:1px dashed #cbd5e1;font-size:13px;color:#334155;">'
-        f'<p style="margin:0 0 4px;"><b>ID Catatan:</b> {_esc(s["note"])}</p>'
-        f'<p style="margin:0;"><b>EN Note:</b> {_esc(s["note_en"])}</p>'
+        f'<div class="qpanel" style="position:absolute;right:0;top:42px;'
+        f'width:min(88vw,620px);background:{BG_PANEL};color:{TEXT};'
+        f'border:1px solid {EDGE_SOFT};border-radius:12px;padding:14px 16px;'
+        f'max-height:70vh;overflow:auto;box-shadow:0 16px 40px rgba(0,0,0,.65);'
+        f'text-align:left;font-size:14px;line-height:1.55;">'
+        f'<p style="margin:0 0 6px;font-size:16px;color:#f8fafc;">'
+        f'<b style="color:{ACCENT};">ID</b> {_esc(s["id_translation"])}</p>'
+        f'<p style="margin:0 0 12px;font-size:16px;color:#f8fafc;">'
+        f'<b style="color:{ACCENT};">EN</b> {_esc(s["en_translation"])}</p>'
+        f'<table style="border-collapse:collapse;width:100%;font-size:13.5px;">'
+        f'{gloss_rows(s["tokens"])}</table>'
+        f'<div style="margin-top:12px;padding-top:10px;border-top:1px dashed {EDGE_SOFT};'
+        f'font-size:13px;color:{TEXT_DIM};">'
+        f'<p style="margin:0 0 4px;"><b style="color:{ACCENT};">ID</b> {_esc(s["note"])}</p>'
+        f'<p style="margin:0;"><b style="color:{ACCENT};">EN</b> {_esc(s["note_en"])}</p>'
         '</div></div>'
     )
 
 
 def html_block(s):
-    """One sentence block: kanji line, romaji line, and a ? tooltip on the right."""
+    """One block: kanji line, romaji line, and the ? tooltip. Nothing else."""
     return (
-        '<section class="jp-sent" style="position:relative;border:1px solid #cbd5e1;'
-        'border-left:6px solid #0f172a;border-radius:10px;background:#fff;'
-        'margin:18px 0;padding:14px 56px 12px 16px;overflow:visible;">'
-        # --- ? control (click / tap anywhere; hover-open needs the CSS cell)
-        '<details class="qdet" style="position:absolute;right:8px;top:8px;z-index:30;">'
+        f'<section class="jp-sent" style="position:relative;background:{BG};'
+        f'border:1px solid {EDGE};border-left:5px solid {ACCENT};border-radius:12px;'
+        f'margin:16px 0;padding:16px 58px 16px 18px;overflow:visible;">'
+        # ? control: display:block + list-style:none removes the triangle without CSS
+        '<details class="qdet" style="position:absolute;right:10px;top:10px;z-index:30;">'
         '<summary title="Terjemahan / Translation" aria-label="Terjemahan dan arti per kata" '
-        'style="list-style:none;cursor:pointer;width:34px;height:34px;line-height:30px;'
-        'text-align:center;border-radius:50%;background:#0f172a;color:#fff;font-weight:700;'
-        'font-size:17px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);'
-        'user-select:none;">?</summary>'
+        f'style="display:block;list-style:none;cursor:pointer;width:34px;height:34px;'
+        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE};'
+        f'color:#f8fafc;font-weight:700;font-size:17px;border:2px solid {ACCENT};'
+        'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
         f'{qpanel(s)}</details>'
-        # --- meta line
-        '<div style="font-size:12px;color:#475569;margin-bottom:8px;">'
-        '<span style="display:inline-block;background:#0f172a;color:#fff;border-radius:999px;'
-        f'padding:1px 8px;font-weight:700;margin-right:6px;">{s["id"]}</span>'
-        f'{_esc(s["situation"])}'
-        f'<span style="color:#94a3b8;"> \\u2022 CEJC freq: {s["freq"]:,}</span></div>'
-        # --- kanji line
-        '<div style="font-size:22px;line-height:1.9;white-space:normal;overflow-wrap:anywhere;">'
+        # kanji line
+        '<div style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc;'
+        f'white-space:normal;overflow-wrap:anywhere;padding-right:6px;">'
         f'{token_spans(s["tokens"], 0)}</div>'
-        # --- romaji line
-        '<div style="font-size:15px;line-height:1.8;font-style:italic;color:#475569;'
-        'margin-top:2px;white-space:normal;overflow-wrap:anywhere;">'
+        # romaji line
+        f'<div style="font-size:15px;line-height:1.85;font-style:italic;color:{TEXT_DIM};'
+        'margin-top:3px;white-space:normal;overflow-wrap:anywhere;">'
         f'{token_spans(s["tokens"], 1)}</div>'
-        # --- footnote
-        '<div style="font-size:11px;color:#94a3b8;margin-top:6px;">'
-        f'{len(s["tokens"])} kata / words \\u2022 klik atau hover \\u2753 untuk terjemahan</div>'
         '</section>'
     )
 '''
@@ -163,64 +173,45 @@ DISPLAY_CELL = (
 )
 
 
-# --------------------------------------------------------------------------- cells
-INTRO_MD = '''# Kalimat Jepang Sehari-hari — Prototipe
+# --------------------------------------------------------------------------- markdown
+INTRO_MD = '''# Kalimat Jepang Sehari-hari — Mode Gelap
 
-Notebook ini berisi **6 kalimat prototipe** untuk Anda review sebelum saya isi
-seluruh korpus kalimat.
+Tiap blok hanya berisi tiga hal:
 
-## Format setiap blok
+1. Baris **kanji**
+2. Baris **romaji**
+3. Tombol **?** di kanan, klik / tap untuk membuka terjemahan
+   bahasa Indonesia + Inggris, arti per kata, dan catatan
 
-1. Baris **kanji** (22px)
-2. Baris **romaji** (15px, miring)
-3. Ikon **?** di kanan atas
+Tidak ada elemen lain: tanpa nomor, tanpa label situasi, tanpa penghitung.
 
-Klik / tap ikon **?** (di GitHub dan di layar sentuh) untuk membuka terjemahan
-Indonesia + Inggris, arti per kata, dan catatan pemakaian. Di Jupyter/Colab lokal,
-ikon **?** juga terbuka otomatis saat di-hover.
-
-## Keputusan styling
-
-| Fitur | Pilihan |
+| Fitur | Penerapan |
 |---|---|
-| Warna per kata | 10 warna dipakai bergantian; kata ke-i sama warnanya di baris kanji dan romaji |
+| Mode gelap | warna gelap ditulis *inline*, jadi tetap gelap di GitHub maupun di Jupyter |
+| Warna per kata | 10 warna terang dipakai bergantian; kata ke-i sama warnanya di baris kanji dan romaji |
 | Garis bawah per kata | 5 gaya: solid, dashed, dotted, double, wavy |
-| Word wrap | `overflow-wrap:anywhere` + `white-space:normal` (kalimat no. 6 mengujinya) |
-| Pemisah antar blok | kartu bergaris, garis tebal di kiri, nomor bulat, margin 18px |
-| Tooltip | `<details>` untuk klik/tap + `title` untuk hover |
+| Word wrap | tiap kata `display:inline-block`, jadi layar sempit patah **antar kata**, bukan di tengah kata |
+| Pemisah antar blok | kartu gelap dengan garis aksen biru di kiri |
 
-> **Catatan penting:** GitHub menyaring tag `<style>`. Karena itu semua warna,
-> garis bawah, word wrap, dan pemisah blok saya tulis sebagai *inline style* agar
-> tetap tampil di render GitHub. Perilaku hover dan tema gelap hanya aktif di
-> Jupyter/Colab lokal (sel CSS di bawah).
+> Ikon **?** memakai `<details>`, sehingga klik / tap berfungsi di mana saja
+> (termasuk layar sentuh). Di Jupyter/Colab lokal, `?` juga membuka saat di-hover.
 '''
 
-CSS_MD = '## 1. Sel CSS (opsional, untuk tampilan penuh di Jupyter lokal)\n'
-DATA_MD = '''## 2. Data kalimat
-
-Frekuensi kata diambil dari daftar frekuensi CEJC 書字形 (2.419.171 kata dari 200 jam
-percakapan sehari-hari), jadi angka `CEJC freq` menunjukkan seberapa sering kata kunci
-kalimat itu benar-benar dipakai orang Jepang.
-'''
-RENDER_MD = '## 3. Renderer (kanji, romaji, panel terjemahan)\n'
+CSS_MD = '## 1. Sel CSS (opsional, hanya untuk tampilan penuh di Jupyter lokal)\n'
+DATA_MD = '## 2. Data kalimat\n'
+RENDER_MD = '## 3. Renderer\n'
 SHOW_MD = '## 4. Tampilkan kalimat\n'
 
-ASK_MD = '''## 5. Yang perlu Anda nilai
+ASK_MD = '''## 5. Catatan
 
-1. **Warna** — 10 warna bergantian, cukup jelas atau perlu lebih banyak?
-2. **Garis bawah** — 5 gaya membantu membedakan kata bertetangga, atau terlalu ramai?
-3. **Ukuran huruf** — kanji 22px, romaji 15px. Perlu lebih besar untuk layar sentuh?
-4. **Terjemahan** — panel klik/tap sudah tepat, atau Anda ingin terjemahan
-   **selalu tampil** di bawah tiap blok tanpa perlu klik?
-5. **Pemisah blok** — kartu bergaris + nomor bulat sudah jelas?
-6. **Isi tooltip** — cukup terjemahan ID + EN, atau perlu ditambah kelas kata
-   (verba, partikel, dan sebagainya) dan level kesopanan?
-
-Setelah Anda setujui, saya isi format ini dengan seluruh daftar kalimat
-(pertanyaan, sapaan, permintaan, penolakan, dan seterusnya).
+Isi panel **?** saat ini: terjemahan ID + EN, arti per kata, dan catatan pemakaian.
+Situasi (dekat / orang asing) dan frekuensi CEJC saya keluarkan dari tampilan agar
+blok hanya berisi kanji, romaji, dan `?`. Keduanya masih tersimpan di data dan bisa
+saya pindahkan ke dalam panel `?` kalau Anda mau.
 '''
 
 
+# --------------------------------------------------------------------------- cell helpers
 def code_cell(src, outputs=None, exec_count=None):
     return {"cell_type": "code", "execution_count": exec_count, "metadata": {},
             "outputs": outputs or [], "source": src.splitlines(keepends=True)}
@@ -240,11 +231,7 @@ def stream_output(text):
 
 
 def _ensure_ipython():
-    """Real IPython in Jupyter; a tiny stub when building on a machine without it.
-
-    Only the build-time execution needs this. The notebook source keeps the genuine
-    `from IPython.display import HTML, display`, so it runs unchanged in Jupyter.
-    """
+    """Use real IPython in Jupyter; stub it when building where IPython is absent."""
     try:
         import IPython.display  # noqa: F401
         return
@@ -283,16 +270,16 @@ def md_cell(src):
             "source": src.splitlines(keepends=True)}
 
 
+# --------------------------------------------------------------------------- build
 def build():
     css_src = (
         'from IPython.display import HTML, display\n'
         'display(HTML(' + repr(STYLE_CELL) + '))\n'
     )
-    # Execute the three real cells in order, exactly as Jupyter would, then store
-    # each cell's output. GitHub renders these saved outputs.
+    # Run the real cells exactly as Jupyter would, then store their outputs,
+    # because GitHub renders the saved outputs rather than executing the notebook.
     ns = run_cells(css_src, DATA_CELL, RENDERER_CELL)
     cards_html = ''.join(ns['html_block'](s) for s in ns['SENTENCES'])
-    plain = '<IPython.core.display.HTML object>'
 
     return {
         "cells": [
@@ -334,16 +321,27 @@ if __name__ == '__main__':
                  if any(o.get('data', {}).get('text/html') for o in c['outputs']))
     cards = next(o['data']['text/html'] for c in codes for o in c['outputs']
                  if o.get('data', {}).get('text/html', '').count('<section') > 0)
-    assert n_html == 2, f'expected 2 cells with HTML output (CSS + cards), got {n_html}'
-    assert cards.count('<section') == len(SENTENCES), 'missing sentence blocks'
+    assert n_html == 2, f'expected 2 HTML outputs, got {n_html}'
+    assert cards.count('<section') == len(SENTENCES), 'missing blocks'
     assert cards.count('<details') == len(SENTENCES), 'missing ? panels'
-    assert 'display:inline-block' in cards, 'tokens are not atomic'
+    assert 'display:inline-block' in cards, 'tokens not atomic'
     assert 'overflow-wrap:anywhere' in cards, 'word wrap missing'
+    # dark theme, and nothing except kanji + romaji + ?
+    assert BG in cards and BG_PANEL in cards, 'dark theme missing'
+    for leftover in ('CEJC freq', 'kata / words'):
+        assert leftover not in cards, f'leftover chrome: {leftover}'
+    # no disclosure triangle even without CSS
+    assert 'display:block;list-style:none' in cards, 'summary marker not suppressed'
+    # collapsed by default
+    import re
+    assert not any(' open' in tag or tag.endswith('open>')
+                   for tag in re.findall(r'<details[^>]*>', cards)), 'panel open by default'
+
+    n_md = sum(c['cell_type'] == 'markdown' for c in chk['cells'])
     print(f'wrote {out}')
-    print(f'  cells={len(chk["cells"])} '
-          f'(md={sum(c["cell_type"] == "markdown" for c in chk["cells"])}, '
-          f'code={len(codes)})')
+    print(f'  cells={len(chk["cells"])} (markdown={n_md}, code={len(codes)})')
     print(f'  code cells with HTML output: {n_html}')
     print(f'  sentence blocks in output:   {cards.count("<section")}')
     print(f'  ? panels in output:          {cards.count("<details")}')
     print(f'  output size:                 {len(cards):,} chars')
+    print(f'  dark theme:                  {BG} card / {BG_PANEL} panel, accent {ACCENT}')
