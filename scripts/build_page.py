@@ -478,7 +478,7 @@ if __name__ == '__main__':
         # a panel whose luminance is too close to the card/backdrop is exactly what
         # made the opened tooltip look like a dark smudge
         'panel is a recessed inset (darker than card)': _panel_gap_ok(B),
-        'register colours are readable': _register_ok(B),
+        'register colours are readable inside the panel': _register_ok(B),
         # every block must say who it is for, inside the panel
         'every block states its register': got.count('class="qpanel"') == n
                                            and all(k in got for k in

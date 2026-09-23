@@ -177,23 +177,28 @@ f.onload=function(){ (async function(){
   var WHO_RE=/(orang asing|teman dekat|tetangga|petugas toko|orang yang sudah akrab|teman)/;
   var whoHit=WHO_RE.exec(p.textContent);
   ok('panel states the register', !!whoHit, whoHit ? whoHit[0] : 'none');
-  var btnBg=px(w.getComputedStyle(btn).backgroundColor);
-  ok('? button is tinted by register', ratio(btnBg,cardBg)>=2.0,
-     'button='+w.getComputedStyle(btn).backgroundColor+' ratio='+ratio(btnBg,cardBg).toFixed(1));
-
-  // the two registers must actually differ, or the tint means nothing
-  var colours={};
+  // The register must NOT leak outside the panel: every block looks the same
+  // until it is opened, which is what "inside only" means.
+  var btns=[], borders=[];
   details.forEach(function(det){
-    var card=det.closest('.jp-sent');
-    var who=WHO_RE.exec(det.textContent);
-    var bg=w.getComputedStyle(det.querySelector('summary')).backgroundColor;
-    if (who) { colours[who[0]]=bg; }
+    btns.push(w.getComputedStyle(det.querySelector('summary')).backgroundColor);
+    borders.push(w.getComputedStyle(det.closest('.jp-sent')).borderLeftColor);
   });
-  var distinct=Object.keys(colours).filter(function(k,i,a){
-    return a.indexOf(k)===i; }).map(function(k){ return colours[k]; });
-  var uniq=distinct.filter(function(v,i){ return distinct.indexOf(v)===i; });
-  ok('close and stranger blocks look different', uniq.length>=2,
-     Object.keys(colours).map(function(k){ return k+'='+colours[k]; }).join(' | '));
+  function uniqOf(a){ return a.filter(function(v,i){ return a.indexOf(v)===i; }); }
+  ok('all ? buttons look identical', uniqOf(btns).length===1, uniqOf(btns).join(' | '));
+  ok('all card borders look identical', uniqOf(borders).length===1, uniqOf(borders).join(' | '));
+
+  // ...but the panel itself must distinguish the two registers by colour
+  var chips={};
+  details.forEach(function(det){
+    var who=WHO_RE.exec(det.textContent);
+    if (!who) { return; }
+    var badge=det.querySelector('.qpanel span');
+    if (badge) { chips[who[0]]=w.getComputedStyle(badge).backgroundColor; }
+  });
+  var chipColours=Object.keys(chips).map(function(k){ return chips[k]; });
+  ok('panels distinguish close from stranger', uniqOf(chipColours).length>=2,
+     Object.keys(chips).map(function(k){ return k+'='+chips[k]; }).join(' | '));
   ok('panel is clearly DARKER than its card (>=1.30:1)', rp>=1.30,
      'ratio='+rp.toFixed(2)+' panel='+cs2.backgroundColor+' card='+w.getComputedStyle(lastCard).backgroundColor);
   ok('panel text readable (>=7:1)', rt>=7, 'ratio='+rt.toFixed(1));

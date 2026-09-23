@@ -143,14 +143,13 @@ def html_block(s):
     the ? button still appears at the card's top-right corner while the collapsed
     <details> contributes no height.
 
-    The ? button and the card's left border are tinted by register (close vs
-    stranger). The block deliberately gains no visible label, so the register is
-    explained inside the panel instead.
+    The register (close vs stranger) is expressed INSIDE the panel only: the ? 
+    button and the card look identical for every block, so the list stays uniform
+    and the distinction appears once a block is opened.
     """
-    who_colour = WHO_COLOURS.get(s.get('who', ''), ACCENT)
     return (
         f'<section class="jp-sent" style="position:relative;background:{BG} !important;'
-        f'border:1px solid {EDGE} !important;border-left:5px solid {who_colour} !important;border-radius:12px;'
+        f'border:1px solid {EDGE} !important;border-left:5px solid {ACCENT} !important;border-radius:12px;'
         f'margin:16px 0;padding:16px 58px 16px 18px;overflow:visible;">'
         # kanji line
         '<div class="kanji" style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc !important;'
@@ -166,9 +165,9 @@ def html_block(s):
         '<summary title="Terjemahan / Translation, dan kepada siapa kalimat ini dipakai" '
         'aria-label="Terjemahan, arti per kata, dan lawan bicara" '
         f'style="display:block;list-style:none;cursor:pointer;width:34px;height:34px;'
-        f'line-height:30px;text-align:center;border-radius:50%;background:{who_colour} !important;'
-        f'color:#0b1220 !important;font-weight:800;font-size:17px;border:2px solid {who_colour} !important;'
-        'box-shadow:0 2px 10px rgba(0,0,0,.55);user-select:none;">?</summary>'
+        f'line-height:30px;text-align:center;border-radius:50%;background:{EDGE} !important;'
+        f'color:#f8fafc !important;font-weight:700;font-size:17px;border:2px solid {ACCENT} !important;'
+        'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
         f'{qpanel(s)}</details>'
         '</section>'
     )
