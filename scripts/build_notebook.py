@@ -69,9 +69,11 @@ def token_spans(tokens, idx):
         style = UNDERLINE_STYLES[i % len(UNDERLINE_STYLES)]
         width = '3px' if style == 'double' else '2px'
         text = _esc(tok[idx])
+        # display:inline-block keeps every word atomic, so a narrow screen wraps
+        # BETWEEN words and never breaks a word in half.
         out.append(
-            f'<span class="tk" style="color:{light};'
-            f'border-bottom:{width} {style} {light};padding:0 1px;" '
+            f'<span class="tk" style="display:inline-block;color:{light};'
+            f'border-bottom:{width} {style} {light};padding:0 3px;" '
             f'title="{text}">{text}</span>'
         )
     return ''.join(out)
