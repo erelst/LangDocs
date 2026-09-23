@@ -1,80 +1,43 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""The sentence bank the page renders: the curated set, then the generated one.
+"""The sentence bank the page renders: hand-written sentences, grouped by topic.
 
-Order and precedence
---------------------
-The hand-written sentences in sentences.py come first and win. They were chosen
-for the situations the analysis actually measured (greeting a neighbour, asking a
-stranger, ordering in a shop), and they are the ones whose translations have been
-read most carefully. A generated sentence that happens to duplicate one of them by
-its kanji line is dropped, so the page never shows the same sentence twice.
+Why the bank is written rather than generated
+---------------------------------------------
+The bank used to be assembled from 57 templates crossed with word lists. That produced 1,504
+sentences and the reader's verdict was that almost all of them were the same sentence with a
+different noun in it: コンビニで傘を買いました and 薬局で眼鏡を買いました are one sentence typed
+twice. The templates were not wrong, they were just a grammar exercise, and the longer ones
+read as clauses bolted together with それから rather than one thought.
 
-Why a generated tail at all
----------------------------
-Japanese-Everyday-Sentence-Probability.md estimates the usable everyday sentence
-space at ~10^7 for a speaker with 5,000 active words, from the measured exponent of
-4.19 words per utterance unit. A hand-written list cannot approach that, and a
-hand-written list of thousands is exactly where ungrammatical sentences get in
-unnoticed. scripts/generate.py therefore assembles sentences from templates whose
-grammar is correct by construction, and scripts/check_sentences.py checks the
-things construction cannot guarantee (tense agreement, the particle each verb
-selects, whether a verb can actually take the noun it was given).
+So every sentence here is written by hand, one function at a time. Each topic in
+scripts/topics/ declares the functions people actually need for that subject (asking the
+time, being told it, proposing a slot, declining one, arriving late) and provides a sentence
+for each, so a topic cannot ship as a single example sentence. scripts/uniqueness.py then
+checks the bank as a whole: that no two sentences reduce to the same particle skeleton, that
+no long sentence is two thoughts glued with それから, and that every declared function has a
+sentence.
 
-The count is capped deliberately
---------------------------------
-Each card costs about 6.5 KB of HTML, because the dark theme, the underlines and
-the per-word colours are written inline so they survive a renderer that drops
-<style>. The whole page is a single HTML file with no build step, so the cap below
-is a real tradeoff and not an arbitrary number: the full bank is ~9.7 MB, which is
-too much for a page a phone has to parse before anything appears. The cap is
-applied in build_page.py, where the cost is measured and printed.
+Order
+-----
+Topic order, as declared in compose.TOPICS: a day, roughly, from waking up to going to bed.
+The order is stable across builds because the deep links (#q12) depend on it.
 """
-import generate
-import sentences
+import compose
 
-# Prefer the curated sentences, then the generated ones, in a stable order so the
-# page and the deep links (#q12) do not move between builds.
-HAND_WRITTEN = 'kurasi'
-
-
-def hand_written():
-    """The curated sentences, as fresh dicts so callers cannot mutate the source."""
-    return [dict(s) for s in sentences.CURATED]
-
-
-def generated():
-    """The generated bank, already checked by check_sentences.py."""
-    out = []
-    for s in generate.bank_combinations():
-        s['origin'] = 'generated'
-        out.append(s)
-    return out
-
-
-def dedupe(rows):
-    """Drop a generated sentence whose kanji line is already present.
-
-    The hand-written sentence keeps its place and its translation, because those
-    are the ones with a human reading behind them.
-    """
-    seen = set()
-    out = []
-    for s in rows:
-        key = s['kanji']
-        if key in seen:
-            continue
-        seen.add(key)
-        out.append(s)
-    return out
+# Every sentence in the bank is hand-written now, so the origin tag survives only to keep
+# the build's reporting and its assertions readable, and to make a generated sentence
+# reappearing anywhere an obvious failure rather than a silent regression.
+HAND_WRITTEN = 'hand'
 
 
 def all_sentences():
-    """The full bank: curated first, then generated, no duplicates."""
-    curated = hand_written()
-    for s in curated:
-        s['origin'] = HAND_WRITTEN
-    return dedupe(curated + generated())
+    """The full bank: every hand-written sentence, in topic order.
+
+    Fresh dicts so a caller (the renderer, or a build check) cannot mutate the source
+    sentence and affect the next build in the same process.
+    """
+    return [dict(s) for s in compose.assemble()]
 
 
 def with_ids(rows):
@@ -95,11 +58,15 @@ def stats(rows):
 
 
 if __name__ == '__main__':
+    import uniqueness
     rows = all_sentences()
     by_origin, by_who = stats(rows)
-    print(f'{len(rows):,} sentences')
+    print(f'{len(rows):,} sentences over {len(compose.existing_topics())} topics')
     for k, v in sorted(by_origin.items()):
-        print(f'  {v:>6,}  {k}')
+        print(f'  {v:>6,}  origin {k}')
     for k, v in sorted(by_who.items()):
         print(f'  {v:>6,}  register {k}')
-    print(f'  {len(generate.TEMPLATES)} templates in the generated part')
+    print(f'  long (multi-clause): {sum(1 for s in rows if s.get("long")):,}')
+    bad = uniqueness.problems(rows)
+    total = sum(len(v) for v in bad.values())
+    print(f'  uniqueness/correctness findings: {total}')

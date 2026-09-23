@@ -93,7 +93,11 @@ f.onload=function(){ (async function(){
      d.getElementById('count').textContent.slice(0,60));
 
   // -------------------------------------------------------------- lazy loading
-  ok('the whole bank is carried as data', api.rows>1000, 'rows='+api.rows);
+  // These compare the shipped row count against what is in the DOM, so they hold for any
+  // bank size. They used to assert rows>1000, which was true of the generated bank and
+  // became a failure the moment the bank was rewritten as hand-authored sentences: the
+  // number that matters is rows-versus-rendered, not how many rows there happen to be.
+  ok('the whole bank is carried as data', api.rows > 0, 'rows='+api.rows);
   var firstWindow=api.rendered();
   ok('only a window is in the DOM at first', firstWindow<api.rows, firstWindow+' of '+api.rows);
   var grown=[firstWindow];
@@ -101,7 +105,13 @@ f.onload=function(){ (async function(){
     w.scrollTo(0, d.documentElement.scrollHeight); await sleep(500); grown.push(api.rendered());
   }
   ok('scrolling down loads more sentences', grown[grown.length-1]>grown[0], grown.join(' -> '));
-  ok('and still not the whole bank in the DOM', api.rendered()<api.rows, api.rendered()+' of '+api.rows);
+  // The point is that scrolling APPENDS in batches rather than switching the whole bank on
+  // at once, so the check is about the step, not about the end state. Asserting the end
+  // state ("still not everything after six scrolls") only held while the bank was large;
+  // it now fails on a small bank for a reason that has nothing to do with lazy loading.
+  ok('one scroll step appends a batch, not the whole bank',
+     grown[1]>grown[0] && grown[1]<api.rows,
+     grown[0]+' -> '+grown[1]+' of '+api.rows);
 
   // The JS renderer and the Python renderer must agree, or a card would change
   // appearance the moment it is built in the browser instead of written into the HTML.
@@ -285,14 +295,25 @@ f.onload=function(){ (async function(){
      w.getComputedStyle(live()[0].querySelector('.romaji')).display!=='none');
 
   // ------------------------------------------------------- deep link past the window
-  var target=140;
+  // The target has to be past the cards the page rendered up front, or the check would
+  // pass without proving anything: the deep link must reach a sentence that does not exist
+  // in the DOM until the hash asks for it. A fixed 140 was fine while the bank held 1,504
+  // sentences and became a failure the moment the bank shrank, so the target is derived
+  // from the shipped row count instead.
+  var rowCount = w.SENT.rows.length;
+  var target = Math.max(31, rowCount);          // 31 is one past the 30-card first window
+  if (target > rowCount) { target = rowCount; }
+  var renderedBefore = live().length;
   w.location.hash='#q'+target; await sleep(1000);
   var op=liveDetails().filter(function(x){return x.open;});
   var gotKanji = op.length===1 ? op[0].closest('.jp-sent').querySelector('.kanji').textContent.replace(/\s+/g,'') : '';
   var wantKanji = String(w.SENT.rows[target-1][0]).replace(/\s+/g,'');
   ok('deep link opens the right sentence past the first window',
      op.length===1 && gotKanji===wantKanji && gotKanji.length>0,
-     'open='+op.length+' got='+gotKanji.slice(0,18)+' want='+wantKanji.slice(0,18));
+     'open='+op.length+' target='+target+' got='+gotKanji.slice(0,18)+' want='+wantKanji.slice(0,18));
+  ok('that sentence was not rendered before the deep link',
+     target > renderedBefore,
+     'target='+target+' renderedBefore='+renderedBefore+' rowCount='+rowCount);
 
   note('');
   note(FAIL.length? ('FAILURES: '+FAIL.join(', ')) : 'ALL CHECKS PASSED');

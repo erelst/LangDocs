@@ -32,7 +32,8 @@ sys.path.insert(0, HERE)
 
 import bank
 import check_sentences
-import generate      # noqa: E402  (template lengths, for the honest length report)
+import compose     # noqa: E402  (topic list, for the per-topic build checks)
+import uniqueness   # noqa: E402  (the bank-wide checks: distinctness, coverage)
 import render as B   # noqa: E402  (single source of truth for the cards)
 
 # How many cards are written into the HTML itself. The rest of the bank travels as
@@ -379,14 +380,16 @@ def build_page(blocks, rows, title_id=TITLE_ID, title_en=TITLE_EN):
 
 
 if __name__ == '__main__':
-    # The generated half of the bank is only trustworthy if its meaning is checked,
-    # so the check runs as part of the build rather than as an optional script.
-    findings = check_sentences.problems()
+    # The bank is only trustworthy if it is both CORRECT (check_sentences) and WORTH READING
+    # (uniqueness). The second is the one this rework exists for: every sentence of the old
+    # bank passed the correctness checks while the reader's verdict was still that they were
+    # the same sentence with a different noun in it. So both run as part of the build.
+    findings = uniqueness.problems()
     if any(findings.values()):
         for kind, bad in findings.items():
-            for kanji, why in bad:
-                print(f'  [FAIL] {kind}: {kanji} -- {why}')
-        raise SystemExit('sentence-bank checks failed; fix scripts/generate.py first')
+            for key, why in bad:
+                print(f'  [FAIL] {kind}: {key} -- {why}')
+        raise SystemExit('sentence-bank checks failed; see scripts/uniqueness.py')
 
     full = bank.with_ids(bank.all_sentences())
     rows = payload(full)
@@ -407,13 +410,13 @@ if __name__ == '__main__':
     # How much of the bank is reachable without scrolling: the ratio is what the
     # lazy loading trades against, so it is printed rather than assumed.
     tokens = [len(s['tokens']) for s in full]
-    # "Long" means 12+ tokens, comparable to the example sentence the reader pointed at
-    # (18 tokens, 42 morae). An earlier build printed "long (8+)" instead, which called
-    # sentences of median 8 tokens long and made the list look fuller than it was.
-    _tpl = {t['key']: t for t in generate.TEMPLATES}
-
+    # "Long" is now a property of the sentence itself rather than of a template, because
+    # there are no templates: the author marks the multi-clause ones. The old definition was
+    # "12+ tokens", which was really a proxy for "has more than one clause"; marking the
+    # sentence directly is what lets the check demand a real relation (ので, から, けど)
+    # rather than just a word count.
     def is_long_row(s):
-        return bool(s.get('template')) and generate.is_long(_tpl[s['template']])
+        return bool(s.get('long'))
 
     long_n = sum(1 for s in full if is_long_row(s))
     checks = {
@@ -458,10 +461,14 @@ if __name__ == '__main__':
                                               and 'tests word wrap' not in got,
         # the list must actually contain sentences comparable to the reader's example,
         # so a regression back to "8 tokens is long" would be visible in the build
-        'long sentences present (12+ tokens)': long_n > 0 and long_n >= n // 4,
+        'long sentences present': long_n > 0,
+        'long sentences are multi-clause, not padded': all(
+            len(s['tokens']) >= uniqueness.MIN_LONG_TOKENS for s in full if s.get('long')),
         'no duplicate kanji lines': len({s['kanji'] for s in full}) == n,
-        'curated sentences come first': all(
-            full[i]['origin'] == bank.HAND_WRITTEN for i in range(min(len(full), 10))),
+        'every sentence is hand-written': all(
+            s['origin'] == bank.HAND_WRITTEN for s in full),
+        'every topic contributes more than one sentence': all(
+            sum(1 for s in full if s['topic'] == t) > 1 for t in compose.existing_topics()),
     }
     print(f'wrote {out}  ({len(page):,} chars, {n:,} sentences, {FIRST_BATCH} static)')
     for k, v in by_origin.items():
@@ -491,7 +498,8 @@ if __name__ == '__main__':
         gm = sorted(morae(s['romaji']) for s in group)
         print(f'  {label:5} n={len(group):5}  tokens median {gt[len(gt)//2]:2}  '
               f'morae median {gm[len(gm)//2]:2}  span {gt[0]}-{gt[-1]} tokens')
-    print(f'  long share: {len(lng)*100//max(n,1)}% of {n:,} sentences (threshold 12 tokens)')
+    print(f'  long share: {len(lng)*100//max(n,1)}% of {n:,} sentences '
+          f'(multi-clause, author-marked)')
     for k, ok in checks.items():
         print(f'  [{"ok" if ok else "FAIL"}] {k}')
     if not all(checks.values()):
