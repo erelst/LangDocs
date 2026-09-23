@@ -146,8 +146,10 @@ FOOD_AND_DRINK = {
 # is not marked by the を next to 持って, so demanding one there flagged a correct sentence.
 OBJECTS_WITH_O = {'買う', '買います', '買いました', '買った', '食べます', '食べました',
                   '食べる', '食べた', '飲みます', '飲みました', '飲む', '飲んだ',
-                  '使います', '使って', '送ります', '送りました',
+                  '使います', '使って',
                   '作ります', '作りました', '注文します', '頼みます'}
+# 送ります is deliberately absent: 駅まで車で送ります means "I will drive you to the station",
+# where the person is the listener and is not named, so there is no を to require.
 
 
 # A person noun followed by a verb with no particle between them is the error this check

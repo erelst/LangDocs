@@ -165,6 +165,9 @@ def _markers_in(surfaces, markers):
         if surface in markers:
             hits.add(surface)
             continue
+        # Only multi-character markers may match inside a longer token: 見てから ends with
+        # から, but が and し are single characters and would match all over the place. They
+        # count only as standalone tokens, which is exactly how a clause break uses them.
         for marker in markers:
             if len(marker) >= 2 and surface.endswith(marker):
                 hits.add(marker)
