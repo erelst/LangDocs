@@ -152,11 +152,11 @@ def html_block(s):
         'box-shadow:0 2px 8px rgba(0,0,0,.5);user-select:none;">?</summary>'
         f'{qpanel(s)}</details>'
         # kanji line
-        '<div style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc !important;'
+        '<div class="kanji" style="font-size:23px;line-height:2.0;font-weight:500;color:#f8fafc !important;'
         f'white-space:normal;overflow-wrap:anywhere;padding-right:6px;">'
         f'{token_spans(s["tokens"], 0)}</div>'
         # romaji line
-        f'<div style="font-size:15px;line-height:1.85;font-style:italic;color:{TEXT_DIM} !important;'
+        f'<div class="romaji" style="font-size:15px;line-height:1.85;font-style:italic;color:{TEXT_DIM} !important;'
         'margin-top:3px;white-space:normal;overflow-wrap:anywhere;">'
         f'{token_spans(s["tokens"], 1)}</div>'
         '</section>'
