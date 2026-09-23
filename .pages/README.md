@@ -35,7 +35,7 @@ Blok kalimat memakai kartu `#0b1220` (seperti desain awal), dan panel `?` yang
 terbuka memakai `#070c14` yang **lebih gelap** dari kartunya.
 
 Karena isian gelap tidak bisa jauh dari kartu yang juga gelap (hanya 1.05:1),
-pemisah yang sebenarnya terlihat adalah **garis tepi panel** `#526179` (2.98:1
+pemisah yang sebenarnya terlihat adalah **garis tepi panel** `#4a5a72` (2.67:1
 terhadap kartu), ditambah garis aksen biru di tepi atas. Jadi warna panel
 dipertahankan gelap, dan panelnya tetap kelihatan batasnya.
 

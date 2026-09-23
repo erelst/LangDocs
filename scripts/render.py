@@ -43,7 +43,7 @@ BG = '#0b1220'        # card background (unchanged from the original design)
 BG_PANEL = '#070c14'  # expanded panel: deliberately DARKER than the card. Because
                       # the fill is so close to the card, the visible separation is
                       # carried by BG_PANEL_EDGE below, not by the fill.
-BG_PANEL_EDGE = '#4a5a72'  # panel outline: the actual separator (3.0:1 vs card)
+BG_PANEL_EDGE = '#4a5a72'  # panel outline: the actual separator (2.67:1 vs card)
 EDGE = '#334155'
 EDGE_SOFT = '#334155'
 ACCENT = '#38bdf8'
