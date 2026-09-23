@@ -199,7 +199,8 @@ f.onload=function(){ (async function(){
   var chipColours=Object.keys(chips).map(function(k){ return chips[k]; });
   ok('panels distinguish close from stranger', uniqOf(chipColours).length>=2,
      Object.keys(chips).map(function(k){ return k+'='+chips[k]; }).join(' | '));
-  ok('panel is clearly DARKER than its card (>=1.30:1)', rp>=1.30,
+  // 1.0 would mean the panel is invisible against its own card, whatever direction.
+  ok('panel is clearly distinct from its card (>=1.35:1)', rp>=1.35,
      'ratio='+rp.toFixed(2)+' panel='+cs2.backgroundColor+' card='+w.getComputedStyle(lastCard).backgroundColor);
   ok('panel text readable (>=7:1)', rt>=7, 'ratio='+rt.toFixed(1));
 

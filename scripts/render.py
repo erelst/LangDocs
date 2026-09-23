@@ -39,10 +39,10 @@ from sentences import SENTENCES, PALETTE, UNDERLINE_STYLES  # noqa: E402
 WHO_COLOURS = {'dekat': '#86efac', 'asing': '#fcd34d'}
 DARK_PALETTE = [dark for _, dark in PALETTE]
 
-BG = '#223047'        # card background: clearly above the dark page
-BG_PANEL = '#070c14'  # expanded panel: deliberately DARKER than the card, so the
-                      # open panel reads as a recessed inset rather than a lighter
-                      # block. Both directions are asserted in build_page.py.
+BG = '#0b1220'        # card background (unchanged from the original design)
+BG_PANEL = '#263449'  # expanded panel: kept clearly separated from the card, so
+                      # the open panel reads as a distinct surface. The direction
+                      # of that separation is free; the distance is asserted.
 EDGE = '#334155'
 EDGE_SOFT = '#334155'
 ACCENT = '#38bdf8'

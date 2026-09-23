@@ -31,12 +31,14 @@ tidak perlu scrim, z-index, atau perhitungan posisi sama sekali.
 Warna dan register
 ------------------
 
-Panel `?` sengaja **lebih gelap** dari kartunya (kartu `#223047`, panel `#070c14`;
-kontras 1.48:1), jadi panel terbaca sebagai cekungan, bukan lapisan yang menonjol.
+Blok kalimat memakai kartu `#0b1220` (seperti desain awal), dan panel `?` yang
+terbuka memakai `#263449` supaya jelas berbeda dari kartunya (kontras 1.49:1).
+Arah perbedaan itu bebas; yang diuji adalah **jaraknya** harus minimal 1.35:1,
+supaya panel tidak bisa menyatu dengan kartunya. Teks panel 10.2:1.
+
 Kalau salah satu terlalu terang atau terlalu gelap di layarmu, ubah di
 `scripts/render.py`: `BG` untuk kartu, `BG_PANEL` untuk panel. Build akan menolak
-kalau jaraknya kurang dari 1.30:1 atau teksnya di bawah 7:1, jadi tidak bisa
-diam-diam jadi tidak terbaca.
+kalau jaraknya kurang dari 1.35:1 atau teksnya di bawah 7:1.
 
 Register (kepada siapa kalimat dipakai) dibedakan **di dalam panel saja**. Di luar,
 semua blok tampil seragam: tombol `?` dan garis kiri kartu warnanya sama untuk

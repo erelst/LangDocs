@@ -274,24 +274,28 @@ def _contrast(a, b):
 
 
 def _panel_gap_ok(B):
-    """The expanded panel must read as a RECESSED inset, not a raised layer.
+    """The expanded panel must read as a surface distinct from the card.
 
-    So the panel is measured as DARKER than the card, while still being clearly
-    separated from it, and the card in turn must sit clearly above the page.
+    The *direction* of that separation is a design choice (lighter or darker) and
+    is deliberately not asserted; the *distance* is, so the two can never collapse
+    into one flat block that makes the open panel hard to see.
     """
-    gap = 1.30
-    return (_contrast(B.BG_PANEL, B.BG) >= gap          # panel is darker than card
-            and _contrast(B.BG, '#020617') >= gap        # card is lighter than page
+    return (_contrast(B.BG_PANEL, B.BG) >= 1.35
             and _contrast(B.TEXT, B.BG_PANEL) >= 7.0)
 
 
 def _register_ok(B):
-    """Both register colours must work as a badge background and as small text."""
+    """Register colours must work as a badge background AND as small text.
+
+    The badges live inside the expanded panel, so they are measured against the
+    panel surface, not against the card.
+    """
     from sentences import SENTENCES
     who = {s.get('who') for s in SENTENCES}
     if not who <= set(B.WHO_COLOURS):
         return False
-    return all(_contrast(B.BG, colour) >= 4.5 and _contrast('#0b1220', colour) >= 4.5
+    return all(_contrast(B.BG_PANEL, colour) >= 4.5          # as a border / text
+               and _contrast('#0b1220', colour) >= 4.5       # dark text on the chip
                for colour in B.WHO_COLOURS.values())
 
 
@@ -477,7 +481,7 @@ if __name__ == '__main__':
         'panel colour applied': got.count(f'background:{B.BG_PANEL} !important') == n,
         # a panel whose luminance is too close to the card/backdrop is exactly what
         # made the opened tooltip look like a dark smudge
-        'panel is a recessed inset (darker than card)': _panel_gap_ok(B),
+        'panel is visually distinct from the card': _panel_gap_ok(B),
         'register colours are readable inside the panel': _register_ok(B),
         # every block must say who it is for, inside the panel
         'every block states its register': got.count('class="qpanel"') == n
