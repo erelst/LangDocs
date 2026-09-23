@@ -28,6 +28,7 @@ sys.path.insert(0, HERE)
 
 import bank
 import check_sentences
+import generate      # noqa: E402  (template lengths, for the honest length report)
 import render as B   # noqa: E402  (single source of truth for the cards)
 
 # How many cards are written into the HTML itself. The rest of the bank travels as
@@ -402,7 +403,15 @@ if __name__ == '__main__':
     # How much of the bank is reachable without scrolling: the ratio is what the
     # lazy loading trades against, so it is printed rather than assumed.
     tokens = [len(s['tokens']) for s in full]
-    long_n = sum(1 for t in tokens if t >= 8)
+    # "Long" means 12+ tokens, comparable to the example sentence the reader pointed at
+    # (18 tokens, 42 morae). An earlier build printed "long (8+)" instead, which called
+    # sentences of median 8 tokens long and made the list look fuller than it was.
+    _tpl = {t['key']: t for t in generate.TEMPLATES}
+
+    def is_long_row(s):
+        return bool(s.get('template')) and generate.is_long(_tpl[s['template']])
+
+    long_n = sum(1 for s in full if is_long_row(s))
     checks = {
         # count before the data script: page.js also contains the literal string,
         # so counting the whole file would be off by one for the wrong reason
@@ -443,6 +452,9 @@ if __name__ == '__main__':
         'highlight markup': '<mark' not in got and "createElement('mark')" in got,
         'no self-referential word-wrap note': 'menguji word wrap' not in got
                                               and 'tests word wrap' not in got,
+        # the list must actually contain sentences comparable to the reader's example,
+        # so a regression back to "8 tokens is long" would be visible in the build
+        'long sentences present (12+ tokens)': long_n > 0 and long_n >= n // 4,
         'no duplicate kanji lines': len({s['kanji'] for s in full}) == n,
         'curated sentences come first': all(
             full[i]['origin'] == bank.HAND_WRITTEN for i in range(min(len(full), 10))),
@@ -452,7 +464,30 @@ if __name__ == '__main__':
         print(f'  origin {k}: {v:,}')
     for k, v in by_who.items():
         print(f'  register {k}: {v:,}')
-    print(f'  token length: {min(tokens)}-{max(tokens)}, long (8+) {long_n:,} ({long_n*100//n}%)')
+    # Length is reported the way the bank defines it, not with a convenient cut:
+    # "long" means 12+ tokens, comparable to the example sentence the reader pointed at
+    # (18 tokens, 42 morae). Morae are shown because that is how the example was
+    # described, and because two sentences of equal token count can differ a lot in
+    # spoken length.
+    def morae(romaji):
+        t = __import__('re').sub(r'[^a-z]', '', romaji.lower())
+        for a, b in (('sha', 'sya'), ('shu', 'syu'), ('sho', 'syo'), ('shi', 'si'),
+                     ('cha', 'tya'), ('chu', 'tyu'), ('cho', 'tyo'), ('chi', 'ti'),
+                     ('ja', 'zya'), ('ju', 'zyu'), ('jo', 'zyo'), ('ji', 'zi'),
+                     ('tsu', 'tu')):
+            t = t.replace(a, b)
+        return len(__import__('re').findall(r'[aiueo]+|n(?![aiueo])|tt', t)) or 1
+
+    lng = [s for s in full if is_long_row(s)]
+    srt = [s for s in full if not is_long_row(s)]
+    for group, label in ((lng, 'long'), (srt, 'short')):
+        if not group:
+            continue
+        gt = sorted(len(s['tokens']) for s in group)
+        gm = sorted(morae(s['romaji']) for s in group)
+        print(f'  {label:5} n={len(group):5}  tokens median {gt[len(gt)//2]:2}  '
+              f'morae median {gm[len(gm)//2]:2}  span {gt[0]}-{gt[-1]} tokens')
+    print(f'  long share: {len(lng)*100//max(n,1)}% of {n:,} sentences (threshold 12 tokens)')
     for k, ok in checks.items():
         print(f'  [{"ok" if ok else "FAIL"}] {k}')
     if not all(checks.values()):

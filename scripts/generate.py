@@ -584,6 +584,273 @@ LONG_TEMPLATES = [
 TEMPLATES = TEMPLATES + LONG_TEMPLATES
 
 
+# --------------------------------------------------------- very long forms
+# The templates above reach 8-11 tokens. The sentence the reader pointed at as the
+# example of "long" is 18 tokens and 42 morae, so those were called long on a
+# technicality: measured against that example their median is barely half. These are
+# built to be long in the same way it is, by chaining clauses rather than by adding
+# adjectives, so the list really does contain sentences of that shape.
+SOREKARA = w('それから', 'sorekara', 'setelah itu', 'after that')
+ITSUMO = w('いつも', 'itsumo', 'selalu', 'always')
+MODOTTE = w('戻って', 'modotte', 'kembali (bentuk -te)', 'return (te-form)')
+KITA = w('来た', 'kita', 'datang (biasa, lampau)', 'came (plain past)')
+DOU = w('どう', 'dou', 'bagaimana', 'how')
+
+VERY_LONG_TEMPLATES = [
+    # ---------------------------------------------------------------- polite
+    dict(
+        key='vlong_buy_then_eat', who='asing', politeness='sopan',
+        who_id='rekan kerja', who_en='colleague',
+        situation='Rencana membeli lalu makan',
+        situation_en='A plan to buy something and then eat',
+        pieces=[s('TIME_NONPAST'), s('PLACE_SHOP'),
+                p('へ', 'e', 'partikel arah (ke)', 'direction particle (to)'),
+                s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('買い', 'kai', 'membeli (bentuk sambung)', 'buy (verb stem)'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行って', 'itte', 'pergi (bentuk -te)', 'go (te-form)'),
+                SOREKARA, s('PLACE_EAT'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('FOOD'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べます', 'tabemasu', 'makan (sopan)', 'eat (polite)')],
+        note='Dua klausa dirangkai bentuk -te lalu それから, ditutup satu kata kerja sopan.',
+        note_en='Two clauses joined with the -te form plus それから, closed by one polite verb.',
+    ),
+    dict(
+        key='vlong_eat_drink_then_go', who='asing', politeness='sopan',
+        who_id='teman', who_en='friend',
+        situation='Makan dan minum dulu, baru pergi',
+        situation_en='Eating and drinking first, then going',
+        pieces=[s('TIME_NONPAST'), s('PLACE_EAT'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('PERSON'), p('と', 'to', 'partikel dengan', 'with (particle)'),
+                s('FOOD'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べて', 'tabete', 'makan (bentuk -te)', 'eat (te-form)'),
+                s('DRINK'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('飲んで', 'nonde', 'minum (bentuk -te)', 'drink (te-form)'),
+                KARA, s('PLACE_MEET'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行きます', 'ikimasu', 'pergi (sopan)', 'go (polite)')],
+        note='Tiga aksi berurutan: て, て, lalu てから menandai urutan waktunya.',
+        note_en='Three actions in order: -te, -te, then -te から marks the sequence.',
+    ),
+    dict(
+        key='vlong_arrive_call_buy', who='asing', politeness='sopan',
+        who_id='rekan kerja', who_en='colleague',
+        situation='Permintaan berurutan setelah tiba',
+        situation_en='A sequence of requests after arriving',
+        pieces=[s('PLACE'), p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('着いたら', 'tsuitara', 'kalau sudah tiba', 'when (you) arrive'),
+                s('PERSON'), p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('電話', 'denwa', 'telepon', 'telephone'),
+                w('して', 'shite', 'melakukan (bentuk -te)', 'do (te-form)'),
+                KARA, s('PLACE_SHOP'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('買って', 'katte', 'membeli (bentuk -te)', 'buy (te-form)'),
+                w('ください', 'kudasai', 'tolong (permintaan sopan)',
+                  'please (polite request)')],
+        note='Empat klausa: たら, てから, lalu てください. Pola instruksi berurutan.',
+        note_en='Four clauses: たら, then てから, then てください. A sequenced instruction.',
+    ),
+    dict(
+        key='vlong_when_going_always', who='asing', politeness='sopan',
+        who_id='orang yang baru dikenal', who_en='someone you just met',
+        situation='Kebiasaan yang selalu dilakukan',
+        situation_en='A habit that always happens',
+        pieces=[s('TIME_NONPAST'), s('PLACE'),
+                p('へ', 'e', 'partikel arah (ke)', 'direction particle (to)'),
+                w('行く', 'iku', 'pergi (bentuk kamus)', 'go (dictionary form)'),
+                TOKI, ITSUMO, s('PLACE_SHOP'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('買って', 'katte', 'membeli (bentuk -te)', 'buy (te-form)'),
+                s('PERSON'), p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('会います', 'aimasu', 'bertemu (sopan)', 'meet (polite)')],
+        note='とき + いつも menyatakan kebiasaan; 買って lalu 会います aksi berurutan.',
+        note_en='とき with いつも states a habit; 買って then 会います is a sequence.',
+    ),
+    dict(
+        key='vlong_crowded_then_eat', who='asing', politeness='sopan',
+        who_id='rekan kerja', who_en='colleague',
+        situation='Pindah tempat karena penuh',
+        situation_en='Changing place because it was crowded',
+        pieces=[s('PLACE'), p('が', 'ga', 'partikel subjek', 'subject particle'),
+                w('混んで', 'konde', 'penuh / sesak (bentuk -te)', 'crowded (te-form)'),
+                w('いました', 'imashita', 'sedang (sopan, lampau)', 'was (polite past)'),
+                KARA, s('TIME_NONPAST'), s('PLACE_MEET'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行って', 'itte', 'pergi (bentuk -te)', 'go (te-form)'),
+                s('PERSON'), p('と', 'to', 'partikel dengan', 'with (particle)'),
+                s('FOOD'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べます', 'tabemasu', 'makan (sopan)', 'eat (polite)')],
+        note='から menerangkan sebab, 行って + 食べます menyambung akibatnya.',
+        note_en='から gives the reason; 行って with 食べます links the result.',
+    ),
+    dict(
+        key='vlong_while_drink_talk_go', who='asing', politeness='sopan',
+        who_id='teman', who_en='friend',
+        situation='Mengobrol sambil minum lalu pergi',
+        situation_en='Chatting over a drink and then going',
+        pieces=[s('TIME_PAST'), s('DRINK'),
+                p('を', 'o', 'partikel objek', 'object particle'),
+                w('飲み', 'nomi', 'minum (bentuk sambung)', 'drink (verb stem)'),
+                NAGARA, s('TOPIC'),
+                p('の', 'no', 'partikel pemilik (dari)', 'possessive particle'),
+                w('話', 'hanashi', 'cerita / pembicaraan', 'talk / story'),
+                p('を', 'o', 'partikel objek', 'object particle'),
+                w('して', 'shite', 'melakukan (bentuk -te)', 'do (te-form)'),
+                KARA, s('PLACE_MEET'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行きました', 'ikimashita', 'pergi (sopan, lampau)', 'went (polite past)')],
+        note='ながら untuk aksi bersamaan, lalu てから untuk urutan sesudahnya.',
+        note_en='ながら for the simultaneous action, then てから for what followed.',
+    ),
+    dict(
+        key='vlong_search_then_eat', who='asing', politeness='sopan',
+        who_id='petugas toko', who_en='shop attendant',
+        situation='Mencari barang di beberapa toko',
+        situation_en='Searching several shops for an item',
+        pieces=[s('TIME_NONPAST'), s('PERSON'),
+                p('と', 'to', 'partikel dengan', 'with (particle)'),
+                s('PLACE_SHOP'), p('へ', 'e', 'partikel arah (ke)', 'direction particle (to)'),
+                s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('探し', 'sagashi', 'mencari (bentuk sambung)', 'look for (verb stem)'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行って', 'itte', 'pergi (bentuk -te)', 'go (te-form)'),
+                SOREKARA, s('FOOD'),
+                p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べます', 'tabemasu', 'makan (sopan)', 'eat (polite)')],
+        note='Tujuan ganda: 探しに行って (pergi untuk mencari), lalu 食べます.',
+        note_en='A double purpose: 探しに行って (go in order to look), then 食べます.',
+    ),
+
+    # ---------------------------------------------------------------- casual
+    dict(
+        key='vlong_casual_buy_then_eat', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Cerita membeli lalu makan',
+        situation_en='A story about buying and then eating',
+        pieces=[s('TIME_PAST'), s('PLACE_SHOP'),
+                p('へ', 'e', 'partikel arah (ke)', 'direction particle (to)'),
+                s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('買い', 'kai', 'membeli (bentuk sambung)', 'buy (verb stem)'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行って', 'itte', 'pergi (bentuk -te)', 'go (te-form)'),
+                SOREKARA, s('PLACE_EAT'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('FOOD'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べた', 'tabeta', 'makan (biasa, lampau)', 'ate (plain past)')],
+        note='Semua bentuk biasa: 行って + それから + 食べた, tanpa です/ます.',
+        note_en='All plain: 行って then それから then 食べた, with no です/ます.',
+    ),
+    dict(
+        key='vlong_casual_eat_drink_go', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Ajakan makan lalu pergi',
+        situation_en='Suggesting to eat and then go',
+        pieces=[s('TIME_NONPAST'), s('PLACE_EAT'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('PERSON'), p('と', 'to', 'partikel dengan', 'with (particle)'),
+                s('FOOD'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べて', 'tabete', 'makan (bentuk -te)', 'eat (te-form)'),
+                s('DRINK'), MO,
+                w('飲んで', 'nonde', 'minum (bentuk -te)', 'drink (te-form)'),
+                KARA, s('PLACE_MEET'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行く', 'iku', 'pergi (biasa)', 'go (plain)'),
+                p('ね', 'ne', 'partikel meminta persetujuan', 'agreement particle')],
+        note='ね di akhir melunakkan ajakan panjang jadi terasa mengajak, bukan memerintah.',
+        note_en='The closing ね softens a long suggestion into an invitation.',
+    ),
+    dict(
+        key='vlong_casual_forgot_long', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Lupa, kembali, lalu lanjut',
+        situation_en='Forgot, went back, then continued',
+        pieces=[s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('忘れた', 'wasureta', 'lupa (biasa, lampau)', 'forgot (plain past)'),
+                KARA, s('PLACE_SHOP'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('取り', 'tori', 'mengambil (bentuk sambung)', 'take back (verb stem)'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                MODOTTE, KARA, s('PLACE_MEET'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('行く', 'iku', 'pergi (biasa)', 'go (plain)'),
+                p('ね', 'ne', 'partikel meminta persetujuan', 'agreement particle')],
+        note='Tiga klausa sebab-akibat: 忘れたから, 戻ってから, lalu 行く.',
+        note_en='Three chained clauses: 忘れたから, 戻ってから, then 行く.',
+    ),
+    dict(
+        key='vlong_casual_bought_returned', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Membeli, menyesal, kembali ke toko',
+        situation_en='Bought, regretted, went back to the shop',
+        pieces=[s('TIME_PAST'), s('PLACE_SHOP'),
+                p('で', 'de', 'partikel tempat (di)', 'location particle (at)'),
+                s('OBJECT_BUY'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('買った', 'katta', 'membeli (biasa, lampau)', 'bought (plain past)'),
+                KEDO, w('ちょっと', 'chotto', 'agak / sedikit', 'a bit'),
+                w('高かった', 'takakatta', 'mahal (biasa, lampau)', 'was expensive'),
+                KARA, s('PLACE_SHOP'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('戻った', 'modotta', 'kembali (biasa, lampau)', 'returned (plain past)')],
+        note='けど lalu から: dua hubungan sekaligus dalam satu kalimat panjang.',
+        note_en='けど then から: two relations in one long sentence.',
+    ),
+    dict(
+        key='vlong_casual_listen_see', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Sambil mendengarkan lalu bertemu',
+        situation_en='Listening on the way and then meeting',
+        pieces=[s('TOPIC'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('聞き', 'kiki', 'mendengar (bentuk sambung)', 'listen (verb stem)'),
+                NAGARA, s('OBJECT'),
+                p('を', 'o', 'partikel objek', 'object particle'),
+                w('見て', 'mite', 'melihat (bentuk -te)', 'look at (te-form)'),
+                w('いる', 'iru', 'sedang (biasa)', 'is doing (plain)'),
+                w('と', 'to', 'partikel syarat (ternyata)', 'when / and then (particle)'),
+                s('PERSON'), p('が', 'ga', 'partikel subjek', 'subject particle'),
+                KITA],
+        note='Pola ている + と + が + 来た: sesuatu terjadi saat sedang melakukan hal lain.',
+        note_en='The pattern ている + と + が + 来た: something happened mid-action.',
+    ),
+    dict(
+        key='vlong_casual_when_going_always', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Kebiasaan santai yang selalu dilakukan',
+        situation_en='A casual habit that always happens',
+        pieces=[s('TIME_NONPAST'), s('PLACE'),
+                p('へ', 'e', 'partikel arah (ke)', 'direction particle (to)'),
+                w('行く', 'iku', 'pergi (bentuk kamus)', 'go (dictionary form)'),
+                TOKI, ITSUMO, s('DRINK'),
+                p('を', 'o', 'partikel objek', 'object particle'),
+                w('買って', 'katte', 'membeli (bentuk -te)', 'buy (te-form)'),
+                s('PERSON'), p('に', 'ni', 'partikel tujuan', 'target particle'),
+                w('会う', 'au', 'bertemu (biasa)', 'meet (plain)')],
+        note='Versi biasa dari pola kebiasaan とき + いつも.',
+        note_en='The plain version of the とき with いつも habit pattern.',
+    ),
+    dict(
+        key='vlong_casual_after_eat_ask', who='dekat', politeness='biasa',
+        who_id='teman dekat', who_en='close friend',
+        situation='Menanyakan rencana setelah makan',
+        situation_en='Asking about the plan after eating',
+        pieces=[s('FOOD'), p('を', 'o', 'partikel objek', 'object particle'),
+                w('食べて', 'tabete', 'makan (bentuk -te)', 'eat (te-form)'),
+                KARA, s('TIME_NONPAST'), s('PLACE_MEET'),
+                p('に', 'ni', 'partikel tujuan', 'target particle'),
+                s('PERSON'), p('と', 'to', 'partikel dengan', 'with (particle)'),
+                w('行く', 'iku', 'pergi (biasa)', 'go (plain)'),
+                KEDO, DOU],
+        note='けど + どう di akhir: mengajukan rencana lalu menanyakan pendapat.',
+        note_en='けど with どう at the end: proposes a plan and asks what the other thinks.',
+    ),
+]
+
+TEMPLATES = TEMPLATES + VERY_LONG_TEMPLATES
+
+
 # --------------------------------------------------------------- translations
 # One entry per template: (Indonesian, English, usage note, usage note in English).
 #
@@ -745,6 +1012,64 @@ TRANSLATIONS = {
                                     'While listening to {TOPIC:bare}, I am looking at {OBJECT:my}.',
                                     'ながら menggabungkan dua aksi yang bersamaan.',
                                     'ながら joins two actions done at the same time.'),
+
+    # ---------------------------------------------------------- very long forms
+    'vlong_buy_then_eat': ('{TIME_NONPAST} saya pergi ke {PLACE_SHOP} untuk membeli {OBJECT_BUY:bare}, lalu makan {FOOD:bare} di {PLACE_EAT}.',
+                           '{TIME_NONPAST:bare} I am going to {PLACE_SHOP:the} to buy {OBJECT_BUY:bare}, and then eat {FOOD:bare} at {PLACE_EAT:the}.',
+                           'Dua klausa dirangkai bentuk -te lalu それから, ditutup satu kata kerja sopan.',
+                           'Two clauses joined with the -te form plus それから, closed by one polite verb.'),
+    'vlong_eat_drink_then_go': ('{TIME_NONPAST} saya makan {FOOD:bare} dan minum {DRINK:bare} dengan {PERSON:bare} di {PLACE_EAT}, lalu pergi ke {PLACE_MEET}.',
+                               '{TIME_NONPAST:bare} I eat {FOOD:bare} and drink {DRINK:bare} with {PERSON:my} at {PLACE_EAT:the}, then go to {PLACE_MEET:the}.',
+                               'Tiga aksi berurutan: て, て, lalu てから menandai urutan waktunya.',
+                               'Three actions in order: -te, -te, then -te から marks the sequence.'),
+    'vlong_arrive_call_buy': ('Kalau sudah tiba di {PLACE}, tolong telepon {PERSON:bare}, lalu beli {OBJECT_BUY:bare} di {PLACE_SHOP}.',
+                              'When you arrive at {PLACE:the}, please call {PERSON:my}, then buy {OBJECT_BUY:bare} at {PLACE_SHOP:the}.',
+                              'Empat klausa: たら, てから, lalu てください. Pola instruksi berurutan.',
+                              'Four clauses: たら, then てから, then てください. A sequenced instruction.'),
+    'vlong_when_going_always': ('{TIME_NONPAST} kalau pergi ke {PLACE}, saya selalu membeli {OBJECT_BUY:bare} di {PLACE_SHOP} lalu bertemu {PERSON:bare}.',
+                                '{TIME_NONPAST:bare} when I go to {PLACE:the}, I always buy {OBJECT_BUY:bare} at {PLACE_SHOP:the} and then meet {PERSON:my}.',
+                                'とき + いつも menyatakan kebiasaan; 買って lalu 会います aksi berurutan.',
+                                'とき with いつも states a habit; 買って then 会います is a sequence.'),
+    'vlong_crowded_then_eat': ('{PLACE} sedang penuh, jadi {TIME_NONPAST} saya pergi ke {PLACE_MEET} lalu makan {FOOD:bare} dengan {PERSON:bare}.',
+                               '{PLACE:the} was crowded, so {TIME_NONPAST:bare} I go to {PLACE_MEET:the} and then eat {FOOD:bare} with {PERSON:my}.',
+                               'から menerangkan sebab, 行って + 食べます menyambung akibatnya.',
+                               'から gives the reason; 行って with 食べます links the result.'),
+    'vlong_while_drink_talk_go': ('{TIME_PAST} sambil minum {DRINK:bare} saya bercerita tentang {TOPIC:bare}, lalu pergi ke {PLACE_MEET}.',
+                                  '{TIME_PAST:bare} while drinking {DRINK:bare} I talked about {TOPIC:bare}, then went to {PLACE_MEET:the}.',
+                                  'ながら untuk aksi bersamaan, lalu てから untuk urutan sesudahnya.',
+                                  'ながら for the simultaneous action, then てから for what followed.'),
+    'vlong_search_then_eat': ('{TIME_NONPAST} saya pergi ke {PLACE_SHOP} bersama {PERSON:bare} untuk mencari {OBJECT_BUY:bare}, lalu makan {FOOD:bare}.',
+                              '{TIME_NONPAST:bare} I go to {PLACE_SHOP:the} with {PERSON:my} to look for {OBJECT_BUY:my}, and then eat {FOOD:bare}.',
+                              'Tujuan ganda: 探しに行って (pergi untuk mencari), lalu 食べます.',
+                              'A double purpose: 探しに行って (go in order to look), then 食べます.'),
+    'vlong_casual_buy_then_eat': ('{TIME_PAST} saya pergi ke {PLACE_SHOP} untuk membeli {OBJECT_BUY:bare}, lalu makan {FOOD:bare} di {PLACE_EAT}.',
+                                  '{TIME_PAST:bare} I went to {PLACE_SHOP:the} to buy {OBJECT_BUY:bare}, and then ate {FOOD:bare} at {PLACE_EAT:the}.',
+                                  'Semua bentuk biasa: 行って + それから + 食べた, tanpa です/ます.',
+                                  'All plain: 行って then それから then 食べた, with no です/ます.'),
+    'vlong_casual_eat_drink_go': ('{TIME_NONPAST} makan {FOOD:bare} dan minum {DRINK:bare} dengan {PERSON:bare} di {PLACE_EAT}, lalu pergi ke {PLACE_MEET}, ya.',
+                                  '{TIME_NONPAST:bare} let us eat {FOOD:bare} and drink {DRINK:bare} with {PERSON:my} at {PLACE_EAT:the}, then go to {PLACE_MEET:the}.',
+                                  'ね di akhir melunakkan ajakan panjang jadi terasa mengajak, bukan memerintah.',
+                                  'The closing ね softens a long suggestion into an invitation.'),
+    'vlong_casual_forgot_long': ('Saya lupa {OBJECT_BUY:bare}, jadi saya kembali ke {PLACE_SHOP} untuk mengambilnya, lalu pergi ke {PLACE_MEET}, ya.',
+                                 'I forgot {OBJECT_BUY:my}, so I went back to {PLACE_SHOP:the} to get it, then went to {PLACE_MEET:the}.',
+                                 'Tiga klausa sebab-akibat: 忘れたから, 戻ってから, lalu 行く.',
+                                 'Three chained clauses: 忘れたから, 戻ってから, then 行く.'),
+    'vlong_casual_bought_returned': ('{TIME_PAST} saya membeli {OBJECT_BUY:bare} di {PLACE_SHOP}, tapi agak mahal, jadi saya kembali ke {PLACE_SHOP}.',
+                                     '{TIME_PAST:bare} I bought {OBJECT_BUY:bare} at {PLACE_SHOP:the}, but it was a bit expensive, so I went back to {PLACE_SHOP:the}.',
+                                     'けど lalu から: dua hubungan sekaligus dalam satu kalimat panjang.',
+                                     'けど then から: two relations in one long sentence.'),
+    'vlong_casual_listen_see': ('Saat sedang mendengarkan {TOPIC:bare} dan melihat {OBJECT:bare}, {PERSON} datang.',
+                                'While I was listening to {TOPIC:bare} and looking at {OBJECT:my}, {PERSON:my} came.',
+                                'Pola ている + と + が + 来た: sesuatu terjadi saat sedang melakukan hal lain.',
+                                'The pattern ている + と + が + 来た: something happened mid-action.'),
+    'vlong_casual_when_going_always': ('{TIME_NONPAST} kalau pergi ke {PLACE}, saya selalu membeli {DRINK:bare} lalu bertemu {PERSON:bare}.',
+                                       '{TIME_NONPAST:bare} when I go to {PLACE:the}, I always buy {DRINK:bare} and then meet {PERSON:my}.',
+                                       'Versi biasa dari pola kebiasaan とき + いつも.',
+                                       'The plain version of the とき with いつも habit pattern.'),
+    'vlong_casual_after_eat_ask': ('Setelah makan {FOOD:bare}, {TIME_NONPAST} pergi ke {PLACE_MEET} dengan {PERSON:bare}, bagaimana?',
+                                   'After eating {FOOD:bare}, {TIME_NONPAST:bare} go to {PLACE_MEET:the} with {PERSON:my}, how about it?',
+                                   'けど + どう di akhir: mengajukan rencana lalu menanyakan pendapat.',
+                                   'けど with どう at the end: proposes a plan and asks what the other thinks.'),
 }
 
 SLOT_RE = re.compile(r'\{(\w+)(?::(\w+))?\}')
@@ -841,17 +1166,28 @@ def render_pieces(pieces, choice):
 # The caps are derived from a target rather than typed twice: 26 per short template
 # fixes the short total, and the long cap is whatever makes the long total match, so
 # the list can be interleaved 50/50 and the split is exact by construction.
+LONG_TOKENS = int(__import__('os').environ.get('LANGSENT_LONG_TOKENS', '12'))
+
+
+def template_tokens(template):
+    """How many tokens a template produces: one per piece, slots included."""
+    return len(template['pieces'])
+
+
 def is_long(template):
-    """A template counts as long when its slots make an 8+ token sentence."""
-    fixed = sum(1 for p in template['pieces'] if p[0] in ('w', 'p'))
-    # average word length across its slots
-    slots = [len(CATEGORIES[p[1]]) and 1 for p in template['pieces'] if p[0] == 's']
-    return fixed + len(slots) >= 8
+    """Long means comparable to the example the reader pointed at.
+
+    That sentence is 18 tokens and 42 morae. An earlier version of this function
+    called anything above the shortest template (8 tokens) long, which let the build
+    report "52% long" for sentences whose median was half the example. The threshold
+    is therefore expressed in tokens, not as "more than the little ones".
+    """
+    return template_tokens(template) >= LONG_TOKENS
 
 
 SHORT_TEMPLATES = [t for t in TEMPLATES if not is_long(t)]
 LONG_TEMPLATES = [t for t in TEMPLATES if is_long(t)]
-SHORT_CAP = int(__import__('os').environ.get('LANGSENT_SHORT_CAP', '26'))
+SHORT_CAP = int(__import__('os').environ.get('LANGSENT_SHORT_CAP', '18'))
 LONG_CAP = round(len(SHORT_TEMPLATES) * SHORT_CAP / max(len(LONG_TEMPLATES), 1))
 
 
@@ -874,24 +1210,67 @@ def template_combinations(template):
     return total
 
 
+def _slot_categories(template):
+    return [p[1] for p in template['pieces'] if p[0] == 's']
+
+
+def _combination_at(template, index):
+    """The n-th word combination of a template, without building the ones before it.
+
+    Mixed-radix counting over the slot sizes. This matters: the two largest templates
+    have 90,750 combinations each, and the bank used to enumerate every combination of
+    every template (3.38M sentences) before sampling it, which took about four minutes
+    per call and ran twice per build. Sampling by index touches only what is kept.
+    """
+    cats = _slot_categories(template)
+    sizes = [len(CATEGORIES[c]) for c in cats]
+    digits = [0] * len(sizes)
+    rest = index
+    for k in range(len(sizes) - 1, -1, -1):
+        digits[k] = rest % sizes[k]
+        rest //= sizes[k]
+    return [CATEGORIES[c][d] for c, d in zip(cats, digits)]
+
+
+def _sentences_for(template, cap):
+    """Up to `cap` evenly spaced sentences from one template."""
+    total = template_combinations(template)
+    out = []
+    for i in sample_indices(total, cap):
+        words = _combination_at(template, i)
+        body = render_pieces(template['pieces'], dict(zip(_slot_categories(template), words)))
+        tid, ten, note, note_en = translations_for(template['key'], list(zip(_slot_categories(template), words)))
+        sentence = {
+            'template': template['key'],
+            'who': template['who'],
+            'politeness': template['politeness'],
+            'who_id': template['who_id'],
+            'who_en': template['who_en'],
+            'situation': template['situation'],
+            'situation_en': template['situation_en'],
+            'id_translation': tid,
+            'en_translation': ten,
+            'note': note,
+            'note_en': note_en,
+        }
+        sentence.update(body)
+        out.append(sentence)
+    return out
+
+
 def bank_combinations():
     """The bounded bank the page carries: a sample per template, then interleaved.
 
-    Order matters for the same reason it did before, but now also for length: taking
-    the bank in template order groups the long sentences together, and taking it in
-    plain round-robin gives only ~28% long ones because there are 31 short templates
-    and 12 long ones. So the two families are drawn from separate queues and
-    alternated, which makes the visible list half long and half short.
+    Order matters twice over. In template order the first few hundred cards are one
+    repeated pattern; in plain round-robin only ~28% are long, because there are many
+    more short templates than long ones. So the two families are drawn from separate
+    queues and alternated, which is what makes the visible list half long and half
+    short.
     """
-    per_template = {}
-    for s in all_combinations():
-        per_template.setdefault(s['template'], []).append(s)
-
     short_q, long_q = [], []
     for template in TEMPLATES:
-        rows = per_template.get(template['key'], [])
         cap = LONG_CAP if is_long(template) else SHORT_CAP
-        picked = [rows[i] for i in sample_indices(len(rows), cap)]
+        picked = _sentences_for(template, cap)
         (long_q if is_long(template) else short_q).append(picked)
 
     def interleave(queues):
@@ -902,15 +1281,14 @@ def bank_combinations():
                     out.append(q[i])
         return out
 
-    # round-robin inside each family keeps every template present near the front
     short_stream = interleave(short_q)
     long_stream = interleave(long_q)
-    out = []
+    out, seen = [], set()
     for i in range(max(len(short_stream), len(long_stream))):
-        if i < len(short_stream):
-            out.append(short_stream[i])
-        if i < len(long_stream):
-            out.append(long_stream[i])
+        for stream in (short_stream, long_stream):
+            if i < len(stream) and stream[i]['kanji'] not in seen:
+                seen.add(stream[i]['kanji'])
+                out.append(stream[i])
     return out
 
 

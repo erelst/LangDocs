@@ -36,29 +36,68 @@ from vocab import CATEGORIES  # noqa: E402
 # ------------------------------------------------------------------ 2. tense
 PAST_TIME = {'昨日', '今朝', '先週'}
 NONPAST_TIME = {'明日', '今晩', '来週'}
-PAST_VERB_END = ('ました', 'した', 'だった', 'った', 'いた', 'いだ', 'んだ')
+
+# Where one clause ends and the next begins. A multi-clause sentence may legitimately
+# carry different tenses in different clauses: 駅が混んでいましたから明日行きます
+# ("because the station was crowded, I will go tomorrow") is past in the reason and
+# non-past in the result, and is correct Japanese.
+#
+# An earlier version of this check looked at the sentence as a whole, so once the
+# bank gained clause-chaining templates it produced 226,875 findings that were all
+# false: the checker assumed one tense per sentence, which stopped being true when
+# sentences stopped having one verb.
+CLAUSE_BREAK = {'から', 'けど', 'けれど', 'ので', 'が', 'とき', 'たら', 'ながら',
+                'それから', 'と', 'て', 'で'}
+
+PAST_VERBS = {'行きました', '食べました', '飲みました', '買いました', '会いました',
+              '忘れました', 'ありました', 'いました', 'しました', '着きました',
+              '行った', '会った', '買った', '忘れた', '飲んだ', '食べた', '戻った',
+              '来た', '高かった', '混んでいました'}
+NONPAST_VERBS = {'行きます', '食べます', '飲みます', '会います', 'あります',
+                 'できます', 'ください', '食べる', '飲む', '持ってる', '行く',
+                 '会おう', '戻る', '会う', 'お願いします', '来ます'}
+
+# -te います marks ASPECT (an action in progress), not tense, so it does not have to
+# agree with a time expression the way a past/non-past pair does: 明日は公園で
+# 待っています ("I will be waiting at the park tomorrow") is a planned state, and
+# 今朝は公園で待っていました is the same state in the past. Putting these forms in the
+# past set made the check report them as past-tense verbs, which was my classification
+# error, not a defect in the sentences.
+ONGOING_FORMS = {'待っています', '探しています', '着いています', '持っています'}
+
+
+def clauses(words):
+    """Split a sentence into clauses at the connectives, keeping the connective."""
+    out, current = [], []
+    for w in words:
+        current.append(w)
+        if w in CLAUSE_BREAK and w != 'で':
+            out.append(current)
+            current = []
+    if current:
+        out.append(current)
+    return out
 
 
 def check_tense(sentences):
+    """A time expression must agree with the verb in ITS OWN clause."""
     bad = []
     for s in sentences:
         words = [t[0] for t in s['tokens']]
-        past_time = PAST_TIME & set(words)
-        nonpast_time = NONPAST_TIME & set(words)
-        # ました and 買いました/会いました/待っています are past or ongoing
-        has_past_verb = any(
-            w in ('行きました', '食べました', '飲みました', '買いました', '会いました',
-                  '忘れました', '行った', '会った', '買った', 'いました')
-            for w in words)
-        has_nonpast_verb = any(
-            w in ('行きます', '食べます', '飲みます', '会います', '待っています',
-                  'あります', 'できます', 'ください', '食べる', '飲む', '持ってる',
-                  '行く', '会おう')
-            for w in words)
-        if past_time and has_nonpast_verb:
-            bad.append((s['kanji'], f'past time {sorted(past_time)} with a non-past verb'))
-        if nonpast_time and has_past_verb:
-            bad.append((s['kanji'], f'future time {sorted(nonpast_time)} with a past verb'))
+        for clause in clauses(words):
+            past_time = PAST_TIME & set(clause)
+            nonpast_time = NONPAST_TIME & set(clause)
+            if ONGOING_FORMS & set(clause):
+                # aspect is not tense; a time expression cannot disagree with it
+                continue
+            has_past = bool(PAST_VERBS & set(clause))
+            has_nonpast = bool(NONPAST_VERBS & set(clause))
+            if past_time and has_nonpast and not has_past:
+                bad.append((s['kanji'],
+                            f'past time {sorted(past_time)} with a non-past verb in one clause'))
+            if nonpast_time and has_past and not has_nonpast:
+                bad.append((s['kanji'],
+                            f'future time {sorted(nonpast_time)} with a past verb in one clause'))
     return bad
 
 
@@ -221,7 +260,11 @@ def check_structure(sentences):
 def problems(sentences=None):
     """Every finding, grouped by kind. Empty lists mean the bank is clean."""
     if sentences is None:
-        sentences = G.all_combinations()
+        # The bounded bank, not the full cross-product: 3.4M sentences take minutes to
+        # walk and every template is already represented in what actually ships. The
+        # variable part of a template is which word fills a slot, and that is what the
+        # selection and particle checks cover.
+        sentences = G.bank_combinations()
     return {
         'structure': check_structure(sentences),
         'tense': check_tense(sentences),
@@ -233,7 +276,7 @@ def problems(sentences=None):
 
 
 def main():
-    sentences = G.all_combinations()
+    sentences = G.bank_combinations()
     problems_ = problems(sentences)
     print(f'{len(sentences):,} generated sentences over {len(G.TEMPLATES)} templates\n')
     total = 0

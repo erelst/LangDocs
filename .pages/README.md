@@ -73,11 +73,23 @@ memeriksa makna, dan **build akan berhenti** kalau ada temuan:
 | Pemeriksaan | Contoh yang ditangkap |
 |---|---|
 | struktur | template tanpa terjemahan, slot yang tidak terisi |
-| kala | `昨日` bersanding dengan `食べます` |
+| kala | `昨日` bersanding dengan `食べます` **di klausa yang sama** |
 | partikel | orang tanpa `に`, frame makan tanpa `を` |
 | seleksi | `お金を買いました`, `水を食べます` |
 | bahasa Inggris | `a umbrella`, `the vegetables is`, `every days` |
+| register | kalimat `sopan` tanpa bentuk sopan, dan sebaliknya |
 | makna (daftar pantau) | frame yang hasilnya sering aneh, dicetak untuk ditinjau |
+
+Dua kesalahan di pemeriksa ini muncul saat kalimatnya menjadi panjang, dan keduanya
+kesalahan saya, bukan kesalahan kalimatnya:
+
+* **Kala diperiksa per kalimat, bukan per klausa.** `駅が混んでいましたから明日行きます`
+  ("karena stasiun tadi penuh, besok saya pergi") itu benar: lampau di anak kalimat
+  sebab, non-lampau di klausa utama. Pemeriksa lama melaporkan **226.875 temuan palsu**
+  karena ia menganggap satu kalimat hanya punya satu kala.
+* **Aspek disamakan dengan kala.** `待っています` menandai aksi sedang berlangsung, bukan
+  lampau, jadi `明日は公園で待っています` ("besok saya akan menunggu di taman") sah. Bentuk
+  itu sempat masuk daftar kata lampau, menghasilkan 10 temuan palsu lagi.
 
 Pemeriksa itu sudah diuji balik: kalau kalimat yang diketahui salah disuntikkan,
 ia memang gagal, dan pada data bersih ia lolos.
@@ -155,17 +167,35 @@ terdorong melewati ambang.
 
 ### Kalimat panjang
 
-Bank punya 43 template: 31 pendek (3-7 token) dan 12 panjang (8-18 token), dan
-daftarnya **52% kalimat panjang**. Kalimat panjangnya dibangun dari pola baku, bukan
-dikarang: bentuk sambung + に行く (tujuan), -te + います (sedang), bentuk sambung +
-ながら (sambil), bentuk lampau + ら (kalau), bentuk kamus + とき (saat), -te + から
-(setelah), bentuk biasa + から (sebab), bentuk biasa + けど (pertentangan).
+Bank punya 57 template: 31 pendek dan 26 panjang, dan daftarnya persis **50% kalimat
+panjang**. Kalimat panjangnya dibangun dari pola baku, bukan dikarang: bentuk sambung
++ に行く (tujuan), -te + います (sedang), bentuk sambung + ながら (sambil), bentuk
+lampau + ら (kalau), bentuk kamus + とき (saat), -te + から (setelah), bentuk biasa +
+から (sebab), bentuk biasa + けど (pertentangan), dan それから (lalu).
 
-Dua template panjang punya perkalian kata yang sangat besar (waktu × tempat × orang
-× makanan × minuman = 90.750 kalimat masing-masing). Tanpa batas, banknya jadi
-188.000 kalimat. Jadi tiap template mengambil sampel berjarak seragam dengan jumlah
-tertentu, dan jumlah untuk template panjang dihitung dari target 50/50 — bukan
-diketik dua kali, jadi perbandingannya tetap tepat saat template ditambah.
+**Definisi "panjang" pernah salah dan sudah diperbaiki.** Versi pertama menyebut
+template dengan 8+ token sebagai panjang, lalu melaporkan "52% panjang" untuk kalimat
+yang mediannya **8 token / 18 mora**. Contoh kalimat panjang yang Anda tunjuk adalah
+**18 token / 42 mora**. Jadi ukuran itu memakai ambang yang nyaman, bukan ambang yang
+Anda maksud. Sekarang ambangnya token (12+), dan panjangnya diukur terhadap contoh itu:
+
+| kelompok | jumlah | token (median) | mora (median) |
+|---|---|---|---|
+| panjang (12+ token) | 760 | 14 | 27 |
+| pendek | 734 | 4 | 9 |
+| kurasi | 10 | 4 | 10 |
+
+Angka ini dicetak pada tiap build, jadi klaim panjang bisa diperiksa, bukan dipercaya.
+
+Dua template panjang punya perkalian kata yang sangat besar (waktu × tempat × orang ×
+makanan × minuman = 90.750 kalimat masing-masing). Tanpa batas, banknya jadi 3,38 juta
+kalimat. Jadi tiap template mengambil sampel berjarak seragam, dan jumlah untuk template
+panjang dihitung dari target 50/50, bukan diketik dua kali.
+
+Sampel itu dulu diambil dengan **membangun semua 3,38 juta kalimat** lebih dulu, lalu
+membuang hampir semuanya: 4 menit per panggilan, dan build memanggilnya dua kali. Sekarang
+kombinasi ke-n dihitung langsung (mixed-radix), jadi hanya yang dipakai yang dibuat:
+**0,12 detik**. Ini juga membuat pemeriksa makna turun dari 8 menit ke 0,35 detik.
 
 Warna dan register
 ------------------
