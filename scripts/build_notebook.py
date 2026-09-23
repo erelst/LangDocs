@@ -118,7 +118,7 @@ def gloss_rows(tokens):
 def qpanel(s):
     """The panel revealed by the ? button."""
     return (
-        f'<div class="qpanel" style="position:absolute;right:0;top:42px;'
+        f'<div class="qpanel" style="position:absolute;right:0;top:42px;box-sizing:border-box;'
         f'width:min(88vw,620px);background:{BG_PANEL} !important;color:{TEXT} !important;'
         f'border:1px solid {EDGE_SOFT} !important;border-radius:12px;padding:14px 16px;'
         f'max-height:70vh;overflow:auto;box-shadow:0 16px 40px rgba(0,0,0,.65);'

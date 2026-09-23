@@ -63,16 +63,54 @@ PAGE_JS = r'''
     });
   }
 
+  // On wide screens the panel is anchored under the ? button. Three cases:
+  //   1. it fits below        -> leave it
+  //   2. it fits above only   -> open upwards (.flip)
+  //   3. it fits neither      -> use the larger side and clamp the height, so the
+  //                              panel scrolls internally instead of leaving the screen
+  // On narrow or short screens it is a centred modal, so there is nothing to do.
+  function place(d) {
+    var panel = d.querySelector('.qpanel');
+    if (!panel) { return; }
+    d.classList.remove('flip');
+    panel.style.maxHeight = '';
+    if (getComputedStyle(panel).position !== 'absolute') { return; }
+
+    var sr = d.querySelector('summary').getBoundingClientRect();
+    var needed = panel.scrollHeight;
+    var below = window.innerHeight - sr.bottom - 14;
+    var above = sr.top - 14;
+    var limit = window.innerHeight * 0.7;
+
+    if (needed <= below) { return; }
+    if (needed <= above) { d.classList.add('flip'); return; }
+
+    if (below >= above) {
+      panel.style.maxHeight = Math.max(140, Math.min(limit, below)) + 'px';
+    } else {
+      d.classList.add('flip');
+      panel.style.maxHeight = Math.max(140, Math.min(limit, above)) + 'px';
+    }
+  }
+
   panels.forEach(function (d) {
     var card = d.closest('.jp-sent');
     d.addEventListener('toggle', function () {
       if (d.open) {
         closeAll(d);                 // only one open at a time
         card.classList.add('is-open');   // lift this card above the others
+        place(d);
       } else {
         card.classList.remove('is-open');
+        d.classList.remove('flip');
       }
     });
+  });
+
+  // keep an open panel inside the viewport when the window is resized/rotated
+  window.addEventListener('resize', function () {
+    var open = panels.filter(function (d) { return d.open; })[0];
+    if (open) { place(open); }
   });
 
   // click outside any ? control closes the open panel
@@ -315,6 +353,11 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
   .jp-sent .qdet > summary {{ transition: transform .12s ease, border-color .12s ease; }}
   .jp-sent .qdet:hover > summary {{ transform: scale(1.08); border-color: #f8fafc; }}
   .jp-sent .qdet[open] > summary {{ border-color: #f59e0b; }}
+  /* when there is no room below, the panel opens upwards instead */
+  .jp-sent .qdet.flip > .qpanel {{
+    top: auto !important;
+    bottom: 42px;
+  }}
   .jp-sent .tk {{ border-radius: 3px; }}
   .jp-sent .tk:hover {{ background: rgba(56, 189, 248, .18); }}
 
@@ -323,6 +366,35 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
   #empty {{
     border: 1px dashed {B.EDGE_SOFT}; border-radius: 12px; padding: 26px 18px;
     text-align: center; color: {B.TEXT_DIM}; font-size: 14px;
+  }}
+
+  @media (max-width: 520px), (max-height: 520px) {{
+    /* The anchored panel runs off the left and bottom edges on narrow screens,
+       and off the bottom on short ones (landscape phones). In both cases it
+       becomes a centred, fully on-screen modal instead. */
+    .jp-sent .qpanel {{
+      box-sizing: border-box !important;   /* width must include padding+border */
+      position: fixed !important;
+      top: 50% !important;
+      bottom: auto !important;
+      left: 50% !important;
+      right: auto !important;
+      transform: translate(-50%, -50%);
+      width: calc(100vw - 24px) !important;
+      max-width: none !important;
+      max-height: 78vh !important;
+      border-radius: 14px !important;
+    }}
+    /* dim the page behind the modal, so it reads as a modal and tapping
+       anywhere outside closes it */
+    .jp-sent.is-open::before,
+    .jp-sent:has(details[open])::before {{
+      content: ""; position: fixed; inset: 0; background: rgba(2, 6, 23, .72);
+      z-index: 399;
+    }}
+    /* keep the open card's own ? button above the dim layer */
+    .jp-sent.is-open .qdet,
+    .jp-sent:has(details[open]) .qdet {{ z-index: 401; }}
   }}
 
   @media (max-width: 420px) {{
