@@ -96,7 +96,7 @@ ia memang gagal, dan pada data bersih ia lolos.
 
 ### Berapa banyak yang dikirim, dan kenapa tidak semua sekaligus
 
-Seluruh bank sekarang dikirim: **1.583 kalimat**. Tapi tidak semuanya jadi kartu di
+Seluruh bank sekarang dikirim: **1.504 kalimat**. Tapi tidak semuanya jadi kartu di
 DOM sekaligus.
 
 Kalau semua kartu ditulis ke HTML, halaman ini jadi 10 MB dan ~75.000 node, dan
@@ -108,16 +108,19 @@ Jadi sekarang:
 
 * **30 kartu pertama** ditulis ke HTML, supaya halaman tetap punya isi nyata sebelum
   skrip jalan (dan tetap terbaca kalau JS mati)
-* **seluruh 1.583 kalimat** dikirim sebagai data ringkas di dalam halaman
+* **seluruh 1.504 kalimat** dikirim sebagai data ringkas di dalam halaman
 * kartu berikutnya dibuat JS saat scroll mendekati bawah
 
-Hasilnya, pada 1.583 kalimat:
+Hasilnya, pada 1.504 kalimat (keduanya diukur, bukan diperkirakan:
 
 | | semua di HTML | 30 statis + data |
 |---|---|---|
-| ukuran file | 10,1 MB | **1,38 MB** |
-| node saat dibuka | ~75.000 | **2.049** |
-| waktu render | 4,9 s | **2,7 s** |
+| ukuran file | 18,19 MB | **1,72 MB** |
+| node saat dibuka | 137.697 | **2.427** |
+| node setelah discroll sampai bawah | 137.697 | bertambah bertahap |
+
+Angka "semua di HTML" naik dari 10,1 MB ke 18,19 MB karena separuh kalimatnya kini
+jauh lebih panjang, jadi tiap kartu lebih besar.
 
 Yang dibuang bukan kalimatnya, hanya biaya menatanya. Menaikkan jumlah kartu statis
 lewat `LANGSENT_FIRST=200 python3 scripts/build_page.py`.
@@ -217,7 +220,7 @@ Kendali di halaman
 * **Romaji** — menyalakan/mematikan baris romaji. Baris kanji tidak ikut disembunyikan,
   dan garis bawah tidak diubah.
 * **Judul dan hitungan** kini dua bahasa: "Kalimat Jepang Sehari-hari / Everyday
-  Japanese Sentences" dan "1583 kalimat / sentences".
+  Japanese Sentences" dan "1504 kalimat / sentences".
 
 Karena isian gelap tidak bisa jauh dari kartu yang juga gelap (hanya 1.05:1),
 pemisah yang sebenarnya terlihat adalah **garis tepi panel** `#4a5a72` (2.67:1
