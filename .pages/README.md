@@ -38,14 +38,18 @@ Kalau salah satu terlalu terang atau terlalu gelap di layarmu, ubah di
 kalau jaraknya kurang dari 1.30:1 atau teksnya di bawah 7:1, jadi tidak bisa
 diam-diam jadi tidak terbaca.
 
-Register (kepada siapa kalimat dipakai) dibedakan lewat warna, bukan label:
+Register (kepada siapa kalimat dipakai) dibedakan **di dalam panel saja**. Di luar,
+semua blok tampil seragam: tombol `?` dan garis kiri kartu warnanya sama untuk
+semua kalimat. Begitu sebuah blok dibuka, panelnya menampilkan:
 
-  * hijau  `#86efac` = dekat / akrab
-  * kuning `#fcd34d` = orang asing / petugas
+  * chip `tetangga` / `orang asing` / `petugas toko` / `teman dekat` / `teman`,
+    berwarna hijau `#86efac` (dekat) atau kuning `#fcd34d` (asing / petugas)
+  * chip `sopan` / `biasa`
+  * satu baris keterangan situasi dalam bahasa Inggris
 
-Warna itu muncul di tombol `?` dan garis kiri kartu, lalu di dalam panel ada chip
-`tetangga` / `orang asing` plus chip `sopan` / `biasa`. Kartunya sendiri tetap
-hanya kanji + romaji + `?`, sesuai permintaan sebelumnya.
+Jadi bloknya tetap hanya kanji + romaji + `?`, dan pembedaan register muncul saat
+panel dibuka. Kalau ada blok yang warnanya beda di daftar, itu bug: verifikasi
+memang mengecek semua tombol `?` dan semua garis kartu harus satu warna.
 
 Kalimat yang saat ini terdaftar: 1 tetangga, 2 orang asing, 3 petugas toko, 4
 teman dekat, 5 orang yang sudah akrab, 6 teman. Semuanya akrab kecuali nomor 2
