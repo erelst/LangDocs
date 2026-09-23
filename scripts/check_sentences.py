@@ -141,10 +141,13 @@ FOOD_AND_DRINK = {
     '弁当', 'お菓子', 'チョコレート', 'ケーキ', 'アイスクリーム', '水', 'お茶',
     'コーヒー', 'ジュース', 'ビール', '牛乳', 'ワイン', '味噌汁',
 }
+# Verbs that need an を-marked object. 持って / 持ちます are deliberately absent: 持って
+# almost always appears inside 持ってくる / 持っていく ("bring" / "take"), where the object
+# is not marked by the を next to 持って, so demanding one there flagged a correct sentence.
 OBJECTS_WITH_O = {'買う', '買います', '買いました', '買った', '食べます', '食べました',
                   '食べる', '食べた', '飲みます', '飲みました', '飲む', '飲んだ',
-                  '使います', '使って', '持ちます', '持って', '送ります', '送りました',
-                  '作ります', '作りました'}
+                  '使います', '使って', '送ります', '送りました',
+                  '作ります', '作りました', '注文します', '頼みます'}
 
 
 # A person noun followed by a verb with no particle between them is the error this check
