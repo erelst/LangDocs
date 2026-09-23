@@ -46,7 +46,7 @@ def hand_written():
 def generated():
     """The generated bank, already checked by check_sentences.py."""
     out = []
-    for s in generate.ordered_combinations():
+    for s in generate.bank_combinations():
         s['origin'] = 'generated'
         out.append(s)
     return out

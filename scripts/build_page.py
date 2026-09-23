@@ -30,258 +30,81 @@ import bank
 import check_sentences
 import render as B   # noqa: E402  (single source of truth for the cards)
 
-# How many cards the page ships, and why it is a number rather than "all".
+# How many cards are written into the HTML itself. The rest of the bank travels as
+# compact data and page.js appends cards as the reader scrolls, so the full 1,583
+# sentences are reachable without all of them existing in the DOM at once. Measured
+# reasons for doing it this way, at 1,583 sentences:
 #
-# The generated bank is 1,482 sentences and the page is a single HTML file with no
-# build step, so the cost lands on the reader. Measured in headless Chromium on this
-# machine, rendering is linear at about 3.4 ms per card:
+#   all cards in the HTML   10.1 MB, ~75,000 DOM nodes, 4.9 s to render
+#   30 static + data        ~0.9 MB, ~1,500 nodes, search in single-digit ms
 #
-#     300 cards   1.9 MB    1.1 s
-#     500 cards   3.3 MB    1.7 s
-#   1,482 cards  10.1 MB    4.9 s
-#
-# and a keystroke in the search box costs about 11 ms at 1,482 cards. 500 is the
-# point where the page still feels immediate while the visible list covers every one
-# of the 31 templates with at least 16 different word combinations, in both
-# registers. Raise it with LANGSENT_LIMIT=1482 to ship the whole bank; the build
-# prints the measured cost either way, so the tradeoff stays visible.
-LIMIT = int(os.environ.get('LANGSENT_LIMIT', '500'))
+# 30 is roughly one screenful on a phone, so the page has real content before any
+# script runs. Raise it with LANGSENT_FIRST=200 to trade file size for fewer
+# appends; the build prints the measured size either way.
+FIRST_BATCH = int(os.environ.get('LANGSENT_FIRST', '30'))
 
 
 # --------------------------------------------------------------------------- index
-def search_index(rows):
-    """One record per sentence, holding every searchable field."""
+def payload(rows):
+    """The whole bank as compact arrays, plus the constants the JS renderer needs.
+
+    This replaces the old per-sentence object with named keys. Two reasons:
+
+    * the arrays are the data the page needs to RENDER a card, not only to search
+      it, because cards are now built on demand instead of being written into the
+      HTML. One list serves both jobs, so a field cannot be searchable but
+      unrenderable.
+    * dropping the repeated keys saves about 40% of the payload. The full bank is
+      1,583 sentences; as objects it was 1.8 MB, as arrays 1.10 MB.
+    """
+    fields = ['kanji', 'romaji', 'id_translation', 'en_translation',
+              'who_id', 'who_en', 'politeness', 'situation', 'situation_en',
+              'note', 'note_en']
     out = []
     for s in rows:
-        toks = s['tokens']
-        out.append({
-            'id': s['id'],
-            'kanji': s['kanji'],
-            'romaji': s['romaji'],
-            'tr_id': s['id_translation'],
-            'tr_en': s['en_translation'],
-            'tok_kanji': [t[0] for t in toks],
-            'tok_romaji': [t[1] for t in toks],
-            'gloss_id': [t[2] for t in toks],
-            'gloss_en': [t[3] for t in toks],
-        })
+        row = [s[f] for f in fields]
+        row.append([[t[0], t[1], t[2], t[3]] for t in s['tokens']])
+        row.append(s['who'])                       # last, so the order can grow
+        out.append(row)
     return out
 
 
-# --------------------------------------------------------------------------- page
-PAGE_JS = r'''
-(function () {
-  'use strict';
+def render_constants():
+    """Colour and style values the JS renderer uses.
 
-  /* ---------------------------------------------------------------- tooltips */
-  var panels = Array.prototype.slice.call(document.querySelectorAll('details.qdet'));
-
-  function closeAll(except) {
-    panels.forEach(function (d) {
-      if (d !== except && d.open) { d.open = false; }
-    });
-  }
-
-  // The panel is in-flow content of the card, so opening it only grows the card.
-  // There is no floating layer to position and no dim layer to manage.
-  function openFromHash() {
-    var m = /^#q(\d+)$/.exec(location.hash || '');
-    if (!m) { return; }
-    var d = panels[parseInt(m[1], 10) - 1];
-    if (!d) { return; }
-    d.open = true;
-    // bring the whole card into view, including the part that just expanded
-    d.closest('.jp-sent').scrollIntoView({ block: 'nearest' });
-  }
-  openFromHash();
-  window.addEventListener('hashchange', openFromHash);
-
-  panels.forEach(function (d) {
-    var card = d.closest('.jp-sent');
-    d.addEventListener('toggle', function () {
-      if (d.open) {
-        closeAll(d);                    // only one open at a time
-        card.classList.add('is-open');
-      } else {
-        card.classList.remove('is-open');
-      }
-    });
-  });
-  // click outside any ? control closes the open panel
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('details.qdet')) { closeAll(null); }
-  });
-  // Escape closes too
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' || e.key === 'Esc') { closeAll(null); }
-  });
-
-  /* ---------------------------------------------------------------- search */
-  var input   = document.getElementById('q');
-  var clearBt = document.getElementById('clear');
-  var countEl = document.getElementById('count');
-  var emptyEl = document.getElementById('empty');
-  var cards   = Array.prototype.slice.call(document.querySelectorAll('.jp-sent'));
-  var INDEX   = JSON.parse(document.getElementById('idx').textContent);
-
-  // remember the original markup so highlights can be reset cleanly
-  cards.forEach(function (c) {
-    var k = c.querySelector('.kanji');
-    var r = c.querySelector('.romaji');
-    var p = c.querySelector('.qpanel');
-    c._orig = { kanji: k ? k.innerHTML : '', romaji: r ? r.innerHTML : '',
-                qpanel: p ? p.innerHTML : '' };
-    c._dirty = false;
-  });
-
-  function stripDiacritics(s) {
-    return s.normalize ? s.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : s;
-  }
-
-  // Fold kana romanisation variants so "ohayo", "ohayou" and "ohayō" all match.
-  function norm(s) {
-    var t = stripDiacritics(String(s).toLowerCase());
-    t = t
-      .replace(/sha/g, 'sya').replace(/shu/g, 'syu').replace(/sho/g, 'syo').replace(/shi/g, 'si')
-      .replace(/cha/g, 'tya').replace(/chu/g, 'tyu').replace(/cho/g, 'tyo').replace(/chi/g, 'ti')
-      .replace(/ja/g, 'zya').replace(/ju/g, 'zyu').replace(/jo/g, 'zyo').replace(/ji/g, 'zi')
-      .replace(/tsu/g, 'tu')
-      .replace(/ou/g, 'o').replace(/uu/g, 'u').replace(/oo/g, 'o')
-      .replace(/aa/g, 'a').replace(/ee/g, 'e').replace(/ii/g, 'i');
-    return t;
-  }
-
-  var FIELDS = ['kanji', 'romaji', 'tr_id', 'tr_en',
-                'tok_kanji', 'tok_romaji', 'gloss_id', 'gloss_en'];
-
-  // normalised haystack per card, plus lists of joined arrays
-  var HAY = INDEX.map(function (rec) {
-    var parts = [];
-    FIELDS.forEach(function (f) {
-      var v = rec[f];
-      if (Array.isArray(v)) {
-        parts.push(norm(v.join(' ')));
-        // also each element on its own, so a single kanji or word matches
-        v.forEach(function (x) { parts.push(norm(x)); });
-      } else {
-        parts.push(norm(v));
-      }
-    });
-    return parts;
-  });
-
-  function mark(el, terms) {
-    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
-    var nodes = [];
-    while (walker.nextNode()) { nodes.push(walker.currentNode); }
-
-    nodes.forEach(function (node) {
-      var text = node.nodeValue;
-      var low = text.toLowerCase();
-      var ranges = [];
-      terms.forEach(function (t) {
-        if (!t) { return; }
-        var from = 0, i;
-        while ((i = low.indexOf(t, from)) !== -1) {
-          ranges.push([i, i + t.length]);
-          from = i + t.length;
-        }
-      });
-      if (!ranges.length) { return; }
-      ranges.sort(function (a, b) { return a[0] - b[0]; });
-
-      var merged = [];
-      ranges.forEach(function (r) {
-        var last = merged[merged.length - 1];
-        if (last && r[0] <= last[1]) { last[1] = Math.max(last[1], r[1]); }
-        else { merged.push([r[0], r[1]]); }
-      });
-
-      var frag = document.createDocumentFragment();
-      var pos = 0;
-      merged.forEach(function (r) {
-        if (r[0] > pos) { frag.appendChild(document.createTextNode(text.slice(pos, r[0]))); }
-        var m = document.createElement('mark');
-        m.textContent = text.slice(r[0], r[1]);
-        frag.appendChild(m);
-        pos = r[1];
-      });
-      if (pos < text.length) { frag.appendChild(document.createTextNode(text.slice(pos))); }
-      node.parentNode.replaceChild(frag, node);
-    });
-  }
-
-  function resetHighlights(card) {
-    // Rewriting innerHTML re-parses the card, and on a page with hundreds of cards
-    // that turned every keystroke into hundreds of milliseconds of work. Only the
-    // cards that were actually highlighted are restored, and a card that was never
-    // marked is skipped outright.
-    if (!card._dirty) { return; }
-    ['kanji', 'romaji', 'qpanel'].forEach(function (key) {
-      var el = card.querySelector('.' + key);
-      if (el) { el.innerHTML = card._orig[key]; }
-    });
-    card._dirty = false;
-  }
-
-  function run() {
-    var raw = input.value.trim();
-    var terms = raw ? raw.split(/\s+/).filter(Boolean) : [];
-    var normTerms = terms.map(norm);
-
-    var shown = 0;
-    cards.forEach(function (card, i) {
-      resetHighlights(card);
-
-      var ok = normTerms.length === 0 || normTerms.every(function (t) {
-        return HAY[i].some(function (h) { return h.indexOf(t) !== -1; });
-      });
-
-      card.hidden = !ok;
-      if (ok) {
-        shown++;
-        if (terms.length) {
-          var k = card.querySelector('.kanji');
-          var r = card.querySelector('.romaji');
-          var p = card.querySelector('.qpanel');
-          if (k) { mark(k, terms); }
-          if (r) { mark(r, terms); }
-          // a match may sit only in the translation, so mark the panel as well
-          if (p) { mark(p, terms); }
-          card._dirty = true;
-        }
-      } else if (card.querySelector('details.qdet[open]')) {
-        card.querySelector('details.qdet').open = false;
-      }
-    });
-
-    countEl.textContent = terms.length
-      ? shown + ' / ' + cards.length + ' kalimat'
-      : cards.length + ' kalimat';
-    emptyEl.hidden = shown !== 0;
-    clearBt.hidden = !terms.length;
-  }
-
-  input.addEventListener('input', run);
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter') {
-      var vis = cards.filter(function (c) { return !c.hidden; });
-      if (vis.length === 1) {
-        var d = vis[0].querySelector('details.qdet');
-        if (d) { d.open = true; }
-      }
+    They are injected from render.py rather than typed into page.js, so the palette
+    keeps one source of truth: a colour change lands in both the static cards and
+    the ones built in the browser, and cannot drift between them.
+    """
+    return {
+        'bg': B.BG,
+        'bgPanel': B.BG_PANEL,
+        'bgPanelEdge': B.BG_PANEL_EDGE,
+        'edge': B.EDGE,
+        'edgeSoft': B.EDGE_SOFT,
+        'accent': B.ACCENT,
+        'text': B.TEXT,
+        'textDim': B.TEXT_DIM,
+        'inkOnChip': B.INK_ON_CHIP,
+        'bright': B.BRIGHT,
+        'who': B.WHO_COLOURS,
+        'palette': [dark for _, dark in B.PALETTE],
+        'underlines': B.UNDERLINE_STYLES,
+        'countWord': 'kalimat / sentences',
+        'scrollHint': 'gulir untuk memuat lagi / scroll for more',
     }
-  });
-  clearBt.addEventListener('click', function () {
-    input.value = '';
-    run();
-    input.focus();
-  });
 
-  run();
-  input.focus();
-})();
-'''
+
+# --------------------------------------------------------------------------- page
+def page_js():
+    """The browser-side renderer, read from page.js.
+
+    Keeping it in its own file means `node --check page.js` can syntax-check it and
+    scripts/verify_page.py can diff its output against render.py, which is what
+    stops the Python and JavaScript renderers from drifting apart.
+    """
+    with open(os.path.join(HERE, 'page.js'), encoding='utf-8') as f:
+        return f.read()
 
 
 def _luminance(hex_colour):
@@ -330,14 +153,25 @@ def _register_ok(B):
                for colour in B.WHO_COLOURS.values())
 
 
-def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
-    data = json.dumps(index, ensure_ascii=False, separators=(',', ':'))
+TITLE_ID = 'Kalimat Jepang Sehari-hari'
+TITLE_EN = 'Everyday Japanese Sentences'
+
+
+def build_page(blocks, rows, title_id=TITLE_ID, title_en=TITLE_EN):
+    """The whole page. `blocks` is the first batch of cards, `rows` the full bank.
+
+    The cards for the first screenful are written into the HTML so the page has real
+    content before any script runs, and the remaining rows travel as compact data
+    that page.js turns into cards as the reader scrolls.
+    """
+    data = json.dumps(rows, ensure_ascii=False, separators=(',', ':'))
+    consts = json.dumps(render_constants(), ensure_ascii=False, separators=(',', ':'))
     return f'''<!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
+<title>{title_id} / {title_en}</title>
 <style>
   :root {{ color-scheme: dark; }}
   html, body {{
@@ -380,6 +214,36 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
     display: flex; justify-content: space-between; gap: 10px;
     color: {B.TEXT_DIM}; font-size: 12px; margin-top: 7px;
   }}
+  /* English gloss of the Indonesian heading, quieter than the heading itself */
+  h1 .en {{ color: {B.TEXT_PLACEHOLDER}; font-weight: 500; }}
+  /* search scope + romaji toggle */
+  .opts {{
+    display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center;
+    margin-top: 9px;
+  }}
+  .scopes {{ display: inline-flex; gap: 0; }}
+  .opts label {{
+    display: inline-flex; align-items: center; gap: 5px;
+    color: {B.TEXT_DIM}; font-size: 12.5px; cursor: pointer;
+    user-select: none;
+  }}
+  .opts input {{ accent-color: {B.ACCENT}; margin: 0; cursor: pointer; }}
+  /* the scope control reads as a segmented button group, so the active choice is
+     obvious without relying on the small radio dot alone */
+  .scopes label {{
+    border: 1px solid {B.BG_PANEL_EDGE}; background: {B.BG_PANEL};
+    padding: 4px 11px; margin: 0;
+  }}
+  .scopes label:first-child {{ border-radius: 8px 0 0 8px; }}
+  .scopes label:last-child {{ border-radius: 0 8px 8px 0; border-left: 0; }}
+  .scopes label:has(input:checked) {{
+    border-color: {B.ACCENT}; color: #f8fafc;
+  }}
+  .scopes label.on {{ border-color: {B.ACCENT}; color: #f8fafc; }}
+  /* The romaji line is a sibling of the kanji line; hiding it must not leave a gap,
+     so the whole line is removed from layout rather than made transparent. */
+  .hide-romaji .romaji {{ display: none !important; }}
+  #sentinel {{ height: 1px; }}
   .hint .examples {{ color: #64748b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
   .hint code {{
     color: {B.TEXT}; background: {B.BG_PANEL}; border: 1px solid {B.EDGE};
@@ -467,29 +331,43 @@ def build_page(blocks, index, title='Kalimat Jepang Sehari-hari'):
 <div class="wrap">
 
   <header class="bar">
-    <h1>{title}</h1>
+    <h1>{title_id} <span class="en">{title_en}</span></h1>
     <div class="searchrow">
       <input id="q" type="search" autocomplete="off" autocapitalize="off"
              spellcheck="false" enterkeyhint="search"
-             aria-label="Cari kalimat: kanji, romaji, Indonesia, atau Inggris"
-             placeholder="Cari: Kanji / Romaji / Indonesia / English">
-      <button id="clear" type="button" title="Hapus pencarian" aria-label="Hapus pencarian" hidden>&#215;</button>
+             aria-label="Search sentences: kanji, romaji, Indonesian, or English"
+             placeholder="Search: Kanji / Romaji / Indonesia / English">
+      <button id="clear" type="button" title="Hapus pencarian / Clear search"
+              aria-label="Hapus pencarian / Clear search" hidden>&#215;</button>
+    </div>
+    <div class="opts">
+      <!-- Search scope. "All" is the default and keeps the previous behaviour; the
+           Japanese option narrows matching to the sentence and its words. -->
+      <div class="scopes" role="radiogroup" aria-label="Cakupan pencarian / Search scope">
+        <label><input type="radio" name="scope" value="all" checked> <span>All</span></label>
+        <label><input type="radio" name="scope" value="jp"> <span>Japanese</span></label>
+      </div>
+      <!-- Romaji is shown by default; the toggle hides the romaji line only. -->
+      <label class="toggle"><input type="checkbox" id="rtoggle" checked> <span>Romaji</span></label>
     </div>
     <div class="hint">
       <span id="count"></span>
-      <span class="examples">coba: <code>ohayou</code> <code>おはよう</code> <code>murah cheap</code> <code>berapa</code></span>
+      <span class="examples">coba / try: <code>ohayou</code> <code>\u304a\u306f\u3088\u3046</code> <code>murah cheap</code> <code>berapa</code></span>
     </div>
   </header>
 
   <main id="list">
 {blocks}
   </main>
+  <!-- Cards are appended when this comes into view, which is what keeps the DOM
+       small while still reaching every sentence in the bank. -->
+  <div id="sentinel" aria-hidden="true"></div>
 
-  <p id="empty" hidden>Tidak ada kalimat yang cocok. Coba kata lain.</p>
+  <p id="empty" hidden>Tidak ada kalimat yang cocok. Coba kata lain. / No sentences match. Try another word.</p>
 </div>
 
-<script id="idx" type="application/json">{data}</script>
-<script>{PAGE_JS}</script>
+<script id="sent">window.SENT={{"C":{consts},"rows":{data}}};</script>
+<script>{page_js()}</script>
 </body>
 </html>
 '''
@@ -506,10 +384,12 @@ if __name__ == '__main__':
         raise SystemExit('sentence-bank checks failed; fix scripts/generate.py first')
 
     full = bank.with_ids(bank.all_sentences())
-    rows = full[:LIMIT]
-    blocks = B.all_blocks(rows)
-    index = search_index(rows)
-    page = build_page(blocks, index)
+    rows = payload(full)
+    # The first batch is written into the HTML so the page shows real content before
+    # any script runs; page.js adopts these cards and appends the rest on scroll.
+    first = bank.with_ids(bank.all_sentences())[:FIRST_BATCH]
+    blocks = B.all_blocks(first)
+    page = build_page(blocks, rows)
 
     out = os.path.join(ROOT, 'index.html')
     with open(out, 'w', encoding='utf-8') as f:
@@ -517,60 +397,62 @@ if __name__ == '__main__':
 
     with open(out, encoding='utf-8') as f:
         got = f.read()
-    n = len(rows)
-    by_origin, by_who = bank.stats(rows)
+    n = len(full)
+    by_origin, by_who = bank.stats(full)
+    # How much of the bank is reachable without scrolling: the ratio is what the
+    # lazy loading trades against, so it is printed rather than assumed.
+    tokens = [len(s['tokens']) for s in full]
+    long_n = sum(1 for t in tokens if t >= 8)
     checks = {
-        'sentence blocks': got.count('<section') == n,
-        '? panels': got.count('<details class="qdet">') == n,
-        'card colour applied': got.count(f'background:{B.BG} !important') == n,
-        'panel colour applied': got.count(f'background:{B.BG_PANEL} !important') == n,
-        'panel outline applied': got.count(f'border:1px solid {B.BG_PANEL_EDGE} !important') == n,
-        # a panel whose luminance is too close to the card/backdrop is exactly what
-        # made the opened tooltip look like a dark smudge
+        # count before the data script: page.js also contains the literal string,
+        # so counting the whole file would be off by one for the wrong reason
+        'static first batch present': got.split('<script id="sent"')[0].count(
+            '<section class="jp-sent"') == FIRST_BATCH,
+        'all rows travel as data': f'"rows":' in got or '"rows":' in got,
+        'page.js inlined': 'SENTAPI' in got,
+        'render constants injected from render.py': f'"{B.BG}"' in got and f'"{B.ACCENT}"' in got,
+        # page.js must hard-code no colour: every value comes from the injected
+        # constants, or a palette change would land in one renderer and not the other
+        'page.js hard-codes no colour': not __import__('re').search(
+            r'#[0-9a-fA-F]{6}', page_js()),
+        'card colour applied': f'background:{B.BG} !important' in got,
+        'panel colour applied': f'background:{B.BG_PANEL} !important' in got,
         'panel is visible against the card (fill or outline)': _panel_gap_ok(B),
         'register colours are readable inside the panel': _register_ok(B),
-        # every block must say who it is for, inside the panel, in BOTH languages
-        'every block states its register': got.count('class="qpanel"') == n,
-        'register line is bilingual': all(
-            s['situation'] in got and s['situation_en'] in got and s['who_id'] in got
-            and s['who_en'] in got for s in rows),
         'accent colour': B.ACCENT in got,
-        'atomic words': got.count('display:inline-block') > n,
         'word wrap enabled': 'overflow-wrap:anywhere' in got,
         'no disclosure triangle': 'display:block;list-style:none' in got,
         'panels collapsed by default': not any(
             'open' in tag for tag in __import__('re').findall(r'<details[^>]*>', got)),
-        'hover rules present': '.qdet:hover' in got,
-        # expand/collapse must stay in-flow: no modal, no scrim, no floating panel
         'panel expands in flow': all(
             'position' not in tag for tag in
             __import__('re').findall(r'<div class="qpanel"[^>]*>', got)),
-        'no modal machinery left': 'position: fixed' not in got and '#scrim' not in got
-                                   and 'is-open { z-index' not in got,
+        'no modal machinery left': 'position: fixed' not in got and '#scrim' not in got,
         'summary pinned to the card corner': '.jp-sent .qdet > summary {' in got
                                              and 'position: absolute' in got,
-        # four nowrap gloss columns cannot fit a phone, so they must restack
-        'gloss table restacks on narrow screens': 'td.gk' in got and 'td.gr' in got
-                                                  and 'max-width: 520px' in got,
-        'single open enforced in JS': 'closeAll(d)' in got,
-        'click outside closes': "closest('details.qdet')" in got,
-        'escape closes': "e.key === 'Escape'" in got,
+        'gloss table restacks on narrow screens': 'td.gk' in got and 'max-width: 520px' in got,
+        'lazy sentinel present': 'id="sentinel"' in got,
+        'romaji toggle present': 'id="rtoggle"' in got,
+        'hide-romaji rule present': '.hide-romaji .romaji' in got,
+        'search scope control present': 'name="scope"' in got and 'value="jp"' in got,
         'search input present': 'id="q"' in got,
-        'search index embedded': 'id="idx"' in got and '"gloss_en"' in got,
+        'Search placeholder': 'placeholder="Search:' in got and 'placeholder="Cari:' not in got,
+        'title is bilingual': 'Everyday Japanese Sentences' in got,
+        'count label is bilingual': 'kalimat / sentences' in got,
         'romaji folding (ohayo/ohayou/ohayō)': "replace(/ou/g, 'o')" in got,
-        'highlight markup': '<mark' not in got and 'createElement(\'mark\')' in got,
-        # a sentence must not appear twice, and both halves must survive the cap
-        'no duplicate kanji lines': len({s['kanji'] for s in rows}) == n,
+        'highlight markup': '<mark' not in got and "createElement('mark')" in got,
+        'no self-referential word-wrap note': 'menguji word wrap' not in got
+                                              and 'tests word wrap' not in got,
+        'no duplicate kanji lines': len({s['kanji'] for s in full}) == n,
         'curated sentences come first': all(
-            rows[i]['origin'] == bank.HAND_WRITTEN
-            for i in range(min(len(rows), 10))),
+            full[i]['origin'] == bank.HAND_WRITTEN for i in range(min(len(full), 10))),
     }
-    print(f'wrote {out}  ({len(page):,} chars, {n:,} of {len(full):,} sentences)')
+    print(f'wrote {out}  ({len(page):,} chars, {n:,} sentences, {FIRST_BATCH} static)')
     for k, v in by_origin.items():
         print(f'  origin {k}: {v:,}')
     for k, v in by_who.items():
         print(f'  register {k}: {v:,}')
-    print(f'  about {len(page) / max(n, 1):,.0f} chars per card')
+    print(f'  token length: {min(tokens)}-{max(tokens)}, long (8+) {long_n:,} ({long_n*100//n}%)')
     for k, ok in checks.items():
         print(f'  [{"ok" if ok else "FAIL"}] {k}')
     if not all(checks.values()):

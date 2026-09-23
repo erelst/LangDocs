@@ -22,8 +22,11 @@ tombol `?` bisa diklik, panel terbuka **di dalam kotak bloknya sendiri** (jadi
 tidak mungkin menutupi batas blok, blok berikutnya, atau bar pencarian), blok
 berikutnya terdorong ke bawah bukan tertimpa, tidak ada geser horizontal,
 kontras panel cukup, hanya satu panel terbuka, klik di luar / Escape menutup,
-pencarian cocok untuk kanji, romaji, Indonesia, maupun Inggris, dan mengetik tidak
-menulis ulang seluruh daftar.
+pencarian cocok untuk kanji, romaji, Indonesia, maupun Inggris, daftar memuat lebih
+banyak kalimat saat digulir, filter All/Japanese menyaring sesuai cakupannya, toggle
+romaji menyembunyikan baris romaji di **semua** kartu, deep link `#q140` membuka
+kalimat yang benar meski kartunya belum dibuat, dan renderer JS menghasilkan HTML
+yang identik dengan renderer Python.
 
 Catatan desain: panel `?` adalah **expand/collapse** (isi blok, bukan lapisan
 mengambang). Karena ikut alur dokumen, blok tumbuh menampung panelnya, sehingga
@@ -79,30 +82,90 @@ memeriksa makna, dan **build akan berhenti** kalau ada temuan:
 Pemeriksa itu sudah diuji balik: kalau kalimat yang diketahui salah disuntikkan,
 ia memang gagal, dan pada data bersih ia lolos.
 
-### Berapa banyak yang dikirim ke halaman
+### Berapa banyak yang dikirim, dan kenapa tidak semua sekaligus
 
-Dibatasi `LIMIT` di `scripts/build_page.py`, sekarang **500 dari 1.492**. Bank
-penuhnya 10,1 MB dan halaman ini satu file HTML tanpa build step, jadi ongkosnya
-ditanggung pembaca. Diukur di Chromium headless:
+Seluruh bank sekarang dikirim: **1.583 kalimat**. Tapi tidak semuanya jadi kartu di
+DOM sekaligus.
 
-| Kartu | Ukuran | Waktu render |
+Kalau semua kartu ditulis ke HTML, halaman ini jadi 10 MB dan ~75.000 node, dan
+browser harus menata semuanya sebelum apa pun muncul. Yang membuat itu mahal:
+tema gelap, warna per kata, dan garis bawah ditulis **inline** di tiap kartu, jadi
+satu kartu ≈ 50 node.
+
+Jadi sekarang:
+
+* **30 kartu pertama** ditulis ke HTML, supaya halaman tetap punya isi nyata sebelum
+  skrip jalan (dan tetap terbaca kalau JS mati)
+* **seluruh 1.583 kalimat** dikirim sebagai data ringkas di dalam halaman
+* kartu berikutnya dibuat JS saat scroll mendekati bawah
+
+Hasilnya, pada 1.583 kalimat:
+
+| | semua di HTML | 30 statis + data |
 |---|---|---|
-| 300 | 1,9 MB | 1,1 s |
-| 500 | 3,3 MB | 1,7 s |
-| 1.482 | 10,1 MB | 4,9 s |
+| ukuran file | 10,1 MB | **1,38 MB** |
+| node saat dibuka | ~75.000 | **2.049** |
+| waktu render | 4,9 s | **2,7 s** |
 
-500 adalah titik di mana halaman masih terasa langsung, sementara daftarnya sudah
-mencakup semua 31 template dengan setidaknya 16 kombinasi kata, di kedua register.
-Kirim seluruh bank dengan `LANGSENT_LIMIT=1482 python3 scripts/build_page.py`;
-build selalu mencetak ongkos terukurnya, jadi trade-off-nya tetap kelihatan.
+Yang dibuang bukan kalimatnya, hanya biaya menatanya. Menaikkan jumlah kartu statis
+lewat `LANGSENT_FIRST=200 python3 scripts/build_page.py`.
 
-Satu regresi performa sudah pernah terjadi di sini: highlight dulu menulis ulang
-`innerHTML` setiap kartu pada setiap ketikan. Pada 10 kalimat itu tidak terasa;
-pada 1.482 kalimat satu ketikan jadi **345 ms** (terburuk 778 ms). Sekarang hanya
-kartu yang benar-benar ditandai yang dipulihkan, jadi **11 ms**. Verifikasi
-menghitung jumlah penulisan `innerHTML` supaya regresi ini tidak bisa kembali
-tanpa ketahuan (waktu jam tidak bisa dipakai di headless: jamnya tidak berjalan
-saat kerja sinkron, dan melaporkan 0,0 ms untuk versi lambat maupun cepat).
+### Ini bukan virtualisasi
+
+Perbedaan yang penting: cara ini **menambah** kartu dan tidak pernah melepasnya.
+Virtualisasi (yang dipakai daftar panjang di Leptos/React) melepas node di luar
+layar lalu mendaur ulangnya, dan supaya scrollbar tidak melompat, ia harus
+menghitung tinggi palsu untuk kartu yang dilepas. Untuk halaman baca seperti ini
+itu kerumitan yang tidak dibutuhkan: tinggi halaman di sini selalu bertambah dan
+tidak pernah berubah, jadi tidak ada yang bisa melompat.
+
+### Renderer JS harus sama dengan renderer Python
+
+Kartu pertama dibuat Python, sisanya dibuat JS. Kalau keduanya berbeda sedikit saja,
+kartu akan berubah tampilan begitu di-scroll. Karena itu:
+
+* palet, warna, dan gaya garis bawah **disuntikkan dari `scripts/render.py`** ke
+  halaman; `page.js` tidak boleh memuat satu pun nilai warna literal, dan build
+  menolaknya kalau ada
+* verifikasi browser membandingkan HTML kartu buatan JS dengan buatan Python untuk
+  120 kartu pertama, dan gagal pada selisih pertama
+
+### Satu panel terbuka: kenapa pakai delegated listener
+
+Kartu dibuat setelah halaman dimuat, jadi listener per elemen harus dipasang ulang
+tiap kali menambah kartu. Yang dipakai: satu listener di wadah daftar, dengan fase
+*capture*, karena event `toggle` tidak bubbled. Ini sempat luput saat kartu mulai
+dibuat dinamis, dan verifikasi menangkapnya (`open=2`).
+
+### Pemuatan saat scroll: tiga pemicu
+
+Tidak ada satu pemicu yang cukup:
+
+* `IntersectionObserver` untuk kasus umum, termasuk saat viewport lebih tinggi dari
+  daftar sehingga tidak akan pernah ada scroll
+* listener `scroll` untuk respons langsung saat digulir
+* timer 200 ms, karena sebagian lingkungan (headless dengan jam virtual, dan
+  browser yang menunda pengiriman event scroll) tidak mengirim dua yang di atas.
+  Timer berhenti sendiri setelah seluruh bank masuk DOM
+
+Bug pertama di sini: append hanya sekali per pemicu, jadi loading **berhenti** begitu
+batch yang ditambahkan lebih pendek daripada ambang. Sentinel tetap terlihat, tidak
+ada event baru, dan daftar berhenti tumbuh di tengah. Sekarang loop sampai sentinel
+terdorong melewati ambang.
+
+### Kalimat panjang
+
+Bank punya 43 template: 31 pendek (3-7 token) dan 12 panjang (8-18 token), dan
+daftarnya **52% kalimat panjang**. Kalimat panjangnya dibangun dari pola baku, bukan
+dikarang: bentuk sambung + に行く (tujuan), -te + います (sedang), bentuk sambung +
+ながら (sambil), bentuk lampau + ら (kalau), bentuk kamus + とき (saat), -te + から
+(setelah), bentuk biasa + から (sebab), bentuk biasa + けど (pertentangan).
+
+Dua template panjang punya perkalian kata yang sangat besar (waktu × tempat × orang
+× makanan × minuman = 90.750 kalimat masing-masing). Tanpa batas, banknya jadi
+188.000 kalimat. Jadi tiap template mengambil sampel berjarak seragam dengan jumlah
+tertentu, dan jumlah untuk template panjang dihitung dari target 50/50 — bukan
+diketik dua kali, jadi perbandingannya tetap tepat saat template ditambah.
 
 Warna dan register
 ------------------
@@ -110,6 +173,21 @@ Warna dan register
 Blok kalimat memakai kartu `#0b1220` (seperti desain awal), kolom pencarian dan
 panel `?` yang terbuka memakai `#070c14` yang **lebih gelap** dari kartunya, jadi
 kedua permukaan gelap di halaman ini sama persis (bukan tiga nuansa berbeda).
+
+Kendali di halaman
+------------------
+
+* **Search: Kanji / Romaji / Indonesia / English** — hanya kata "Cari" yang diganti
+  jadi "Search", sisanya tetap.
+* **All / Japanese** — All (default) mencari seperti sebelumnya, di keempat bahasa.
+  Japanese membatasi pencocokan ke kalimatnya saja: kanji, romaji, dan kata per kata.
+  Terjemahan Indonesia/Inggris tidak ikut dicari, jadi `stasiun` menghasilkan 30
+  kalimat di mode All dan 0 di mode Japanese, sementara `おはよう` tetap cocok di
+  keduanya.
+* **Romaji** — menyalakan/mematikan baris romaji. Baris kanji tidak ikut disembunyikan,
+  dan garis bawah tidak diubah.
+* **Judul dan hitungan** kini dua bahasa: "Kalimat Jepang Sehari-hari / Everyday
+  Japanese Sentences" dan "1583 kalimat / sentences".
 
 Karena isian gelap tidak bisa jauh dari kartu yang juga gelap (hanya 1.05:1),
 pemisah yang sebenarnya terlihat adalah **garis tepi panel** `#4a5a72` (2.67:1

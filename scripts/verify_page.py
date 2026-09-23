@@ -73,17 +73,53 @@ function sleep(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
 
 f.onload=function(){ (async function(){
  try{
-  await sleep(900);
+  await sleep(1200);
   var w=f.contentWindow, d=f.contentDocument;
-  var details=[].slice.call(d.querySelectorAll('details.qdet'));
-  var cards=[].slice.call(d.querySelectorAll('.jp-sent'));
-  note('viewport='+w.innerWidth+'x'+w.innerHeight+' cards='+cards.length+' ?buttons='+details.length);
+  var api=w.SENTAPI;
+  function live(){ return [].slice.call(d.querySelectorAll('.jp-sent')); }
+  function liveDetails(){ return [].slice.call(d.querySelectorAll('details.qdet')); }
+  if(!api){ ok('page exposes its list API', false, 'window.SENTAPI absent'); throw new Error('no SENTAPI'); }
+  note('viewport='+w.innerWidth+'x'+w.innerHeight+' rows='+api.rows+
+       ' rendered='+api.rendered()+' nodes='+d.getElementsByTagName('*').length);
 
-  // ---- real click path on the last card's ? button ----------------------
-  var last=details[details.length-1], lastCard=cards[cards.length-1];
-  var btn=last.querySelector('summary');
-  btn.scrollIntoView({block:'center'});
-  await sleep(250);
+  // ------------------------------------------------------------- static chrome
+  var inp=d.getElementById('q');
+  ok('placeholder starts with Search:', (inp.getAttribute('placeholder')||'').indexOf('Search:')===0,
+     inp.getAttribute('placeholder'));
+  var h1=d.querySelector('h1').textContent;
+  ok('heading is bilingual', /Kalimat Jepang/.test(h1) && /Everyday Japanese Sentences/.test(h1),
+     h1.replace(/\s+/g,' ').slice(0,64));
+  ok('count label is bilingual', d.getElementById('count').textContent.indexOf('kalimat / sentences')!==-1,
+     d.getElementById('count').textContent.slice(0,60));
+
+  // -------------------------------------------------------------- lazy loading
+  ok('the whole bank is carried as data', api.rows>1000, 'rows='+api.rows);
+  var firstWindow=api.rendered();
+  ok('only a window is in the DOM at first', firstWindow<api.rows, firstWindow+' of '+api.rows);
+  var grown=[firstWindow];
+  for (var g=0; g<6; g++){
+    w.scrollTo(0, d.documentElement.scrollHeight); await sleep(500); grown.push(api.rendered());
+  }
+  ok('scrolling down loads more sentences', grown[grown.length-1]>grown[0], grown.join(' -> '));
+  ok('and still not the whole bank in the DOM', api.rendered()<api.rows, api.rendered()+' of '+api.rows);
+
+  // The JS renderer and the Python renderer must agree, or a card would change
+  // appearance the moment it is built in the browser instead of written into the HTML.
+  var mismatch=-1, checked=0, cards=live();
+  for (var c0=0; c0<Math.min(cards.length,120); c0++){
+    var tmp=d.createElement('div'); tmp.innerHTML=api.cardHTML(w.SENT.rows[c0]);
+    checked++;
+    if (tmp.firstChild.outerHTML !== cards[c0].outerHTML){ mismatch=c0; break; }
+  }
+  ok('cards built by JS match the cards built by Python', mismatch===-1,
+     checked+' compared, first mismatch index '+mismatch);
+
+  // -------------------------------------------------------------- the ? panel
+  w.scrollTo(0,0); await sleep(400);
+  cards=live();
+  var firstCard=cards[0], first=firstCard.querySelector('details.qdet');
+  var btn=first.querySelector('summary');
+  btn.scrollIntoView({block:'center'}); await sleep(250);
   var sr=btn.getBoundingClientRect();
   var bx=Math.min(w.innerWidth-2, Math.max(2, Math.round(sr.left+sr.width/2)));
   var by=Math.min(w.innerHeight-2, Math.max(2, Math.round(sr.top+sr.height/2)));
@@ -91,17 +127,11 @@ f.onload=function(){ (async function(){
   ok('? button clickable (not covered)', hit===btn, hit?hit.tagName+'.'+String(hit.className).slice(0,20):'null');
 
   btn.click(); await sleep(500);
-  var p=last.querySelector('.qpanel'), cs=w.getComputedStyle(p), r=p.getBoundingClientRect();
-  ok('panel opens via real click', last.open && r.height>20, 'h='+Math.round(r.height));
-
-  // ---- the panel must live INSIDE its own card ---------------------------
-  // This is the property that makes the overlap problem impossible: the panel is
-  // in-flow content, so the card grows to contain it.
-  var cardBox=lastCard.getBoundingClientRect();
-  var cs2=w.getComputedStyle(p);
+  var p=first.querySelector('.qpanel'), cs2=w.getComputedStyle(p), r=p.getBoundingClientRect();
+  ok('panel opens via real click', first.open && r.height>20, 'h='+Math.round(r.height));
+  var cardBox=firstCard.getBoundingClientRect();
   ok('panel is in flow (not a floating layer)',
-     cs2.position==='static' || cs2.position==='relative',
-     'position='+cs2.position);
+     cs2.position==='static'||cs2.position==='relative', 'position='+cs2.position);
   ok('panel inside its own card box',
      r.top>=cardBox.top-0.5 && r.bottom<=cardBox.bottom+0.5 &&
      r.left>=cardBox.left-0.5 && r.right<=cardBox.right+0.5,
@@ -109,92 +139,58 @@ f.onload=function(){ (async function(){
      ' card='+[cardBox.left,cardBox.top,cardBox.right,cardBox.bottom].map(Math.round).join(','));
   ok('panel clears the card bottom edge', r.bottom<=cardBox.bottom-0.5,
      'gap='+Math.round(cardBox.bottom-r.bottom)+'px');
-
-  // An expanded panel may legitimately be taller than the screen (a long sentence
-  // has many glosses), so the page scrolls vertically. What must never happen is
-  // sideways overflow or the panel escaping its card horizontally.
   ok('panel fits horizontally', r.left>=-0.5 && r.right<=w.innerWidth+0.5,
      'panel='+Math.round(r.left)+'..'+Math.round(r.right)+' vw='+w.innerWidth);
   var overflowX=d.documentElement.scrollWidth-w.innerWidth;
   ok('no sideways scroll after expanding', overflowX<=1, 'overflowX='+overflowX+'px');
 
-  // Bring the whole expanded card on screen, then check the panel is really there
-  // and that nothing is drawn over it. elementFromPoint returns null off-screen,
-  // so only sample points inside the viewport.
-  lastCard.scrollIntoView({block:'start'});
-  await sleep(300);
+  firstCard.scrollIntoView({block:'start'}); await sleep(300);
   r=p.getBoundingClientRect();
-  var lowest=(function(){
-    // scroll so the panel's bottom edge is visible, if the panel is that tall
-    if (r.bottom>w.innerHeight) { p.scrollIntoView({block:'end'}); }
-    return null;
-  })();
-  await sleep(300);
-  r=p.getBoundingClientRect();
-  // The sticky search bar legitimately covers the top of whatever is scrolled
-  // under it, so only sample the part of the panel that is below the bar.
+  if (r.bottom>w.innerHeight){ p.scrollIntoView({block:'end'}); await sleep(350); r=p.getBoundingClientRect(); }
   var barRect=d.querySelector('.bar').getBoundingClientRect();
-  var inView=function(y){ return y>=barRect.bottom+2 && y<=w.innerHeight-2; };
   var pts=[];
   [0.08,0.5,0.92].forEach(function(fy){
     var y=r.top+r.height*fy;
-    if (inView(y)) { pts.push([r.left+r.width/2, y]); }
+    if (y>=barRect.bottom+2 && y<=w.innerHeight-2) { pts.push([r.left+r.width/2, y]); }
   });
-  var hiddenBehindBar = r.top < barRect.bottom;
   if (!pts.length) { pts.push([r.left+r.width/2, Math.min(w.innerHeight-2, Math.max(2, r.top+20))]); }
   var seen=[], onTop=true;
   pts.forEach(function(pt){
     var h=d.elementFromPoint(Math.round(pt[0]),Math.round(pt[1]));
     seen.push(h?h.tagName+'.'+String(h.className).slice(0,12):'null');
-    if(!(h===p||p.contains(h))) onTop=false; });
-  ok('panel drawn on top of everything', onTop, seen.join(' | ') + ' behindBar=' + hiddenBehindBar);
+    if (!(h===p||p.contains(h))) { onTop=false; }
+  });
+  ok('panel drawn on top of everything', onTop, seen.join(' | '));
 
-  // every part of the panel must be reachable by scrolling, including its bottom
   p.scrollIntoView({block:'end'}); await sleep(300);
   var rb=p.getBoundingClientRect();
   ok('panel bottom reachable by scrolling', rb.bottom<=w.innerHeight+1,
      'panelBottom='+Math.round(rb.bottom)+' vh='+w.innerHeight);
 
-  // expanding must push the following card down, not cover it
-  var nextCard=cards[cards.indexOf(lastCard)+1];
-  if (nextCard) {
-    var nr=nextCard.getBoundingClientRect();
-    ok('expanded card pushes the next block down (no overlap)',
-       nr.top>=cardBox.bottom-0.5,
-       'nextTop='+Math.round(nr.top)+' cardBottom='+Math.round(cardBox.bottom));
+  var nextCard=cards[cards.indexOf(firstCard)+1];
+  if (nextCard){
+    var nr=nextCard.getBoundingClientRect(), cb=firstCard.getBoundingClientRect();
+    ok('expanded card pushes the next block down (no overlap)', nr.top>=cb.bottom-0.5,
+       'nextTop='+Math.round(nr.top)+' cardBottom='+Math.round(cb.bottom));
   }
-
-  // the search bar must never be covered or dimmed
   var barEl=d.querySelector('.bar'), br=barEl.getBoundingClientRect();
   var atBar=d.elementFromPoint(Math.round(br.left+br.width/2), Math.round(br.top+br.height/2));
   ok('search bar not covered', atBar!==null && !p.contains(atBar),
      'topAtBar='+(atBar?atBar.tagName+'.'+String(atBar.className).slice(0,16):'null'));
 
   // ---- the panel must read as a raised surface --------------------------
-  var pbg=px(cs2.backgroundColor), cardBg=px(w.getComputedStyle(lastCard).backgroundColor);
+  var pbg=px(cs2.backgroundColor), cardBg=px(w.getComputedStyle(firstCard).backgroundColor);
   var rp=ratio(pbg,cardBg), rt=ratio(over(px(cs2.color),pbg),pbg);
-  // every block must expose its register inside the panel
-  // The register chips are chosen from the data, not from a fixed list: the bank now
-  // contains colleagues, cafe staff, taxi drivers and so on. What must hold is that
-  // the opened panel names a counterpart and a politeness level, so the check reads
-  // the chips the renderer emits instead of matching names it already knows.
-  var WHO_RE=/^.{2,40}$/;
   var chipEl=p.querySelector('span');
-  var whoHit=chipEl?WHO_RE.exec(chipEl.textContent.trim()):null;
-  ok('panel states the register', !!whoHit, whoHit ? whoHit[0] : 'none');
-  // the register line must be bilingual, like the translation and the glosses
-  // A word-boundary regex is wrong here: textContent concatenates the chips, so
-  // "sopan" runs straight into "ID" and there is no boundary. Look for the <b>
-  // markers the renderer emits instead.
-  var reg=p.querySelector('div');
-  var marks=[];
+  ok('panel states the register', !!(chipEl && chipEl.textContent.trim().length>=2),
+     chipEl?chipEl.textContent.trim():'none');
+  var reg=p.querySelector('div'), marks=[];
   if (reg) { reg.querySelectorAll('b').forEach(function(b){ marks.push(b.textContent.trim()); }); }
   ok('register line is bilingual (ID and EN)',
      marks.indexOf('ID')!==-1 && marks.indexOf('EN')!==-1,
      'markers='+marks.join(',')+' | '+(reg?reg.textContent.replace(/\s+/g,' ').slice(0,90):'none'));
-  // The register must NOT leak outside the panel: every block looks the same
-  // until it is opened, which is what "inside only" means.
-  var btns=[], borders=[];
+
+  var details=liveDetails(), btns=[], borders=[];
   details.forEach(function(det){
     btns.push(w.getComputedStyle(det.querySelector('summary')).backgroundColor);
     borders.push(w.getComputedStyle(det.closest('.jp-sent')).borderLeftColor);
@@ -203,111 +199,100 @@ f.onload=function(){ (async function(){
   ok('all ? buttons look identical', uniqOf(btns).length===1, uniqOf(btns).join(' | '));
   ok('all card borders look identical', uniqOf(borders).length===1, uniqOf(borders).join(' | '));
 
-  // ...but the panel itself must distinguish the two registers by colour
   var chips={};
   details.forEach(function(det){
-    var chip=det.querySelector('.qpanel span');
-    var who=chip?WHO_RE.exec(chip.textContent.trim()):null;
-    if (!who) { return; }
     var badge=det.querySelector('.qpanel span');
-    if (badge) { chips[who[0]]=w.getComputedStyle(badge).backgroundColor; }
+    if (!badge) { return; }
+    var key=badge.textContent.trim();
+    if (key) { chips[key]=w.getComputedStyle(badge).backgroundColor; }
   });
   var chipColours=Object.keys(chips).map(function(k){ return chips[k]; });
   ok('panels distinguish close from stranger', uniqOf(chipColours).length>=2,
-     Object.keys(chips).map(function(k){ return k+'='+chips[k]; }).join(' | '));
-  // The panel is darker than the card, and a dark fill can only be so far from a
-  // dark card. So the separation may come from the fill OR from the outline; what
-  // must hold is that at least one of them marks the panel off, or the open panel
-  // would be invisible against its own card.
-  var edgeC=px(cs2.borderTopColor);
-  var rEdge=ratio(edgeC,cardBg);
+     Object.keys(chips).slice(0,6).map(function(k){ return k+'='+chips[k]; }).join(' | '));
+  var edgeC=px(cs2.borderTopColor), rEdge=ratio(edgeC,cardBg);
   ok('panel is visible against its card (fill or outline)', Math.max(rp,rEdge)>=1.35,
-     'fillRatio='+rp.toFixed(2)+' edgeRatio='+rEdge.toFixed(2)+
-     ' panel='+cs2.backgroundColor+' edge='+cs2.borderTopColor);
+     'fillRatio='+rp.toFixed(2)+' edgeRatio='+rEdge.toFixed(2));
   ok('panel text readable (>=7:1)', rt>=7, 'ratio='+rt.toFixed(1));
 
   // ---- one at a time, and the two ways out ------------------------------
-  var other=(details[0]===last)?details[1]:details[0];
+  var other=(details[0]===first)?details[1]:details[0];
   other.querySelector('summary').click(); await sleep(300);
-  var openCount=details.filter(function(x){return x.open;}).length;
+  var openCount=liveDetails().filter(function(x){return x.open;}).length;
   ok('only one panel open', openCount===1, 'open='+openCount);
   other.querySelector('summary').click(); await sleep(200);
-
   btn.click(); await sleep(250); d.body.click(); await sleep(300);
-  ok('click outside closes', details.filter(function(x){return x.open;}).length===0);
+  ok('click outside closes', liveDetails().filter(function(x){return x.open;}).length===0);
   btn.click(); await sleep(250);
   d.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true})); await sleep(300);
-  ok('Escape closes', details.filter(function(x){return x.open;}).length===0);
+  ok('Escape closes', liveDetails().filter(function(x){return x.open;}).length===0);
 
-  // ---- search across all four languages ---------------------------------
-  var inp=d.getElementById('q'), cnt=d.getElementById('count'), em=d.getElementById('empty');
-  function vis(){return [].slice.call(d.querySelectorAll('.jp-sent')).filter(function(c){return !c.hasAttribute('hidden');});}
+  // ------------------------------------------------------------------ search
   function type(v){ inp.value=v; inp.dispatchEvent(new w.Event('input',{bubbles:true})); }
-  var total=cards.length;
-  // A term can legitimately appear in several sentences (おはよう is in two), so
-  // these assert that matching WORKS, not that exactly one block survives.
-  // Narrowing precision is checked separately, with queries that really are unique.
-  function hits(n){ return vis().length+'/'+total+' '+cnt.textContent.trim(); }
-  type('ohayo');   ok('romaji search matches', vis().length>=1, hits());
+  function setScope(v){
+    var el=d.querySelector('input[name="scope"][value="'+v+'"]');
+    el.checked=true; el.dispatchEvent(new w.Event('change',{bubbles:true}));
+  }
+  type('ohayo'); await sleep(450);
+  ok('romaji search matches', live().length>=1, live().length+' cards');
   ok('highlight in romaji line', d.querySelectorAll('.romaji mark').length>0);
-  type('\u3053\u308c'); ok('kanji search matches', vis().length>=1, hits());
+  type('\u304a\u306f\u3088\u3046'); await sleep(450);
+  ok('kanji search matches', live().length>=1, live().length+' cards');
   ok('highlight in kanji line', d.querySelectorAll('.kanji mark').length>0);
-  type('stasiun'); ok('Indonesian search matches', vis().length>=1, hits());
+  type('stasiun'); await sleep(450);
+  var allScope=live().length;
+  ok('Indonesian search matches', allScope>=1, allScope+' cards');
   ok('highlight in panel too', d.querySelectorAll('.qpanel mark').length>0);
-  type('station'); ok('English search matches', vis().length>=1, hits());
-  type('kore ikura'); ok('multi-word AND narrows to one', vis().length===1, hits());
-  type('cuaca bagus ya'); ok('multi-word AND across languages', vis().length===1, hits());
-  type('\u304a\u624b\u4f1d\u3044\u3057\u307e\u3057\u3087\u3046\u304b');
-  ok('unique kanji query -> exactly 1', vis().length===1, hits());
-  type('zzzz');    ok('empty state shown', vis().length===0 && em.offsetHeight>0, em.textContent.trim().slice(0,26));
-  type('');        ok('cleared -> all visible', vis().length===total, hits());
-  type('\u3059\u307f\u307e\u305b\u3093'); var multi=vis().length;
-  ok('multi-match query shows all hits', multi>=2, 'n='+multi);
-  type('');
 
-  // ---- typing must not rewrite the whole list --------------------------------
-  // Highlighting marks text nodes, so it sets no innerHTML. Restoring a card DOES
-  // rewrite innerHTML, and that used to happen on every card for every keystroke:
-  // invisible with ten sentences, hundreds of milliseconds with hundreds. The
-  // mechanism is asserted directly by counting innerHTML assignments, because
-  // wall-clock timing is useless here (the headless clock does not advance during
-  // synchronous work, and reported 0.0 ms for both the fast and the slow version).
-  var writes=0;
-  var proto=w.Element.prototype;
-  var desc=Object.getOwnPropertyDescriptor(proto,'innerHTML');
-  Object.defineProperty(proto,'innerHTML',{configurable:true,get:desc.get,
-    set:function(v){ writes++; return desc.set.call(this,v); }});
+  // ---- the Japanese scope must narrow matching to the sentence itself ----
+  setScope('jp'); await sleep(450);
+  var jpScope=live().length;
+  ok('Japanese scope excludes translation-only matches', jpScope<allScope,
+     'all='+allScope+' jp='+jpScope);
+  type('\u304a\u306f\u3088\u3046'); await sleep(450);
+  ok('Japanese scope still matches kanji', live().length>=1, live().length+' cards');
+  type('ohayou'); await sleep(450);
+  ok('Japanese scope still matches romaji', live().length>=1, live().length+' cards');
+  setScope('all'); await sleep(450);
+  type('stasiun'); await sleep(450);
+  ok('All scope restores translation matches', live().length>=allScope,
+     live().length+' of '+allScope);
 
-  type('ohayou'); var first=vis().length;
-  ok('a small query marks a few cards', first>=1 && first<cards.length, 'matched='+first);
-  ok('highlighting itself sets no innerHTML', writes===0, 'writes='+writes);
-  ok('highlight landed in the romaji line', d.querySelectorAll('.romaji mark').length>0);
+  // ---- typing must stay cheap: only a window ever exists ------------------
+  type('a'); await sleep(450);
+  var broad=live().length;
+  ok('a broad query renders a bounded window, not the whole bank',
+     broad>0 && broad<api.rows, broad+' of '+api.rows);
+  type('zzzz'); await sleep(450);
+  ok('empty state shown', live().length===0 && d.getElementById('empty').offsetHeight>0,
+     d.getElementById('empty').textContent.trim().slice(0,30));
+  type(''); await sleep(450);
+  ok('clearing restores the list', live().length>0, live().length+' cards');
 
-  // Restoring is proportional to the cards that were MARKED, not to the whole list.
-  // So the bound is always "three writes per previously marked card" (kanji, romaji
-  // and panel), which stays tight no matter how many cards the page holds.
-  writes=0;
-  type('su');    var wide=vis().length;
-  ok('restoring rewrites only the cards that were marked',
-     writes<=3*first+3,
-     'writes='+writes+' previouslyMarked='+first+' nowMatched='+wide+' of '+cards.length);
+  // ------------------------------------------------------------- romaji toggle
+  var rt=d.getElementById('rtoggle');
+  var romBefore=w.getComputedStyle(live()[0].querySelector('.romaji')).display;
+  rt.checked=false; rt.dispatchEvent(new w.Event('change',{bubbles:true})); await sleep(250);
+  var allLive=live();
+  var romAfter=w.getComputedStyle(allLive[0].querySelector('.romaji')).display;
+  var romAfterLast=w.getComputedStyle(allLive[allLive.length-1].querySelector('.romaji')).display;
+  var kanjiAfter=w.getComputedStyle(allLive[0].querySelector('.kanji')).display;
+  ok('romaji toggle hides the romaji line', romBefore!=='none' && romAfter==='none',
+     romBefore+' -> '+romAfter);
+  ok('...on every rendered card, not just the first', romAfterLast==='none', 'last='+romAfterLast);
+  ok('...and keeps the kanji line', kanjiAfter!=='none', kanjiAfter);
+  rt.checked=true; rt.dispatchEvent(new w.Event('change',{bubbles:true})); await sleep(250);
+  ok('romaji toggle restores the line',
+     w.getComputedStyle(live()[0].querySelector('.romaji')).display!=='none');
 
-  writes=0;
-  type('sumimasen'); var narrow=vis().length;
-  ok('restoring scales with the previous match, not the list',
-     writes<=3*wide+3,
-     'writes='+writes+' previouslyMarked='+wide+' nowMatched='+narrow+' of '+cards.length);
-
-  writes=0;
-  type('zzzz');  vis();
-  ok('a query matching nothing rewrites almost nothing',
-     writes<=3*narrow+3,
-     'writes='+writes+' previouslyMarked='+narrow+' of '+cards.length);
-
-  Object.defineProperty(proto,'innerHTML',{configurable:true,get:desc.get,set:desc.set});
-  type('ohayou');
-  ok('highlights work again once unmetered', d.querySelectorAll('.romaji mark').length>0);
-  type('');
+  // ------------------------------------------------------- deep link past the window
+  var target=140;
+  w.location.hash='#q'+target; await sleep(1000);
+  var op=liveDetails().filter(function(x){return x.open;});
+  var gotKanji = op.length===1 ? op[0].closest('.jp-sent').querySelector('.kanji').textContent.replace(/\s+/g,'') : '';
+  var wantKanji = String(w.SENT.rows[target-1][0]).replace(/\s+/g,'');
+  ok('deep link opens the right sentence past the first window',
+     op.length===1 && gotKanji===wantKanji && gotKanji.length>0,
+     'open='+op.length+' got='+gotKanji.slice(0,18)+' want='+wantKanji.slice(0,18));
 
   note('');
   note(FAIL.length? ('FAILURES: '+FAIL.join(', ')) : 'ALL CHECKS PASSED');

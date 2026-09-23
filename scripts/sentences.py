@@ -146,8 +146,8 @@ CURATED = [
     },
     {
         'id': 6,
-        'situation': 'Cerita panjang ke teman (menguji word wrap di layar kecil)',
-        'situation_en': 'A longer story to a friend (tests word wrap on small screens)',
+        'situation': 'Cerita panjang ke teman',
+        'situation_en': 'A longer story to a friend',
         'who': 'dekat',                       # dekat / asing
         'who_id': 'teman',
         'who_en': 'friend',
@@ -177,8 +177,8 @@ CURATED = [
             ['です', 'desu', 'adalah (sopan)', 'is (polite copula)'],
         ],
         'freq': 346,
-        'note': 'Kalimat ini 33 mora dan sekitar 19 kata, jadi menguji pembungkusan baris dan tooltip di tepi layar.',
-        'note_en': 'This sentence is 33 morae and about 19 words, so it tests line wrapping and tooltips at the screen edge.',
+        'note': 'Kalimat majemuk: dua klausa disambung だけど, dengan ん sebagai penjelas. Bentuk ini yang membuat percakapan terasa mengalir.',
+        'note_en': 'A compound sentence: two clauses joined by だけど, with ん as the explanatory. This is what makes speech flow.',
     },
     {
         'id': 7,
