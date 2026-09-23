@@ -103,6 +103,7 @@ def qpanel(s):
         '<div class="qpanel" style="position:absolute;right:0;top:36px;'
         'width:min(88vw,620px);background:#ffffff;color:#0f172a;'
         'border:1px solid #cbd5e1;border-radius:10px;padding:12px 14px;'
+        'max-height:70vh;overflow:auto;'
         'box-shadow:0 10px 30px rgba(0,0,0,.25);text-align:left;font-size:14px;line-height:1.5;">'
         '<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#64748b;margin-bottom:6px;">'
         'Terjemahan / Translation</div>'
@@ -127,9 +128,9 @@ def html_block(s):
         # --- ? control (click / tap anywhere; hover-open needs the CSS cell)
         '<details class="qdet" style="position:absolute;right:8px;top:8px;z-index:30;">'
         '<summary title="Terjemahan / Translation" aria-label="Terjemahan dan arti per kata" '
-        'style="list-style:none;cursor:pointer;width:30px;height:30px;line-height:28px;'
+        'style="list-style:none;cursor:pointer;width:34px;height:34px;line-height:30px;'
         'text-align:center;border-radius:50%;background:#0f172a;color:#fff;font-weight:700;'
-        'font-size:16px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);'
+        'font-size:17px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);'
         'user-select:none;">?</summary>'
         f'{qpanel(s)}</details>'
         # --- meta line
