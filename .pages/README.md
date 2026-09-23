@@ -189,8 +189,11 @@ terdorong melewati ambang.
 
 ### Kalimat panjang
 
-Bank punya 57 template: 31 pendek dan 26 panjang, dan daftarnya persis **50% kalimat
-panjang**. Kalimat panjangnya dibangun dari pola baku, bukan dikarang: bentuk sambung
+Bank punya 57 template: **43 pendek dan 14 panjang**, dan daftar kalimatnya persis **50%
+panjang**. Kedua angka itu tidak bertentangan: tiap template panjang menyumbang lebih
+banyak kalimat (cap 55) daripada template pendek (cap 18), karena hanya 14 template yang
+bisa membuat kalimat panjang, sementara 43 template berbagi paruh pendeknya. Cap itu
+dihitung dari target, bukan diketik dua kali: `round(43 x 18 / 14) = 55`. Kalimat panjangnya dibangun dari pola baku, bukan dikarang: bentuk sambung
 + に行く (tujuan), -te + います (sedang), bentuk sambung + ながら (sambil), bentuk
 lampau + ら (kalau), bentuk kamus + とき (saat), -te + から (setelah), bentuk biasa +
 から (sebab), bentuk biasa + けど (pertentangan), dan それから (lalu).
