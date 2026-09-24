@@ -152,10 +152,18 @@ function ok(name, pass, detail) {
          down with a real pointer, because a synthetic mouseover cannot make :hover match and an
          earlier version of this block checked display right after dispatching one. */
       const hidden = getComputedStyle(tip).display;
-      const rows = [...tip.querySelectorAll('.tr')].map(r => ({
-        cls: [...r.classList].join(' '), text: r.textContent,
-        colour: getComputedStyle(r).color
-      }));
+      const rows = [...tip.querySelectorAll('.tr')].map(r => {
+        const tx = r.querySelector('.tx');
+        const mk = r.querySelector('.mk');
+        return {
+          cls: [...r.classList].join(' '), text: r.textContent,
+          colour: getComputedStyle(tx || r).color,
+          mark: mk ? mk.textContent : '',
+          // a label may not be split: this is the failure a reader saw as "ROMAJ" over a lone "I"
+          markLines: mk ? Math.round(mk.getBoundingClientRect().height /
+                                     parseFloat(getComputedStyle(mk).lineHeight || 16)) : 0
+        };
+      });
       // does anything inside the bubble repeat the word or the sentence?
       const wordText = word.childNodes[0].textContent.trim();
       return {
@@ -174,11 +182,33 @@ function ok(name, pass, detail) {
     ok('the bubble shows the reading and both glosses as separate rows',
        bubble.hasKanaRow && bubble.hasIdRow && bubble.hasEnRow,
        bubble.rows.map(r => r.cls + '=' + r.text).join(' | '));
-    /* The reader complained they could not tell romaji, Indonesian and English apart. The fix is
-       that the three rows are drawn in three different colours; identical colours would put the
-       complaint back. */
-    ok('the three rows are drawn in different colours',
-       new Set(bubble.colours).size === 3, bubble.colours.join(' / '));
+    /* The reader complained they could not tell romaji, Indonesian and English apart, and the
+       answer is in two halves now.
+        *
+        * The reading carries the colour of the word it belongs to, so the row says whose reading it
+       is without a word of explanation. The two glosses keep the fixed colours the panel already
+       uses for the same two things. So the assertion is not "three different colours" any more,
+       which was true of the first fix and is not true now: it is that the reading matches its own
+       word, and that the two glosses are distinguishable from it and from each other. */
+    const colours = await evalIn(`(() => {
+      const all = [...document.querySelectorAll('.jp-sent .tk')];
+      const word = all.find(el => el.querySelector('.tip') &&
+                                   el.querySelector('.tip .t-kana .tx') &&
+                                   el.childNodes[0].textContent.trim().length > 1);
+      const tip = word.querySelector('.tip');
+      const tx = sel => { const e = tip.querySelector(sel); return e ? getComputedStyle(e).color : null; };
+      return {
+        word: getComputedStyle(word).color,
+        kana: tx('.t-kana .tx'), id: tx('.t-id .tx'), en: tx('.t-en .tx'),
+        markLines: [...tip.querySelectorAll('.mk')].map(m => Math.round(
+          m.getBoundingClientRect().height / parseFloat(getComputedStyle(m).lineHeight || 16)))
+      };
+    })()`);
+    ok('the reading is drawn in the colour of the word it belongs to',
+       colours.kana === colours.word, `reading ${colours.kana}, word ${colours.word}`);
+    ok('the two glosses are distinguishable from the reading and from each other',
+       colours.id !== colours.kana && colours.en !== colours.kana && colours.id !== colours.en,
+       `kana ${colours.kana} / id ${colours.id} / en ${colours.en}`);
     ok('the bubble never repeats the word itself', bubble.repeats === false, 'rows repeat it: ' + bubble.repeats);
 
 ok('the romaji line is still in the DOM, not removed',
@@ -259,6 +289,74 @@ ok('the romaji line is still in the DOM, not removed',
          found >= expected[i], `${found} found, ${expected[i]} carry the label`);
     }
     await evalIn(`document.getElementById('clear').click()`);
+
+    /* 5. The bubble as the reader sees it, with a real pointer, on a phone and on a desktop.
+     *
+     * This is the block that would have caught the reported bug, and its absence is why the bug
+     * reached a reader: a phone user saw the label "ROMAJI" with its last letter on the next line,
+     * and nothing here had ever looked at a narrow screen or moved a pointer over a word.
+     *
+     * A synthetic mouseover cannot make :hover match, so the pointer is moved the way a hand does.
+     * Visibility is never judged with a synthetic event. */
+    for (const [w, h, where] of [[360, 740, 'phone 360'], [414, 896, 'phone 414'],
+                                 [768, 1024, 'tablet 768'], [1280, 900, 'desktop 1280']]) {
+      await send('Emulation.setDeviceMetricsOverride',
+                 { width: w, height: h, deviceScaleFactor: 1, mobile: w < 600 });
+      await send('Page.navigate', { url: 'file://' + path.join(ROOT, 'index.html') });
+      await sleep(1800);
+      const spot = await evalIn(`(() => {
+        const words = [...document.querySelectorAll('.jp-sent .tk')];
+        const el = words.find(e => e.querySelector('.tip .t-kana .tx') &&
+                                   e.childNodes[0].textContent.trim().length > 1);
+        if (!el) return null;
+        const r = el.getBoundingClientRect();
+        return { x: Math.round(r.left + r.width / 2), y: Math.round(r.top + r.height / 2),
+                 wordTop: Math.round(r.top), wordBottom: Math.round(r.bottom) };
+      })()`);
+      if (!spot) { ok(`${where}: a word with a reading was found`, false, 'none in the first batch'); continue; }
+      /* The default is mobile:false, and with it a phone-width viewport still reports a desktop
+       * width to the page, so the width is set and then read back before anything is measured. */
+      await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: spot.x, y: spot.y, buttons: 0 });
+      await sleep(150);
+      const drawn = await evalIn(`(() => {
+        const hit = document.elementFromPoint(${spot.x}, ${spot.y});
+        const tk = hit && hit.closest ? hit.closest('.tk') : null;
+        if (!tk) return { found: false };
+        const tip = tk.querySelector('.tip');
+        if (!tip) return { found: false };
+        const cs = getComputedStyle(tip), r = tip.getBoundingClientRect();
+        const line = e => parseFloat(getComputedStyle(e).lineHeight || 16);
+        return {
+          found: true, display: cs.display, vw: window.innerWidth, vh: window.innerHeight,
+          left: Math.round(r.left), right: Math.round(r.right),
+          top: Math.round(r.top), bottom: Math.round(r.bottom),
+          marks: [...tip.querySelectorAll('.mk')].map(m =>
+            Math.round(m.getBoundingClientRect().height / line(m))),
+          rows: [...tip.querySelectorAll('.tr')].length
+        };
+      })()`);
+      ok(`${where}: the pointer makes the bubble appear`,
+         drawn.found && drawn.display !== 'none',
+         drawn.found ? `display ${drawn.display}` : 'no word under the pointer');
+      if (!drawn.found) continue;
+      /* The bubble sits on one side of its word, close enough to read as belonging to it, and it
+       * never covers the word. Which side depends on the room: above by default, below when the
+       * word is near the top of the screen, which is what a phone showed. */
+      const above = drawn.bottom <= spot.wordTop + 1 && spot.wordTop - drawn.bottom < 70;
+      const below = drawn.top >= spot.wordBottom - 1 && drawn.top - spot.wordBottom < 70;
+      ok(`${where}: the bubble is drawn beside its word, not over it`,
+         above || below,
+         `bubble ${drawn.top}..${drawn.bottom}, word ${spot.wordTop}..${spot.wordBottom} ` +
+         (above ? '(above)' : below ? '(below)' : '(neither: overlapping or too far)'));
+      ok(`${where}: nothing in the bubble is cut off by the screen`,
+         drawn.left >= 0 && drawn.right <= drawn.vw && drawn.top >= 0 && drawn.bottom <= drawn.vh,
+         `box ${drawn.left}..${drawn.right} of ${drawn.vw} wide, ${drawn.top}..${drawn.bottom} of ${drawn.vh} tall`);
+      ok(`${where}: no label is split across lines`,
+         drawn.marks.length > 0 && drawn.marks.every(n => n === 1),
+         `label heights in lines: ${drawn.marks.join(', ') || 'none'}`);
+      ok(`${where}: the bubble still has its three labelled rows`, drawn.rows === 3, `${drawn.rows} rows`);
+    }
+    await send('Emulation.clearDeviceMetricsOverride');
 
     ws.close();
   } catch (e) {

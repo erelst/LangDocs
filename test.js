@@ -81,9 +81,37 @@ const deep = render('#q' + total);
  * text and a sentence check then fails on words the reader never sees. The bubbles are display:none
  * until the pointer is over a word, so removing them first is what the browser already does for
  * select-and-copy. Verified: selecting a sentence copies おはようございます。 with no bubble text. */
-const visibleText = html => html
-  .replace(/<span class="tip"[\s\S]*?<\/span><\/span>/g, '')
-  .replace(/<[^>]+>/g, '');
+/* Removing the bubble is done by BALANCE, not by counting closing tags.
+ *
+ * The first version matched exactly two closing spans, which was the bubble's depth at the time.
+ * When a row gained one more element the pattern silently stopped matching, the hidden labels and
+ * glosses came back into the plain text, and two unrelated assertions failed on words the reader
+ * never sees. A depth count that must be kept in step with the markup by hand is a trap, so the
+ * bubble is cut out from its opening tag to its matching close instead. */
+function withoutBubbles(html) {
+  const open = '<span class="tip"';
+  let out = html, from = 0;
+  for (;;) {
+    const at = out.indexOf(open, from);
+    if (at === -1) break;
+    // walk forward counting spans until they balance
+    let depth = 0, i = at;
+    for (;;) {
+      const nextOpen = out.indexOf('<span', i);
+      const nextClose = out.indexOf('</span>', i);
+      if (nextClose === -1) { i = out.length; break; }
+      if (nextOpen !== -1 && nextOpen < nextClose) { depth++; i = nextOpen + 5; }
+      else {
+        depth--; i = nextClose + 7;
+        if (depth === 0) break;
+      }
+    }
+    out = out.slice(0, at) + out.slice(i);
+    from = at;
+  }
+  return out;
+}
+const visibleText = html => withoutBubbles(html).replace(/<[^>]+>/g, '');
 const domText = visibleText(dom);
 const deepText = visibleText(deep);
 

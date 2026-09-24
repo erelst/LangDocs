@@ -399,7 +399,7 @@ Ketentuan ini sudah berjalan; ditulis di sini supaya tidak berubah tanpa disadar
 | V9 | Tidak ada build, tidak ada program penghasil kalimat; berkas dibaca langsung browser | susunan repo |
 | V10 | Sel glosa tidak boleh kosong, dan tanda baca tidak berdiri sebagai baris sendiri | `test.js` |
 | V11 | Mencari setelah menggulir menampilkan hasil teratas, bukan posisi gulir lama | `ui.js` |
-| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris sebagai **tiga baris berlabel** yang bisa dibedakan, **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca, dan **tidak terpotong di lebar layar mana pun** | `ui.js` |
+| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris sebagai **tiga baris berlabel**, baris romajinya **berwarna sama dengan katanya**, labelnya **tidak boleh terbelah baris**, **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca, dan seluruh balonnya **berada di dalam layar** di lebar mana pun | `ui.js` |
 
 ---
 
@@ -449,11 +449,42 @@ cocok. Diukur di halaman ter-deploy pada 360, 414, 768, dan 1280 piksel: tidak a
 kotak balon yang keluar dari layar, dan pada 360 piksel ketiga baris terbukti berlabel dan
 berwarna berbeda.
 
+**Kenapa baris romaji memakai warna katanya.** Pembaca meminta supaya tidak perlu membaca label
+untuk tahu baris mana yang romaji. Label sudah menjawabnya, tapi warnanya menjawab lebih cepat:
+baris romaji memakai warna yang sama dengan kata yang sedang disorot, jadi pertanyaan "ini bacaan
+kata yang mana" terjawab tanpa membaca apa pun. Dua glosa tetap memakai warna tetap yang sama
+dengan panel (`t-id` `#f8fafc`, `t-en` `#cbd5e1`), karena keduanya bukan bacaan dari kata mana pun.
+Karena itu pemeriksaannya **bukan lagi "tiga warna berbeda"**: yang diperiksa adalah baris romaji
+sama dengan warna katanya, dan kedua glosa berbeda dari baris romaji serta berbeda satu sama lain.
+Versi pertama pemeriksaan itu menuntut tiga warna berbeda dan langsung gagal begitu permintaan ini
+dikerjakan, yaitu bentuk pemeriksaan yang mengunci cara lama.
+
+**Kenapa labelnya tidak boleh terbelah.** Pembaca di ponsel melihat label terpotong: `ROMAJ` di
+satu baris dan `I` di baris berikutnya, dan hal yang sama pada `ENGLISH`. Penyebabnya satu
+deklarasi: di layar sempit barisnya dibuat `overflow-wrap: anywhere`, dan label ikut terkena karena
+label dan teks berada di dalam satu kotak. Yang benar adalah keduanya dipisah menjadi dua kotak di
+dalam baris flex: label boleh menyempit tapi tidak boleh terbelah, dan hanya teks yang boleh
+membungkus. Diukur dengan kursor sungguhan: tinggi label satu baris di 360, 414, 768, dan 1280
+piksel.
+
+**Kenapa balonnya juga dijaga secara vertikal.** Waktu cacat label diperiksa dengan kursor
+sungguhan di layar ponsel, cacat kedua yang belum pernah terlihat muncul: pada kata di dekat atas
+layar, balonnya berada **55 piksel di atas tepi layar**, sehingga yang terbaca hanya baris
+terakhirnya. Penjaga posisi sebelumnya hanya membandingkan tepi kiri dan kanan, tidak pernah tepi
+atas dan bawah, karena cacat yang dilaporkan dulu hanya soal tepi kanan. Sekarang kalau tidak ada
+ruang di atas, balonnya dipindahkan ke **bawah** katanya dan ekornya dibalik, sehingga tetap
+menunjuk kata yang sama. Digeser, tidak dipotong, dan tanpa gulir mendatar: balon yang harus
+digulir adalah balon yang menyembunyikan sesuatu.
+
 **Akibat pada teks halaman.** Balon ikut berada di DOM sebagai elemen sungguhan, dan teksnya
 tidak boleh ikut terbaca sebagai kalimat. Yang menyelamatkan adalah `display: none` saat balon
 tertutup: menyalin satu kalimat menghasilkan kalimatnya saja, tanpa satu kata pun dari balon,
-dan sudah diuji begitu. `test.js` yang membaca teks halaman sekarang membuang elemen balon
-sebelum mengambil teksnya, bukan hanya membuang tanda kurung tag.
+dan sudah diuji begitu. `test.js` yang membaca teks halaman membuang elemen balon sebelum
+mengambil teksnya. Cara membuangnya **menghitung keseimbangan tag**, bukan mencocokkan jumlah tag
+penutup: versi pertamanya mencocokkan tepat dua tag penutup, yaitu kedalaman balon saat itu, dan
+begitu satu baris mendapat satu elemen lagi polanya berhenti cocok **tanpa suara**, sehingga teks
+balon kembali ikut terbaca dan dua pemeriksaan yang tidak berhubungan gagal karena kata yang tidak
+pernah dilihat pembaca.
 
 ---
 
