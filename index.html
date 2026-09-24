@@ -201,9 +201,9 @@
   .jp-sent .tk > .tip .t-kana .tx { font-style: italic; }
   .jp-sent .tk > .tip .t-id .tx { color: #f8fafc; }
   .jp-sent .tk > .tip .t-en .tx { color: #cbd5e1; }
-  /* When there is no room above the word, the bubble is placed below it by script and the tail
-     flips to the top edge, so it still points at the word it belongs to. */
-  .jp-sent .tk > .tip.below { bottom: auto; top: 100%; margin-bottom: 0; margin-top: 6px; }
+  /* `below` flips the tail ONLY. The position is moved by script with a transform, never by
+     switching top/bottom here: setting both edges on a box with height:auto makes the height
+     stretch instead of fitting the content, which showed up as a bubble 734px tall in CI. */
   .jp-sent .tk > .tip.below::after {
     top: auto; bottom: 100%; margin-top: 0; margin-bottom: -5px;
     border-right: none; border-bottom: none;

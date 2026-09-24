@@ -483,27 +483,39 @@
   function keepBubbleOnScreen(tk) {
     var tip = tk.querySelector('.tip');
     if (!tip) { return; }
-    tip.style.transform = '';
     tip.classList.remove('below');
-    var box = tip.getBoundingClientRect();
+    tip.style.transform = '';
     var slack = 8;
-    var move = 0;
+    var box = tip.getBoundingClientRect();
+    var word = tk.getBoundingClientRect();
+    var dx = 0, dy = 0;
     // The word may be narrower than the bubble, so both its edges are compared, not just one.
-    if (box.right > window.innerWidth - slack) { move = window.innerWidth - slack - box.right; }
-    if (box.left + move < slack) { move = slack - box.left; }
+    if (box.right > window.innerWidth - slack) { dx = window.innerWidth - slack - box.right; }
+    if (box.left + dx < slack) { dx = slack - box.left; }
+    /* Nothing above? Put it below the word instead of letting it hang off the screen.
+     *
+     * The position is moved by transform ONLY, and the class changes the tail direction ONLY. An
+     * earlier version switched `top: 100%` / `bottom: 100%` in CSS to move it below, and that was
+     * wrong in a way that only appeared in CI: with both edges set on an absolutely positioned box
+     * whose height is auto, the height is no longer the content's. The bubble came out 69 by 734
+     * pixels there, taller than the phone screen, while the same code measured 3 tidy rows in
+     * chromium locally. Moving it by transform cannot change its size, so the two engines agree. */
     if (box.top < slack) {
-      tip.classList.add('below');
-      tip.style.transform = move ? 'translateX(' + Math.round(move) + 'px)' : '';
-      box = tip.getBoundingClientRect();
-      // below may still run past the bottom on a short screen; lift it just enough to fit
-      if (box.bottom > window.innerHeight - slack) {
-        var lift = box.bottom - (window.innerHeight - slack);
-        tip.style.transform = 'translate(' + Math.round(move) + 'px, ' + (-Math.round(lift)) + 'px)';
+      var roomBelow = window.innerHeight - slack - word.bottom;
+      if (roomBelow >= box.height) {
+        dy = word.bottom + 6 - box.top;
+        tip.classList.add('below');
+      } else {
+        dy = slack - box.top;      // no room either side: pull it into view rather than clip it
       }
-      return;
     }
-    if (move) { tip.style.transform = 'translateX(' + Math.round(move) + 'px)'; }
+    var overflow = (box.bottom + dy) - (window.innerHeight - slack);
+    if (overflow > 0) { dy -= overflow; }
+    if (dx || dy) {
+      tip.style.transform = 'translate(' + Math.round(dx) + 'px, ' + Math.round(dy) + 'px)';
+    }
   }
+
   list.addEventListener('mouseover', function (e) {
     var tk = e.target.closest && e.target.closest('.tk');
     if (tk && list.contains(tk)) { keepBubbleOnScreen(tk); }
