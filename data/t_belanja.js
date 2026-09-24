@@ -312,4 +312,15 @@ window.BANK = (window.BANK || []).concat([
     t: ['いいえ', '、', '自分', 'で', 'ゆっくり', '見ていきます', '。'],
   },
 
+  {
+    key: 'belanja_terima_tawaran_pesan', topic: 'belanja',
+    rel: 'petugas_toko', polite: 1, long: 1,
+    sit: 'Menjawab tawaran petugas untuk memesankan barangnya',
+    sitEn: 'Answering the assistant offering to order the item in',
+    id: 'Kalau begitu tolong pesankan; kira-kira kapan datangnya?',
+    en: 'Then please order it; when would it arrive?',
+    note: 'Menerima lebih dulu, lalu menanyakan waktunya, jadi petugasnya tahu ini lanjut, bukan sekadar dijawab sopan.',
+    noteEn: 'Accepting first, then asking when, so the assistant knows this goes ahead rather than being politely brushed off.',
+    t: ["それ","では","、","取り寄せ","て","いただける","と","ありがたい","の","です","が","。","いつごろ","入り","ます","か","。"],
+  },
 ]);

@@ -292,4 +292,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: '予報 names the source, so the advice is not the speaker’s guess.',
     t: ["午後","は","雨","らしい","から","、","傘","を","持って","いき","な","よ","。"],
   },
+  {
+    key: 'waktu_cuaca_jawab_jam_tenang', topic: 'waktu_cuaca',
+    rel: 'rekan', polite: 1, long: 1,
+    sit: 'Menjawab pertanyaan jam sambil menenangkan yang bertanya',
+    sitEn: 'Answering the time and reassuring whoever asked',
+    id: 'Sudah lewat jam sepuluh, jadi masih keburu.',
+    en: 'It is just past ten, so there is still time.',
+    note: 'Setelah menjawab, まだ間に合います menyebut kesimpulannya, dan itulah yang biasanya dicari penanya.',
+    noteEn: 'After the time, まだ間に合います gives the conclusion, which is what the person asking usually wants.',
+    t: ["十時","を","回った","ところ","な","ので","、","まだ","間","に","合い","ます","よ","。"],
+  },
 ]);

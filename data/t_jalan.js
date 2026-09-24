@@ -301,4 +301,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'Asked hesitantly and politely, so a stranger is not greeted by mistake.',
     t: ["すみません","、","前","に","どこ","か","で","お会い","しました","っけ","。"],
   },
+  {
+    key: 'jalan_orang_beri_tahu_tas', topic: 'jalan',
+    rel: 'orang_asing', polite: 1, long: 1,
+    sit: 'Menanggapi orang yang memberi tahu tasnya terbuka',
+    sitEn: 'Responding to someone who points out your bag is open',
+    id: 'Terima kasih sudah memberi tahu, saya tidak menyadarinya.',
+    en: 'Thank you for telling me, I had not noticed.',
+    note: '教えてくれたので menyebut sebab rasa syukurnya, jadi terima kasihnya punya isi, bukan ucapan kosong.',
+    noteEn: '教えてくれたので gives the reason for the thanks, so it is not an empty phrase.',
+    t: ["教えて","くれた","ので","、","助かり","ました","。","全然","気づいて","いません","でした","。"],
+  },
 ]);

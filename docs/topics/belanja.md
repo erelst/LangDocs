@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Belanja |
-| Kuota | 27 |
-| Sudah ditulis | 27 |
+| Kuota | 28 |
+| Sudah ditulis | 28 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_belanja.js` |
@@ -63,7 +63,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 Dihitung dengan cara yang sama seperti `check.js`: 27 kalimat, 27 kerangka, tidak ada yang sama. Dua puluh tujuh kalimat, dua puluh tujuh kerangka, tidak ada yang sama.
 
-Lawan bicara yang sudah dipakai: petugas toko 24, pembeli 2, teman 1. Bentuk sopan 26, biasa 1.
+Lawan bicara yang sudah dipakai: petugas toko 25, pembeli 2, teman 1. Bentuk sopan 26, biasa 1.
 Panjang 24, pendek 3.
 
 | # | Kalimat | Kerangka |

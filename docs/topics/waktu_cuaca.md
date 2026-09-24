@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Waktu dan cuaca |
-| Kuota | 28 |
-| Sudah ditulis | 28 |
+| Kuota | 29 |
+| Sudah ditulis | 29 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_waktu_cuaca.js` |
@@ -100,7 +100,7 @@ dan `../SPEC.md` T2 mengizinkan itu selama kalimat tambahannya nyata dan berbeda
 antaranya ditambahkan saat `../SPEC.md` K8 dijalankan: `waktu_cuaca_jawab_hujan_sebentar`,
 jawaban atas pertanyaan apakah hujannya akan lama. **Belum diperiksa mentok.**
 
-Lawan bicara yang sudah dipakai: rekan kerja 10, keluarga 8, teman 5, orang asing di jalan 2, klien 1. Bentuk
+Lawan bicara yang sudah dipakai: rekan kerja 11, keluarga 8, teman 5, orang asing di jalan 2, klien 1. Bentuk
 sopan 15, biasa 3. Panjang 22, pendek 4.
 
 Hampir semua kalimat di sini adalah pembuka percakapan, bukan isi pembicaraan, jadi banyak yang

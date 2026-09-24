@@ -67,9 +67,9 @@ ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa s
 | `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **63** |
 | `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **58** |
 | `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **28** |
-| `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **27** |
+| `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **28** |
 | `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **33** |
-| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **27** |
+| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **28** |
 | `klinik` | 公共商業施設×療養 0,81 | 0,85% | **15** |
 | `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% | **17** |
 
@@ -168,7 +168,7 @@ ucapan yang muncul di topik apa pun.
 |---|---|---|---|
 | `telepon` | 遠隔通信 9,75% | **41** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
 | `sopan` | 感動詞 10,52% dari token | **32** | reaksi dan pengisi jeda: menyetujui, terkejut, ragu, meminta diulang, menyela dengan halus |
-| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **28** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
+| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **29** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
 
 **Kenapa `waktu_cuaca` masuk lintas, bukan topik sendiri.** Tidak ada percakapan yang
 temanya cuaca. Cuaca dan waktu disebut sambil membicarakan hal lain: janji bertemu, rencana
@@ -185,23 +185,23 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 
 | Bagian | Kalimat |
 |---|---|
-| Sepuluh topik inti | 437 |
-| Tiga lintas | 101 |
-| **Minimum deck** | **538** |
-| Kuota terpakai | 538 |
+| Sepuluh topik inti | 439 |
+| Tiga lintas | 102 |
+| **Minimum deck** | **541** |
+| Kuota terpakai | 541 |
 | Perlu ditulis | **0** |
 
-"Kuota terpakai" 538 lebih tinggi 4 dari kuota 538 karena `waktu_cuaca` dan `sopan` berdiri di
+"Kuota terpakai" 541 lebih tinggi 4 dari kuota 538 karena `waktu_cuaca` dan `sopan` berdiri di
 atas kuotanya: `waktu_cuaca` 26 kalimat di berkasnya ditambah 2 dari `kurasi` melawan kuota 28, dan
 `sopan` 28 ditambah 4 dari `kurasi` melawan kuota 32. `../SPEC.md` T2 menyebut kuota sebagai lantai,
 bukan langit-langit, selama kalimat tambahannya nyata dan berbeda.
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **532** |
+| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **535** |
 | Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **538** |
-| Kalimat di halaman | semua yang dibaca pembaca | **542** |
-| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **538** |
+| Kalimat di halaman | semua yang dibaca pembaca | **545** |
+| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **541** |
 
 **Sejarah kenaikan kuota, supaya bisa diperiksa.** Dua gelombang, dan keduanya punya satu sebab
 terukur yang sama:
