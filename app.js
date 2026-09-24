@@ -117,16 +117,26 @@
 
   function bubble(tokens, i, idx) {
     var t = tokens[i];
+    var own = colourOf(i);          // the colour this word is drawn in, on both lines
     var rows = [];
     // The label is the real answer to "which of these is the romaji": a mark in front of each
     // row says it outright, and the colour only makes it quicker to see.
-    if (idx !== 1 && t[1]) { rows.push(['kana', MARK.kana, t[1]]); }
+    if (idx !== 1 && t[1]) { rows.push(['kana', MARK.kana, t[1], own]); }
     if (t[2]) { rows.push(['id', MARK.id, t[2]]); }
     if (t[3]) { rows.push(['en', MARK.en, t[3]]); }
     if (!rows.length) { return ''; }
+    /* The reading is coloured the same as the word it belongs to. Ten colours cycle through a
+     * sentence, so a reader who hovers a word sees that word's own colour on its reading, which
+     * answers "whose reading is this" without a label being read. The two glosses keep the fixed
+     * colours the panel uses, because they are not the reading of anything.
+     *
+     * The mark and the text are separate boxes so the label behaves as one word: a label split
+     * across a line reads as "ROMAJ / I", which is what a reader saw on a narrow screen. */
     return '<span class="tip" aria-hidden="true">' + rows.map(function (r) {
       return '<span class="tr t-' + r[0] + '">' +
-        '<span class="mk">' + esc(r[1]) + '</span>' + esc(r[2]) + '</span>';
+        '<span class="mk">' + esc(r[1]) + '</span>' +
+        '<span class="tx"' + (r[3] ? ' style="color:' + r[3] + ' !important;"' : '') + '>' +
+        esc(r[2]) + '</span></span>';
     }).join('') + '</span>';
   }
 
@@ -460,17 +470,38 @@
    * display changes, so the box is real when it is read.
    *
    * This runs at every width. On a narrow screen the bubble is capped to the viewport by CSS and
-   * wraps, and this is what stops it sticking out on the word that sits nearest the edge. */
+   * wraps, and this is what stops it sticking out on the word that sits nearest the edge.
+   *
+   * Vertically too, and that half was missing. Only the horizontal edges were compared, so a word
+   * near the top of a phone screen got a bubble whose top was 55px ABOVE the viewport: the label
+   * rows are the first thing in the bubble, so the reader saw the last row and nothing else. The
+   * report was about a wrapping label and the real damage was a bubble outside the screen.
+   *
+   * When there is no room above, the bubble goes below the word instead of being cut off. The tail
+   * moves to the top edge so it still points at the word. A bubble the reader has to scroll to is
+   * a bubble with something hidden, which is the same rule the horizontal case follows. */
   function keepBubbleOnScreen(tk) {
     var tip = tk.querySelector('.tip');
     if (!tip) { return; }
     tip.style.transform = '';
+    tip.classList.remove('below');
     var box = tip.getBoundingClientRect();
     var slack = 8;
     var move = 0;
     // The word may be narrower than the bubble, so both its edges are compared, not just one.
     if (box.right > window.innerWidth - slack) { move = window.innerWidth - slack - box.right; }
     if (box.left + move < slack) { move = slack - box.left; }
+    if (box.top < slack) {
+      tip.classList.add('below');
+      tip.style.transform = move ? 'translateX(' + Math.round(move) + 'px)' : '';
+      box = tip.getBoundingClientRect();
+      // below may still run past the bottom on a short screen; lift it just enough to fit
+      if (box.bottom > window.innerHeight - slack) {
+        var lift = box.bottom - (window.innerHeight - slack);
+        tip.style.transform = 'translate(' + Math.round(move) + 'px, ' + (-Math.round(lift)) + 'px)';
+      }
+      return;
+    }
     if (move) { tip.style.transform = 'translateX(' + Math.round(move) + 'px)'; }
   }
   list.addEventListener('mouseover', function (e) {

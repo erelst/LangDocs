@@ -182,19 +182,33 @@
   }
   .jp-sent .tk:hover > .tip,
   .jp-sent .tk:focus-visible > .tip { display: flex; }
-  .jp-sent .tk > .tip .tr { white-space: nowrap; }
+  /* Each row is a flex line so the mark and the text are separate boxes. That is what keeps a
+     label whole: when both were inline text inside one box, a narrow screen wrapped mid-label and
+     the reader saw "ROMAJ" with the I on the next line. A mark is never allowed to break. */
+  .jp-sent .tk > .tip .tr { display: flex; align-items: baseline; white-space: nowrap; }
   .jp-sent .tk > .tip .mk {
-    display: inline-block;
+    flex: 0 0 auto;
     min-width: 3.6em;
-    margin-right: 4px;
+    margin-right: 5px;
     font-size: 11px;
     letter-spacing: .02em;
     text-transform: uppercase;
     color: #64748b;
   }
-  .jp-sent .tk > .tip .t-kana { color: #94a3b8; }
-  .jp-sent .tk > .tip .t-id { color: #f8fafc; }
-  .jp-sent .tk > .tip .t-en { color: #cbd5e1; }
+  .jp-sent .tk > .tip .tx { flex: 0 1 auto; }
+  /* The reading takes the colour of the word it belongs to, set inline. The two glosses keep the
+     colours the panel already uses for the same two things, so the bubble and the panel agree. */
+  .jp-sent .tk > .tip .t-kana .tx { font-style: italic; }
+  .jp-sent .tk > .tip .t-id .tx { color: #f8fafc; }
+  .jp-sent .tk > .tip .t-en .tx { color: #cbd5e1; }
+  /* When there is no room above the word, the bubble is placed below it by script and the tail
+     flips to the top edge, so it still points at the word it belongs to. */
+  .jp-sent .tk > .tip.below { bottom: auto; top: 100%; margin-bottom: 0; margin-top: 6px; }
+  .jp-sent .tk > .tip.below::after {
+    top: auto; bottom: 100%; margin-top: 0; margin-bottom: -5px;
+    border-right: none; border-bottom: none;
+    border-left: 1px solid #475569; border-top: 1px solid #475569;
+  }
   /* the tail: a rotated square tucked under the bubble, pointing at the word */
   .jp-sent .tk > .tip::after {
     content: "";
@@ -217,7 +231,11 @@
       max-width: calc(100vw - 24px);
       font-size: 13px;
     }
-    .jp-sent .tk > .tip .tr { white-space: normal; overflow-wrap: anywhere; }
+    /* The label column narrows instead of breaking, and only the text may wrap. wrap:anywhere is
+       deliberately absent: it is what split the labels in the first place. */
+    .jp-sent .tk > .tip .mk { min-width: 3.1em; font-size: 10px; }
+    .jp-sent .tk > .tip .tr { white-space: normal; }
+    .jp-sent .tk > .tip .tx { overflow-wrap: break-word; word-break: break-word; }
   }
 
   mark { background: #f59e0b; color: #0b1220; border-radius: 3px; padding: 0 1px; }
