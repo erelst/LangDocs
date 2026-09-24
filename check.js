@@ -80,6 +80,7 @@ function tokens(s) {
 const REQUIRED = ['key', 'polite', 'long', 'sit', 'sitEn', 'id', 'en', 'note', 'noteEn', 't'];
 // Surfaces that carry a polite predicator, and ones that mark plain speech.
 const POLITE = ['です', 'ます', 'ました', 'ません', 'でしょう', 'ましょう', 'ください', 'ございます',
+                'でした',
                 'お願いします', 'いただけます', 'いただけますか', 'ではありません'];
 const PAST_TIME = ['昨日', '今朝', '先週', '去年', '先月', 'おととい'];
 const NONPAST_TIME = ['明日', '今晩', '来週', '来月', '今夜'];
@@ -188,10 +189,10 @@ const MIN_LONG_TOKENS = 6;
 function checkOneThought(rows) {
   const bad = [];
   for (const { s, kanji } of rows) {
-    const surfaces = tokens(s).map(t => bare(t[0]));
+    const surfaces = tokens(s).map(t => bare(t[0])).filter(Boolean);
     if (s.long) {
       if (surfaces.length < MIN_LONG_TOKENS) {
-        bad.push([s.key, `marked long but only ${surfaces.length} tokens`]);
+        bad.push([s.key, `marked long but only ${surfaces.length} words`]);
       } else {
         // The -ba conditional is れば on ichidan verbs but せば, けば, てば on godan ones, so
         // matching れば alone saw 進めれば and missed 出せば and おけば. Two sentences with
