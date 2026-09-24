@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Kegiatan |
-| Kuota | 8 |
-| Sudah ditulis | 8 |
+| Kuota | 13 |
+| Sudah ditulis | 13 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_kegiatan.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 8 kalimat, 8 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 13 kalimat, 13 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -69,12 +69,17 @@ Dihitung dengan cara yang sama seperti `check.js`. 8 kalimat, 8 kerangka, tidak 
 | 6 | `kegiatan_bagi_undangan` | 地区 の お知らせ です ので お時間 の ある とき に | どうぞ |
 | 7 | `kegiatan_ajak_ikut` | よかったら 一度 一緒 に 出て みません | か |
 | 8 | `kegiatan_tidak_bisa_datang` | 日 は 家族 の 用事 が ある ので 欠席 させて | いただきます |
+| 9 | `kegiatan_tanya_iuran` | 会費 が いくら な の か と いつ 払う の か を 教えて | ください |
+| 10 | `kegiatan_tanya_piket` | 当番 は どういう 順番 で 回って いる の か 分かる と 助かり | ます |
+| 11 | `kegiatan_kerja_bakti` | 日 は 掃除 に 出る ので 草むしり なら | 手伝えます |
+| 12 | `kegiatan_rapat_rt` | 自治会 の 会議 に 出られなかった ので 何 の 話 だった か 教えて | ください |
+| 13 | `kegiatan_pertemuan_orang_tua` | 学校 の 保護者 会 は いつ です か 日 は 仕事 が 休み | なので |
 
-Kuota terpenuhi: 8 dari 8. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 13 dari 13. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: tetangga 6, tetangga baru 1, teman 1. Bentuk sopan 8, biasa 0.
-Panjang 8, pendek 0.
+Lawan bicara yang sudah dipakai: tetangga 11, tetangga baru 1, teman 1. Bentuk sopan 13, biasa 0.
+Panjang 13, pendek 0.
 
 Delapan dari delapan sopan, dan tidak ada satu pun yang biasa. Itu memang bentuk topik ini: yang
 mengikuti kegiatan lingkungan atau sekolah anak berbicara dengan orang yang baru dikenal, dan satu
@@ -84,20 +89,32 @@ hubungan pribadi.
 Topik paling ramai menurut data: satu lawan bicara hanya 29%, terendah dari semua topik. Itu
 sebabnya memperkenalkan diri dan mengajukan diri untuk tugas ada di sini, bukan di topik lain.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
+
+| Celah | Ditutup oleh |
+|---|---|
+| iuran kegiatan dan kapan dibayar | `kegiatan_tanya_iuran` |
+| jadwal piket bergilir | `kegiatan_tanya_piket` |
+| kerja bakti dan menawarkan tenaga untuk bagian tertentu | `kegiatan_kerja_bakti` |
+| keputusan rapat RT bagi yang tidak hadir | `kegiatan_rapat_rt` |
+| pertemuan orang tua di sekolah | `kegiatan_pertemuan_orang_tua` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| iuran dan biaya kegiatan | tidak ada kalimat yang memuat `会費` |
-| jadwal piket bergilir | tidak ada kalimat yang memuat `当番` |
-| pertemuan orang tua di sekolah | tidak ada kalimat yang memuat `保護` atau `学校` |
-| kerja bakti membersihkan lingkungan | tidak ada kalimat yang memuat `掃除` atau `草` |
-| pengurus RT dan rapatnya | tidak ada kalimat yang memuat `自治会` atau `町内会` |
+| menjawab pertanyaan orang yang baru dikenal tentang diri sendiri | `引っ越してきた` ada, tetapi tidak ada kalimat yang menjawab pertanyaan orang lain |
+| mengucapkan terima kasih kepada panitia setelah acara | tidak ada kalimat yang memuat `お疲れ様` |
+| membawa makanan atau minuman untuk kegiatan | tidak ada kalimat yang memuat `差し入れ` atau `飲み物` |
+| kursus atau klub yang diikuti atas kemauan sendiri | tidak ada kalimat yang memuat `サークル` atau `教室` |
+| menanyakan siapa ketua atau penanggung jawab kegiatan | tidak ada kalimat yang memuat `会長` atau `代表` |
+
+Kuota naik dari 8 menjadi 13 karena pemeriksaan ini menemukan lima keadaan yang nyata dan berbeda,
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 8 sudah penuh.
+0 kalimat. Kuota 13 sudah penuh.
