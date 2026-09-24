@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Rumah: santai |
-| Kuota | 30 |
-| Sudah ditulis | 30 |
+| Kuota | 36 |
+| Sudah ditulis | 36 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_santai.js` |
@@ -58,7 +58,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 30 kalimat, 30 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 36 kalimat, 36 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -92,32 +92,49 @@ Dihitung dengan cara yang sama seperti `check.js`. 30 kalimat, 30 kerangka, tida
 | 28 | `rumah_santai_syukuri_kecil` | 朝 の コーヒー が おいしかった だけで いい 日 だった 気 が | する |
 | 29 | `rumah_santai_minta_ditemani` | 眠れない から だけ そば に | いて |
 | 30 | `rumah_santai_kabar_keluarga_lain` | そういえば おばあさん は 元気 に | してる |
+| 31 | `rumah_santai_syukur_hari` | 大変 な 一日 だった けど 無事 に 終わって ありがたい と 思う | よ |
+| 32 | `rumah_santai_ajak_jalan_pagi` | 朝 の 空気 が いい から 散歩 でも | どう |
+| 33 | `rumah_santai_kabar_keluarga_baik` | おばあさん 元気 だった ので 安心 | した |
+| 34 | `rumah_santai_lelah_fisik` | 腰 と 肩 が 凝って いる から もんで | くれる |
+| 35 | `rumah_santai_ajak_game` | 仕事 が 終わった から ゲーム でも | しない |
+| 36 | `rumah_santai_dengar_musik` | 休みたい から 音楽 を 聴いて いる | ね |
 
-Kuota terpenuhi: 30 dari 30. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 36 dari 36. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: keluarga 17, pasangan 11, teman 2. Bentuk sopan 2, biasa 28.
-Panjang 27, pendek 3.
+Lawan bicara yang sudah dipakai: keluarga 21, pasangan 13, teman 2. Bentuk sopan 2, biasa 34.
+Panjang 33, pendek 3.
 
 28 dari 30 biasa karena 59% percakapan topik ini dengan keluarga dan tidak ada yang memakai
 bentuk sopan ke pasangan sendiri di sofa. Dua yang sopan keduanya ke kerabat yang berkunjung,
 satu mempersilakan masuk dan satu menawarkan antar pulang.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
+
+| Celah | Ditutup oleh |
+|---|---|
+| mengucapkan syukur, bukan sekadar menyebut harinya berat | `rumah_santai_syukur_hari` |
+| jalan santai bersama di sekitar rumah | `rumah_santai_ajak_jalan_pagi` |
+| kabar baik anggota keluarga yang ditanyakan, dengan akibatnya | `rumah_santai_kabar_keluarga_baik` |
+| lelah fisik, bukan hanya lelah pikiran | `rumah_santai_lelah_fisik` |
+| main game bersama sebagai cara istirahat | `rumah_santai_ajak_game` |
+| musik sebagai cara istirahat | `rumah_santai_dengar_musik` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| mengucapkan syukur atas hal baik, bukan sekadar menyebutnya | tidak ada kalimat yang memuat `ありがたい` atau `感謝` |
-| mengajak berjalan santai bersama | tidak ada kalimat yang memuat `散歩` |
-| menanyakan kabar baik keluarga yang lain, bukan hanya nenek | `おばあさん` ada satu, `元気だった` belum |
-| lelah fisik, bukan hanya lelah pikiran | `疲れた` ada, `肩` dan `腰` belum |
-| mengajak main game atau menonton bersama teman | `映画` ada, `ゲーム` belum |
-| musik sebagai cara beristirahat | tidak ada kalimat yang memuat `音楽` |
+| bercanda dan tertawa bersama | tidak ada kalimat yang memuat `笑` atau `冗談` |
+| menonton televisi atau berita bersama | tidak ada kalimat yang memuat `テレビ` atau `ニュース` |
+| hobi baru yang mulai ditekuni | `好き` dan `趣味` belum muncul sebagai topik pembicaraan |
+| tamu yang menginap, bukan sekadar berkunjung | `お上がり` dan `お送り` ada, `泊まる` belum |
+
+Kuota naik dari 30 menjadi 36 karena pemeriksaan ini menemukan enam keadaan yang nyata dan berbeda,
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 
 Kalau topik ini dibuka lagi, enam baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 30 sudah penuh.
+0 kalimat. Kuota 36 sudah penuh.
