@@ -1,0 +1,100 @@
+/* Klinik: the doctor and the pharmacy.
+ *
+ * Quota and boundaries are in docs/topics/klinik.md. Telling the family you feel ill is in
+ * rumah_santai and buying medicine as an ordinary purchase is in belanja; this file is the
+ * appointment itself.
+ *
+ * The quota is small because 療養 is 0,92% of recorded talk, and the whole topic is one shape:
+ * the patient describes, the doctor decides. There is no invitation slot, which
+ * docs/topics/klinik.md records rather than leaving a hole.
+ */
+window.BANK = (window.BANK || []).concat([
+  {
+    key: 'klinik_sebut_gejala', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menyebut gejala dan sudah berapa lama',
+    sitEn: 'Describing the symptom and how long it has lasted',
+    id: 'Sejak dua hari lalu demam terus, jadi saya datang.',
+    en: 'I have had a fever for two days, so I came in.',
+    note: '二日前から menyebut kapan mulainya lebih dulu, karena itu pertanyaan pertama dokter biasanya.',
+    noteEn: '二日前から gives the onset first, because that is usually the doctor first question.',
+    t: ['二日', '前', 'から', '熱', 'が', '続いて', 'いる', 'ので', '、', '来ました', '。'],
+  },
+  {
+    key: 'klinik_jelaskan_letak_sakit', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menjelaskan di mana sakitnya dan seberapa sakit',
+    sitEn: 'Saying where it hurts and how much',
+    id: 'Kalau ditusuk, sisi kanan perut saya sakit.',
+    en: 'It hurts on the right side of my stomach when I press it.',
+    note: '押すと痛いので menunjukkan sakitnya lewat gerakan yang bisa diperagakan sendiri di ruang periksa.',
+    noteEn: '押すと痛いので shows the pain through an action the doctor can copy in the room.',
+    t: ['押す', 'と', '痛い', 'ので', '、', 'お腹', 'の', '右', '側', 'が', '気に', 'なり', 'ます', '。'],
+  },
+  {
+    key: 'klinik_tanya_obat_minum', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menanyakan cara minum obat yang diresepkan',
+    sitEn: 'Asking how to take the prescribed medicine',
+    id: 'Obatnya diminum sesudah makan atau sebelum makan?',
+    en: 'Is the medicine taken after meals or before?',
+    note: '食後と食前のどちらか menanyakan mana dari dua pilihan, jadi jawabannya tidak bisa mengambang.',
+    noteEn: '食後と食前のどちらか asks which of the two, so the answer cannot stay vague.',
+    t: ['この', '薬', 'は', '食後', 'と', '食前', 'の', 'どちら', 'で', '飲めば', 'いい', 'ですか', '。'],
+  },
+  {
+    key: 'klinik_tanya_efek_samping', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menanyakan efek samping yang perlu diwaspadai',
+    sitEn: 'Asking what side effects to watch for',
+    id: 'Saya kerja, jadi kalau ada efek samping tolong beri tahu lebih dulu.',
+    en: 'I work, so please tell me in advance if there are side effects.',
+    note: '仕事に支障が出ると困るので menyebut alasannya, jadi pertanyaannya bukan keingintahuan.',
+    noteEn: '仕事に支障が出ると困るので gives the reason, so the question is not idle curiosity.',
+    t: ['仕事', 'に', '支障', 'が', '出る', 'と', '困る', 'ので', '、', '副作用', 'を', '教えて', 'ください', '。'],
+  },
+  {
+    key: 'klinik_alergi_obat', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Memberi tahu alergi obat tertentu',
+    sitEn: 'Telling the doctor about a medicine allergy',
+    id: 'Dulu saya pernah ruam karena antibiotik, jadi tolong hindari yang itu.',
+    en: 'I once had a rash from antibiotics, so please avoid those.',
+    note: '以前かぶれたことがあるので menyebut pengalaman nyatanya, jadi dokter tahu ini bukan kekhawatiran umum.',
+    noteEn: '以前かぶれたことがあるので gives the actual experience, so the doctor knows this is not a general worry.',
+    t: ['以前', '抗生物質', 'で', 'かぶれた', 'こと', 'が', 'ある', 'ので', '、', 'それ', 'は', '避けて', 'ください', '。'],
+  },
+  {
+    key: 'klinik_minta_surat', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Meminta surat keterangan untuk kantor',
+    sitEn: 'Asking for a note for work',
+    id: 'Saya perlu surat untuk kantor, jadi bisa minta sekarang?',
+    en: 'I need a note for work, could I get one now?',
+    note: '診断書をお願いしたいのですが menyebut jenis suratnya dengan istilah yang tepat, jadi tidak perlu menjelaskan panjang.',
+    noteEn: '診断書をお願いしたいのですが names the exact document, so no long explanation is needed.',
+    t: ['診断書', 'を', 'お願い', 'したい', 'の', 'です', 'が', '、', '今日', 'いただけます', 'か', '。'],
+  },
+  {
+    key: 'klinik_tanya_biaya', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menanyakan perkiraan biaya sebelum diperiksa',
+    sitEn: 'Asking the likely cost before being examined',
+    id: 'Kalau tahunya setelah diperiksa saya akan kesulitan, jadi tolong beri tahu perkiraan biayanya dulu.',
+    en: 'I would be stuck if I only found out afterwards, so please tell me the likely cost first.',
+    note: '受けてからでは困るので menyebut kenapa harus tahu lebih dulu, dan 先に menaruh jawabannya sebelum pemeriksaan.',
+    noteEn: '受けてからでは困るので gives the reason for asking first, and 先に puts the answer before the examination.',
+    t: ['受け', 'て', 'から', 'で', 'は', '困る', 'ので', '、', 'どのくらい', 'かかる', 'か', '先', 'に', '教えて', 'ください', '。'],
+  },
+  {
+    key: 'klinik_apotek_tebus_resep', topic: 'klinik',
+    rel: 'apoteker', polite: 1, long: 1,
+    sit: 'Menebus resep di apotek',
+    sitEn: 'Filling a prescription at the pharmacy',
+    id: 'Saya dapat resep dari dokter, jadi mau menebusnya.',
+    en: 'I have a prescription from the doctor, so I would like to fill it.',
+    note: 'これでお願いします menyerahkan resepnya sekaligus, jadi tidak perlu menjelaskan isinya.',
+    noteEn: 'これでお願いします hands the prescription over at the same time, so nothing needs explaining.',
+    t: ['処方箋', 'を', 'いただいた', 'ので', '、', 'これ', 'で', 'お願い', 'します', '。'],
+  },
+]);
