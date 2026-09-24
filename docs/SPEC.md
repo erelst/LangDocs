@@ -33,18 +33,31 @@ bukan ditulis.
 **Gejala pelanggaran.** Beberapa kalimat panjang dengan predikat terakhir yang sama dan
 partikel yang sama, misalnya berakhir `〜を買いました` berkali-kali.
 
-### K2. Kalimat panjang adalah mayoritas
+### K2. Kalimat panjang diutamakan
 
 Kalimat panjang adalah kalimat yang menyatakan sesuatu: pernyataan, penjelasan, atau pembuka
-yang membuat lawan bicara ingin melanjutkan. Kalimat pendek hanya dipakai bila versi
-panjangnya justru terdengar aneh.
+yang membuat lawan bicara ingin melanjutkan. Kalimat panjang adalah **pilihan pertama**, bukan
+salah satu pilihan. Kalimat pendek dipakai hanya bila versi panjangnya justru terdengar aneh.
 
 **Alasan.** Percakapan sehari-hari yang berguna bukan daftar sapaan. Yang sulit dan yang
-paling sering dibutuhkan adalah kalimat yang membawa isi.
+paling sering dibutuhkan adalah kalimat yang membawa isi, dan kalimat pendek adalah tempat
+penulis berlindung ketika kalimat panjangnya tidak jadi.
 
-**Diperiksa oleh.** `check.js` bagian `balance`: minimal 50% kalimat tulis harus panjang.
-Ambangnya sengaja rendah, karena angkanya bukan target, hanya pagar supaya kemunduran ke
-buku frasa terlihat di keluaran, bukan baru terasa oleh pembaca.
+**Diperiksa oleh.** `check.js` bagian `balance`, dengan dua lantai karena keduanya mengukur hal
+yang berbeda:
+
+| Lantai | Angka | Mengukur apa |
+|---|---|---|
+| Seluruh deck | 50% panjang | kemunduran ke buku frasa |
+| Tiap topik | 60% panjang | satu topik yang menyimpang tidak bisa bersembunyi di balik topik lain |
+
+Angka keduanya adalah **pagar, bukan target**, sama seperti lantai lama. Yang membedakan: lantai
+per topik baru ada karena sebelumnya satu topik bisa jatuh ke bentuk buku frasa tanpa terlihat
+selama topik lain menutupinya. Angkanya 60%, bukan lebih tinggi, karena topik yang paling
+banyak berisi reaksi pendek berdiri di 67,9% (`sopan`), jadi ambang yang lebih tinggi akan
+memaksa kalimat panjang masuk ke topik yang gunanya justru kalimat pendek. Hari ini topik
+terendah 67,9% dan tertinggi 100%, jadi lantainya jauh di bawah kenyataan: kalau nanti ia
+tertabrak, itu tanda kemunduran, bukan tanda lantainya kurang tinggi.
 
 **Ukuran panjang.** Sedikitnya 6 token setelah tanda baca dibuang (`MIN_LONG_TOKENS`).
 
@@ -63,7 +76,7 @@ menyatakan hubungan sebab, dan itu yang membuat satu kalimat berarti satu hal.
 
 **Gejala pelanggaran.** `〜しました。それから〜しました。` sebagai satu kalimat panjang.
 
-### K4. Kalimat pendek hanya untuk yang benar-benar lazim
+### K4. Kalimat pendek hanya untuk yang benar-benar lazim dipakai
 
 Kalimat pendek dipakai bila memang itu yang diucapkan orang dan versi panjangnya tidak lebih
 baik. Bukan karena kalimatnya sulit ditulis panjang.
@@ -72,11 +85,24 @@ baik. Bukan karena kalimatnya sulit ditulis panjang.
 yang lebih baik. Sebaliknya 「おはようございます。」 yang dipanjangkan dengan alasan apa pun
 hanya terdengar seperti latihan.
 
-**Diperiksa oleh.** Tidak diperiksa otomatis. Diputuskan saat menulis, dan dicatat di berkas
-topik pada kolom slot `pendek`.
+**Ukuran "benar-benar lazim" yang bisa diperiksa.** Waktu pertama aturan ini berbunyi, tidak
+ada yang memeriksanya, dan hasilnya terbaca di data: 31 dari 58 kalimat pendek tidak punya
+penanda apa pun bahwa itu memang yang diucapkan orang. Ada dua ukuran, dan satu kalimat pendek
+cukup memenuhi salah satunya:
+
+| Ukuran | Kenapa itu bukti |
+|---|---|
+| Berakhir partikel akhir kalimat (`ね`, `よ`, `か`, `な`, `の`, `わ`, `ぞ`, `ぜ`, `かしら`) atau bentuk santun (`です`, `ます`, `でした`, `ました`, `ください`, `お願いします`) | Itu yang membuat kalimat pendek terdengar utuh dan bukan terpotong. Kalimat pendek tanpa keduanya hampir selalu `それから` yang kehilangan klausanya |
+| Ditandai `short: 1` di entri, dengan alasannya | Sebagian kalimat pendek orang memang tanpa penanda, dan yang menentukan bukan tanda tapi bahwa kalimat itu memang dipakai: pembuka dan penutup telepon, sapaan, ucapan terima kasih. Tanda itu menyatakan penulis sudah memeriksanya, dan jumlahnya dilaporkan supaya tidak berubah jadi jalan keluar |
+
+**Diperiksa oleh.** `check.js` bagian `short`: setiap kalimat pendek harus memenuhi salah satu
+ukuran di atas, dan jumlah yang bertanda `short: 1` dicetak supaya kenaikannya terlihat.
+Alasan pada penanda itu ditulis juga di berkas topik pada kolom slot `pendek`.
 
 **Gejala pelanggaran.** Kalimat pendek muncul sebagai jalan keluar saat kalimat panjangnya
-tidak jadi, lalu diberi alasan sesudahnya.
+tidak jadi, lalu diberi alasan sesudahnya. Di data, gejalanya bentuknya khas: 18 dari 31
+kalimat pendek tanpa penanda diakhiri kata kerja kamus (`〜する`, `〜思う`), karena kalimatnya
+berhenti tepat saat sudah cukup panjang untuk ditulis panjang.
 
 ### K5. Register harus cocok dengan lawan bicaranya
 
@@ -121,6 +147,54 @@ punya glosa Indonesia dan Inggris. `test.js` memeriksa hal yang sama pada DOM ya
 dirender, karena sel glosa yang kosong pernah lolos ke halaman.
 
 **Gejala pelanggaran.** Sel glosa kosong di panel, atau romaji berbeda untuk kata yang sama.
+
+### K8. Bank harus punya kalimat balasan, bukan hanya kalimat pembuka
+
+Bukan hanya kalimat yang memulai sesuatu. Harus ada juga kalimat yang **menjawab**: menjawab
+pertanyaan, menanggapi ajakan, menerima tawaran, menolak dengan halus, mengaku belum paham,
+menanggapi pujian, menjawab bahwa orangnya sedang keluar. Kalimat balasan sama pentingnya
+dengan kalimat pembuka, karena pembaca menghabiskan lebih banyak waktu sebagai pihak yang
+menjawab: ditanya arah, ditawari makanan, ditelepon, ditanya kapan mulai.
+
+**Alasan.** Deck yang hanya berisi kalimat pembuka adalah deck yang bisa memulai percakapan
+tapi tidak bisa meneruskannya. Ukurannya juga ada: pertanyaan adalah **15–20% unit ujaran**
+CEJC (`outputs/estimate.txt` bagian 6), jadi sisanya, 80–85%, adalah pihak yang menjawab.
+Deck tanpa kalimat balasan menjanjikan bagian percakapan yang paling besar lalu tidak
+mengajarkannya.
+
+**Bagaimana balasan dikenali.** Bukan dari bentuk kalimatnya, karena 「大丈夫です。」 bisa jadi
+jawaban atau bukan tergantung keadaan yang dimaksud. Yang menentukan adalah **situasinya
+menyebut apa yang dikatakan lawan bicara**, sehingga pembaca tahu kalimat itu jawaban atas
+apa. Ukurannya bisa diperiksa:
+
+| Bertanda balasan | Bukan balasan |
+|---|---|
+| "Menjawab pertanyaan dokter tentang kapan mulai" | "Menanyakan kapan mulai" |
+| "Menolak tawaran makanan karena masih kenyang" | "Menilai harga terlalu tinggi" |
+| "Menanggapi pujian tanpa terdengar sombong" | "Memberi pujian kepada rekan" |
+
+Kalimat yang hanya **mengandung** kata menolak atau menerima tidak otomatis balasan. Yang
+menentukan pemicunya disebut atau tidak: "menolak kantong plastik karena membawa tas sendiri"
+adalah keputusan sendiri, sedangkan "menolak tawaran kantong dari petugas" adalah balasan.
+
+Alasannya satu kalimat biasa berfungsi dua. 「大丈夫です。」 adalah jawaban atas tawaran
+bantuan, dan memaksanya sebagai kalimat tersendiri menghasilkan kalimat yang tidak ada artinya.
+Karena itu yang dituntut adalah **lantai**, bukan bagian tetap: deck boleh punya balasan lebih
+banyak dari lantainya.
+
+**Diperiksa oleh.** `check.js` bagian `reply`: tiap topik harus punya sedikitnya **3 kalimat
+balasan**, dan situasinya harus menyebut pemicunya. Daftar pemicu ada di `check.js`
+(`TRIGGER`, `TRIGGER_EN`), dan setiap topik juga mencantumkan baris balasannya di berkas topik
+pada slot `menjawab`. Angka 3 dipilih karena tanpa lantai, kalimat balasan ternyata tidak
+merata: pada pemeriksaan pertama 4 dari 13 topik berdiri di bawahnya, dan `kegiatan` serta
+`klinik` hanya punya 1 padahal slot `menjawab` di berkas topiknya sudah ditulis seolah
+terisi. Lantai 3 dan lantai panjang 60% mengukur hal yang berbeda dan keduanya bisa berlaku
+bersamaan; yang satu menuntut isi, yang satu menuntut fungsi.
+
+**Gejala pelanggaran.** Topik yang semua kalimatnya pertanyaan atau pernyataan, dan tidak ada
+satu pun yang menjawab. Bentuk yang paling sering muncul di data: slot `menjawab` di berkas
+topik diisi nama keadaan, padahal kalimatnya belum ada, sehingga berkas itu terlihat lengkap
+sementara decknya belum.
 
 ---
 
@@ -344,6 +418,17 @@ Sebelum menulis kalimat untuk sebuah topik:
 3. Jalankan `node check.js`, lalu `node test.js`, lalu `node ui.js`.
 4. Perbarui berkas topik itu: pindahkan baris dari "belum ditulis" ke "sudah ditulis", dan
    tambahkan kerangka baru ke daftar klaim.
+
+**Satu baris yang paling sering salah: slot `menjawab`.** Baris itu pernah ditulis berisi nama
+keadaan ("menjawab pertanyaan dokter tentang gejala") padahal kalimatnya belum ada, sehingga
+berkasnya terbaca lengkap sementara decknya kosong di bagian itu. `check.js` bagian `reply`
+sekarang menutup celah itu dengan angka, dan jumlah balasan tiap topik dicetak di akhir
+keluarannya. Setelah menulis slot itu, salin angkanya dari keluaran itu, jangan dihitung
+sendiri: cara menghitung sendiri itulah yang membuat berkas topik dan data berbeda.
+
+**Baris `Panjang n, pendek n` dan `Lawan bicara yang sudah dipakai` juga diambil dari data**,
+bukan dari ingatan: keduanya pernah tertinggal beberapa kalimat di belakang setelah topiknya
+ditambah.
 
 Kalau ada ketentuan di sini yang menghalangi penulisan kalimat yang jelas benar, yang salah
 adalah ketentuannya, bukan kalimatnya. Perbaiki berkas ini dan sebutkan di ringkasan
