@@ -18,6 +18,7 @@ berkasnya dibaca langsung oleh browser.
 | `data/t_*.js` | Bank kalimat, satu berkas per topik. |
 | `check.js` | Pemeriksa bank kalimat. Jalankan: `node check.js` |
 | `test.js` | Merender halaman di browser dan memeriksa DOM-nya. Jalankan: `node test.js` |
+| `ui.js` | Menjalankan halamannya: mencari setelah menggulir, dan default romaji. Jalankan: `node ui.js` |
 | `docs/SPEC.md` | Ketentuan yang mengikat setiap kalimat, beserta cara memeriksanya. |
 | `docs/README.md` | Rencana topik: topik apa saja, berapa kalimat tiap topik, dan dari mana angkanya. |
 | `docs/topics/<topik>.md` | Berkas per topik: kuota, slot ucapan yang sudah dan belum terisi, kerangka yang diklaim. |

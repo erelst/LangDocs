@@ -9,6 +9,7 @@
 # What it runs is what a person runs before pushing:
 #   node check.js   the sentence bank: correctness, and whether it is worth reading
 #   node test.js    renders index.html in a headless browser and checks the real DOM
+#   node ui.js      drives the page: search after scrolling, and the romaji default
 #
 # Both exit non-zero on a finding, so a red run means something a reader would see is wrong.
 
@@ -42,3 +43,9 @@ jobs:
 
       - name: Render the page and check it
         run: node test.js
+
+      # ui.js drives the same browser over its debug port, so it needs the Chrome above as
+      # well. Two checks, not one, because a rendering bug and an interaction bug are
+      # different failures and a red run should say which one happened.
+      - name: Drive the page and check the interactions
+        run: node ui.js

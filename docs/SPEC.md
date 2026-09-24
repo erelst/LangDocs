@@ -199,10 +199,11 @@ Ketentuan ini sudah berjalan; ditulis di sini supaya tidak berubah tanpa disadar
 | V4 | Kata bersifat atomik (`display:inline-block`), warna dan garis bawah unik, dipakai bersama baris kanji dan romaji | `test.js` |
 | V5 | Hanya satu panel terbuka; klik di luar atau Escape menutupnya | tidak diperiksa |
 | V6 | Tautan `#qN` membuka kartu ke-N termasuk yang belum dirender | `test.js` |
-| V7 | Romaji bisa dimatikan; cakupan All (bawaan) atau Japanese; judul dan jumlah dua bahasa; placeholder `Search:` | `test.js` |
+| V7 | Romaji bisa dinyalakan dan **mati secara bawaan**; cakupan All (bawaan) atau Japanese; judul dan jumlah dua bahasa; placeholder `Search:` | `test.js` + `ui.js` |
 | V8 | Kartu dimuat bertahap saat digulir dan tidak pernah dilepas | tidak diperiksa |
 | V9 | Tidak ada build, tidak ada program penghasil kalimat; berkas dibaca langsung browser | susunan repo |
 | V10 | Sel glosa tidak boleh kosong, dan tanda baca tidak berdiri sebagai baris sendiri | `test.js` |
+| V11 | Mencari setelah menggulir menampilkan hasil teratas, bukan posisi gulir lama | `ui.js` |
 
 ---
 
@@ -215,8 +216,8 @@ sering tersentuh saat menulis kalimat:
 - Pesan commit dalam bahasa Inggris, bentuk `<type>(<scope>): <description>`, tanpa trailer
   buatan.
 - Merge ke `main` hanya `--ff-only`. Tidak ada force push ke `main`.
-- Verifikasi tidak memakai build dan tidak menjalankan server sendiri: `node check.js` dan
-  `node test.js`.
+- Verifikasi tidak memakai build dan tidak menjalankan server sendiri: `node check.js`,
+  `node test.js`, dan `node ui.js`.
 
 ---
 
@@ -227,7 +228,7 @@ Sebelum menulis kalimat untuk sebuah topik:
 1. Buka `docs/topics/<topik>.md`, lihat kuota, slot yang belum terisi, batas topiknya, dan
    kerangka yang sudah diklaim topik lain.
 2. Tulis kalimatnya di `data/t_<topik>.js`.
-3. Jalankan `node check.js` lalu `node test.js`.
+3. Jalankan `node check.js`, lalu `node test.js`, lalu `node ui.js`.
 4. Perbarui berkas topik itu: pindahkan baris dari "belum ditulis" ke "sudah ditulis", dan
    tambahkan kerangka baru ke daftar klaim.
 
