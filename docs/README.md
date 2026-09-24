@@ -134,16 +134,17 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
 | **Minimum deck** | **391** |
-| Kuota terpakai | 314 |
-| Perlu ditulis | **77** |
+| Kuota terpakai | 365 |
+| Perlu ditulis | **26** |
 
-Angka 314 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `kerja` 86, `makan` 53,
-`rumah_tugas` 45, `telepon` 33, `rumah_santai` 30, `transportasi` 22, `belanja` 21, dan `santai` 18
-(delapannya penuh), `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
+Angka 365 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. Semua topik inti sudah
+penuh: `kerja` 86, `makan` 53, `rumah_tugas` 45, `telepon` 33, `rumah_santai` 30, `transportasi` 22,
+`belanja` 21, `waktu_cuaca` 18, `santai` 18, `jalan` 17, `klinik` 8, `kegiatan` 8. Sisanya `sopan`
+dari `kurasi` 4 kalimat, sehingga 26 kalimat terakhir adalah kuota `sopan`. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 318 kalimat di halaman, bukan 314. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 369 kalimat di halaman, bukan 365. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -223,10 +224,10 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 7 | `transportasi` | 22 | **22 kalimat, kuota terpenuhi** |
 | 8 | `belanja` | 21 | **21 kalimat, kuota terpenuhi** |
 | 9 | `santai` | 18 | **18 kalimat, kuota terpenuhi** |
-| 10 | `waktu_cuaca` | 18 | `kurasi` sudah menyumbang 2 kalimat |
-| 11 | `jalan` | 17 | belum ditulis |
-| 12 | `klinik` | 8 | belum ditulis |
-| 13 | `kegiatan` | 8 | belum ditulis |
+| 10 | `waktu_cuaca` | 18 | **18 kalimat, kuota terpenuhi** |
+| 11 | `jalan` | 17 | **17 kalimat, kuota terpenuhi** |
+| 12 | `klinik` | 8 | **8 kalimat, kuota terpenuhi** |
+| 13 | `kegiatan` | 8 | **8 kalimat, kuota terpenuhi** |
 
 Dua angka yang berbeda artinya. **Kuota penuh** berarti jumlahnya sudah sampai; **mentok**
 berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya mentok:
@@ -240,9 +241,14 @@ berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya
 | `rumah_santai` | 30 | belum | 6 celah terbuka, tercatat di berkasnya |
 | `transportasi` | 22 | belum | 7 celah terbuka, tercatat di berkasnya |
 | `santai` | 18 | belum | 7 celah terbuka, tercatat di berkasnya |
+| `waktu_cuaca` | 18 | belum | 3 celah terbuka, tercatat di berkasnya |
+| `jalan` | 17 | belum | 3 celah terbuka, tercatat di berkasnya |
+| `klinik` | 8 | belum | 4 celah terbuka, tercatat di berkasnya |
+| `kegiatan` | 8 | belum | 5 celah terbuka, tercatat di berkasnya |
 | `belanja` | 21 | belum diperiksa | penuh kuota, belum pernah dicari celahnya |
 
-Karena itu kedelapannya masih akan bertambah, walau kuotanya sudah penuh. `SPEC.md` T2: kuota
+Karena itu semuanya masih akan bertambah, walau kuotanya sudah penuh. `SPEC.md` T2: kuota
 adalah lantai, bukan langit-langit.
 
-Dua topik sudah punya sebagian kecilnya di `data/curated.js`. Tiga topik belum punya apa pun.
+Hanya `sopan` yang belum punya berkasnya sendiri: 4 kalimatnya berasal dari `data/curated.js`,
+dan sisanya 26 kalimat masih harus ditulis.

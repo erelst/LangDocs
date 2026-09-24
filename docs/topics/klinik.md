@@ -6,10 +6,10 @@
 |---|---|
 | Judul | Klinik |
 | Kuota | 8 |
-| Sudah ditulis | 0 |
-| Sisa | **8** |
+| Sudah ditulis | 8 |
+| Sisa | **0** |
 | Kerangka lintas topik | tidak |
-| Berkas | `data/t_klinik.js` (belum ada) |
+| Berkas | `data/t_klinik.js` |
 
 **Catatan kuota.** Bagian terukurnya hanya 0,81%, yang memberi 2,6 kalimat. Kuota dinaikkan ke 8 karena topik tanpa cara menjawab pertanyaan dokter tidak bisa dipakai, seberapa pun jarang keadaannya.
 
@@ -57,10 +57,45 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Belum ada. Kerangka yang sudah dipakai topik lain bisa dilihat di berkas topik masing-masing, dan yang perlu dihindari adalah `ので`/`から` yang sama dengan kata kerja terakhir yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 8 kalimat, 8 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
+| 1 | `klinik_sebut_gejala` | 二日 前 から 熱 が 続いて いる ので | 来ました |
+| 2 | `klinik_jelaskan_letak_sakit` | 押す と 痛い ので お腹 の 右 側 が 気に なり | ます |
+| 3 | `klinik_tanya_obat_minum` | 薬 は 食後 と 食前 の どちら で 飲めば いい | ですか |
+| 4 | `klinik_tanya_efek_samping` | 仕事 に 支障 が 出る と 困る ので 副作用 を 教えて | ください |
+| 5 | `klinik_alergi_obat` | 以前 抗生物質 で かぶれた こと が ある ので は 避けて | ください |
+| 6 | `klinik_minta_surat` | 診断書 を お願い したい の です が いただけます | か |
+| 7 | `klinik_tanya_biaya` | 受け て から で は 困る ので どのくらい かかる か 先 に 教えて | ください |
+| 8 | `klinik_apotek_tebus_resep` | 処方箋 を いただいた ので で お願い | します |
+
+Kuota terpenuhi: 8 dari 8. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
+
+Lawan bicara yang sudah dipakai: dokter 7, apoteker 1. Bentuk sopan 8, biasa 0. Panjang 8,
+pendek 0.
+
+Delapan dari delapan sopan, dan tidak ada satu pun yang biasa: tidak ada orang yang berbicara
+biasa kepada dokternya. Topik ini juga satu-satunya yang tidak punya slot mengajak, karena ke
+klinik orang pergi sendiri atau diantar, dan itu sudah tercatat di bagian ruang ucapan di atas.
+
+Semua delapan panjang. Bentuk pendek tidak dipakai di ruang periksa, karena menjawab dokter
+dengan satu kata justru terdengar tidak kooperatif.
+
+Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
+bukan dari ingatan:
+
+| Celah | Bukti pencarian |
+|---|---|
+| rujukan ke rumah sakit yang lebih besar | tidak ada kalimat yang memuat `紹介` atau `病院` |
+| rawat inap dan penolakannya | tidak ada kalimat yang memuat `入院` |
+| obat yang dijual bebas, bukan resep | `処方箋` ada, `市販薬` belum |
+| vaksinasi | tidak ada kalimat yang memuat `予防接種` |
+
+Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
+menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
+dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-8 kalimat, yaitu seluruh kuota.
-
-Urutan yang disarankan: keadaan yang paling sering dulu, lalu yang jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
+0 kalimat. Kuota 8 sudah penuh.

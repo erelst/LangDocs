@@ -6,10 +6,10 @@
 |---|---|
 | Judul | Jalanan |
 | Kuota | 17 |
-| Sudah ditulis | 0 |
-| Sisa | **17** |
+| Sudah ditulis | 17 |
+| Sisa | **0** |
 | Kerangka lintas topik | tidak |
-| Berkas | `data/t_jalan.js` (belum ada) |
+| Berkas | `data/t_jalan.js` |
 
 Kuota dihitung di `../README.md` dari sel: それ以外の屋外×移動 4,36% + それ以外の屋外×付き合い 0,40% + それ以外の屋外×レジャー活動 0,72%.
 
@@ -55,10 +55,50 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Belum ada. Kerangka yang sudah dipakai topik lain bisa dilihat di berkas topik masing-masing, dan yang perlu dihindari adalah `ので`/`から` yang sama dengan kata kerja terakhir yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 17 kalimat, 17 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
+| 1 | `jalan_tanya_arah` | 駅 を 探して いる の です が 方向 で 合って います | か |
+| 2 | `jalan_jawab_arah` | まっすぐ 行くと 大きい 店 が ある ので を 左 に 曲がって | ください |
+| 3 | `jalan_tidak_tahu_arah` | 申し訳ない の です が も 辺 は 分からない の | です |
+| 4 | `jalan_berpapasan` | お久しぶり です お出かけ です | か |
+| 5 | `jalan_tanya_sudah_sampai` | どの 辺 に いる か 分かったら 教えて | ください |
+| 6 | `jalan_kabar_sudah_sampai` | 駅 に 着いた ので あと で 歩いて | 行きます |
+| 7 | `jalan_tunggu_di_depan` | 入り口 の 前 に いる から まで | 来て |
+| 8 | `jalan_minta_dijemput` | 荷物 が 多い から 迎え に 来て | くれる |
+| 9 | `jalan_ajak_mampir` | 先 に 店 が ある から 寄って | いこう |
+| 10 | `jalan_tolak_mampir` | ごめん 時間 が ない から そのまま | 行こう |
+| 11 | `jalan_ajak_jalan_bersama` | 途中 まで 同じ 方向 だから 一緒 に | 歩こう |
+| 12 | `jalan_terima_petunjuk` | 角 を 右 に 曲がれば いい ん です ね ありがとう | ございます |
+| 13 | `jalan_kehujanan` | 途中 で 雨 に 降られて しまった ので びしょびしょ に | なった |
+| 14 | `jalan_tanya_jarak` | 歩いて 行く と まで どのくらい かかり ます | か |
+| 15 | `jalan_minta_maaf_terlambat` | 遅れて すみません 道 が 分かりにくくて 迷って | しまいました |
+| 16 | `jalan_jalan_pagi` | 毎朝 歩いて いる ので 体 の 調子 が いい | です |
+| 17 | `jalan_antar_ke_rumah` | 同じ 方向 な ので 家 の 近く まで ご一緒 します | よ |
+
+Kuota terpenuhi: 17 dari 17. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
+
+Lawan bicara yang sudah dipakai: teman 8, orang asing 5, tetangga 2, keluarga 1, pasangan 1.
+Bentuk sopan 11, biasa 6. Panjang 16, pendek 1.
+
+Topik ini punya dua sisi yang tidak bertemu: bertanya arah ke orang yang belum dikenal, yang
+selalu sopan, dan berjalan bersama orang yang sudah dikenal, yang hampir selalu biasa. Enam
+kalimat biasa semuanya ke teman atau keluarga yang sedang berjalan bersama.
+
+Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
+bukan dari ingatan:
+
+| Celah | Bukti pencarian |
+|---|---|
+| jam tutup taman atau tempat umum saat berjalan | tidak ada kalimat yang memuat `閉` |
+| berhenti mengobrol terlalu lama di jalan | tidak ada kalimat yang memuat `話し込` |
+| menanyakan nama gedung sebagai patokan | tidak ada kalimat yang memuat `ビル` |
+
+Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
+menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
+dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-17 kalimat, yaitu seluruh kuota.
-
-Urutan yang disarankan: keadaan yang paling sering dulu, lalu yang jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
+0 kalimat. Kuota 17 sudah penuh.

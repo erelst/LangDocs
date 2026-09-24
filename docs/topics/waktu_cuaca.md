@@ -9,7 +9,7 @@
 | Sudah ditulis | 2 |
 | Sisa | **16** |
 | Kerangka lintas topik | ya, memotong semua topik |
-| Berkas | `data/t_waktu_cuaca.js` (belum ada) |
+| Berkas | `data/t_waktu_cuaca.js` |
 | Dari `kurasi` | 2 |
 | Perlu ditulis di `t_waktu_cuaca.js` | **16** |
 
@@ -61,10 +61,51 @@ Topik ini sumbunya adalah tingkat keakraban itu sendiri, jadi kolom sopan dan bi
 
 ## Kerangka yang sudah diklaim
 
-Belum ada. Kerangka yang sudah dipakai topik lain bisa dilihat di berkas topik masing-masing, dan yang perlu dihindari adalah `ので`/`から` yang sama dengan kata kerja terakhir yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
+| 1 | `waktu_cuaca_ohayou_rekan` | おはよう ございます は 寒い | ですね |
+| 2 | `waktu_cuaca_konbanwa` | こんばんは 外 は 雨 です が お気をつけて お帰り | ください |
+| 3 | `waktu_cuaca_tanya_hari` | って 何曜日 でした | っけ |
+| 4 | `waktu_cuaca_jawab_hari` | 水曜日 な ので いつもの 会議 が あり ます | よ |
+| 5 | `waktu_cuaca_tanya_jam` | すみません 何時 | ですか |
+| 6 | `waktu_cuaca_janji_dua_jam` | 十時 は は 苦手 なので 二時 で いい です | か |
+| 7 | `waktu_cuaca_ganti_karena_hujan` | は 雨 らしい ので 明後日 に しません | か |
+| 8 | `waktu_cuaca_tanya_perkiraan` | の 天気 が 気になる ので 予報 を 見ました | か |
+| 9 | `waktu_cuaca_sampaikan_perkiraan` | ニュース で は 午後 から 雨 と 言って いた ので 傘 を 持って いった ほう が いい です | よ |
+| 10 | `waktu_cuaca_hujan_mendadak` | 急 に 降って きた のに さっき まで 晴れて いた よ | ね |
+| 11 | `waktu_cuaca_panas_berat` | は 暑い ので 外 に 出た だけ で 疲れ | ます |
+| 12 | `waktu_cuaca_samui` | は 寒かった ので 風邪 を ひかない ように して | ください |
+| 13 | `waktu_cuaca_tunda_karena_hujan` | 雨 では どこ も 大変 なので は やめて | おきましょう |
+| 14 | `waktu_cuaca_tanya_bawa_payung` | 降りそう なら 傘 を 持って いき な | よ |
+| 15 | `waktu_cuaca_sebut_kemarin` | は 朝 は 晴れて いた のに 夕方 から 雨 に なり | ました |
+| 16 | `waktu_cuaca_berangkat_lebih_awal` | の 朝 は 雪 らしい ので いつも より 早く | 出ましょう |
+| 17 | `waktu_cuaca_pilih_hari_baik` | 土曜 より 日曜 の ほう が 晴れ そう だから 日曜 に | しよう |
+| 18 | `waktu_cuaca_sapaan_siang` | こんにちは だいぶ 暑く なり ました | ね |
+
+Kuota terpenuhi: 18 dari 18. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
+
+Lawan bicara yang sudah dipakai: rekan 8, teman 4, keluarga 3, orang asing 2, klien 1. Bentuk
+sopan 15, biasa 3. Panjang 14, pendek 4.
+
+Hampir semua kalimat di sini adalah pembuka percakapan, bukan isi pembicaraan, jadi banyak yang
+pendek: 4 dari 18 hanya satu klausa, dan itu memang bentuk sapaan. Yang sopan dan yang biasa
+dibedakan oleh lawannya, bukan oleh cuacanya.
+
+Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
+bukan dari ingatan:
+
+| Celah | Bukti pencarian |
+|---|---|
+| topan dan musim hujan sebagai satu peristiwa | tidak ada kalimat yang memuat `台風` |
+| menyebut suhu dalam angka | tidak ada kalimat yang memuat `度` |
+| hujan yang berhenti dan langit yang membuka | tidak ada kalimat yang memuat `止` |
+
+Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
+menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
+dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-16 kalimat.
-
-Urutan yang disarankan: keadaan yang paling sering dulu, lalu yang jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
+0 kalimat. Kuota 18 sudah penuh.
