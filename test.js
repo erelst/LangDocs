@@ -118,8 +118,13 @@ ok('the kept restaurant sentence is on the page',
 // The last sentence is past the first batch, so this proves the deep link appends on demand.
 const all = [...(window.CURATED || []), ...(window.BANK || [])];
 const lastKanji = (all[total - 1].t || []).map(t => (Array.isArray(t) ? t[0] : t)).join('');
+/* Compare with the punctuation taken out of BOTH sides. The page renders 。 and 、 on the
+ * card, and this asserted on a copy of the sentence that had them stripped, so it only
+ * passed while the last sentence happened to contain no 、 of its own. 進路のことで… does,
+ * which is what turned a latent mismatch into a failure the moment that sentence was added. */
+const bare = s => s.replace(/[、。！？…\s]/g, '');
 ok('a sentence past the first batch is reachable by deep link',
-   deepText.includes(lastKanji.replace(/[、。！？…]/g, '')),
+   bare(deepText).includes(bare(lastKanji)),
    `#q${total} -> ${lastKanji.slice(0, 28)}`);
 ok('the deep link opens that sentence',
    /<details class="qdet" open/.test(deep), 'panel open on arrival');
