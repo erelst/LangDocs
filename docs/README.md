@@ -227,5 +227,16 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 12 | `klinik` | 8 | belum ditulis |
 | 13 | `kegiatan` | 8 | belum ditulis |
 
-Tiga topik sudah di kuota dan belum diperiksa mentok: `belanja` 21, `kerja` 86, dan `makan` 53.
+Dua angka yang berbeda artinya. **Kuota penuh** berarti jumlahnya sudah sampai; **mentok**
+berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya mentok:
+
+| Topik | Kuota | Mentok? | Kenapa |
+|---|---|---|---|
+| `kerja` | 86 | belum | 4 celah terbuka, tercatat di berkasnya |
+| `makan` | 53 | belum | 4 celah terbuka, tercatat di berkasnya |
+| `belanja` | 21 | belum diperiksa | penuh kuota, belum pernah dicari celahnya |
+
+Karena itu ketiganya masih akan bertambah, walau kuotanya sudah penuh. `SPEC.md` T2: kuota
+adalah lantai, bukan langit-langit.
+
 Dua topik sudah punya sebagian kecilnya di `data/curated.js`. Delapan topik belum punya apa pun.

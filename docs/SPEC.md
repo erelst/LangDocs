@@ -147,8 +147,12 @@ slot ucapan yang belum terisi.
 **Alasan.** Kuota menjaga keseimbangan antar topik, saturasi menjaga agar tiap topik benar
 benar bisa dipakai. Dua hal berbeda, dan keduanya dibutuhkan.
 
-**Diperiksa oleh.** Kolom sisa di berkas tiap topik. Sisa nol berarti mentok dan sudah
-diperiksa sekali lagi.
+**Diperiksa oleh.** Dua hal, dan yang pertama saja tidak cukup. Kolom sisa menjawab "apakah
+kuotanya sudah penuh". Daftar celah di bawah tabel kerangka menjawab "apakah masih ada yang
+belum ditulis". **Sisa nol bukan bukti mentok**: `kerja` dan `makan` keduanya bersisa nol dan
+keduanya masih punya celah terbuka, sedangkan `belanja` bersisa nol dan belum pernah diperiksa
+sama sekali. Topik disebut mentok hanya kalau daftar celahnya kosong dan pencarian ulang tidak
+menemukan slot yang belum terisi.
 
 ### T3. Setiap topik menutup seluruh ruang ucapannya
 
