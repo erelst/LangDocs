@@ -6,10 +6,10 @@
 |---|---|
 | Judul | Transportasi |
 | Kuota | 22 |
-| Sudah ditulis | 0 |
-| Sisa | **22** |
+| Sudah ditulis | 22 |
+| Sisa | **0** |
 | Kerangka lintas topik | tidak |
-| Berkas | `data/t_transportasi.js` (belum ada) |
+| Berkas | `data/t_transportasi.js` |
 
 Kuota dihitung di `../README.md` dari sel: 交通機関×移動 4,69% + 職場・学校×移動 0,78% + 公共商業施設×移動 1,13% + それ以外の屋内×移動 0,31% + 自宅×移動 0,23%.
 
@@ -57,10 +57,59 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Belum ada. Kerangka yang sudah dipakai topik lain bisa dilihat di berkas topik masing-masing, dan yang perlu dihindari adalah `ので`/`から` yang sama dengan kata kerja terakhir yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
+| 1 | `transportasi_tanya_peron` | 大阪 まで 行きたい の です が 何番線 から 出ます | か |
+| 2 | `transportasi_tanya_kereta_ini` | すみません 電車 は 渋谷 を 通ります | か |
+| 3 | `transportasi_jawab_arah` | 電車 なら 新宿 方面 に 向かって います | よ |
+| 4 | `transportasi_tanya_turun` | まで 行きたい ので どの 駅 で 降りれば いい | ですか |
+| 5 | `transportasi_salah_naik` | 反対 の 電車 に 乗って しまい ました どう すれば いい | でしょうか |
+| 6 | `transportasi_tanya_tiket` | まで の 切符 は いくら に なり ます | か |
+| 7 | `transportasi_isi_ulang` | 残高 が 少ない ので チャージ を お願い | します |
+| 8 | `transportasi_tanya_kartu_diterima` | 路線 で IC カード は 使えます | か |
+| 9 | `transportasi_tukar_tempat` | すみません お席 を 間違えて いる ようなので は の 席 | です |
+| 10 | `transportasi_tolak_tukar` | 申し訳ありません が は 指定席 な ので ご了承 | ください |
+| 11 | `transportasi_minta_lewat` | すみません | 降ります |
+| 12 | `transportasi_tanya_macet` | 電車 が 止まった まま なので 何か あった の でしょう | か |
+| 13 | `transportasi_telat_janji` | 電車 が 遅れて いる ので 十分 ほど | 遅れます |
+| 14 | `transportasi_ketinggalan` | 終電 を 逃して しまい ました 帰り 方 が 分からない の です | が |
+| 15 | `transportasi_bus_tidak_datang` | バス が 全然 来ない の です が 本当 に 来る の でしょう | か |
+| 16 | `transportasi_cari_jalan_keluar` | 区役所 まで 行きたい ので どの 出口 が 近い | ですか |
+| 17 | `transportasi_janji_di_stasiun` | 南口 の 改札 の 前 が 分かりやすい ので で | 会いましょう |
+| 18 | `transportasi_ganti_jalur` | 線 は 混んで いる ので 別 の 線 に 乗り換えた ほう が 早い です | よ |
+| 19 | `transportasi_bawa_barang` | 荷物 が 重くて 一人 では 運べない ので だけ 手伝って いただけます | か |
+| 20 | `transportasi_rumah_ke_stasiun` | は 七時 に 家 を 出る から 起こして | ね |
+| 21 | `transportasi_terima_petunjuk` | 教えて もらった おかげで 本当 に | 助かりました |
+| 22 | `transportasi_kereta_terakhir` | 終電 が 十二時 だから まで に 帰った ほう が いい | よ |
+
+Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
+
+Lawan bicara yang sudah dipakai: orang asing 9, petugas stasiun 7, teman 4, keluarga 2. Bentuk
+sopan 20, biasa 2. Panjang 17, pendek 5.
+
+20 dari 22 sopan karena hampir semua percakapan di perjalanan terjadi dengan orang yang tidak
+dikenal, baik petugas maupun penumpang lain. Dua yang biasa keduanya dengan keluarga di rumah,
+soal jam berangkat dan kereta terakhir.
+
+Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
+bukan dari ingatan:
+
+| Celah | Bukti pencarian |
+|---|---|
+| taksi, termasuk memanggil dan memberi alamat | tidak ada kalimat yang memuat `タクシー` |
+| kereta cepat dan memesan tempatnya | tidak ada kalimat yang memuat `新幹線` |
+| bus malam dan perjalanan jauh | tidak ada kalimat yang memuat `夜行` |
+| kartu yang hilang atau tertinggal | tidak ada kalimat yang memuat `なくした` |
+| mengantre di loket tiket | tidak ada kalimat yang memuat `並ん` |
+| pengumuman keterlambatan di stasiun | `遅れて` ada, `放送` belum |
+| naik sepeda ke stasiun | tidak ada kalimat yang memuat `自転車` |
+
+Kalau topik ini dibuka lagi, tujuh baris itu yang pertama ditulis. Kalimat baru juga harus
+menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
+dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-22 kalimat, yaitu seluruh kuota.
-
-Urutan yang disarankan: keadaan yang paling sering dulu, lalu yang jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
+0 kalimat. Kuota 22 sudah penuh.
