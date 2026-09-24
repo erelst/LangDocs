@@ -105,17 +105,26 @@
   function colourOf(i) { return C.palette[i % C.palette.length]; }
   function styleOf(i) { return C.underlines[i % C.underlines.length]; }
 
+  /* What a word shows when the pointer is over it: the reading and both glosses, never the
+   * word itself again. The reader is already looking at the word, so repeating it in the
+   * bubble costs the space that the answer needs. idx is the line being built, 0 kanji and
+   * 1 romaji, and the bubble is the same either way. */
   function tokenSpans(tokens, idx) {
     var out = [];
     for (var i = 0; i < tokens.length; i++) {
       var colour = colourOf(i), style = styleOf(i);
       var width = style === 'double' ? '3px' : '2px';
       var text = esc(tokens[i][idx]);
+      var romaji = esc(tokens[i][1]);
+      var gloss = [tokens[i][2], tokens[i][3]].filter(Boolean).join(' / ');
+      // On the romaji line the reading is already on screen, so the bubble carries only the
+      // meaning there. The rule is the same on both lines: show what the line does not.
+      var tip = [idx === 1 ? '' : romaji, gloss].filter(Boolean).join('  ');
       // display:inline-block keeps each word atomic, so a narrow screen wraps between
       // words and never splits a word in half.
       out.push('<span class="tk" style="display:inline-block;color:' + colour +
         ' !important;border-bottom:' + width + ' ' + style + ' ' + colour +
-        ' !important;padding:0 3px;" title="' + text + '">' + text + '</span>');
+        ' !important;padding:0 3px;"' + (tip ? ' title="' + tip + '"' : '') + '>' + text + '</span>');
     }
     return out.join('');
   }

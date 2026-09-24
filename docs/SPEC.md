@@ -204,6 +204,34 @@ Ketentuan ini sudah berjalan; ditulis di sini supaya tidak berubah tanpa disadar
 | V9 | Tidak ada build, tidak ada program penghasil kalimat; berkas dibaca langsung browser | susunan repo |
 | V10 | Sel glosa tidak boleh kosong, dan tanda baca tidak berdiri sebagai baris sendiri | `test.js` |
 | V11 | Mencari setelah menggulir menampilkan hasil teratas, bukan posisi gulir lama | `ui.js` |
+| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris, dan **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca | `ui.js` |
+
+---
+
+### V12. Balon per kata
+
+Seorang pembaca meminta ini dengan kalimat: "hover atau klik per kata dari aksara jepang jangan
+menampilkan kanji atau aksara jepang lagi yang sama, tapi romaji indonesia dan english, dan
+menunjuk katanya langsung (seperti balon komik yang mengarah ke karakternya)".
+
+Yang berubah dari alat lama: `title` sebelumnya diisi kata itu sendiri, jadi balon bawaan browser
+menjawab pertanyaan yang tidak ditanyakan. Sekarang isinya apa yang belum terlihat di baris itu.
+
+| Aturan | Alasan |
+|---|---|
+| Balon **tidak** memuat kata Jepangnya | Pembaca sedang melihat kata itu; mengulangnya memakan ruang yang dibutuhkan jawabannya |
+| Di baris kanji: romaji, glosa ID, glosa EN | Ketiganya belum ada di baris itu |
+| Di baris romaji: glosa ID dan EN saja | Romajinya sudah tercetak di baris itu |
+| Bentuknya balon dengan ekor ke arah katanya | Ini yang membedakannya dari label yang melayang tanpa alamat |
+| Muncul saat kursor di atas kata, dan saat kata difokuskan lewat keyboard | `:focus-visible`, karena hover saja tidak bisa dipakai semua orang |
+| Tanda baca tanpa glosa tidak punya balon | Tidak ada yang bisa dikatakan tentang `、` |
+
+Dikerjakan tanpa skrip: `title` tetap sumber satu-satunya, dan CSS menggambarnya lewat
+`::after { content: attr(title) }`. Tidak ada elemen yang dibuat, tidak ada posisi yang dihitung,
+dan balonnya tidak bisa melenceng dari katanya karena ia milik kata itu. Diperiksa `ui.js` dengan
+menggerakkan kursor sungguhan lewat `Input.dispatchMouseEvent`, karena `:hover` tidak menanggapi
+kejadian sintetis: balon harus benar-benar terlihat (bukan `opacity: 0`), punya kotak yang
+tergambar (bukan `auto x auto`), dan katanya harus benar-benar berada di bawah kursor.
 
 ---
 
@@ -222,6 +250,21 @@ sering tersentuh saat menulis kalimat:
 ---
 
 ## 5. Cara memakai berkas ini
+
+`docs/topics/<topik>.md` adalah **checkpoint**: ia mencatat kalimat yang sudah ada, bukan yang
+direncanakan. Tiga bagiannya yang membuat penambahan kalimat di masa depan terarah:
+
+| Bagian | Isi | Gunanya |
+|---|---|---|
+| Kuota dan sisa | berapa kalimat yang seharusnya ada, dan berapa yang sudah ditulis | tahu kapan topiknya penuh |
+| Kerangka yang sudah diklaim | satu baris per kalimat, kerangkanya dihitung dengan cara yang sama seperti `check.js` | tahu kalimat mana yang akan bertabrakan sebelum menulisnya |
+| Celah yang masih terbuka | keadaan yang belum ada, dengan bukti kata kunci yang dicari di berkas | tahu apa yang harus ditulis berikutnya |
+
+Bagian ketiga yang paling mudah rusak: menulis "belum ada X" dari ingatan menghasilkan daftar
+yang salah dalam dua arah sekaligus, karena keadaan yang sudah ada ikut tertulis sebagai celah.
+Karena itu celah diisi dengan mencari kata kuncinya di `data/t_<topik>.js`, dan barisnya menyebut
+apa yang dicari. Tabel kerangka dihasilkan dari data, tidak ditulis tangan: setelah kalimatnya
+berubah, tabelnya ikut berubah, dan `check.js` bagian `distinct` yang menangkap kalau lupa.
 
 Sebelum menulis kalimat untuk sebuah topik:
 

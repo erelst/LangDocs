@@ -148,6 +148,64 @@
   .jp-sent .tk { border-radius: 3px; }
   .jp-sent .tk:hover { background: rgba(56, 189, 248, .18); }
 
+  /* The word bubble. A word that has a reading and a gloss shows them above itself while the
+     pointer is over it, and never shows the word again: the reader is already looking at it.
+     It is drawn from the token's own title, so there is no script here and nothing to
+     position, and it is purely additive: a browser without attr() support simply shows no
+     bubble. The tail points down at the word, which is what makes it a speech bubble rather
+     than a floating label. It outranks the sticky bar (z-index 500) because a word bubble that
+     disappears behind the header is worse than one that floats over it, and it is drawn over
+     the word rather than under it so no gap is needed. */
+  .jp-sent .tk[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 600;
+    width: max-content;
+    max-width: 15rem;
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: #1e293b;
+    border: 1px solid #475569;
+    color: #f8fafc;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .12s ease;
+  }
+  /* the tail: one rotated square, half hidden behind the bubble */
+  .jp-sent .tk[title]::before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%) rotate(45deg);
+    z-index: 601;
+    width: 9px; height: 9px;
+    background: #1e293b;
+    border-right: 1px solid #475569;
+    border-bottom: 1px solid #475569;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .12s ease;
+  }
+  .jp-sent .tk[title]:hover::after,
+  .jp-sent .tk[title]:hover::before,
+  .jp-sent .tk[title]:focus-visible::after,
+  .jp-sent .tk[title]:focus-visible::before {
+    opacity: 1;
+    visibility: visible;
+  }
+
   mark { background: #f59e0b; color: #0b1220; border-radius: 3px; padding: 0 1px; }
 
   #empty {

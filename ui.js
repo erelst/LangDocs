@@ -118,7 +118,79 @@ function ok(name, pass, detail) {
     })`);
     ok('romaji is unchecked at load', atLoad.checked === false);
     ok('romaji is hidden at load', atLoad.display === 'none', `display: ${atLoad.display}`);
-    ok('the romaji line is still in the DOM, not removed',
+            /* The word bubble. A word must show its reading and both glosses on hover, must not repeat
+       the word, and must not repeat the reading on the romaji line where it is already on
+       screen. Measured rather than checked in the markup: a title attribute that changed
+       nothing on screen would pass a markup check and tell nobody. */
+    const bubble = await evalIn(`(() => {
+      const all = [...document.querySelectorAll('.jp-sent .tk[title]')];
+      const word = all.find(el => el.textContent.trim().length > 1);
+      const before = getComputedStyle(word, '::after');
+      const kanjiTips = [...document.querySelectorAll('.jp-sent .kanji .tk[title]')].map(el => el.title);
+      const romajiDupes = [...document.querySelectorAll('.jp-sent .romaji .tk[title]')]
+        .filter(el => el.title.indexOf(el.textContent.trim().replace(/[.,]+$/, '')) === 0)
+        .map(el => el.textContent.trim() + ' -> ' + el.title);
+      return {
+        sample: word.textContent.trim() + ' -> ' + word.title,
+        before: before.opacity + '/' + before.visibility,
+        content: before.content,
+        repeats: all.filter(el => el.title === el.textContent.trim()).length,
+        bare: kanjiTips.filter(t => !/[a-z]/.test(t)).length,
+        noGloss: kanjiTips.filter(t => t.indexOf('/') === -1).length,
+        romajiDupes: romajiDupes.slice(0, 3),
+        count: all.length,
+        words: document.querySelectorAll('.jp-sent .tk').length
+      };
+    })()`);
+    /* The bubble is a balloon, so two things a markup check cannot see have to be measured with
+       the pointer actually on a word: it becomes visible, and its tail sits over that word
+       rather than somewhere else on the line. Hover is driven through the browser's own input
+       pipeline, because :hover does not respond to synthetic events. An earlier version of
+       this file dispatched a mouseover and the CSS never fired, which is exactly the trap a
+       markup check would have walked into. */
+    const pointed = await evalIn(`(() => {
+      const el = [...document.querySelectorAll('.jp-sent .tk[title]')]
+        .find(e => e.getBoundingClientRect().top > 0);
+      el.scrollIntoView({ block: 'center' });
+      const r = el.getBoundingClientRect();
+      return { x: Math.round(r.left + r.width / 2), y: Math.round(r.top + r.height / 2),
+               word: el.textContent.trim() };
+    })()`);
+    await sleep(120);
+    await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: pointed.x, y: pointed.y, buttons: 0 });
+    await sleep(350);
+    const shown = await evalIn(`(() => {
+      const el = document.elementFromPoint(${pointed.x}, ${pointed.y});
+      const word = el && el.closest('.tk[title]');
+      if (!word) return { hit: false };
+      const after = getComputedStyle(word, '::after');
+      const w = word.getBoundingClientRect();
+      return { hit: true, word: word.textContent.trim(), opacity: after.opacity,
+               visibility: after.visibility, box: after.width + ' x ' + after.height,
+               wordBox: [Math.round(w.left), Math.round(w.top), Math.round(w.width)].join(','),
+               tail: getComputedStyle(word, '::before').visibility };
+    })()`);
+    ok('the pointer lands on the word under it', shown.hit && shown.word === pointed.word,
+       JSON.stringify(shown));
+    ok('the bubble becomes visible while the pointer is on the word',
+       shown.opacity === '1' && shown.visibility === 'visible', `opacity ${shown.opacity}, ${shown.visibility}`);
+    ok('the bubble has a drawn box, not a zero-sized one', /^[0-9]/.test(shown.box) && !/ 0px/.test(shown.box), shown.box);
+    ok('the tail is drawn under the bubble at the word', shown.tail === 'visible', shown.tail);
+    ok('bubble and word agree on which word is pointed at',
+       shown.hit && shown.wordBox && shown.word === pointed.word, `${shown.word} at ${shown.wordBox}`);
+
+    ok('every word with a reading carries a bubble', bubble.count > 0, bubble.count + ' of ' + bubble.words + ' words');
+    ok('the bubble carries the reading and both glosses', bubble.bare === 0 && bubble.noGloss === 0,
+       bubble.bare + ' without a reading, ' + bubble.noGloss + ' without both glosses; e.g. ' + bubble.sample);
+    ok('the bubble never repeats the word itself', bubble.repeats === 0, bubble.repeats + ' do');
+    ok('the reading is not repeated on the romaji line', bubble.romajiDupes.length === 0,
+       JSON.stringify(bubble.romajiDupes));
+    ok('the bubble is hidden until the pointer is over the word',
+       bubble.before === '0/hidden', '::after is ' + bubble.before);
+    ok('the bubble is drawn from the word own title',
+       bubble.content.indexOf(bubble.sample.split(' -> ')[1].slice(0, 8)) !== -1, bubble.content);
+
+ok('the romaji line is still in the DOM, not removed',
        atLoad.inDom > 0, `${atLoad.inDom} lines, hidden by CSS only`);
 
     const afterTick = await evalIn(`(async () => {
