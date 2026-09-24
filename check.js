@@ -269,8 +269,8 @@ console.log(`${rows.length} sentences (${rows.length - bank.length} kept, ${bank
 for (const [name, bad] of Object.entries(groups)) {
   total += bad.length;
   console.log(`${bad.length ? 'FAIL' : 'ok  '} ${name}: ${bad.length}`);
-  for (const [a, b] of bad.slice(0, 12)) console.log(`       ${a} -- ${b}`);
-  if (bad.length > 12) console.log(`       ... and ${bad.length - 12} more`);
+  for (const [a, b] of bad.slice(0, 300)) console.log(`       ${a} -- ${b}`);
+  if (bad.length > 300) console.log(`       ... and ${bad.length - 300} more`);
 }
 console.log(`\n${total} finding(s)`);
 process.exit(total ? 1 : 0);
