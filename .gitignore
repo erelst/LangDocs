@@ -1,3 +1,2 @@
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
+# Nothing here is generated: index.html is a shell and the sentences are data, so the files
+# in this repo are the source of truth and there is no build output to ignore.
