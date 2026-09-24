@@ -134,11 +134,11 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
 | **Minimum deck** | **391** |
-| Kuota terpakai | 27 |
-| Perlu ditulis | **364** |
+| Kuota terpakai | 62 |
+| Perlu ditulis | **329** |
 
-Angka 27 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `belanja` 21 (kuotanya
-penuh), `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
+Angka 62 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `belanja` 21 (kuotanya
+penuh), `kerja` 35, `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
@@ -213,7 +213,7 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 
 | # | Topik | Kuota | Keadaan |
 |---|---|---|---|
-| 1 | `kerja` | 86 | belum ditulis |
+| 1 | `kerja` | 86 | **35 kalimat, sisa 51** |
 | 2 | `makan` | 53 | belum ditulis |
 | 3 | `rumah_tugas` | 45 | belum ditulis |
 | 4 | `telepon` | 33 | belum ditulis |
@@ -227,5 +227,6 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 12 | `klinik` | 8 | belum ditulis |
 | 13 | `kegiatan` | 8 | belum ditulis |
 
-Satu topik sudah di kuota dan belum diperiksa mentok: `belanja`, 21 kalimat. Dua topik sudah
-punya sebagian kecilnya di `data/curated.js`. Sepuluh topik belum punya apa pun.
+Satu topik sudah di kuota dan belum diperiksa mentok: `belanja`, 21 kalimat. Satu topik
+sedang ditulis: `kerja`, 35 dari 86. Dua topik sudah punya sebagian kecilnya di
+`data/curated.js`. Sembilan topik belum punya apa pun.
