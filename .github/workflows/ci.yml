@@ -1,0 +1,44 @@
+# Checks for this repository.
+#
+# The workflow jcode-workflow-setup installed is stack-agnostic and detects Cargo, Node,
+# Python or Go projects. This repository is none of those: it has no package.json, no build
+# and no dependencies, and it is a static page whose tests are plain node scripts. So the
+# installed file ran nothing at all here, which is the "CI exists but does not check the
+# project" case, and this file replaces it.
+#
+# What it runs is what a person runs before pushing:
+#   node check.js   the sentence bank: correctness, and whether it is worth reading
+#   node test.js    renders index.html in a headless browser and checks the real DOM
+#
+# Both exit non-zero on a finding, so a red run means something a reader would see is wrong.
+
+name: checks
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # The sentences are data, so this is the fast check and it runs first.
+      - name: Check the sentence bank
+        run: node check.js
+
+      # test.js renders the page in a real browser. Installing one is the whole point:
+      # without it the check would skip, and a green run would mean nothing.
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Render the page and check it
+        run: node test.js
