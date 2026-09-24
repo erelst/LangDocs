@@ -185,4 +185,15 @@ window.BANK = (window.BANK || []).concat([
     t: ['午前中', 'なら', '空いている', 'ので', '、', '途中', 'まで', '手伝えます', '。'],
   },
 
+  {
+    key: 'kegiatan_kerabat_ikut', topic: 'kegiatan',
+    rel: 'keluarga', polite: 1, long: 1,
+    sit: 'Mengajak kerabat ikut kegiatan lingkungan',
+    sitEn: 'Inviting a relative to join the neighbourhood activity',
+    id: 'Kalau ada waktu, bagaimana kalau ikut kegiatan hari Minggu?',
+    en: 'If you have time, how about joining the activity on Sunday?',
+    note: 'Kalau ada waktu memberi jalan keluar, jadi ajakannya tidak memberatkan.',
+    noteEn: 'If you have time leaves a way out, so the invitation does not weigh on them.',
+    t: ["お時間","が","あれば","、","日曜","の","活動","に","一緒","に","いかが","ですか","。"],
+  },
 ]);

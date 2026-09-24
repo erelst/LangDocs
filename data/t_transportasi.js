@@ -301,4 +301,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: '忘れ物をしたのですが opens with what happened, and どこに届け出れば asks where to report it.',
     t: ['電車', 'に', '荷物', 'を', '忘れ', 'た', 'の', 'です', 'が', '、', 'どこ', 'に', '届け出れば', 'いい', 'でしょうか', '。'],
   },
+  {
+    key: 'transportasi_antar_keluarga_stasiun', topic: 'transportasi',
+    rel: 'keluarga', polite: 0, long: 1,
+    sit: 'Menawarkan mengantar anggota keluarga ke stasiun',
+    sitEn: 'Offering to drive a family member to the station',
+    id: 'Bawaannya banyak, jadi saya antar sampai stasiun.',
+    en: 'You have a lot of luggage, so I will take you to the station.',
+    note: 'Bagasinya disebut lebih dulu, jadi tawarannya menjawab kebutuhan, bukan sopan-santun.',
+    noteEn: 'The luggage is named first, so the offer answers a need rather than being politeness.',
+    t: ["荷物","が","重い","から","、","駅","まで","車","で","送って","いく","よ","。"],
+  },
 ]);
