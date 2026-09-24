@@ -480,7 +480,7 @@ window.BANK = (window.BANK || []).concat([
     rel: 'pasangan', polite: 0, long: 1,
     sit: 'Memberi tahu sedang mengurangi makan malam',
     sitEn: 'Saying you are keeping dinner light',
-    id: 'Saya akhir-akhir ini bertambah berat, jadi malam saya buat ringan saja.',
+    id: 'Akhir-akhir ini berat badan saya naik, jadi malam ini saya makan ringan saja.',
     en: 'I have put on weight lately, so I am keeping dinner light.',
     note: '太ってきたから menyebut sebabnya dengan jujur, dan 軽くしておく versi biasa dari menjaga makan.',
     noteEn: '太ってきたから states the cause plainly, and 軽くしておく is the everyday way to say you are keeping it light.',

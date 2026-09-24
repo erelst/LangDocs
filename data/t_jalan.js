@@ -87,7 +87,7 @@ window.BANK = (window.BANK || []).concat([
     sit: 'Meminta dijemput karena bawanya banyak',
     sitEn: 'Asking for a lift because you are carrying a lot',
     id: 'Bawaannya banyak, jadi tolong jemput ya.',
-    en: 'I am carrying a lot, so please come and get me.',
+    en: 'I have a lot to carry, so could you come and pick me up?',
     note: '荷物が多いから menyebut alasannya, jadi penjemputannya bukan kemalasan.',
     noteEn: '荷物が多いから gives the reason, so the lift is not laziness.',
     t: ['荷物', 'が', '多い', 'から', '、', '迎え', 'に', '来て', 'くれる', '？'],
