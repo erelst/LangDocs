@@ -368,6 +368,20 @@
     clearBt.hidden = !input.value.trim();
   }
 
+  /* The bar is sticky, so it is already on screen when the reader is scrolled down; what
+   * they are looking at instead is the middle of the old result. The cause is that this
+   * empties and refills the list in one synchronous task, so the browser never sees a
+   * shorter document and never clamps the old scroll offset. While that offset stays
+   * wherever it was, the sentinel is still in view and the auto-fill keeps appending.
+   *
+   * Putting the reader back at the top is what "show the top results" means, and it makes
+   * the load loop start from the top too. scrollTo at the end of the task is applied to the
+   * document as reflowed, and the auto-fill below cannot push past the viewport anyway, so
+   * the position holds. */
+  function resetScroll() {
+    window.scrollTo(0, 0);
+  }
+
   function refresh() {
     var raw = input.value.trim();
     state.terms = raw ? raw.split(/\s+/).filter(Boolean) : [];
@@ -382,6 +396,7 @@
            state.rendered < total()) {
       appendBatch();
     }
+    resetScroll();
     ensureLoader();
   }
 

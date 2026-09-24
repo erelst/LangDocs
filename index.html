@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="id">
+<!-- hide-romaji is on at load because the Romaji box starts unchecked; the
+     existing change listener toggles this same class, so the two cannot disagree. -->
+<html lang="id" class="hide-romaji">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -179,7 +181,7 @@
         <label><input type="radio" name="scope" value="all" checked> <span>All</span></label>
         <label><input type="radio" name="scope" value="jp"> <span>Japanese</span></label>
       </div>
-      <label class="toggle"><input type="checkbox" id="rtoggle" checked> <span>Romaji</span></label>
+      <label class="toggle"><input type="checkbox" id="rtoggle"> <span>Romaji</span></label>
     </div>
     <div class="hint">
       <span id="count"></span>
