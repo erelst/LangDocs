@@ -542,7 +542,7 @@ window.BANK = (window.BANK || []).concat([
     t: ['時間', 'が', 'なかった', 'から', '、', '朝ご飯', 'は', 'パン', 'だけ', 'だった', '。'],
   },
   {
-    key: 'makan_itadakimasu', topic: 'makan',
+    key: 'makan_itadakimasu', topic: 'makan', short: 1,
     rel: 'keluarga', polite: 0, long: 0,
     sit: 'Mengucapkan sebelum mulai makan',
     sitEn: 'Saying the phrase before starting to eat',
@@ -553,7 +553,7 @@ window.BANK = (window.BANK || []).concat([
     t: ['じゃあ', '、', 'いただきまーす', '。'],
   },
   {
-    key: 'makan_gochisousama', topic: 'makan',
+    key: 'makan_gochisousama', topic: 'makan', short: 1,
     rel: 'keluarga', polite: 0, long: 0,
     sit: 'Mengucapkan terima kasih setelah makan',
     sitEn: 'Thanking after the meal',

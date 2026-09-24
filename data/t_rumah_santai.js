@@ -151,7 +151,7 @@ window.BANK = (window.BANK || []).concat([
     t: ['眠い', 'から', '、', '続き', 'は', '明日', 'に', 'しよう', '。'],
   },
   {
-    key: 'rumah_santai_selamat_tidur', topic: 'rumah_santai',
+    key: 'rumah_santai_selamat_tidur', topic: 'rumah_santai', short: 1,
     rel: 'keluarga', polite: 0, long: 0,
     sit: 'Mengucapkan selamat tidur',
     sitEn: 'Saying goodnight',

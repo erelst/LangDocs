@@ -300,4 +300,16 @@ window.BANK = (window.BANK || []).concat([
     noteEn: '分かったら makes the request conditional, so staff are not pressed for an answer now.',
     t: ['セール', 'は', 'いつ', 'から', '始まる', 'か', '、', '分かったら', '教えて', 'ください', '。'],
   },
+  {
+    key: 'belanja_jawab_cari_sendiri', topic: 'belanja',
+    rel: 'petugas_toko', polite: 1, long: 0,
+    sit: 'Menjawab tawaran bantuan petugas karena ingin mencari sendiri',
+    sitEn: 'Answering the shop assistant offering help because you want to look on your own',
+    id: 'Terima kasih, saya lihat-lihat dulu sendiri ya.',
+    en: 'Thank you, I will have a look around on my own first.',
+    note: 'Menolak bantuan dengan 見ていきます menyatakan niatnya, sehingga petugas tidak menunggu di samping.',
+    noteEn: 'Declining with 見ていきます states the intention, so the assistant does not stand waiting.',
+    t: ['いいえ', '、', '自分', 'で', 'ゆっくり', '見ていきます', '。'],
+  },
+
 ]);

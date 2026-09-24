@@ -236,4 +236,16 @@ window.BANK = (window.BANK || []).concat([
     noteEn: '止んだみたいだから notes the change, and そろそろ出よう proposes leaving.',
     t: ['雨', '、', '止んだ', 'みたい', 'だ', 'から', '、', 'そろそろ', '出よう', '。'],
   },
+  {
+    key: 'waktu_cuaca_jawab_hujan_sebentar', topic: 'waktu_cuaca',
+    rel: 'rekan', polite: 1, long: 1,
+    sit: 'Menjawab pertanyaan apakah hujannya akan lama',
+    sitEn: 'Answering the question whether the rain will last',
+    id: 'Sepertinya hujannya berhenti lewat tengah hari, jadi mari kita tunggu sebentar lagi.',
+    en: 'It looks like it will stop by early afternoon, so let us wait a little longer.',
+    note: 'そうなので menyampaikan kesan dari yang terlihat, lalu もう少し待ちましょう menutupnya dengan ajakan, jadi pertanyaannya terjawab tanpa janji pasti.',
+    noteEn: 'そうなので reports what it looks like, and もう少し待ちましょう closes with a suggestion, so the question is answered without a promise.',
+    t: ['昼過ぎ', 'に', 'は', '止む', 'そう', 'なので', '、', 'もう', '少し', '待ちましょう', '。'],
+  },
+
 ]);

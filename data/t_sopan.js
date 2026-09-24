@@ -29,7 +29,7 @@ window.BANK = (window.BANK || []).concat([
     en: 'Yeah, that is it, so that is all there is to it.',
     note: 'だよね versi biasa dari menyetujui, dan それでいい menutupnya, jadi tidak perlu kalimat panjang ke teman sendiri.',
     noteEn: 'だよね is the plain way to agree and それでいい closes it, so a friend does not need a long sentence.',
-    t: ['うん', '、', 'そう', 'だ', 'よね', '、', 'それ', 'で', 'いい', 'と', '思う', '。'],
+    t: ['うん', '、', 'そう', 'だ', 'よね', '、', 'それ', 'で', 'いい', 'と', '思う', 'よ', '。'],
   },
   {
     key: 'sopan_setuju_ragu', topic: 'sopan',
@@ -106,7 +106,7 @@ window.BANK = (window.BANK || []).concat([
     en: 'Huh, what was that? I did not hear.',
     note: '何て menyingkat なんと言った, jadi versi biasa dari meminta ulang, dan 聞こえなかった menyebut sebabnya.',
     noteEn: '何て shortens なんと言った, which is the plain way of asking, and 聞こえなかった gives the reason.',
-    t: ['え', '、', '何て', '、', '聞こえなかった', '。'],
+    t: ['え', '、', '何て', '、', '聞こえなかった', 'の', '。'],
   },
   {
     key: 'sopan_belum_paham', topic: 'sopan',
