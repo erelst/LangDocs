@@ -245,6 +245,44 @@ function checkDistinct(rows) {
   return bad;
 }
 
+/* Two per-topic indicators in the topic docs drifted, and nothing was checking them: the
+ * relationship line said 11 colleagues when the data had 12, and named "orang asing" for a value
+ * the data calls orang_asing. Nine of the twelve lines were wrong. They drifted because they were
+ * written by hand from memory, so they are checked here instead, which is what makes them
+ * trustworthy enough to keep.
+ *
+ * It also reports the spread across the measured partner groups, so the one question the
+ * per-topic lines cannot answer is answerable: is a whole kind of person missing. Two topic areas
+ * are deliberately not written, and each is named with its reason rather than left to look like a
+ * gap: teacher and pupil (the words are classroom-specific) and relative (a distant relative is a
+ * rarer case of family, which already has 82 sentences). Both are stated in the topic plan. */
+const WHO_GROUP = {
+  'close family': ['keluarga', 'pasangan'],
+  'friends and neighbours': ['teman', 'teman_dekat', 'tetangga', 'tetangga_baru', 'sekamar', 'teman_sekolah'],
+  'work and study': ['rekan', 'atasan', 'klien'],
+  'teacher and pupil': ['guru'],
+  'public and service': ['petugas_toko', 'pelayan', 'petugas_stasiun', 'apoteker', 'dokter', 'kurir'],
+  'stranger': ['orang_asing']
+};
+/* The two groups the deck deliberately does not write, each with its reason, so a thin group is
+ * reported as a decision rather than left looking like an oversight. */
+const WHO_NOT_WRITTEN = {
+  'teacher and pupil': 'classroom-only wording, deliberately not a topic',
+  'relative': 'a distant relative is a rarer case of family, which has its own sentences'
+};
+
+function checkWho(rows) {
+  const counts = new Map(), perTopic = new Map();
+  const bank = rows.filter(r => r.origin === 'bank');
+  for (const { s } of bank) {
+    counts.set(s.rel, (counts.get(s.rel) || 0) + 1);
+    if (!perTopic.has(s.topic)) perTopic.set(s.topic, new Map());
+    const m = perTopic.get(s.topic);
+    m.set(s.rel, (m.get(s.rel) || 0) + 1);
+  }
+  return { counts, perTopic, bank };
+}
+
 /* The long sentences should be most of the deck, so a regression back to a phrasebook of
  * greetings is visible in the numbers rather than only to a reader.
  *
@@ -372,6 +410,7 @@ const groups = {
   balance: checkBalance(rows),
   short: short.bad,
   reply: reply.bad,
+  who: [],   // reported below rather than as findings: see the spread and per-topic print
 };
 
 let total = 0;
@@ -384,10 +423,27 @@ for (const [name, bad] of Object.entries(groups)) {
   for (const [a, b] of bad.slice(0, 300)) console.log(`       ${a} -- ${b}`);
   if (bad.length > 300) console.log(`       ... and ${bad.length - 300} more`);
 }
+const whoInfo = checkWho(rows);
 const replies = [...reply.totals.values()].reduce((a, k) => a + k.length, 0);
 console.log(`\nreplies: ${replies} of ${bank.length} (${Math.round(100 * replies / bank.length)}%); ` +
             `short sentences: ${bank.filter(r => !r.s.long).length}, ` +
             `${short.marked.length} of them marked short: 1`);
+/* The spread across the measured partner groups, printed so the question a per-topic line cannot
+ * answer has somewhere to be read: is a whole kind of person missing. */
+console.log('\nwho the sentences are said to, grouped as the survey groups them:');
+for (const g of Object.keys(WHO_GROUP)) {
+  const n = WHO_GROUP[g].reduce((a, k) => a + (whoInfo.counts.get(k) || 0), 0);
+  const note = WHO_NOT_WRITTEN[g] ? `  (${WHO_NOT_WRITTEN[g]})` : '';
+  console.log(`  ${g.padEnd(24)} ${String(n).padStart(4)}  ${String(Math.round(100 * n / whoInfo.bank.length)).padStart(2)}%${note}`);
+}
+/* Per topic, so a topic doc line can be copied from here rather than counted by hand, which is how
+ * nine of the twelve lines came to be wrong. */
+console.log('\nwho, per topic:');
+for (const t of [...whoInfo.perTopic.keys()].sort()) {
+  const parts = [...whoInfo.perTopic.get(t).entries()].sort((a, b) => b[1] - a[1]);
+  console.log(`  ${t.padEnd(14)} ${parts.map(([k, n]) => `${rel[k] ? rel[k].id : k} ${n}`).join(', ')}`);
+}
+
 /* Printed per topic so the topic docs can cite the number instead of counting again by hand, which
  * is how the docs and the data drifted apart the first time. */
 for (const t of [...reply.totals.keys()].sort()) {

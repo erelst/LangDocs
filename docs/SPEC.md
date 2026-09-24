@@ -215,6 +215,65 @@ satu pun yang menjawab. Bentuk yang paling sering muncul di data: slot `menjawab
 topik diisi nama keadaan, padahal kalimatnya belum ada, sehingga berkas itu terlihat lengkap
 sementara decknya belum.
 
+### K9. Lawan bicara harus sebanding dengan kenyataannya, dan bisa dicari
+
+Setiap kalimat menyebut siapa yang diajak bicara lewat satu nilai `rel` (`const.js`), dan
+sebaran nilai itu harus sebanding dengan sebaran lawan bicara yang terukur. Pertanyaan yang
+dijawab aturan ini bukan "apakah tiap orang punya kalimat", melainkan **"apakah jumlahnya
+sebanding dengan seringnya orang itu diajak bicara"**.
+
+**Kenapa ini perlu aturan sendiri.** Tiga cacat nyata yang semuanya lolos sebelum aturan ini ada:
+
+| Cacat | Akibatnya |
+|---|---|
+| Sebaran `rel` tidak pernah diukur sama sekali | Topik punya kuota terukur, tapi "kepada siapa" tidak. Satu jenis lawan bicara bisa hampir hilang tanpa ada yang melihat |
+| Baris "Lawan bicara yang sudah dipakai" di berkas topik ditulis dari ingatan | 9 dari 12 baris salah: tertinggal beberapa kalimat, dan nilainya ditulis sebagai nama tampilan (`orang asing`) padahal data menyebut `orang_asing` |
+| Baris itu **tidak bisa dicari** di halaman | Pencarian tidak mengindeks baris lawan bicara, sehingga mencari `pasangan` menemukan **1** kartu padahal ada **22**. Satu-satunya label yang dimiliki kartu itu justru satu-satunya yang tidak bisa dicari |
+
+**Diperiksa oleh.** `check.js` bagian `who`:
+- sebaran per kelompok lawan bicara dicetak, dikelompokkan sama seperti survei mengelompokkannya
+  (`WHO_GROUP`), supaya pertanyaan "apakah satu jenis orang hilang" punya tempat dibaca
+- jumlah per topik dicetak, supaya baris di berkas topik **disalin dari keluaran**, bukan dihitung
+  tangan. Menghitung tangan adalah sebab 9 dari 12 baris itu salah
+- dua kelompok yang sengaja tidak ditulis dicetak **beserta alasannya** (`WHO_NOT_WRITTEN`), supaya
+  kelompok yang tipis terbaca sebagai keputusan, bukan kelalaian
+
+**Diperiksa oleh `ui.js`.** Mencari label lawan bicara harus menemukan seluruh kalimat orang itu:
+harapannya dihitung `ui.js` dari berkas data, jadi menambah satu kalimat tidak bisa diam-diam
+membuat pemeriksaannya lolos. Sifat yang diuji "minimal sebanyak itu", bukan "tepat", karena
+pencarian memang mencakup seluruh teks yang terlihat (V7).
+
+**Angka yang berlaku sekarang, dan penyimpangannya.** Bagian terukur dihitung dari
+`data/survey.zip` (9.272 percakapan, 10.708 slot lawan bicara): keluarga dekat 36,8%,
+kerja & belajar 22,7%, teman & tetangga 17,2%, publik & jasa 10,8%, guru-murid 3,1%, orang
+asing 2,4%.
+
+| Kelompok | Deck | Terukur | Selisih |
+|---|---|---|---|
+| kerja & belajar | 33,0% | 22,7% | **+10,3** |
+| publik & jasa | 17,6% | 10,8% | **+6,8** |
+| orang asing | 6,2% | 2,4% | **+3,8** |
+| teman & tetangga | 18,7% | 17,2% | +1,5 |
+| guru-murid | 1,3% | 3,1% | -1,8 |
+| keluarga dekat | 23,2% | 36,8% | **-13,6** |
+
+**Keluarga dekat kurang 13,6 poin, dan itu diakui, bukan dibiarkan terlihat seperti sebaran yang
+seimbang.** Sebab terukurnya: kata paling ringkas untuk mengelompokkan percakapan adalah tempat ×
+kegiatan, dan di rumah satu orang menghadapi anggota keluarga sekaligus, sehingga keluarga jatuh
+ke dalam 82 kalimat yang bertopik, sedangkan pasangan (22 kalimat) dan keluarga yang berkunjung
+(berkata sopan) tersebar di beberapa topik. Jadi arah penyimpangannya diketahui dan sebabnya
+tercatat; yang belum ada adalah kalimat untuk keluarga dalam jumlah yang sebanding, dan itu
+pekerjaan yang masih terbuka.
+
+**Harus dipatuhi.** Sebelum menambah kalimat untuk menyamakan sebaran, ingat aturan bahasa yang
+tidak bisa ditawar: kalimat pendek hanya yang benar-benar lazim (K4), kalimat panjang wajib punya
+relasi klausa (K3), dan kerangka wajib unik (T4). Menambah kalimat hanya demi angka akan tertangkap
+`check.js` tiga kali sekaligus, jadi yang harus dilakukan adalah **mencari keadaan nyata yang
+belum tertulis untuk kelompok yang kurang**, bukan menulis ulang keadaan yang sudah ada dengan
+lawan bicara berbeda.
+
+---
+
 ---
 
 ## 2. Ketentuan topik
