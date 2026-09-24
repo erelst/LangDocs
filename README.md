@@ -17,6 +17,10 @@ berkasnya dibaca langsung oleh browser.
 | `data/lexicon.js` | Daftar kata: satu baris per kata, dengan romaji dan dua glosanya. |
 | `data/t_*.js` | Bank kalimat, satu berkas per topik. |
 | `check.js` | Pemeriksa bank kalimat. Jalankan: `node check.js` |
+| `test.js` | Merender halaman di browser dan memeriksa DOM-nya. Jalankan: `node test.js` |
+| `docs/SPEC.md` | Ketentuan yang mengikat setiap kalimat, beserta cara memeriksanya. |
+| `docs/README.md` | Rencana topik: topik apa saja, berapa kalimat tiap topik, dan dari mana angkanya. |
+| `docs/topics/<topik>.md` | Berkas per topik: kuota, slot ucapan yang sudah dan belum terisi, kerangka yang diklaim. |
 
 ## Cara menambah kalimat
 
@@ -43,6 +47,16 @@ Tulis di berkas topik, lalu jalankan `node check.js`.
 
 Topik baru: buat `data/t_nama.js` dengan `window.BANK = (window.BANK || []).concat([...])`,
 lalu tambahkan `<script src="...">` di `index.html`.
+
+## Rencana topik
+
+Topik dan jumlah kalimatnya tidak dibagi rata. `docs/README.md` menghitungnya dari survei
+percakapan CEJC dan daftar frekuensi kata, topiknya adalah pasangan tempat × kegiatan, dan
+syarat yang mengikat tiap kalimat ada di `docs/SPEC.md`.
+
+Sebelum menulis kalimat baru, buka `docs/topics/<topik>.md`: di sana tertulis berapa sisa
+kalimatnya, slot ucapan apa yang belum terisi, dan kerangka apa yang sudah dipakai supaya
+topik baru tidak mengulang kalimat topik lain.
 
 ## Bentuk kalimatnya
 

@@ -127,5 +127,43 @@ ok('cards carry no register label until opened',
    !/class="kanji"[^>]*>[^<]*tetangga/.test(dom), 'register lives in the panel only');
 ok('each card has a ? expander', (dom.match(/class="qdet"/g) || []).length === cards.length);
 
+/* The topic plan is prose with numbers in it, and prose drifts. These two checks tie it back
+ * to the page and to the files, so a topic file that was archived or a count that was edited
+ * without the data stops matching instead of being discovered by a reader. */
+const docsReadme = fs.readFileSync(path.join(ROOT, 'docs/README.md'), 'utf8');
+const topicDocs = fs.readdirSync(path.join(ROOT, 'docs/topics')).filter(f => f.endsWith('.md'));
+/* Every topic with quota gets a topic file: a number with no home is a number nobody owns. */
+const quotaRows = docsReadme.split('\n')
+  .map(line => {
+    const topic = line.match(/^\| `([a-z_]+)` \|/);
+    if (!topic) return null;                       // section 6 and 7 list topics mid-row
+    const q = line.match(/\*\*(\d+)\*\*/);       // the quota is the only bold number
+    return q ? [topic[1], Number(q[1])] : null;
+  })
+  .filter(Boolean);
+ok('docs/README.md lists a quota for every topic',
+   quotaRows.length === 13, `${quotaRows.length} quota rows`);
+for (const [topic, quota] of quotaRows) {
+  if (['telepon', 'sopan', 'waktu_cuaca'].includes(topic)) continue;   // cross-cutting, listed apart
+  ok(`docs/topics/${topic}.md exists`, topicDocs.includes(`${topic}.md`), `quota ${quota}`);
+}
+/* The two documented counts mean different things and both are checked, because the
+ * difference between them is the four curated sentences that no topic claims yet.
+ *
+ *   "kuota terpakai"  sentences that exist AND are counted against a topic quota
+ *   "perlu ditulis"   quota left to write, which is the whole deck minus the first number
+ *   sentences on the page  what the reader actually has, curated included */
+const onPage = curated + written;
+/* The full deck, both tables: "perlu ditulis" is measured against everything, not the core. */
+const quota = quotaRows.reduce((n, [, q]) => n + q, 0);
+const consumed = docsReadme.match(/\| Kuota terpakai \| (\d+) \|/);
+const stillToWrite = docsReadme.match(/\| Perlu ditulis \| \*\*(\d+)\*\* \|/);
+ok('the documented "kuota terpakai" count is not more than the sentences that exist',
+   consumed && Number(consumed[1]) <= onPage,
+   `docs say ${consumed && consumed[1]} used, page has ${onPage}`);
+ok('the documented "perlu ditulis" count is the quota minus what is used',
+   stillToWrite && consumed && Number(stillToWrite[1]) === quota - Number(consumed[1]),
+   `${stillToWrite && stillToWrite[1]} + ${consumed && consumed[1]} vs quota ${quota}`);
+
 console.log(`\n${cards.length} cards rendered; ${failed} failure(s)`);
 process.exit(failed ? 1 : 0);
