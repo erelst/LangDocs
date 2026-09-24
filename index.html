@@ -145,68 +145,79 @@
     }
   }
 
-  /* position: relative is what makes the word the containing block for its own ::after. Without
-     it the bubble is positioned against .jp-sent, the nearest positioned ancestor, and appears
-     centred on the card instead of on the word. */
   .jp-sent .tk { border-radius: 3px; position: relative; }
   .jp-sent .tk:hover { background: rgba(56, 189, 248, .18); }
 
-  /* The word bubble. A word that has a reading and a gloss shows them above itself while the
-     pointer is over it, and never shows the word again: the reader is already looking at it.
-     It is drawn from the token's own title, so there is no script here and nothing to
-     position, and it is purely additive: a browser without attr() support simply shows no
-     bubble. The tail points down at the word, which is what makes it a speech bubble rather
-     than a floating label. It outranks the sticky bar (z-index 500) because a word bubble that
-     disappears behind the header is worse than one that floats over it, and it is drawn over
-     the word rather than under it so no gap is needed. */
-  .jp-sent .tk[title]::after {
-    content: attr(title);
+  /* The word bubble. It sits above the word it belongs to, pointed at it by a tail, and it
+     never repeats the word: the reader is already looking at it, so the space goes to the
+     answer. .tk is position:relative, which is what makes the word the containing block; without
+     it the bubble is drawn against .jp-sent and lands in the middle of the card, which happened
+     once and every content check passed anyway.
+
+     Three rows, each with its own mark and colour, because when the reading and the two glosses
+     were joined by a slash a reader could not tell which was which. The colours are the ones the
+     gloss table already uses for the same three things, so the bubble and the panel agree:
+     romaji grey like gr, Indonesian bright like the reading, English dim like ge. */
+  .jp-sent .tk > .tip {
     position: absolute;
     bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-bottom: 6px;
+    left: 0;
     z-index: 600;
-    width: max-content;
-    max-width: 15rem;
-    padding: 5px 9px;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 9px;
     border-radius: 8px;
     background: #1e293b;
     border: 1px solid #475569;
-    color: #f8fafc;
-    font-size: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .55);
+    font-size: 13.5px;
     font-style: normal;
     font-weight: 400;
-    line-height: 1.5;
-    text-align: center;
-    white-space: normal;
+    line-height: 1.45;
+    text-align: left;
+    white-space: nowrap;
     pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .12s ease;
   }
-  /* the tail: one rotated square, half hidden behind the bubble */
-  .jp-sent .tk[title]::before {
+  .jp-sent .tk:hover > .tip,
+  .jp-sent .tk:focus-visible > .tip { display: flex; }
+  .jp-sent .tk > .tip .tr { white-space: nowrap; }
+  .jp-sent .tk > .tip .mk {
+    display: inline-block;
+    min-width: 3.6em;
+    margin-right: 4px;
+    font-size: 11px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+  .jp-sent .tk > .tip .t-kana { color: #94a3b8; }
+  .jp-sent .tk > .tip .t-id { color: #f8fafc; }
+  .jp-sent .tk > .tip .t-en { color: #cbd5e1; }
+  /* the tail: a rotated square tucked under the bubble, pointing at the word */
+  .jp-sent .tk > .tip::after {
     content: "";
     position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(50%) rotate(45deg);
-    z-index: 601;
+    top: 100%;
+    left: 14px;
+    margin-top: -5px;
     width: 9px; height: 9px;
     background: #1e293b;
     border-right: 1px solid #475569;
     border-bottom: 1px solid #475569;
-    pointer-events: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .12s ease;
+    transform: rotate(45deg);
   }
-  .jp-sent .tk[title]:hover::after,
-  .jp-sent .tk[title]:hover::before,
-  .jp-sent .tk[title]:focus-visible::after,
-  .jp-sent .tk[title]:focus-visible::before {
-    opacity: 1;
-    visibility: visible;
+  /* On a phone the bubble must still be readable in full: no clipping and no sideways
+     scrolling, because a bubble the reader has to scroll is a bubble with something hidden.
+     So it wraps inside the viewport width, the rows lose their nowrap, and the position is
+     clamped by script at this width as well. */
+  @media (max-width: 520px) {
+    .jp-sent .tk > .tip {
+      max-width: calc(100vw - 24px);
+      font-size: 13px;
+    }
+    .jp-sent .tk > .tip .tr { white-space: normal; overflow-wrap: anywhere; }
   }
 
   mark { background: #f59e0b; color: #0b1220; border-radius: 3px; padding: 0 1px; }

@@ -76,8 +76,16 @@ const dom = render(null);
 const deep = render('#q' + total);
 /* Every word is its own <span>, so the sentence text is only contiguous once the tags are
  * stripped; searching the raw DOM for a sentence fails even when it is on screen. */
-const domText = dom.replace(/<[^>]+>/g, '');
-const deepText = deep.replace(/<[^>]+>/g, '');
+/* Text as the reader sees it, not text as the markup happens to read. Stripping tags alone also
+ * strips the tags off the hidden word bubbles, so their labels and glosses leak into the plain
+ * text and a sentence check then fails on words the reader never sees. The bubbles are display:none
+ * until the pointer is over a word, so removing them first is what the browser already does for
+ * select-and-copy. Verified: selecting a sentence copies おはようございます。 with no bubble text. */
+const visibleText = html => html
+  .replace(/<span class="tip"[\s\S]*?<\/span><\/span>/g, '')
+  .replace(/<[^>]+>/g, '');
+const domText = visibleText(dom);
+const deepText = visibleText(deep);
 
 
 const cards = dom.match(/class="jp-sent"/g) || [];

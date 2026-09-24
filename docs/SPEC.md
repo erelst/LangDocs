@@ -139,20 +139,59 @@ memberi keduanya jumlah kalimat yang sama akan salah menggambarkan bahasa yang d
 
 ### T2. Setiap topik ditulis sampai mentok
 
+**Mentok berarti topik itu sudah tidak bisa dibuatkan kalimat lagi.** Bukan berarti kuotanya
+habis, bukan berarti jumlahnya sudah cukup, dan bukan berarti tabel kerangkanya sudah panjang.
+Sebuah topik mentok kalau tidak ada lagi keadaan nyata dari kehidupan sehari-hari yang belum
+punya kalimat di berkasnya.
+
+Urutan yang benar, dan ketiganya berbeda:
+
+| Keadaan | Artinya | Cara tahu |
+|---|---|---|
+| belum ditulis | belum ada kalimatnya sama sekali | kolom "sudah ditulis" nol |
+| **kuota penuh** | jumlahnya sudah mencapai angka rencana | kolom sisa nol |
+| **mentok** | tidak ada keadaan baru yang bisa dibuatkan kalimat | daftar celah kosong **dan** satu putaran pencarian baru tidak menemukan apa pun |
+
 Kuota adalah lantai, bukan langit-langit. Kalau sebuah topik masih bisa dibuatkan kalimat yang
-nyata dan berbeda, kalimat itu ditambahkan walau kuotanya sudah lewat. Topik dianggap mentok
-kalau daftar "belum ditulis" di berkas topiknya kosong dan satu putaran baru tidak menemukan
-slot ucapan yang belum terisi.
+nyata dan berbeda, kalimat itu ditambahkan walau kuotanya sudah lewat, dan kuotanya dinaikkan
+beserta alasan yang tertulis di dua tempat: berkas topiknya dan `README.md`.
+
+**Ukuran yang dipakai untuk "keadaan nyata dan berbeda",** supaya tidak jadi soal selera:
+
+1. Keadaannya bisa disebut dalam satu kalimat tanpa menyebut nama topiknya, misalnya "menitipkan
+   kunci ke tetangga" bukan "hal-hal rumah tangga".
+2. Kalimatnya menjawab pertanyaan yang benar-benar ditanyakan orang, bukan pertanyaan yang
+   dibuat supaya ada contoh.
+3. Kerangkanya belum dipakai kalimat lain, dan `check.js` bagian `distinct` membuktikannya.
+4. Kalau keadaan itu hanya berbeda kata benda dari kalimat yang sudah ada, itu bukan keadaan
+   baru. `肉を買いました` dan `魚を買いました` adalah satu keadaan.
+
+**Kalimat yang tidak boleh ditambahkan.** Kalimat yang diberi sambungan supaya terlihat panjang,
+kalimat yang hanya menukar kata benda dari kalimat lain, dan kalimat yang tidak punya keadaan
+yang bisa diceritakan. Deck yang ditambah dengan cara ini jadi lebih besar tanpa jadi lebih
+berguna, dan itu pelanggaran, bukan pencapaian.
 
 **Alasan.** Kuota menjaga keseimbangan antar topik, saturasi menjaga agar tiap topik benar
 benar bisa dipakai. Dua hal berbeda, dan keduanya dibutuhkan.
 
-**Diperiksa oleh.** Dua hal, dan yang pertama saja tidak cukup. Kolom sisa menjawab "apakah
-kuotanya sudah penuh". Daftar celah di bawah tabel kerangka menjawab "apakah masih ada yang
-belum ditulis". **Sisa nol bukan bukti mentok**: `kerja` dan `makan` keduanya bersisa nol dan
-keduanya masih punya celah terbuka, sedangkan `belanja` bersisa nol dan belum pernah diperiksa
-sama sekali. Topik disebut mentok hanya kalau daftar celahnya kosong dan pencarian ulang tidak
-menemukan slot yang belum terisi.
+**Diperiksa oleh.** Kolom sisa menjawab "apakah kuotanya sudah penuh", dan daftar celah
+menjawab "apakah masih ada yang belum ditulis". **Sisa nol bukan bukti mentok.** Ketiga topik
+pertama yang mencapai kuotanya, `belanja`, `kerja`, dan `makan`, semuanya bersisa nol dan
+semuanya masih punya celah terbuka saat itu.
+
+**Harga yang harus dibayar, dan ini yang paling mudah salah dibaca.** Pencarian celah tidak
+menyusut. Setelah seluruh 13 topik diperiksa sekali, 62 celah ditutup dan 63 celah baru tercatat:
+tiap putaran menutup N dan memunculkan sekitar N, karena pemeriksaannya makin dalam, bukan makin
+dekat selesai. Konsekuensinya disebut terang-terangan:
+
+| | |
+|---|---|
+| Jumlah putaran yang membuktikan mentok | tidak diketahui, dan tidak ada bukti bahwa satu kali cukup |
+| Yang **tidak boleh** dilakukan | menyebut sebuah topik mentok hanya karena putaran celahnya baru selesai |
+| Yang wajib dilakukan kalau berhenti | sebut berhenti sebagai **keputusan**, sebutkan berapa celah yang masih terbuka, dan jangan pakai kata mentok |
+
+Kalau sesi berikutnya menemukan "sisa 0" di sebuah berkas topik, itu berarti kuota penuh. Itu
+bukan izin untuk menulis kata mentok, dan bukan alasan untuk menganggap topiknya selesai.
 
 ### T3. Setiap topik menutup seluruh ruang ucapannya
 
@@ -208,7 +247,7 @@ Ketentuan ini sudah berjalan; ditulis di sini supaya tidak berubah tanpa disadar
 | V9 | Tidak ada build, tidak ada program penghasil kalimat; berkas dibaca langsung browser | susunan repo |
 | V10 | Sel glosa tidak boleh kosong, dan tanda baca tidak berdiri sebagai baris sendiri | `test.js` |
 | V11 | Mencari setelah menggulir menampilkan hasil teratas, bukan posisi gulir lama | `ui.js` |
-| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris, dan **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca | `ui.js` |
+| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris sebagai **tiga baris berlabel** yang bisa dibedakan, **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca, dan **tidak terpotong di lebar layar mana pun** | `ui.js` |
 
 ---
 
@@ -230,16 +269,39 @@ menjawab pertanyaan yang tidak ditanyakan. Sekarang isinya apa yang belum terlih
 | Muncul saat kursor di atas kata, dan saat kata difokuskan lewat keyboard | `:focus-visible`, karena hover saja tidak bisa dipakai semua orang |
 | Tanda baca tanpa glosa tidak punya balon | Tidak ada yang bisa dikatakan tentang `、` |
 
-Dikerjakan tanpa skrip: `title` tetap sumber satu-satunya, dan CSS menggambarnya lewat
-`::after { content: attr(title) }`. Tidak ada elemen yang dibuat dan tidak ada posisi yang
-dihitung, tetapi **`.tk` wajib `position: relative`**. Tanpa itu `::after` yang `absolute`
-diposisikan terhadap `.jp-sent`, leluhur terdekat yang ber-`position`, dan balonnya muncul di
-tengah kartu, bukan di atas katanya. Itu terjadi sekali: balonnya ada, isinya benar, warnanya
-benar, dan seluruh pemeriksaan lama tetap lolos, karena yang salah hanya tempatnya. `ui.js`
-sekarang mengukur posisinya, bukan hanya keberadaannya. Diperiksa `ui.js` dengan
-menggerakkan kursor sungguhan lewat `Input.dispatchMouseEvent`, karena `:hover` tidak menanggapi
-kejadian sintetis: balon harus benar-benar terlihat (bukan `opacity: 0`), punya kotak yang
-tergambar (bukan `auto x auto`), dan katanya harus benar-benar berada di bawah kursor.
+**Kenapa tiga baris berlabel, bukan satu baris dengan garis miring.** Seorang pembaca melaporkan
+ bahwa ia tidak bisa membedakan mana romaji, mana Indonesia, dan mana Inggris ketika ketiganya
+ disambung satu baris dengan `/`. Penanda seperti `romaji / arti / English` menjawabnya
+ langsung, dan warnanya mempercepat pembacaan. Karena itu tiap baris punya label kecil dan
+ warnanya sendiri, dan `ui.js` memeriksa bahwa ketiga warnanya benar-benar berbeda. Warna yang
+ sama untuk dua baris akan mengembalikan keluhan yang sama.
+
+**Kenapa balonnya harus selalu muat di layar.** Keluhan kedua: di layar kecil sebagian balon
+keluar dari pandangan. Aturannya sekarang tidak ada yang boleh terpotong, di lebar mana pun:
+barisnya membungkus di layar sempit (`white-space: normal`), lebarnya dibatasi `calc(100vw -
+24px)`, dan posisinya digeser oleh skrip menjauh dari tepi kiri dan tepi kanan. Digeser, bukan
+dipotong, dan tanpa gulir mendatar: balon yang harus digulir adalah balon yang menyembunyikan
+sesuatu.
+
+**`.tk` wajib `position: relative`.** Tanpa itu elemen `absolute` di dalamnya diposisikan
+terhadap `.jp-sent`, leluhur terdekat yang ber-`position`, dan balonnya muncul di tengah kartu,
+bukan di atas katanya. Itu terjadi sekali: balonnya ada, isinya benar, warnanya benar, dan
+seluruh pemeriksaan lama tetap lolos, karena yang salah hanya tempatnya.
+
+**Diperiksa oleh `ui.js` dari sisi gambar, bukan dari sisi data.** Versi pemeriksaan yang lama
+membaca atribut `title`, jadi ia lolos pada balon yang tidak terbaca: satu jalur teks tanpa
+penanda. Pemeriksaan yang membaca data tidak bisa melihat itu, jadi yang sekarang membaca yang
+tergambar. Kursor digerakkan lewat `Input.dispatchMouseEvent`, karena `:hover` tidak menanggapi
+kejadian sintetis; visibilitas tidak diuji dengan kejadian sintetis, karena tidak akan pernah
+cocok. Diukur di halaman ter-deploy pada 360, 414, 768, dan 1280 piksel: tidak ada satu pun
+kotak balon yang keluar dari layar, dan pada 360 piksel ketiga baris terbukti berlabel dan
+berwarna berbeda.
+
+**Akibat pada teks halaman.** Balon ikut berada di DOM sebagai elemen sungguhan, dan teksnya
+tidak boleh ikut terbaca sebagai kalimat. Yang menyelamatkan adalah `display: none` saat balon
+tertutup: menyalin satu kalimat menghasilkan kalimatnya saja, tanpa satu kata pun dari balon,
+dan sudah diuji begitu. `test.js` yang membaca teks halaman sekarang membuang elemen balon
+sebelum mengambil teksnya, bukan hanya membuang tanda kurung tag.
 
 ---
 

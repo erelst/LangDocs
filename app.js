@@ -105,26 +105,42 @@
   function colourOf(i) { return C.palette[i % C.palette.length]; }
   function styleOf(i) { return C.underlines[i % C.underlines.length]; }
 
-  /* What a word shows when the pointer is over it: the reading and both glosses, never the
-   * word itself again. The reader is already looking at the word, so repeating it in the
-   * bubble costs the space that the answer needs. idx is the line being built, 0 kanji and
-   * 1 romaji, and the bubble is the same either way. */
+  /* The word bubble's contents. Three labelled rows rather than one run of text, because a
+   * reader could not tell the reading from the two glosses when they were joined by a slash:
+   * the marks "reading / meaning / meaning" are the answer to that, and each row is coloured
+   * to match the row of the gloss table it belongs to.
+   *
+   * Nothing here repeats the word. idx is the line being built, 0 kanji and 1 romaji; on the
+   * romaji line the reading is already on screen, so the bubble leaves it out and carries the
+   * meaning only. Same rule on both lines: show what the line does not. */
+  var MARK = { kana: 'romaji', id: 'arti', en: 'English' };
+
+  function bubble(tokens, i, idx) {
+    var t = tokens[i];
+    var rows = [];
+    // The label is the real answer to "which of these is the romaji": a mark in front of each
+    // row says it outright, and the colour only makes it quicker to see.
+    if (idx !== 1 && t[1]) { rows.push(['kana', MARK.kana, t[1]]); }
+    if (t[2]) { rows.push(['id', MARK.id, t[2]]); }
+    if (t[3]) { rows.push(['en', MARK.en, t[3]]); }
+    if (!rows.length) { return ''; }
+    return '<span class="tip" aria-hidden="true">' + rows.map(function (r) {
+      return '<span class="tr t-' + r[0] + '">' +
+        '<span class="mk">' + esc(r[1]) + '</span>' + esc(r[2]) + '</span>';
+    }).join('') + '</span>';
+  }
+
   function tokenSpans(tokens, idx) {
     var out = [];
     for (var i = 0; i < tokens.length; i++) {
       var colour = colourOf(i), style = styleOf(i);
       var width = style === 'double' ? '3px' : '2px';
       var text = esc(tokens[i][idx]);
-      var romaji = esc(tokens[i][1]);
-      var gloss = [tokens[i][2], tokens[i][3]].filter(Boolean).join(' / ');
-      // On the romaji line the reading is already on screen, so the bubble carries only the
-      // meaning there. The rule is the same on both lines: show what the line does not.
-      var tip = [idx === 1 ? '' : romaji, gloss].filter(Boolean).join('  ');
       // display:inline-block keeps each word atomic, so a narrow screen wraps between
       // words and never splits a word in half.
       out.push('<span class="tk" style="display:inline-block;color:' + colour +
         ' !important;border-bottom:' + width + ' ' + style + ' ' + colour +
-        ' !important;padding:0 3px;"' + (tip ? ' title="' + tip + '"' : '') + '>' + text + '</span>');
+        ' !important;padding:0 3px;">' + text + bubble(tokens, i, idx) + '</span>');
     }
     return out.join('');
   }
@@ -428,6 +444,35 @@
   });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' || e.key === 'Esc') { closeAll(null); }
+  });
+
+  /* A bubble belongs to its word, so the word is the containing block and the bubble is placed
+   * by CSS alone. The one thing CSS cannot know is where the screen ends: a word near the right
+   * edge would push its bubble off-screen and the reader would see half of it. This nudges the
+   * drawn bubble back inside, by translating it, and never touches the markup. Measured after
+   * display changes, so the box is real when it is read.
+   *
+   * This runs at every width. On a narrow screen the bubble is capped to the viewport by CSS and
+   * wraps, and this is what stops it sticking out on the word that sits nearest the edge. */
+  function keepBubbleOnScreen(tk) {
+    var tip = tk.querySelector('.tip');
+    if (!tip) { return; }
+    tip.style.transform = '';
+    var box = tip.getBoundingClientRect();
+    var slack = 8;
+    var move = 0;
+    // The word may be narrower than the bubble, so both its edges are compared, not just one.
+    if (box.right > window.innerWidth - slack) { move = window.innerWidth - slack - box.right; }
+    if (box.left + move < slack) { move = slack - box.left; }
+    if (move) { tip.style.transform = 'translateX(' + Math.round(move) + 'px)'; }
+  }
+  list.addEventListener('mouseover', function (e) {
+    var tk = e.target.closest && e.target.closest('.tk');
+    if (tk && list.contains(tk)) { keepBubbleOnScreen(tk); }
+  });
+  list.addEventListener('focusin', function (e) {
+    var tk = e.target.closest && e.target.closest('.tk');
+    if (tk && list.contains(tk)) { keepBubbleOnScreen(tk); }
   });
 
   function openFromHash() {
