@@ -126,6 +126,6 @@ yang dilarang adalah menaikkan kuota satu topik tanpa alasan.
 
 ## Sisa yang harus ditulis
 
-0 kalimat.
+28 kalimat. Kuota 28 sudah penuh.
 
 Urutan yang disarankan: keadaan yang paling sering dulu, lalu yang jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.

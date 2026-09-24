@@ -200,13 +200,14 @@ menangkap kerangka yang sama dengan predikat yang sama setelah bendanya dibuang.
 
 **Catatan kenaikan kuota 90 menjadi 92.** Sebabnya terukur dan satu: ketentuan K9
 menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
-(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
-topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
-karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+(36,8% dari seluruh slot lawan bicara, sementara deck waktu itu baru 23,2% dari 449
+kalimat). Kalimat keluarga yang ditulis di topik ini semuanya keadaan yang benar-benar
+baru, bukan keadaan lama yang lawan bicaranya diganti, karena penggantian seperti itu
+melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
 
 ## Sisa yang harus ditulis
 
-90 kalimat. Kuota 90 sudah penuh.
+98 kalimat. Kuota 98 sudah penuh.
 
 Kalau nanti dibuka lagi, urutan yang disarankan: keadaan yang paling sering dulu, lalu yang
 jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
