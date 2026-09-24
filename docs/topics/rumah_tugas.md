@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Rumah: tugas |
-| Kuota | 45 |
-| Sudah ditulis | 45 |
+| Kuota | 51 |
+| Sudah ditulis | 51 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_tugas.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 45 kalimat, 45 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 51 kalimat, 51 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -106,34 +106,54 @@ Dihitung dengan cara yang sama seperti `check.js`. 45 kalimat, 45 kerangka, tida
 | 43 | `rumah_tugas_terima_kasih_bantuan` | 手伝って くれた から 思った より 早く 終わった | よ |
 | 44 | `rumah_tugas_minta_pindah_lemari` | タンス を 動かす の に 一人 じゃ 無理 だから 手伝って | くれる |
 | 45 | `rumah_tugas_tolak_bukan_bagiannya` | の 分担 じゃない から 自分 で やって | ね |
+| 46 | `rumah_tugas_tagihan_air` | 水道 と ガス は どう なった | 払った |
+| 47 | `rumah_tugas_perbaiki_sendiri` | 自分 で 見て みる から 無理 なら | 頼もう |
+| 48 | `rumah_tugas_barang_hilang` | 家 の 鍵 が 見つからない ので どこ に ある か | 知らない |
+| 49 | `rumah_tugas_titip_tetangga` | 旅行 で 留守 に する ので 鍵 を お預け したい の です | が |
+| 50 | `rumah_tugas_kunci_duplikat` | 鍵 が 一本 しか ない と 困る から 合鍵 を 作って | おこう |
+| 51 | `rumah_tugas_pilah_daur_ulang` | 段ボール は リサイクル に 出す から 燃える ゴミ と 分けて | おいて |
 
-Kuota terpenuhi: 45 dari 45. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 51 dari 51. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya. T2 juga menetapkan kuota adalah lantai:
 kalau masih ada keadaan yang belum punya kalimat, kalimatnya ditambahkan walau 45 sudah lewat.
 
-Lawan bicara yang sudah dipakai: keluarga 33, pasangan 6, tetangga 3, orang asing 2, kurir 1.
-Bentuk sopan 6, biasa 39. Panjang 35, pendek 10.
+Lawan bicara yang sudah dipakai: keluarga 38, pasangan 6, tetangga 4, orang asing 2, kurir 1.
+Bentuk sopan 7, biasa 44. Panjang 41, pendek 10.
 
 39 dari 45 biasa karena 65% percakapan topik ini memang dengan keluarga, dan bahasa di dapur
 sendiri bukan bahasa sopan. Keenam yang sopan semuanya ke orang luar: tiga ke tetangga, dua ke
 tukang, satu ke kurir. Tidak ada satu pun yang sopan ke keluarga atau pasangan, karena kalimat
 sopan di antara orang serumah justru terdengar menjauhkan.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 
-| Celah | Buktinya |
+| Celah | Ditutup oleh |
 |---|---|
-| tagihan air dan gas, bukan hanya listrik | tidak ada kalimat yang memuat `水道` atau `ガス`; yang ada hanya `電気代` |
-| memperbaiki barang sendiri sebelum memanggil tukang | `修理を頼んで` ada, tidak ada kalimat yang mencoba memperbaiki sendiri lebih dulu |
-| barang yang hilang di rumah | tidak ada kalimat yang memuat `なくした` atau `見つからない` |
-| menitipkan sesuatu ke tetangga saat pergi | 3 kalimat ke tetangga ada, tidak satu pun menitipkan barang |
-| membuat kunci duplikat | tidak ada kalimat yang memuat `合鍵` |
-| memilah sampah daur ulang | `燃えるゴミ` dan `プラ` ada, `リサイクル` belum |
+| tagihan air dan gas, bukan hanya listrik | `rumah_tugas_tagihan_air` |
+| mencoba memperbaiki sendiri sebelum memanggil tukang | `rumah_tugas_perbaiki_sendiri` |
+| barang yang hilang di rumah | `rumah_tugas_barang_hilang` |
+| menitipkan kunci ke tetangga saat pergi | `rumah_tugas_titip_tetangga` |
+| membuat kunci duplikat | `rumah_tugas_kunci_duplikat` |
+| memilah sampah daur ulang | `rumah_tugas_pilah_daur_ulang` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
+
+| Celah | Bukti pencarian |
+|---|---|
+| kebocoran air dan keran yang menetes | tidak ada kalimat yang memuat `漏れ` atau `水漏れ` |
+| listrik yang mati dan sekring yang turun | tidak ada kalimat yang memuat `停電` atau `ブレーカー` |
+| menjadwalkan pengangkutan barang besar | `粗大ごみ` ada, `予約` belum |
+| mengeluh atau menanggapi kebisingan tetangga | tidak ada kalimat yang memuat `騒音` atau `苦情` |
+| mengunci diri di luar rumah | `鍵` dan `合鍵` ada, `締め出` belum |
+
+Kuota naik dari 45 menjadi 51 karena pemeriksaan ini menemukan enam keadaan yang nyata dan berbeda,
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis. Dua di antaranya bukan
+sekadar kalimat tambahan: tagihan air dan gas adalah pekerjaan rumah tangga yang paling rutin, dan
+memilah sampah daur ulang adalah aturan yang berbeda di tiap daerah.
 
 Kalau topik ini dibuka lagi, enam baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 45 sudah penuh.
+0 kalimat. Kuota 51 sudah penuh.
