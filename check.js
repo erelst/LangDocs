@@ -246,18 +246,123 @@ function checkDistinct(rows) {
 }
 
 /* The long sentences should be most of the deck, so a regression back to a phrasebook of
- * greetings is visible in the numbers rather than only to a reader. */
+ * greetings is visible in the numbers rather than only to a reader.
+ *
+ * The per-topic floor is the part that was missing. The deck-wide floor was already passing
+ * while single topics sat at a lower ratio, since every other topic covered for them. Both
+ * numbers are guards rather than targets: today the lowest topic is 67.9% and the highest is
+ * 100%, so neither floor is close to being touched. */
+const LONG_FLOOR = 0.5;
+const LONG_FLOOR_TOPIC = 0.6;
+
 function checkBalance(rows) {
   const bad = [];
   const bank = rows.filter(r => r.origin === 'bank');
   const long = bank.filter(r => r.s.long).length;
-  if (bank.length && long / bank.length < 0.5) {
+  if (bank.length && long / bank.length < LONG_FLOOR) {
     bad.push(['balance', `only ${long} of ${bank.length} written sentences are long; the deck is meant to be mostly long ones`]);
+  }
+  const byTopic = new Map();
+  for (const r of bank) {
+    const t = r.s.topic || '(no topic)';
+    if (!byTopic.has(t)) byTopic.set(t, { n: 0, long: 0 });
+    const o = byTopic.get(t);
+    o.n++; if (r.s.long) o.long++;
+  }
+  for (const [t, o] of byTopic) {
+    if (o.n >= 10 && o.long / o.n < LONG_FLOOR_TOPIC) {
+      bad.push([t, `only ${o.long} of ${o.n} sentences are long (${Math.round(100 * o.long / o.n)}%); ` +
+                    `a topic falling back to a phrasebook is hidden while other topics cover for it`]);
+    }
   }
   return bad;
 }
 
+/* A short sentence has to carry proof that it is what people really say, because that is the
+ * only thing that separates it from a long sentence that was never finished. Two proofs count,
+ * and either is enough:
+ *
+ *   - it ends in a sentence-final particle or a polite form, which is what makes a short
+ *     utterance sound whole rather than cut off; or
+ *   - the entry says short: 1 and gives its reason, for the short utterances that carry no
+ *     such mark: phone openings and closings, greetings, thanks.
+ *
+ * Measured when this was written: 31 of 58 short sentences had neither. The shape of the
+ * violation is recognisable, so it is named here: 18 of the 31 ended in a dictionary-form verb
+ * (〜する, 〜思う), stopping as soon as the sentence was long enough to stop. */
+const FINAL_PARTICLES = ['ね', 'よ', 'か', 'な', 'の', 'わ', 'ぞ', 'ぜ', 'かしら', 'っけ',
+  'よね', 'かな', 'だろう', 'でしょう'];
+const SHORT_OK_END = ['です', 'ます', 'でした', 'ました', 'ません', 'ください',
+  'お願いします', 'でしょうか', 'ましょう', 'くださいませんか'];
+
+/* Where the mark has to be looked for. The first attempt looked at the last word, and that is
+ * wrong twice over: 袋はご入用でしょうか。 keeps its mark in the word before the full stop, and
+ * でしょうか is split across two words, so both endsWith tests saw a full stop and the sentence
+ * was reported as carrying nothing. 18 sentences that are exactly what the rule asks for were
+ * named as violations. The mark is therefore looked for at the end of the whole sentence with
+ * its trailing punctuation removed, which is what the reader hears. */
+function shortMark(s) {
+  const raw = tokens(s).map(t => String(t[0])).join('');
+  if (/[？?]\s*$/.test(raw)) return 'question mark';
+  const last = bare(raw);
+  if (FINAL_PARTICLES.some(p => last.endsWith(p))) return 'final particle';
+  if (SHORT_OK_END.some(m => last.endsWith(m))) return 'polite ending';
+  return null;
+}
+
+function checkShort(rows) {
+  const bad = [], marked = [];
+  const bank = rows.filter(r => r.origin === 'bank');
+  for (const { s } of bank) {
+    if (s.long) continue;
+    if (shortMark(s)) continue;
+    if (s.short) { marked.push(s.key); continue; }
+    const surfaces = tokens(s).map(t => bare(t[0])).filter(Boolean);
+    const last = surfaces[surfaces.length - 1] || '';
+    bad.push([s.key, `short with nothing saying people really say it that way: ends in ${JSON.stringify(last)}` +
+                     ` and carries no short: 1. Say it with the particle it is said with, or mark it and give the reason`]);
+  }
+  return { bad, marked };
+}
+
+/* A deck of nothing but openers can start a conversation and cannot carry one. Measured
+ * frequency backs the rule up: questions are 15-20% of CEJC utterance units, so the other
+ * 80-85% of the time a speaker is the one answering. Who answers is decided by the situation,
+ * not by the sentence, which is why the floor is small: one sentence often does both jobs, and
+ * forcing 「大丈夫です。」 out as a sentence of its own produces a sentence with no meaning. */
+const TRIGGER = ['menjawab', 'menanggapi', 'membalas', 'menyetujui', 'menolak', 'menerima',
+  'mengaku', 'membenarkan', 'menyangkal', 'ditanya', 'ditelepon', 'ditawari', 'ditawar',
+  'diminta', 'ditegur', 'saat ditanya', 'setelah ditanya'];
+const TRIGGER_EN = ['answering', 'replies', 'replying', 'responds', 'responding', 'agreeing',
+  'declining', 'accepting', 'admits', 'admitting', 'in reply', 'in response', 'when asked',
+  'after being asked', 'turns down', 'turning down', 'confirms'];
+const REPLY_FLOOR = 3;
+
+function isReply(s) {
+  const a = String(s.sit || '').toLowerCase();
+  const b = String(s.sitEn || '').toLowerCase();
+  return TRIGGER.some(w => a.includes(w)) || TRIGGER_EN.some(w => b.includes(w));
+}
+
+function checkReply(rows) {
+  const bad = [], byTopic = new Map();
+  for (const { s } of rows.filter(r => r.origin === 'bank')) {
+    const t = s.topic || '(no topic)';
+    if (!byTopic.has(t)) byTopic.set(t, []);
+    if (isReply(s)) byTopic.get(t).push(s.key);
+  }
+  for (const [t, keys] of byTopic) {
+    if (keys.length < REPLY_FLOOR) {
+      bad.push([t, `only ${keys.length} repl${keys.length === 1 ? 'y' : 'ies'}; a topic needs ${REPLY_FLOOR} ` +
+                    `so the deck can carry a conversation and not only start one`]);
+    }
+  }
+  return { bad, totals: byTopic };
+}
+
 const rows = assemble();
+const reply = checkReply(rows);
+const short = checkShort(rows);
 const groups = {
   structure: checkStructure(rows),
   tense: checkTense(rows),
@@ -265,6 +370,8 @@ const groups = {
   one_thought: checkOneThought(rows),
   distinct: checkDistinct(rows),
   balance: checkBalance(rows),
+  short: short.bad,
+  reply: reply.bad,
 };
 
 let total = 0;
@@ -276,6 +383,15 @@ for (const [name, bad] of Object.entries(groups)) {
   console.log(`${bad.length ? 'FAIL' : 'ok  '} ${name}: ${bad.length}`);
   for (const [a, b] of bad.slice(0, 300)) console.log(`       ${a} -- ${b}`);
   if (bad.length > 300) console.log(`       ... and ${bad.length - 300} more`);
+}
+const replies = [...reply.totals.values()].reduce((a, k) => a + k.length, 0);
+console.log(`\nreplies: ${replies} of ${bank.length} (${Math.round(100 * replies / bank.length)}%); ` +
+            `short sentences: ${bank.filter(r => !r.s.long).length}, ` +
+            `${short.marked.length} of them marked short: 1`);
+/* Printed per topic so the topic docs can cite the number instead of counting again by hand, which
+ * is how the docs and the data drifted apart the first time. */
+for (const t of [...reply.totals.keys()].sort()) {
+  console.log(`  ${t.padEnd(14)} ${String(reply.totals.get(t).length).padStart(2)}  ${reply.totals.get(t).join(', ')}`);
 }
 console.log(`\n${total} finding(s)`);
 process.exit(total ? 1 : 0);
