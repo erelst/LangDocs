@@ -186,7 +186,12 @@ function checkRegister(rows) {
  * sentences have the same shape; only one of them was being seen. */
 const RELATION = ['から', 'ので', 'けど', 'けれど', 'たら', 'とき', 'ながら', 'ため', 'し',
                   'てから', 'あとで', 'まえに', '前に', 'あと', 'のに', 'なければ', 'れば',
-                  'なら', 'と', 'が'];
+                  'なら', 'と', 'が', 'だけで', 'うちに'];
+/* A relation can be written across two words or glued to the front of one, and both were being
+ * missed. 包む前に、… tokenises as 前 + に, so 前に never matched and the sentence was reported as
+ * carrying no relation at all while sitting in the deck unnoticed. And のでしょうか is one word
+ * that BEGINS with ので, so an endsWith test could not see it either. */
+const RELATION_LEADS = ['ので', 'のに', 'けど', 'けれど'];
 const SEQUENCE = ['それから', 'そのあと', 'そして', '次に', 'その後', 'まず', 'つぎに'];
 const MIN_LONG_TOKENS = 6;
 
@@ -201,9 +206,35 @@ function checkOneThought(rows) {
         // The -ba conditional is れば on ichidan verbs but せば, けば, てば on godan ones, so
         // matching れば alone saw 進めれば and missed 出せば and おけば. Two sentences with
         // the same shape were being judged differently. ば itself is matched as the ending.
-        const hasRelation = surfaces.some(w =>
-          RELATION.some(m => w === m || (m.length >= 2 && w.endsWith(m))) ||
-          (w.length > 1 && w.endsWith('ば')));
+        /* が is two different particles written the same way.
+         *
+         * After a predicate it is the conjunction "but", and it really does join two clauses:
+         * 探しているのですが、こちらで売っていますか is one thought. After a noun it is the subject
+         * marker and joins nothing at all: 「水が止まらない」 is a single clause that merely happens
+         * to contain が, and it was being counted as a relation.
+         *
+         * That mattered: 175 of the long sentences contain subject-が somewhere, so a sentence
+         * could lose the conjunction it was built on and still pass. Found by deleting から from one
+         * sentence and watching the check stay green.
+         *
+         * と is left alone: as a quotative (言っていたと) and as a conditional (押すと痛い) it does
+         * join, and telling those from the listing と by pattern is not reliable enough to be worth
+         * the false findings. */
+        const PREDICATE_END = /(ます|ました|ません|です|でした|だ|た|て|い|る|う|ない|たい|ください)$/;
+        // two neighbouring words that together are a relation: 前 + に, あと + で
+        const joinedPair = surfaces.some((w, i) =>
+          i + 1 < surfaces.length && RELATION.includes(w + surfaces[i + 1]));
+        // a relation glued to the front of a longer word: のでしょうか, けどね
+        const leads = surfaces.some(w => RELATION_LEADS.some(m => w !== m && w.startsWith(m)));
+        const hasRelation = joinedPair || leads || surfaces.some((w, i) => {
+          if (w === 'が' || w.endsWith('が')) {
+            if (w === 'が') { return PREDICATE_END.test(surfaces[i - 1] || ''); }
+            // glued: …のですが, …ますが
+            return PREDICATE_END.test(w.slice(0, -1)) || /(の|ん)ですが$/.test(w);
+          }
+          return RELATION.some(m => w === m || (m.length >= 2 && w.endsWith(m))) ||
+                 (w.length > 1 && w.endsWith('ば'));
+        });
         if (!hasRelation) bad.push([s.key, 'marked long but carries no relation between its clauses']);
       }
     }
