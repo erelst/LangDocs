@@ -67,7 +67,7 @@ ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa s
 | `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **45** |
 | `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **30** |
 | `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **22** |
-| `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **21** |
+| `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **26** |
 | `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **18** |
 | `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **17** |
 | `klinik` | 公共商業施設×療養 0,81 | 0,85% | **8** |
@@ -133,13 +133,13 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 |---|---|
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
-| **Minimum deck** | **393** |
-| Kuota terpakai | 393 |
+| **Minimum deck** | **398** |
+| Kuota terpakai | 398 |
 | Perlu ditulis | **0** |
 
 Angka 393 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. **Semua topik sudah di
 kuota:** `kerja` 86, `makan` 53, `rumah_tugas` 45, `telepon` 33, `sopan` 32, `rumah_santai` 30,
-`transportasi` 22, `belanja` 21, `waktu_cuaca` 20, `santai` 18, `jalan` 17, `klinik` 8,
+`transportasi` 22, `belanja` 26, `waktu_cuaca` 20, `santai` 18, `jalan` 17, `klinik` 8,
 `kegiatan` 8.
 
 Kuota `waktu_cuaca` semula 18 dan dinaikkan menjadi 20 karena barisnya salah catat: rencananya 16
@@ -150,7 +150,7 @@ aturan di bagian atas halaman ini larang, kecuali dijelaskan alasannya seperti i
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 397 kalimat di halaman, bukan 393. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 402 kalimat di halaman, bukan 398. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -179,7 +179,7 @@ sama; sebagian tidak punya bukti yang cukup untuk berdiri sendiri.
 | `t01_waktu` waktu | `waktu_cuaca` | waktu dan cuaca tidak pernah jadi tema percakapan sendiri |
 | `t02_orang` orang | `sopan` + `santai` | memperkenalkan diri tersebar di banyak keadaan, tidak berdiri sendiri |
 | `t03_makanan` makanan | `makan` (53) | 16,89% percakapan, sel terbesar keempat |
-| `t04_belanja` belanja | `belanja` (21) | 6,71% percakapan; satu-satunya topik lama yang kalimatnya sudah ditulis ulang dan tetap masuk |
+| `t04_belanja` belanja | `belanja` (26) | 6,71% percakapan; satu-satunya topik lama yang kalimatnya sudah ditulis ulang dan tetap masuk |
 | `t05_transportasi` transportasi | `transportasi` (22) | 移動 11,53% |
 | `t06_arah` arah | `jalan` (17) | menanyakan arah adalah それ以外の屋外×移動, 4,36% |
 | `t07_cuaca` cuaca | `waktu_cuaca` | lihat atas |
@@ -228,7 +228,7 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 5 | `sopan` | 32 | **32 kalimat, kuota terpenuhi** (`t_sopan.js` 28 + `kurasi` 4) |
 | 6 | `rumah_santai` | 30 | **30 kalimat, kuota terpenuhi** |
 | 7 | `transportasi` | 22 | **22 kalimat, kuota terpenuhi** |
-| 8 | `belanja` | 21 | **21 kalimat, kuota terpenuhi** |
+| 8 | `belanja` | 26 | **26 kalimat, kuota terpenuhi** |
 | 9 | `santai` | 18 | **18 kalimat, kuota terpenuhi** |
 | 10 | `waktu_cuaca` | 20 | **20 kalimat, kuota terpenuhi** |
 | 11 | `jalan` | 17 | **17 kalimat, kuota terpenuhi** |
@@ -252,11 +252,11 @@ berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya
 | `klinik` | 8 | belum | 4 celah terbuka, tercatat di berkasnya |
 | `kegiatan` | 8 | belum | 5 celah terbuka, tercatat di berkasnya |
 | `sopan` | 32 | belum | 6 celah terbuka, tercatat di berkasnya |
-| `belanja` | 21 | belum diperiksa | penuh kuota, belum pernah dicari celahnya |
+| `belanja` | 26 | belum | sudah diperiksa; 4 celah ditutup, 6 masih terbuka |
 
 Karena itu semuanya masih akan bertambah, walau kuotanya sudah penuh. `SPEC.md` T2: kuota
 adalah lantai, bukan langit-langit.
 
 Semua topik sudah punya berkasnya sendiri, dan semuanya sudah di kuota. Tidak satu pun disebut
 mentok, karena mentok berarti tidak ada lagi kalimat yang bisa dibuat dan itu belum terbukti untuk
-topik mana pun: 54 celah masih tercatat, dan `belanja` belum pernah dicari celahnya.
+topik mana pun: 55 celah masih tercatat, dan `belanja` yang tadinya belum pernah diperiksa kini sudah, dengan 6 celah sisanya tercatat.
