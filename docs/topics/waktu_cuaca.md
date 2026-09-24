@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Waktu dan cuaca |
-| Kuota | 22 |
-| Sudah ditulis | 24 |
+| Kuota | 28 |
+| Sudah ditulis | 28 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_waktu_cuaca.js` |
@@ -61,7 +61,7 @@ Topik ini sumbunya adalah tingkat keakraban itu sendiri, jadi kolom sopan dan bi
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 28 kalimat, 26 kerangka; 2 kerangka dipakai lebih dari sekali.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -89,6 +89,10 @@ Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tida
 | 20 | `waktu_cuaca_tanya_suhu` | は 暖かかった けど は 何度 くらい でしょう | か |
 | 21 | `waktu_cuaca_hujan_berhenti` | 雨 止んだ みたい だ から そろそろ | 出よう |
 | 22 | `waktu_cuaca_jawab_hujan_sebentar` | 昼過ぎ に は 止む そう なので | 待ちましょう |
+| 23 | `waktu_cuaca_ingatkan_jaket` | 今夜 は 冷える から 上着 を 着て いき な | よ |
+| 24 | `waktu_cuaca_hujan_deras_pulang` | 雨 が ひどい から 止む まで で 待って | いよう |
+| 25 | `waktu_cuaca_beri_tahu_panas` | は 暑さ が 厳しい から 水分 を 取って おいて | ね |
+| 26 | `waktu_cuaca_bawa_payung_keluarga` | 午後 は 雨 らしい から 傘 を 持って いき な | よ |
 
 Kuota terpenuhi: 24 dari 22. Angka itu kalimat di berkas ini (22) ditambah 2 dari
 `data/curated.js` (`kurasi07`, `kurasi10`), jadi topik ini berdiri **2 di atas kuotanya**,
@@ -96,8 +100,8 @@ dan `../SPEC.md` T2 mengizinkan itu selama kalimat tambahannya nyata dan berbeda
 antaranya ditambahkan saat `../SPEC.md` K8 dijalankan: `waktu_cuaca_jawab_hujan_sebentar`,
 jawaban atas pertanyaan apakah hujannya akan lama. **Belum diperiksa mentok.**
 
-Lawan bicara yang sudah dipakai: rekan kerja 10, teman 5, keluarga 4, orang asing di jalan 2, klien 1. Bentuk
-sopan 15, biasa 3. Panjang 18, pendek 6.
+Lawan bicara yang sudah dipakai: rekan kerja 10, keluarga 8, teman 5, orang asing di jalan 2, klien 1. Bentuk
+sopan 15, biasa 3. Panjang 22, pendek 4.
 
 Hampir semua kalimat di sini adalah pembuka percakapan, bukan isi pembicaraan, jadi banyak yang
 pendek: 4 dari 18 hanya satu klausa, dan itu memang bentuk sapaan. Yang sopan dan yang biasa
@@ -125,6 +129,13 @@ Kuota naik dari 20 menjadi 21: satu keadaan baru yang nyata.
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 22 menjadi 28.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 24 kalimat. Kuota 22 sudah penuh.

@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Makan |
-| Kuota | 57 |
-| Sudah ditulis | 57 |
+| Kuota | 67 |
+| Sudah ditulis | 67 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_makan.js` |
@@ -59,7 +59,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 57 kalimat, 57 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 67 kalimat, 67 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -122,12 +122,22 @@ Dihitung dengan cara yang sama seperti `check.js`. 57 kalimat, 57 kerangka, tida
 | 55 | `makan_ajak_makan_akrab` | お腹 空いた から 何か | 食べない |
 | 56 | `makan_tanya_pendapat_rasa` | 味 は どう しょっぱすぎる と | 思わない |
 | 57 | `makan_tanya_menu_tidak_ada` | 料理 を 探して いる の です が こちら では 出していない の でしょう | か |
+| 58 | `makan_ajak_sarapan_keluarga` | 朝ごはん は できて いる から 食べて から | 行こう |
+| 59 | `makan_sisa_masuk_kulkas` | 残ったら 冷蔵庫 に 入れ て おいて あと で 食べられる | から |
+| 60 | `makan_suami_terlambat` | 晩ごはん は できて いる から あまり 遅く なら ない | で |
+| 61 | `makan_sisa_keluarga` | おかず は ある から 遠慮 しない で 食べて いい | よ |
+| 62 | `makan_minta_anak_bantu` | お父さん が 作って いる から お皿 を 並べて | おいて |
+| 63 | `makan_teh_untuk_keluarga` | 疲れて いる みたい だから お茶 を 入れて おく | ね |
+| 64 | `makan_bekal_pagi` | 朝 が 早い なら お弁当 は 今夜 の うち に 作って おく | よ |
+| 65 | `makan_tanya_porsi_anak` | ごはん は どのくらい 食べる 足り なかったら あと で 足す | から |
+| 66 | `makan_sambut_kerabat` | 何 も お構い できて いません が どうぞ 召し上がって | ください |
+| 67 | `makan_tanya_alergi_kerabat` | 用意 する ので 食べられ ない もの が あれば 教えて | ください |
 
 Kuota terpenuhi: 57 dari 57. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: pelayan 25, keluarga 14, teman 12, rekan kerja 5, pasangan 1. Bentuk
-sopan 40, biasa 17. Panjang 50, pendek 7.
+Lawan bicara yang sudah dipakai: pelayan 25, keluarga 23, teman 12, rekan kerja 5, pasangan 2. Bentuk
+sopan 40, biasa 17. Panjang 60, pendek 7.
 
 Dua meja ditulis terpisah karena bahasanya memang dua: di restoran pembaca adalah pelanggan yang
 berbicara ke petugas, jadi hampir semuanya sopan; di rumah lawannya keluarga, jadi hampir
@@ -158,6 +168,13 @@ semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 Kalau topik ini dibuka lagi, empat baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 57 menjadi 67.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 57 kalimat. Kuota 57 sudah penuh.

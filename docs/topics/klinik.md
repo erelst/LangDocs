@@ -76,9 +76,9 @@ Dihitung dengan cara yang sama seperti `check.js`. 15 kalimat, 15 kerangka, tida
 | 10 | `klinik_tolak_rawat_inap` | 家 の こと が ある ので 入院 は 難しく 通い で お願い できない | でしょうか |
 | 11 | `klinik_tanya_obat_bebas` | 病院 に 行く ほど で は ない ので 市販薬 で いい もの は あります | か |
 | 12 | `klinik_tanya_vaksin` | 予防接種 は いつ まで に 受ければ いい か 二回目 まで どのくらい 空ける か 教えて | ください |
-| 13 | `klinik_jawab_lama_demam` | 熱 は 二日前 から で 昨夜 は 三十八度 まで | 上がりました |
+| 13 | `klinik_jawab_lama_demam` | 熱 は 二日前 から です 昨夜 は 三十八度 まで | 上がりました |
 | 14 | `klinik_jawab_obat_rutin` | 血圧 の 薬 は 毎朝 飲んでいます が 欠かした こと は | ありません |
-| 15 | `klinik_jawab_alergi_tidak` | 薬 の アレルギー は ない と 思います まで 飲んで かぶれた こと が ない | ので |
+| 15 | `klinik_jawab_alergi_tidak` | まで 薬 で かぶれた こと が ない ので アレルギー は ない と | 思います |
 
 Kuota terpenuhi: 15 dari 15. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.

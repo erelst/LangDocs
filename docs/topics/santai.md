@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Santai di luar |
-| Kuota | 22 |
-| Sudah ditulis | 22 |
+| Kuota | 29 |
+| Sudah ditulis | 29 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_santai.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 29 kalimat, 29 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -85,12 +85,19 @@ Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tida
 | 20 | `santai_serahkan_pilihan` | 辺 は あまり 詳しく ない ので 選んで もらえる と | 助かります |
 | 21 | `santai_ajak_karaoke` | ご飯 の あと で カラオケ でも | 行かない |
 | 22 | `santai_batal_karena_hujan` | 雨 で は 難しそう なので は やめ に しません | か |
+| 23 | `santai_nonton_olahraga_keluarga` | 今夜 試合 が ある から 家 で 一緒 に | 見よう |
+| 24 | `santai_konser_keluarga` | 久しぶり だ から 来月 コンサート に でも | 行かない |
+| 25 | `santai_foto_keluarga` | みんな が 揃って いる うち に 帰る 前 に 写真 を | 撮ろう |
+| 26 | `santai_liburan_panjang` | 連休 が 近い から の うち に 予定 を 決めて | おこう |
+| 27 | `santai_jalan_pagi_keluarga` | 空気 が きれい な うち に | 歩こう |
+| 28 | `santai_acara_televisi_keluarga` | いつも 見て いる 番組 が 始まる から 場所 を 空けて | おいて |
+| 29 | `santai_baca_bareng` | 今夜 は 話さ なくて いい から 隣 で 本 を 読んで | いよう |
 
 Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 18, petugas toko 3, rekan kerja 1. Bentuk sopan 16, biasa 6.
-Panjang 20, pendek 2.
+Lawan bicara yang sudah dipakai: teman 18, keluarga 7, petugas toko 3, rekan kerja 1. Bentuk sopan 16, biasa 13.
+Panjang 27, pendek 2.
 
 Topik ini terbelah menurut kedekatan orangnya, bukan menurut kegiatannya, dan itu yang membuatnya
 berbeda dari `rumah_santai`: ajakan yang sama muncul dalam dua bentuk. Ke rekan yang belum akrab
@@ -123,6 +130,13 @@ dua di antaranya slot yang dijanjikan bagian ruang ucapan di atas dan tidak pern
 Kalau topik ini dibuka lagi, tujuh baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 22 menjadi 29.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 22 kalimat. Kuota 22 sudah penuh.

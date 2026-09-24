@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Kerja |
-| Kuota | 90 |
-| Sudah ditulis | 90 |
+| Kuota | 92 |
+| Sudah ditulis | 92 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_kerja.js` |
@@ -64,7 +64,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 90 kalimat, 90 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 92 kalimat, 92 kerangka, tidak ada yang sama.
 Sebelum menulis topik lain, periksa daftar ini: kerangka yang sama dengan predikat terakhir yang
 sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 
@@ -162,12 +162,14 @@ sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 | 88 | `kerja_telat_ke_klien` | まま では 納期 に 間に合わない ので お時間 を いただきたい の です | が |
 | 89 | `kerja_izin_sakit` | 昨夜 から 熱 が ある ので は 休ませて いただきたい の です | が |
 | 90 | `kerja_rekan_setingkat` | 出しといた から 一緒 に 確認 | しよう |
+| 91 | `kerja_keluarga_tanya_kantor` | は 会議 ばかり だった から 昼 ごはん を 食べる 暇 も | なかった |
+| 92 | `kerja_keluarga_sibuk_pekan` | 今週 は 仕事 が 立て込んで いる から 帰り が 遅く なる | かも |
 
 Kuota terpenuhi: 90 dari 90. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti bahwa
 topiknya sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: atasan 45, rekan kerja 32, guru 6, klien 5, teman 2. Bentuk sopan 81,
-biasa 9. Panjang 81, pendek 9.
+Lawan bicara yang sudah dipakai: atasan 45, rekan kerja 32, guru 6, klien 5, teman 2, keluarga 2. Bentuk sopan 81,
+biasa 9. Panjang 83, pendek 9.
 
 Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 
@@ -194,6 +196,13 @@ semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 Kalau topik ini dibuka lagi, empat baris itu yang pertama ditulis, bukan mengulang keadaan yang
 sudah ada. Kalimat baru juga harus menghindari kerangka di tabel atas: `check.js` bagian `distinct`
 menangkap kerangka yang sama dengan predikat yang sama setelah bendanya dibuang.
+
+
+**Catatan kenaikan kuota 90 menjadi 92.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
 
 ## Sisa yang harus ditulis
 

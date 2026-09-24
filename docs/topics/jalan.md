@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Jalanan |
-| Kuota | 20 |
-| Sudah ditulis | 20 |
+| Kuota | 24 |
+| Sudah ditulis | 24 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_jalan.js` |
@@ -55,7 +55,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 20 kalimat, 20 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 24 kalimat, 24 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -81,12 +81,16 @@ Dihitung dengan cara yang sama seperti `check.js`. 20 kalimat, 20 kerangka, tida
 | 18 | `jalan_tanya_gedung` | 高い ビル を 目印 に したい の です が から 見えます | か |
 | 19 | `jalan_park_jam_tutup` | 公園 を 散歩 して いる の です が 何時 まで いられ ます | か |
 | 20 | `jalan_berpisah_di_sini` | は で 曲がる から まで に | しよう |
+| 21 | `jalan_antar_keluarga_belanja` | 荷物 が 多い から 家 まで 送って いく | よ |
+| 22 | `jalan_tanya_ayah_kabari` | 出かける とき は 一声 かけて から ずっと 探して いた | よ |
+| 23 | `jalan_jemput_anak` | 雨 が 強い から は 学校 まで 迎え に 行く | ね |
+| 24 | `jalan_antar_kerabat` | 入り口 まで お送り します そう しない と 心配 です | から |
 
 Kuota terpenuhi: 20 dari 20. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 9, orang asing di jalan 7, tetangga 2, keluarga 1, pasangan 1.
-Bentuk sopan 11, biasa 6. Panjang 19, pendek 1.
+Lawan bicara yang sudah dipakai: teman 9, orang asing di jalan 7, keluarga 5, tetangga 2, pasangan 1.
+Bentuk sopan 14, biasa 10. Panjang 23, pendek 1.
 
 Topik ini punya dua sisi yang tidak bertemu: bertanya arah ke orang yang belum dikenal, yang
 selalu sopan, dan berjalan bersama orang yang sudah dikenal, yang hampir selalu biasa. Enam
@@ -113,6 +117,13 @@ Kuota naik dari 17 menjadi 20 karena pemeriksaan ini menemukan tiga keadaan yang
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 20 menjadi 24.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 20 kalimat. Kuota 20 sudah penuh.

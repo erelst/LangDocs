@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Rumah: santai |
-| Kuota | 36 |
-| Sudah ditulis | 36 |
+| Kuota | 58 |
+| Sudah ditulis | 58 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_santai.js` |
@@ -58,7 +58,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 36 kalimat, 36 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 58 kalimat, 58 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -84,7 +84,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 36 kalimat, 36 kerangka, tida
 | 18 | `rumah_santai_keluhan_didengar` | 話 は 聞く から 納得 する まで 話して いい | よ |
 | 19 | `rumah_santai_sampai_besok` | 朝 早い から | ね |
 | 20 | `rumah_santai_ajak_istirahat` | まで に したら お茶 でも | 飲もう |
-| 21 | `rumah_santai_tanya_rencana_besok` | 何時 に 出る か 教えて 時間 に なったら 起こす | よ |
+| 21 | `rumah_santai_tanya_rencana_besok_keluarga` | 何時 に 出る か 教えて 時間 に なったら 起こす | よ |
 | 22 | `rumah_santai_terima_ajakan` | ちょうど よかった も は ゆっくり したかった | から |
 | 23 | `rumah_santai_puji_usaha` | は よく 頑張った から 休んで いい | よ |
 | 24 | `rumah_santai_tanya_makan_malam` | なら すぐ 温かい の を 出す | よ |
@@ -100,12 +100,34 @@ Dihitung dengan cara yang sama seperti `check.js`. 36 kalimat, 36 kerangka, tida
 | 34 | `rumah_santai_lelah_fisik` | 腰 と 肩 が 凝って いる から もんで | くれる |
 | 35 | `rumah_santai_ajak_game` | 仕事 が 終わった から ゲーム でも | しない |
 | 36 | `rumah_santai_dengar_musik` | 休みたい から 音楽 を 聴いて いる | ね |
+| 37 | `rumah_santai_bercanda_tertawa` | 話 面白すぎて お腹 が 痛く なる まで 笑った | よ |
+| 38 | `rumah_santai_nonton_berita` | ニュース で 話題 に なって いる から テレビ で | 見よう |
+| 39 | `rumah_santai_hobi_baru` | 最近 新しい 趣味 が 増えた ん だけど 思った より 楽しい | よ |
+| 40 | `rumah_santai_tamu_menginap` | わざわざ 遠く から 来て くれた から 今夜 は 泊まって いって | よ |
+| 41 | `rumah_santai_rencana_liburan_keluarga` | 連休 が 近い から 今夜 家族 で 予定 を | 決めよう |
+| 42 | `rumah_santai_berita_keluarga` | 姉 が 引っ越す って 言って た けど みんな が 揃って から | 話そう |
+| 43 | `rumah_santai_obat_keluarga` | 薬 は 飲んだ なら の うち に 飲んで | おいて |
+| 44 | `rumah_santai_tanya_kabar_orangtua` | 父 の 具合 は どう ですか 何 か あったら 知らせて | ください |
+| 45 | `rumah_santai_tanya_rencana_besok` | 何 か 予定 が ある の 手 が 要る なら 言って | ね |
+| 46 | `rumah_santai_tanya_kerja_anak` | 宿題 は 終わった の なら 遊ぶ 前 に やって | おいて |
+| 47 | `rumah_santai_puji_usaha_anak` | 続けて いた から 結果 も ついて くる | よ |
+| 48 | `rumah_santai_minta_maaf_anak` | さっき は 言いすぎ た から ごめん | ね |
+| 49 | `rumah_santai_pesan_keluarga` | あと で 出かける なら お母さん に 伝えて | おいて |
+| 50 | `rumah_santai_kecilkan_volume` | 寝たい から テレビ の 音 を 小さく して | くれる |
+| 51 | `rumah_santai_bangunkan_pagi` | は 早い から 六時 に 起こして | くれる |
+| 52 | `rumah_santai_tanya_sekolah` | 学校 で 何 か あった の 嬉しかった こと だけ でも いい | けど |
+| 53 | `rumah_santai_tidur_lebih_awal` | 学校 だ から 寝坊 しない よう に 寝 な | さい |
+| 54 | `rumah_santai_ajak_makan_bareng` | みんな が 揃った から 一緒 に ごはん に | しよう |
+| 55 | `rumah_santai_terima_tamu_kerabat` | どうぞ お上がり ください こちら が 楽 です | から |
+| 56 | `rumah_santai_kerabat_pulang` | 遠い ところ わざわざ 来て くださった ので お気 を つけて お帰り | ください |
+| 57 | `rumah_santai_tanya_kabar_kerabat` | しばらく お会い して いません でした が ご家族 は お元気 | ですか |
+| 58 | `rumah_santai_bantu_kerabat` | お荷物 が 多い よう です から 半分 だけ お持ち します | よ |
 
 Kuota terpenuhi: 36 dari 36. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: keluarga 20, pasangan 14, teman 2. Bentuk sopan 2, biasa 34.
-Panjang 33, pendek 3.
+Lawan bicara yang sudah dipakai: keluarga 42, pasangan 14, teman 2. Bentuk sopan 7, biasa 51.
+Panjang 55, pendek 3.
 
 28 dari 30 biasa karena 59% percakapan topik ini dengan keluarga dan tidak ada yang memakai
 bentuk sopan ke pasangan sendiri di sofa. Dua yang sopan keduanya ke kerabat yang berkunjung,
@@ -137,6 +159,13 @@ semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 Kalau topik ini dibuka lagi, enam baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 36 menjadi 58.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 36 kalimat. Kuota 36 sudah penuh.

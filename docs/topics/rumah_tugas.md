@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Rumah: tugas |
-| Kuota | 51 |
-| Sudah ditulis | 51 |
+| Kuota | 63 |
+| Sudah ditulis | 63 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_tugas.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 51 kalimat, 51 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 63 kalimat, 63 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -114,13 +114,25 @@ Dihitung dengan cara yang sama seperti `check.js`. 51 kalimat, 51 kerangka, tida
 | 49 | `rumah_tugas_titip_tetangga` | 旅行 で 留守 に する ので 鍵 を お預け したい の です | が |
 | 50 | `rumah_tugas_kunci_duplikat` | 鍵 が 一本 しか ない と 困る から 合鍵 を 作って | おこう |
 | 51 | `rumah_tugas_pilah_daur_ulang` | 段ボール は リサイクル に 出す から 燃える ゴミ と 分けて | おいて |
+| 52 | `rumah_tugas_keran_menetes` | 水道 の 水 が 止まら ない から 早め に 見て | おいて |
+| 53 | `rumah_tugas_sekring_turun` | 電気 が 落ちた から ブレーカー を 見て | くれる |
+| 54 | `rumah_tugas_terkunci_luar` | 鍵 を 中 に 置いた まま 家 に 入れ ない ので 困って いる | んだ |
+| 55 | `rumah_tugas_ganti_gagang_pintu` | 取っ手 が 緩んで いる から 壊れる 前 に 直した ほう が いい | よ |
+| 56 | `rumah_tugas_panggil_tukang_air` | は 自分たち で は 無理 だ から 業者 に 頼ま | ない |
+| 57 | `rumah_tugas_jadwal_barang_besar` | 粗大 ゴミ は 来月 まで に 出す から まで に 出して | おいて |
+| 58 | `rumah_tugas_setrika_baju` | 洗濯物 は 乾いた から 着る 分 だけ アイロン を かけて | おいて |
+| 59 | `rumah_tugas_daftar_belanja` | スーパー に 行く なら ついで に を 買って | きて |
+| 60 | `rumah_tugas_beri_makan_kucing` | 今夜 は 遅く なる から 猫 の 餌 を あげて | おいて |
+| 61 | `rumah_tugas_ganti_sprei` | シーツ は しばらく 使って いる から 替えて | おこう |
+| 62 | `rumah_tugas_angkat_kerabat` | 重い もの は が お持ち します から どうぞ お掛け | ください |
+| 63 | `rumah_tugas_siapkan_kamar_tamu` | お部屋 は 用意 して あります ので 足り ない もの が あれば おっしゃって | ください |
 
 Kuota terpenuhi: 51 dari 51. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya. T2 juga menetapkan kuota adalah lantai:
 kalau masih ada keadaan yang belum punya kalimat, kalimatnya ditambahkan walau 45 sudah lewat.
 
-Lawan bicara yang sudah dipakai: keluarga 38, pasangan 6, tetangga 4, orang asing di jalan 2, kurir pengantar 1.
-Bentuk sopan 7, biasa 44. Panjang 41, pendek 10.
+Lawan bicara yang sudah dipakai: keluarga 50, pasangan 6, tetangga 4, orang asing di jalan 2, kurir pengantar 1.
+Bentuk sopan 9, biasa 54. Panjang 53, pendek 10.
 
 39 dari 45 biasa karena 65% percakapan topik ini memang dengan keluarga, dan bahasa di dapur
 sendiri bukan bahasa sopan. Keenam yang sopan semuanya ke orang luar: tiga ke tetangga, dua ke
@@ -156,6 +168,13 @@ memilah sampah daur ulang adalah aturan yang berbeda di tiap daerah.
 Kalau topik ini dibuka lagi, enam baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 51 menjadi 63.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 51 kalimat. Kuota 51 sudah penuh.

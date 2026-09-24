@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Kegiatan |
-| Kuota | 16 |
-| Sudah ditulis | 16 |
+| Kuota | 17 |
+| Sudah ditulis | 17 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_kegiatan.js` |
@@ -58,7 +58,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 16 kalimat, 16 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 17 kalimat, 17 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -79,13 +79,14 @@ Dihitung dengan cara yang sama seperti `check.js`. 16 kalimat, 16 kerangka, tida
 | 13 | `kegiatan_pertemuan_orang_tua` | 学校 の 保護者 会 は いつ です か 日 は 仕事 が 休み | なので |
 | 14 | `kegiatan_jawab_siap_bawa` | と 言って 持って 行く もの は ない ので 手ぶら で 行きます | ね |
 | 15 | `kegiatan_jawab_tidak_bisa_hari_itu` | その日 は 遅く まで 仕事 な ので 参加 できません 来月 教えて | ください |
-| 16 | `kegiatan_jawab_bisa_bawa` | 午前中 なら 空いている ので 途中 まで なら | 手伝えます |
+| 16 | `kegiatan_jawab_bisa_bawa` | 午前中 なら 空いている ので 途中 まで | 手伝えます |
+| 17 | `kegiatan_kerabat_ikut` | お時間 が あれば 日曜 の 活動 に 一緒 に いかが | ですか |
 
 Kuota terpenuhi: 16 dari 16. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: tetangga 13, tetangga yang baru dikenal 2, teman 1. Bentuk sopan 16, biasa 0.
-Panjang 16, pendek 0.
+Lawan bicara yang sudah dipakai: tetangga 13, tetangga yang baru dikenal 2, teman 1, keluarga 1. Bentuk sopan 17, biasa 0.
+Panjang 17, pendek 0.
 
 Delapan dari delapan sopan, dan tidak ada satu pun yang biasa. Itu memang bentuk topik ini: yang
 mengikuti kegiatan lingkungan atau sekolah anak berbicara dengan orang yang baru dikenal, dan satu
@@ -122,6 +123,13 @@ semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 16 menjadi 17.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 16 kalimat. Kuota 16 sudah penuh.

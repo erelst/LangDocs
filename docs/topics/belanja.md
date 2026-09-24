@@ -61,7 +61,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`: semua token, kecuali kata yang masuk daftar `SHAPE` dan tanda baca, digabung dengan predikat terakhir dipisah. Dua puluh tujuh kalimat, dua puluh tujuh kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`: 27 kalimat, 27 kerangka, tidak ada yang sama. Dua puluh tujuh kalimat, dua puluh tujuh kerangka, tidak ada yang sama.
 
 Lawan bicara yang sudah dipakai: petugas toko 24, pembeli 2, teman 1. Bentuk sopan 26, biasa 1.
 Panjang 24, pendek 3.

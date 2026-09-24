@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Telepon |
-| Kuota | 38 |
-| Sudah ditulis | 38 |
+| Kuota | 41 |
+| Sudah ditulis | 41 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_telepon.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 38 kalimat, 38 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 41 kalimat, 41 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -101,12 +101,15 @@ Dihitung dengan cara yang sama seperti `check.js`. 38 kalimat, 38 kerangka, tida
 | 36 | `telepon_ditunggu_di_telepon` | ただいま お繋ぎ します ので 少々 お待ち | ください |
 | 37 | `telepon_orangnya_kembali` | 担当 が 戻り ました ので こちらの 電話 に お繋ぎ | します |
 | 38 | `telepon_nomor_tidak_nyambung` | 何度 かけても 繋がらない ので 番号 が 違う かも | しれません |
+| 39 | `telepon_keluarga_minta_diantar` | 雨 が 強く なって きた から 迎え に 来て | くれる |
+| 40 | `telepon_keluarga_kabar_singkat` | 何も ない けど 無事 に 着いた から 電話 した | だけ |
+| 41 | `telepon_kerabat_tanya_kabar` | 夜分 に すみません 久しぶり に 声 が 聞きたく なった ので 電話 | しました |
 
 Kuota terpenuhi: 38 dari 38. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: atasan 12, rekan kerja 9, klien 8, orang asing di jalan 4, keluarga 3, teman 2.
-Bentuk sopan 36, biasa 2. Panjang 32, pendek 6.
+Lawan bicara yang sudah dipakai: atasan 12, rekan kerja 9, klien 8, keluarga 6, orang asing di jalan 4, teman 2.
+Bentuk sopan 37, biasa 4. Panjang 35, pendek 6.
 
 31 dari 33 sopan, dan alasannya khas topik ini: yang mengangkat telepon sering bukan orang yang
 dituju, jadi bahkan menelepon teman dimulai lewat orang yang belum dikenal. Dua yang biasa
@@ -138,6 +141,13 @@ semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 Kalau topik ini dibuka lagi, lima baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 38 menjadi 41.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 38 kalimat. Kuota 38 sudah penuh.

@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Transportasi |
-| Kuota | 27 |
-| Sudah ditulis | 27 |
+| Kuota | 28 |
+| Sudah ditulis | 28 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_transportasi.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 27 kalimat, 27 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 28 kalimat, 28 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -90,12 +90,13 @@ Dihitung dengan cara yang sama seperti `check.js`. 27 kalimat, 27 kerangka, tida
 | 25 | `transportasi_kehilangan_tiket` | 途中 で 切符 を なくして しまった の です が どう すれば いい | でしょうか |
 | 26 | `transportasi_jam_sibuk` | は 満員 なので 次 の に しません | か |
 | 27 | `transportasi_tertinggal_barang` | 電車 に 荷物 を 忘れ た の です が どこ に 届け出れば いい | でしょうか |
+| 28 | `transportasi_antar_keluarga_stasiun` | 荷物 が 重い から 駅 まで 車 で 送って いく | よ |
 
 Kuota terpenuhi: 27 dari 27. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: orang asing di jalan 11, petugas stasiun 9, teman 5, keluarga 2. Bentuk
-sopan 25, biasa 2. Panjang 22, pendek 5.
+Lawan bicara yang sudah dipakai: orang asing di jalan 11, petugas stasiun 9, teman 5, keluarga 3. Bentuk
+sopan 25, biasa 2. Panjang 23, pendek 5.
 
 20 dari 22 sopan karena hampir semua percakapan di perjalanan terjadi dengan orang yang tidak
 dikenal, baik petugas maupun penumpang lain. Dua yang biasa keduanya dengan keluarga di rumah,
@@ -128,6 +129,13 @@ termasuk satu slot yang dijanjikan bagian ruang ucapan di atas tetapi belum pern
 Kalau topik ini dibuka lagi, tujuh baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
+
+**Catatan kenaikan kuota 27 menjadi 28.** Sebabnya terukur dan satu: ketentuan K9
+menemukan lawan bicara keluarga berdiri di bawah bagiannya di survei
+(36,8% dari seluruh slot lawan bicara, sementara deck hanya 23,2%). Kalimat keluarga yang ditulis di
+topik ini semuanya keadaan yang benar-benar baru, bukan keadaan lama yang lawan bicaranya diganti,
+karena penggantian seperti itu melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
+
 ## Sisa yang harus ditulis
 
 27 kalimat. Kuota 27 sudah penuh.

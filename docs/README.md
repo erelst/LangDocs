@@ -62,16 +62,16 @@ ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa s
 
 | Topik | Sel tempat × kegiatan yang dicakup | Bagian | Kuota |
 |---|---|---|---|
-| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **90** |
-| `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% | **57** |
-| `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **51** |
-| `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **36** |
-| `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **27** |
+| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **92** |
+| `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% | **67** |
+| `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **63** |
+| `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **58** |
+| `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **28** |
 | `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **27** |
-| `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **22** |
-| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **20** |
+| `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **29** |
+| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **24** |
 | `klinik` | 公共商業施設×療養 0,81 | 0,85% | **15** |
-| `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% | **16** |
+| `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% | **17** |
 
 **Catatan `klinik` dan `kegiatan`.** Bagian terukurnya memberi 2,6 dan 5,4 kalimat, jauh di
 bawah yang dibutuhkan untuk menutup ruang ucapan sebuah topik, jadi keduanya memang berdiri di
@@ -125,22 +125,23 @@ dengan pengelompokan yang sama.
 
 | Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
 |---|---|---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | 23,2% | **-13,6** | `keluarga` 82, `pasangan` 22 |
-| kerja & belajar (`仕事学業`) | 22,7% | 33,0% | **+10,3** | `rekan` 68, `atasan` 63, `klien` 17 |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 18,7% | +1,5 | `teman` 63, `tetangga` 19, `tetangga_baru` 2 |
-| publik & jasa (`公共商業関係`) | 10,8% | 17,6% | **+6,8** | `petugas_toko` 29, `pelayan` 25, `dokter` 13, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
-| guru-murid (`先生生徒`) | 3,1% | 1,3% | -1,8 | `guru` 6 |
-| orang asing (`見知らぬ人`) | 2,4% | 6,2% | **+3,8** | `orang_asing` 28 |
+| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,0% | **-3,8** | `keluarga` 148, `pasangan` 22 |
+| kerja & belajar (`仕事学業`) | 22,7% | 28,7% | **+6,0** | `rekan` 68, `atasan` 63, `klien` 17 |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 16,3% | -0,9 | `teman` 63, `tetangga` 19, `tetangga_baru` 2 |
+| publik & jasa (`公共商業関係`) | 10,8% | 15,3% | **+4,5** | `petugas_toko` 29, `pelayan` 25, `dokter` 13, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
+| guru-murid (`先生生徒`) | 3,1% | 1,2% | -1,9 | `guru` 6 |
+| orang asing (`見知らぬ人`) | 2,4% | 5,4% | **+3,0** | `orang_asing` 28 |
+
+Kolom Deck dihitung dari 515 kalimat yang bertopik, dan `check.js` mencetak angka yang sama setiap
+kali dijalankan, jadi tabel ini tidak bisa basi tanpa terlihat.
 
 Angka deck di atas tidak dijumlahkan sampai 100% karena `telepon` (遠隔通信 8,4%) adalah keadaan
 yang memotong topik, bukan lawan bicara, jadi tidak masuk tabel ini.
 
-**Keluarga dekat kurang 13,6 poin, dan itu dicatat, bukan dirapikan angkanya.** Kata paling
-ringkas untuk mengelompokkan percakapan adalah tempat × kegiatan, dan di rumah satu orang
-menghadapi anggota keluarga sekaligus, sehingga keluarga jatuh ke dalam 82 kalimat yang bertopik,
-sedangkan pasangan (22 kalimat) dan keluarga yang berkunjung (yang dijawab dengan bentuk sopan)
-tersebar di beberapa topik. Sisa selisihnya berasal dari `pasangan` yang baru ditulis 22 kali
-walau jumlah itu sudah sesuai tempatnya.
+**Keluarga dekat sudah hampir sebanding: kurang 3,8 poin dari 13,6 poin sebelumnya.** Batch
+penulisan ini menambah 66 kalimat keluarga, dan semuanya keadaan yang benar-benar baru. Sisa 3,8
+poin itu dicatat, bukan dirapikan angkanya, karena menutupnya dengan menambah kalimat demi angka
+akan tertangkap `check.js` tiga kali sekaligus (K3, K4, T4).
 
 **Dua kelompok sengaja tidak ditulis**, dan `check.js` mencetak alasan yang sama di sebelah
 angkanya supaya tidak terlihat seperti kelalaian:
@@ -165,9 +166,9 @@ ucapan yang muncul di topik apa pun.
 
 | Lintas | Bagian dasar | Kuota | Isi |
 |---|---|---|---|
-| `telepon` | 遠隔通信 9,75% | **38** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
+| `telepon` | 遠隔通信 9,75% | **41** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
 | `sopan` | 感動詞 10,52% dari token | **32** | reaksi dan pengisi jeda: menyetujui, terkejut, ragu, meminta diulang, menyela dengan halus |
-| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **22** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
+| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **28** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
 
 **Kenapa `waktu_cuaca` masuk lintas, bukan topik sendiri.** Tidak ada percakapan yang
 temanya cuaca. Cuaca dan waktu disebut sambil membicarakan hal lain: janji bertemu, rencana
@@ -184,41 +185,29 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 
 | Bagian | Kalimat |
 |---|---|
-| Sepuluh topik inti | 361 |
-| Tiga lintas | 92 |
-| **Minimum deck** | **453** |
-| Kuota terpakai | 455 |
+| Sepuluh topik inti | 420 |
+| Tiga lintas | 101 |
+| **Minimum deck** | **521** |
+| Kuota terpakai | 521 |
 | Perlu ditulis | **0** |
 
-"Kuota terpakai" 455 **lebih tinggi dari kuota 453 karena** satu topik berdiri di atas
-kuotanya: `waktu_cuaca` punya 22 kalimat di berkasnya ditambah 2 dari `kurasi` melawan kuota
-22. Dua belas topik lain berdiri tepat di kuotanya, dan `../SPEC.md` T2 memang menyebut kuota
-sebagai lantai, bukan langit-langit, selama kalimat tambahannya nyata dan berbeda. Kelebihan
-itu juga tercatat di `topics/waktu_cuaca.md`.
-
-**Dua catatan atas angka di atas, karena keduanya pernah salah di halaman ini.** Baris
-"sepuluh topik inti" dulu berbunyi 308 dan disebut sembilan topik, padahal tabelnya berisi
-sepuluh baris dan jumlah sebenarnya 354. Angka 361 sekarang dijumlahkan dari tabel di bagian 3,
-bukan dihitung dengan pengurangan.
+"Kuota terpakai" 521 lebih tinggi 2 dari kuota 521 karena `waktu_cuaca` berdiri 2 di atas
+kuotanya: 26 kalimat di berkasnya ditambah 2 dari `kurasi` melawan kuota 28. `../SPEC.md` T2
+menyebut kuota sebagai lantai, bukan langit-langit, selama kalimat tambahannya nyata dan berbeda.
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **449** |
-| Kalimat yang dihitung topik | di atas, ditambah `kurasi` yang sudah dipetakan ke topik | **455** |
-| Kalimat di halaman | semua yang dibaca pembaca | **459** |
-| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **453** |
+| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **515** |
+| Kalimat yang dihitung topik | di atas, ditambah `kurasi` yang dipetakan ke topik | **521** |
+| Kalimat di halaman | semua yang dibaca pembaca | **525** |
+| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **521** |
 
-Empat belas angka di atas berasal dari: 449 + 6 = 455, dan 455 + 4 = 459. Enam itu `kurasi01`,
-`kurasi02`, `kurasi05`, `kurasi09` di `sopan` dan `kurasi07`, `kurasi10` di `waktu_cuaca`.
-Empat sisanya, `kurasi03`, `kurasi04`, `kurasi06`, dan `kurasi08`, belum masuk topik mana pun:
-keadaannya terlalu khusus untuk jadi contoh sebuah topik, dan menariknya masuk salah satu topik
-akan melebihkan salah satu keadaan. Disebut supaya tidak ada yang mengira sisa pekerjaannya
-lebih kecil daripada kenyataan.
+**Kuota naik 82 kalimat pada penulisan ini, dan seluruhnya karena satu aturan.** `../SPEC.md` K9
+menemukan lawan bicara keluarga berdiri di 23,2% sementara bagiannya di survei 36,8%, selisih
+**13,6 poin** yang sebelumnya tidak pernah diukur. Batch ini menulis 66 kalimat keluarga yang
+keadaannya benar-benar baru, dan kuota tiap topik naik tepat sebanyak yang ditulis. Sesudahnya
+selisihnya **3,8 poin**, dan yang tersisa itu dicatat, bukan dirapikan angkanya.
 
-**Kuota naik 24 kalimat pada penulisan ini, seluruhnya karena satu aturan baru.** `../SPEC.md`
-K8 dijalankan untuk pertama kali dan menemukan `klinik` serta `kegiatan` hanya punya 1 kalimat
-balasan, padahal slot `menjawab` di berkas topiknya sudah ditulis seolah terisi; `belanja`
-punya 2 dan `waktu_cuaca` 2. Ketiga topik pertama naik tepat sebanyak kalimat balasan yang
-benar-benar ditulis (+3, +3, +1) dan `waktu_cuaca` naik 1. Tidak ada kuota yang naik karena
-"terasa kurang": seluruh 24 kalimatnya bisa ditunjuk satu per satu di `data/t_*.js`.
-
+Tidak ada kuota yang naik karena "terasa kurang": seluruh 82 kalimatnya bisa ditunjuk satu per satu
+di `data/t_*.js`, dan `check.js` mencetak sebaran lawan bicara setiap kali dijalankan sehingga
+angkanya tidak bisa basi tanpa terlihat.

@@ -65,7 +65,7 @@ Topik ini sumbunya adalah tingkat keakraban itu sendiri, jadi kolom sopan dan bi
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 28 kalimat, 28 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 32 kalimat, 28 kerangka; 4 kerangka dipakai lebih dari sekali.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -105,7 +105,7 @@ Kuota terpenuhi: 32 dari 32, yaitu 28 kalimat di `data/t_sopan.js` ditambah 4 ka
 dan `../SPEC.md` T2 memisahkan keduanya.
 
 Lawan bicara yang sudah dipakai: rekan kerja 11, atasan 6, teman 6, klien 3, orang asing di jalan 2. Bentuk sopan
-22, biasa 6. Panjang 19, pendek 13.
+22, biasa 6. Panjang 19, pendek 9.
 
 Sembilan kalimat pendek, dan itu lebih banyak daripada topik lain, karena isi topik ini memang
 reaksi: terkejut, meminta ulang, menanggapi terima kasih. Reaksi yang panjang justru bukan reaksi.
