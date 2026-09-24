@@ -177,7 +177,21 @@
     font-weight: 400;
     line-height: 1.45;
     text-align: left;
-    white-space: nowrap;
+    /* The bubble is as wide as its content wants, and wraps only when the content would otherwise
+     * leave the screen. This is the whole rule, and it replaced a breakpoint that did not work.
+     *
+     * Two things were wrong before. First, the width: with `position:absolute; left:0; width:auto`
+     * the shrink-to-fit width is bounded by the containing block, which is the WORD, so on a phone
+     * the bubble was squeezed to 64px wide and 621px tall, a column of text. `width:max-content`
+     * asks for the width the content actually needs. Second, whether it wrapped was decided by a
+     * media query rather than by the need: rows were nowrap on a wide screen and wrap-anywhere on a
+     * narrow one, so wrapping was a property of the screen instead of a response to long content.
+     *
+     * Now `max-width` is the only thing that can force a line break, so wrapping happens exactly
+     * when the content would run off the screen, at any width, and nowhere else. */
+    width: max-content;
+    max-width: calc(100vw - 24px);
+    white-space: normal;
     pointer-events: none;
   }
   .jp-sent .tk:hover > .tip,
@@ -185,7 +199,17 @@
   /* Each row is a flex line so the mark and the text are separate boxes. That is what keeps a
      label whole: when both were inline text inside one box, a narrow screen wrapped mid-label and
      the reader saw "ROMAJ" with the I on the next line. A mark is never allowed to break. */
-  .jp-sent .tk > .tip .tr { display: flex; align-items: baseline; white-space: nowrap; }
+  .jp-sent .tk > .tip .tr { display: flex; align-items: baseline; white-space: normal; }
+  /* Breaking inside a word is switched OFF here, and it has to be said explicitly.
+   *
+   * The kanji line sets `overflow-wrap: anywhere` inline, because a long Japanese sentence must fit
+   * a card rather than push it sideways. The bubble is a descendant of that line, so it inherited
+   * the same value, and a break inside a gloss was therefore possible: "is (polite copula)" had no
+   * word long enough to show it, which is why it went unnoticed. A line may break at a space and
+   * nowhere else, so what moves to the next line is always a whole word. */
+  .jp-sent .tk > .tip,
+  .jp-sent .tk > .tip .tr,
+  .jp-sent .tk > .tip .tx { overflow-wrap: normal; word-break: normal; }
   .jp-sent .tk > .tip .mk {
     flex: 0 0 auto;
     min-width: 3.6em;
@@ -231,11 +255,12 @@
       max-width: calc(100vw - 24px);
       font-size: 13px;
     }
-    /* The label column narrows instead of breaking, and only the text may wrap. wrap:anywhere is
-       deliberately absent: it is what split the labels in the first place. */
-    .jp-sent .tk > .tip .mk { min-width: 3.1em; font-size: 10px; }
-    .jp-sent .tk > .tip .tr { white-space: normal; }
-    .jp-sent .tk > .tip .tx { overflow-wrap: break-word; word-break: break-word; }
+    /* On a narrow screen the label sits on its own line and the content starts on the next one,
+       which is what makes three labelled rows readable in a small bubble. Wrapping itself is not
+       mentioned here: it is decided by max-width above, so it happens when the content needs it
+       rather than because the screen is small. */
+    .jp-sent .tk > .tip .tr { flex-direction: column; align-items: flex-start; }
+    .jp-sent .tk > .tip .mk { min-width: 0; margin-right: 0; margin-bottom: 1px; }
   }
 
   mark { background: #f59e0b; color: #0b1220; border-radius: 3px; padding: 0 1px; }

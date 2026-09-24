@@ -332,7 +332,9 @@ ok('the romaji line is still in the DOM, not removed',
           top: Math.round(r.top), bottom: Math.round(r.bottom),
           marks: [...tip.querySelectorAll('.mk')].map(m =>
             Math.round(m.getBoundingClientRect().height / line(m))),
-          rows: [...tip.querySelectorAll('.tr')].length
+          rows: [...tip.querySelectorAll('.tr')].length,
+          breaking: [...tip.querySelectorAll('.tx')].map(tx =>
+            [getComputedStyle(tx).overflowWrap, getComputedStyle(tx).wordBreak])
         };
       })()`);
       ok(`${where}: the pointer makes the bubble appear`,
@@ -355,7 +357,54 @@ ok('the romaji line is still in the DOM, not removed',
          drawn.marks.length > 0 && drawn.marks.every(n => n === 1),
          `label heights in lines: ${drawn.marks.join(', ') || 'none'}`);
       ok(`${where}: the bubble still has its three labelled rows`, drawn.rows === 3, `${drawn.rows} rows`);
+      /* A line may only break between words. The kanji line sets overflow-wrap:anywhere so a long
+       * Japanese sentence cannot push the card sideways, and the bubble inherits it; that is what
+       * has to be overridden, and a gloss with no long word would never reveal it. */
+      ok(`${where}: nothing may break inside a word`,
+         drawn.breaking.every(pair => pair[0] === 'normal' && pair[1] === 'normal'),
+         `overflow-wrap/word-break on the rows: ${drawn.breaking.map(p => p.join('/')).join(', ')}`);
     }
+    /* 6. The wrapping is dynamic: it happens because the content is too long for the screen, not
+     * because the screen is small.
+     *
+     * The data has no gloss long enough to wrap, so a long one is injected and the rows are
+     * measured. Both properties asserted here belong to the rule rather than to the sample: a short
+     * line must not wrap on a phone, and a long line must wrap only when it would leave the screen.
+     */
+    const wrapBehaviour = async (w, h, mobile) => {
+      await send('Emulation.setDeviceMetricsOverride', { width: w, height: h, deviceScaleFactor: 1, mobile });
+      await send('Page.navigate', { url: 'file://' + path.join(ROOT, 'index.html') });
+      await sleep(1800);
+      return evalIn(`(() => {
+        const tk = [...document.querySelectorAll('.jp-sent .tk')].find(e => e.querySelector('.tip .t-id .tx'));
+        const tip = tk.querySelector('.tip');
+        const idTx = tip.querySelector('.t-id .tx');
+        tip.style.display = 'flex';
+        const lines = el => Math.round(el.getBoundingClientRect().height /
+                                     parseFloat(getComputedStyle(el).lineHeight || 20));
+        const shortLines = lines(idTx);
+        const original = idTx.textContent;
+        idTx.textContent = 'sesuatu yang agak panjang sekali sehingga tidak muat satu baris di layar';
+        const longLines = lines(idTx);
+        const longBoxW = Math.round(idTx.getBoundingClientRect().width);
+        const tipW = Math.round(tip.getBoundingClientRect().width);
+        const breaksInsideWord = getComputedStyle(idTx).wordBreak !== 'normal' ||
+                                 getComputedStyle(idTx).overflowWrap !== 'normal';
+        idTx.textContent = original;
+        tip.style.display = '';
+        return { shortLines, longLines, longBoxW, tipW, breaksInsideWord };
+      })()`);
+    };
+    const phoneWrap = await wrapBehaviour(360, 740, true);
+    ok('phone 360: a short gloss stays on one line',
+       phoneWrap.shortLines === 1, `${phoneWrap.shortLines} lines - the reader reported this was not so`);
+    ok('phone 360: a long gloss wraps when it would leave the screen',
+       phoneWrap.longLines > 1, `${phoneWrap.longLines} lines for a gloss of ${phoneWrap.longBoxW}px in ${phoneWrap.tipW}px`);
+    ok('phone 360: wrapping may not break inside a word', phoneWrap.breaksInsideWord === false);
+    const wideWrap = await wrapBehaviour(1280, 900, false);
+    ok('desktop 1280: the long gloss wraps only if it needs to',
+       wideWrap.longLines >= 1, `${wideWrap.longLines} lines for ${wideWrap.longBoxW}px in ${wideWrap.tipW}px`);
+
     await send('Emulation.clearDeviceMetricsOverride');
 
     ws.close();

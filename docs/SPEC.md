@@ -399,7 +399,7 @@ Ketentuan ini sudah berjalan; ditulis di sini supaya tidak berubah tanpa disadar
 | V9 | Tidak ada build, tidak ada program penghasil kalimat; berkas dibaca langsung browser | susunan repo |
 | V10 | Sel glosa tidak boleh kosong, dan tanda baca tidak berdiri sebagai baris sendiri | `test.js` |
 | V11 | Mencari setelah menggulir menampilkan hasil teratas, bukan posisi gulir lama | `ui.js` |
-| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris sebagai **tiga baris berlabel**, baris romajinya **berwarna sama dengan katanya**, labelnya **tidak boleh terbelah baris**, **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca, dan seluruh balonnya **berada di dalam layar** di lebar mana pun | `ui.js` |
+| V12 | Arahkan kursor atau fokus ke satu kata: muncul balon yang menunjuk ke kata itu, isinya romaji dan glosa Indonesia + Inggris sebagai **tiga baris berlabel**, baris romajinya **berwarna sama dengan katanya**, labelnya **tidak boleh terbelah baris**, **tidak ada baris yang boleh terpotong di tengah kata**, **tidak** mengulang kata Jepangnya maupun baris yang sedang dibaca, dan seluruh balonnya **berada di dalam layar** di lebar mana pun | `ui.js` |
 
 ---
 
@@ -458,6 +458,57 @@ Karena itu pemeriksaannya **bukan lagi "tiga warna berbeda"**: yang diperiksa ad
 sama dengan warna katanya, dan kedua glosa berbeda dari baris romaji serta berbeda satu sama lain.
 Versi pertama pemeriksaan itu menuntut tiga warna berbeda dan langsung gagal begitu permintaan ini
 dikerjakan, yaitu bentuk pemeriksaan yang mengunci cara lama.
+
+**Kenapa lebar balon tidak boleh mengikuti lebar katanya.** Satu kesalahan ukuran menjelaskan
+hampir semua cacat balon yang dilaporkan, dan sebabnya tidak kelihatan di desktop.
+
+Balon diposisikan `absolute; left: 0` dengan lebar `auto`, dan lebar `auto` untuk elemen
+terposisi adalah *shrink-to-fit* yang **dibatasi lebar containing block**. Containing block-nya
+adalah `.tk`, yaitu satu kata. Di layar lebar barisnya `nowrap`, sehingga lebar yang diinginkan
+menang dan balon keluar 188 px. Begitu layarnya sempit dan barisnya diizinkan membungkus, lebar
+minimumnya menciut, dan balonnya terjepit ke **52 px** lebar katanya: terukur **64 px lebar dan
+621 px tinggi**, sebuah kolom teks. Dari situ dua keluhan pembaca muncul sekaligus: labelnya
+terbelah (`ROMAJ` lalu `I`), dan isinya terpotong-potong per huruf.
+
+Perbaikannya satu deklarasi: `width: max-content`. Balon meminta lebar yang isinya memang
+butuhkan, dan `max-width: calc(100vw - 24px)` yang menjaganya tetap di dalam layar.
+
+**Kenapa pembungkusannya harus dinamis.** Sebelum ini, apakah balon membungkus ditentukan
+**media query**, bukan kebutuhan: barisnya `nowrap` di layar lebar dan `overflow-wrap: anywhere` di
+layar sempit. Artinya membungkus adalah sifat **layar**, bukan tanggapan atas isi yang panjang.
+Sekarang tidak ada media query yang mengatur pembungkusan sama sekali: satu-satunya hal yang bisa
+memaksa baris baru adalah `max-width`, jadi pembungkusan terjadi tepat saat isinya akan keluar
+layar, di lebar apa pun, dan tidak di tempat lain.
+
+**Kenapa pemotongan kata harus dimatikan secara eksplisit.** Kalimat Jepang yang sangat panjang
+tidak boleh mendorong kartu ke samping, jadi baris kanji memasang `overflow-wrap: anywhere` sebagai
+gaya inline. Balon adalah keturunannya, jadi ia **mewarisi nilai yang sama**, dan itu berarti
+pemotongan di tengah kata mungkin terjadi di dalam balon. Tes dengan glosa yang ada tidak
+menunjukkannya, karena tidak ada satu pun kata yang cukup panjang untuk memicunya. Karena itu balon
+sekarang memasang `overflow-wrap: normal; word-break: normal` sebagai penimpa, dan aturannya
+menjadi: baris hanya boleh patah di spasi, sehingga yang turun ke baris berikutnya **selalu kata
+utuh**, tidak pernah huruf dari sebuah kata.
+
+**Dua kekeliruan saya sendiri di bagian ini, dicatat supaya tidak terulang.**
+
+Pertama, saya menjelaskan kegagalan CI sebagai **perbedaan mesin**: balon terukur 69×734 px di CI
+dan tampak normal secara lokal, dan saya tulis di komentar kode bahwa "kedua mesin tidak sepakat".
+Itu salah. Penyebabnya cacat lebar di atas, dan angkanya berbeda antar-jalan hanya karena **kata
+yang diukur kebetulan berbeda**. CI benar, penjelasan saya yang keliru, dan komentarnya sudah
+dibetulkan.
+
+Kedua, sebelum menemukan cacat lebar itu, saya menambahkan `word-break: break-word` untuk mengatasi
+label yang terpotong. Itu **menambah obat untuk penyakit yang salah**: yang salah adalah lebar
+balonnya, bukan aturan pemotongannya. Pembaca yang menanyakan apakah pemotongan ekstrem itu memang
+diperlukan sudah tepat: tidak, dan aturan itu sekarang tidak ada lagi di balon.
+
+**Pengukurannya.** `ui.js` menggerakkan kursor sungguhan di 360, 414, 768, dan 1280 piksel, dan
+pada setiap lebar memeriksa: balon muncul, ia berada di sisi katanya dan tidak menutupinya, tidak
+ada label yang terbelah, tidak ada baris yang boleh patah di tengah kata
+(`overflow-wrap` dan `word-break` harus `normal`), dan seluruh balon berada di dalam layar. Cacat
+pembungkusan diuji dengan **menyuntik glosa panjang**, karena data yang ada tidak punya glosa yang
+cukup panjang untuk membungkus: glosa pendek harus tetap satu baris di ponsel, dan glosa panjang
+harus membungkus hanya saat ia akan keluar layar.
 
 **Kenapa labelnya tidak boleh terbelah.** Pembaca di ponsel melihat label terpotong: `ROMAJ` di
 satu baris dan `I` di baris berikutnya, dan hal yang sama pada `ENGLISH`. Penyebabnya satu

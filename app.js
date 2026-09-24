@@ -494,12 +494,15 @@
     if (box.left + dx < slack) { dx = slack - box.left; }
     /* Nothing above? Put it below the word instead of letting it hang off the screen.
      *
-     * The position is moved by transform ONLY, and the class changes the tail direction ONLY. An
-     * earlier version switched `top: 100%` / `bottom: 100%` in CSS to move it below, and that was
-     * wrong in a way that only appeared in CI: with both edges set on an absolutely positioned box
-     * whose height is auto, the height is no longer the content's. The bubble came out 69 by 734
-     * pixels there, taller than the phone screen, while the same code measured 3 tidy rows in
-     * chromium locally. Moving it by transform cannot change its size, so the two engines agree. */
+     * The position is moved by transform ONLY, and the class changes the tail direction ONLY.
+     * Moving it by transform cannot change the box's size, which keeps this separate from the
+     * sizing question that CSS owns.
+     *
+     * An earlier version of this function blamed a CSS engine difference for a bubble that
+     * measured 69 by 734 pixels in CI and looked right locally. That explanation was wrong. The
+     * cause was the bubble being constrained to the width of its word, so on a narrow screen it
+     * became a tall column; the numbers differed between runs only because different words were
+     * measured. The fix is `width: max-content` on the bubble in index.html, and CI was right. */
     if (box.top < slack) {
       var roomBelow = window.innerHeight - slack - word.bottom;
       if (roomBelow >= box.height) {
