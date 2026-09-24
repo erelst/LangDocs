@@ -118,7 +118,7 @@ sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 | 46 | `kerja_tanya_hasil_sudah_sesuai` | 提出する 前に 内容 で 合っている か 見て いただけます | か |
 | 47 | `kerja_beritahu_cuti_dan_serahan` | は 休み を いただく ので まで に 終わらせて | おきます |
 | 48 | `kerja_tutup_rapat_ringkas` | では 時間 に なりました ので 決まった こと を まとめて 共有 | します |
-| 49 | `kerja_nyela_rapat_halus` | 話 の 途中 です すみません が 点 だけ 先に 確認 させて いただけます | か |
+| 49 | `kerja_nyela_rapat_halus` | お話し中 すみません が 点 だけ 先に 確認 させて いただけます | か |
 | 50 | `kerja_pendapat_di_rapat` | の ほう から も 一案 が ある の です が 方法 なら 工数 が 減る と | 思います |
 | 51 | `kerja_siswa_minta_perpanjangan` | 調べる のに 時間 が かかった ので 締め切り を 明後日 まで 延ばして いただけます | か |
 | 52 | `kerja_siswa_minta_rekomendasi` | 進学 の こと で 推薦状 を お願いしたい の です が お時間 を いただけます | か |
@@ -132,7 +132,7 @@ sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 | 60 | `kerja_tanya_penerus_saat_cuti` | 休み の 間 急ぎ の 件 は 誰 に 引き継いで おけば いい | でしょうか |
 | 61 | `kerja_minta_waktu_pertimbangkan` | すぐに 決められない ので まで 考えさせて いただけます | か |
 | 62 | `kerja_lapor_data_perlu_diperbarui` | 古い 数字 が 残っている ので 更新して から 使って | ください |
-| 63 | `kerja_tegur_rekan_terlambat` | 最近 遅い こと が 多い けど 何か | あった |
+| 63 | `kerja_tegur_rekan_terlambat` | 最近 遅刻 が 続いて いる けど 何か | あった |
 | 64 | `kerja_terima_tawaran_lembur` | は 手 が 空いている ので 残業 は が | 引き受けます |
 | 65 | `kerja_tanya_rapat_jadi` | の 打ち合わせ だけど 予定どおり やります | か |
 | 66 | `kerja_klaim_biaya_perjalanan` | 先日 の 出張 の 領収書 を まとめた ので 確認 を お願いできます | か |
