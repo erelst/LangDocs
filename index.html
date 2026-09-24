@@ -145,7 +145,10 @@
     }
   }
 
-  .jp-sent .tk { border-radius: 3px; }
+  /* position: relative is what makes the word the containing block for its own ::after. Without
+     it the bubble is positioned against .jp-sent, the nearest positioned ancestor, and appears
+     centred on the card instead of on the word. */
+  .jp-sent .tk { border-radius: 3px; position: relative; }
   .jp-sent .tk:hover { background: rgba(56, 189, 248, .18); }
 
   /* The word bubble. A word that has a reading and a gloss shows them above itself while the
@@ -260,6 +263,7 @@
 <script src="data/t_belanja.js"></script>
 <script src="data/t_kerja.js"></script>
 <script src="data/t_makan.js"></script>
+<script src="data/t_rumah_tugas.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

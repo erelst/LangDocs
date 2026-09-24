@@ -231,8 +231,12 @@ menjawab pertanyaan yang tidak ditanyakan. Sekarang isinya apa yang belum terlih
 | Tanda baca tanpa glosa tidak punya balon | Tidak ada yang bisa dikatakan tentang `、` |
 
 Dikerjakan tanpa skrip: `title` tetap sumber satu-satunya, dan CSS menggambarnya lewat
-`::after { content: attr(title) }`. Tidak ada elemen yang dibuat, tidak ada posisi yang dihitung,
-dan balonnya tidak bisa melenceng dari katanya karena ia milik kata itu. Diperiksa `ui.js` dengan
+`::after { content: attr(title) }`. Tidak ada elemen yang dibuat dan tidak ada posisi yang
+dihitung, tetapi **`.tk` wajib `position: relative`**. Tanpa itu `::after` yang `absolute`
+diposisikan terhadap `.jp-sent`, leluhur terdekat yang ber-`position`, dan balonnya muncul di
+tengah kartu, bukan di atas katanya. Itu terjadi sekali: balonnya ada, isinya benar, warnanya
+benar, dan seluruh pemeriksaan lama tetap lolos, karena yang salah hanya tempatnya. `ui.js`
+sekarang mengukur posisinya, bukan hanya keberadaannya. Diperiksa `ui.js` dengan
 menggerakkan kursor sungguhan lewat `Input.dispatchMouseEvent`, karena `:hover` tidak menanggapi
 kejadian sintetis: balon harus benar-benar terlihat (bukan `opacity: 0`), punya kotak yang
 tergambar (bukan `auto x auto`), dan katanya harus benar-benar berada di bawah kursor.

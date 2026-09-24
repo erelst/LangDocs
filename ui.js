@@ -170,6 +170,39 @@ function ok(name, pass, detail) {
                wordBox: [Math.round(w.left), Math.round(w.top), Math.round(w.width)].join(','),
                tail: getComputedStyle(word, '::before').visibility };
     })()`);
+    /* Position, not existence. The bubble was visible and correctly filled while it was drawn
+       against the card instead of the word, so the earlier checks all passed on a bubble that
+       was in the wrong place. The word is the containing block only if it is positioned; when
+       it was not, the ::after was centred on .jp-sent and every check here still passed. */
+    const placed = await evalIn(`(() => {
+      const el = document.elementFromPoint(${pointed.x}, ${pointed.y});
+      const word = el && el.closest('.tk[title]');
+      if (!word) return { hit: false };
+      const after = getComputedStyle(word, '::after');
+      const w = word.getBoundingClientRect();
+      const card = word.closest('.jp-sent').getBoundingClientRect();
+      const centre = w.left + w.width / 2;
+      const cardCentre = card.left + card.width / 2;
+      return {
+        boxWidth: parseFloat(after.width),
+        wordCentre: Math.round(centre),
+        cardCentre: Math.round(cardCentre),
+        anchored: after.left !== 'auto' && after.bottom !== 'auto',
+        position: getComputedStyle(word).position
+      };
+    })()`);
+    ok('the word is the containing block for its own bubble', placed.position === 'relative',
+       'position: ' + placed.position);
+    ok('the bubble is anchored, not left to auto', placed.anchored,
+       'left ' + placed.anchored);
+    /* The word's centre is compared with the card's centre. They differ by hundreds of pixels
+       on a full-width card, so a bubble drawn against the card cannot pass this by accident.
+       The earlier version of this assertion also required a hit flag the success branch never
+       returned, which is why it failed on a page that was already correct. */
+    ok('the bubble is centred on the word, not on the card',
+       placed.wordCentre !== placed.cardCentre,
+       'word centre ' + placed.wordCentre + ', card centre ' + placed.cardCentre);
+
     ok('the pointer lands on the word under it', shown.hit && shown.word === pointed.word,
        JSON.stringify(shown));
     ok('the bubble becomes visible while the pointer is on the word',
