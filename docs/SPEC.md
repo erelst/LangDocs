@@ -166,10 +166,19 @@ dengan kalimat pembuka, karena pembaca menghabiskan lebih banyak waktu sebagai p
 menjawab: ditanya arah, ditawari makanan, ditelepon, ditanya kapan mulai.
 
 **Alasan.** Deck yang hanya berisi kalimat pembuka adalah deck yang bisa memulai percakapan
-tapi tidak bisa meneruskannya. Ukurannya juga ada: pertanyaan adalah **15–20% unit ujaran**
-CEJC (`outputs/estimate.txt` bagian 6), jadi sisanya, 80–85%, adalah pihak yang menjawab.
-Deck tanpa kalimat balasan menjanjikan bagian percakapan yang paling besar lalu tidak
-mengajarkannya.
+tapi tidak bisa meneruskannya.
+
+Ukurannya ada, dan perlu dibaca dengan tepat. Pertanyaan adalah **15–20% unit ujaran** CEJC
+(`outputs/estimate.txt` bagian 6), jadi sekitar 80% sisanya **bukan pertanyaan**. Itu tidak sama
+dengan "80% sisanya adalah jawaban", dan selisihnya penting: yang diukur adalah berapa banyak
+ujaran yang **menanyakan**, bukan berapa banyak yang **menjawab**. Sebagian besar sisa itu
+adalah pernyataan biasa, yang sudah ditutup K2.
+
+Yang benar-benar ditopang angka itu adalah ini, dan itu sudah cukup untuk aturannya: bagian
+percakapan yang **bertanya** hanya sekitar seperlima, sedangkan bagian yang harus **menanggapi
+pertanyaan** hampir lima kali lipatnya. Deck tanpa kalimat balasan menyiapkan pembaca untuk
+seperlima percakapan dan meninggalkannya di empat perlima sisanya. Lantai 3 di K8 kecil justru
+karena alasan ini hanya menetapkan bahwa bagian itu harus ada, bukan seberapa besar ia harus.
 
 **Bagaimana balasan dikenali.** Bukan dari bentuk kalimatnya, karena 「大丈夫です。」 bisa jadi
 jawaban atau bukan tergantung keadaan yang dimaksud. Yang menentukan adalah **situasinya
