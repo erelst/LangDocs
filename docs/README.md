@@ -62,7 +62,7 @@ ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa s
 
 | Topik | Sel tempat × kegiatan yang dicakup | Bagian | Kuota |
 |---|---|---|---|
-| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **86** |
+| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **90** |
 | `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% | **53** |
 | `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **45** |
 | `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **36** |
@@ -88,9 +88,9 @@ topik, dan itu diperiksa: jumlah baris tabel ini sama dengan cakupan yang dihitu
 2, yaitu 95,23%. Sisa 4,77% (442 percakapan) adalah sel di bawah ambang dan percakapan tanpa
 tempat atau kegiatan yang tercatat.
 
-**Catatan `kerja`.** 86 kalimat terdengar besar, dan memang `kerja` adalah satu-satunya topik
+**Catatan `kerja`.** 90 kalimat terdengar besar, dan memang `kerja` adalah satu-satunya topik
 yang benar-benar besar dalam percakapan sehari-hari: 22,88% dari seluruh percakapan adalah
-bekerja atau belajar di kantor dan sekolah. Yang membuatnya bisa ditulis 86 kali tanpa
+bekerja atau belajar di kantor dan sekolah. Yang membuatnya bisa ditulis 90 kali tanpa
 mengulang kerangka adalah ruang ucapannya juga besar: meminta, melapor, mengoreksi, menolak
 tugas, meminta tenggat, mengabarkan hasil, menyanggah dengan halus, mengajak makan siang,
 menanyakan yang tidak dimengerti.
@@ -133,12 +133,12 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 |---|---|
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
-| **Minimum deck** | **423** |
-| Kuota terpakai | 423 |
+| **Minimum deck** | **427** |
+| Kuota terpakai | 427 |
 | Perlu ditulis | **0** |
 
 Angka 393 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. **Semua topik sudah di
-kuota:** `kerja` 86, `makan` 53, `rumah_tugas` 45, `telepon` 38, `sopan` 32, `rumah_santai` 36,
+kuota:** `kerja` 90, `makan` 53, `rumah_tugas` 45, `telepon` 38, `sopan` 32, `rumah_santai` 36,
 `transportasi` 27, `belanja` 26, `santai` 22, `waktu_cuaca` 20, `jalan` 17, `kegiatan` 13,
 `klinik` 8.
 
@@ -150,7 +150,7 @@ aturan di bagian atas halaman ini larang, kecuali dijelaskan alasannya seperti i
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 427 kalimat di halaman, bukan 398. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 431 kalimat di halaman, bukan 398. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -184,13 +184,13 @@ sama; sebagian tidak punya bukti yang cukup untuk berdiri sendiri.
 | `t06_arah` arah | `jalan` (17) | menanyakan arah adalah それ以外の屋外×移動, 4,36% |
 | `t07_cuaca` cuaca | `waktu_cuaca` | lihat atas |
 | `t08_kesehatan` kesehatan | `klinik` (8) | 療養 0,92%, dan hanya 0,81% sebagai sel tempat × kegiatan |
-| `t09_kantor` kantor | `kerja` (86) | 仕事・学業 25,14%, sel tunggal terbesar di seluruh data |
+| `t09_kantor` kantor | `kerja` (90) | 仕事・学業 25,14%, sel tunggal terbesar di seluruh data |
 
 Yang tidak ada di rencana lama sama sekali, dan sekarang punya kuota:
 
 | Topik baru | Kuota | Dari mana |
 |---|---|---|
-| `kerja` (sekolah ikut di dalamnya) | 86 | 職場・学校×仕事・学業, 22,88% percakapan |
+| `kerja` (sekolah ikut di dalamnya) | 90 | 職場・学校×仕事・学業, 22,88% percakapan |
 | `rumah_tugas` | 45 | 自宅×家事・雑事 10,24%, sel terbesar kedua |
 | `telepon` | 33 | 遠隔通信 9,75%, sebelumnya tidak punya topik |
 | `rumah_santai` | 36 | 自宅×休息 8,82% |
@@ -221,7 +221,7 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 
 | # | Topik | Kuota | Keadaan |
 |---|---|---|---|
-| 1 | `kerja` | 86 | **86 kalimat, kuota terpenuhi** |
+| 1 | `kerja` | 90 | **90 kalimat, kuota terpenuhi** |
 | 2 | `makan` | 53 | **53 kalimat, kuota terpenuhi** |
 | 3 | `rumah_tugas` | 45 | **45 kalimat, kuota terpenuhi** |
 | 4 | `telepon` | 38 | **38 kalimat, kuota terpenuhi** |
@@ -240,7 +240,7 @@ berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya
 
 | Topik | Kuota | Mentok? | Kenapa |
 |---|---|---|---|
-| `kerja` | 86 | belum | 4 celah terbuka, tercatat di berkasnya |
+| `kerja` | 90 | belum | 4 celah ditutup, 5 masih terbuka |
 | `makan` | 53 | belum | 4 celah terbuka, tercatat di berkasnya |
 | `rumah_tugas` | 45 | belum | 6 celah terbuka, tercatat di berkasnya |
 | `telepon` | 38 | belum | 5 celah ditutup, 5 masih terbuka |

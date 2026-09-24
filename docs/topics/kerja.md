@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Kerja |
-| Kuota | 86 |
-| Sudah ditulis | 86 |
+| Kuota | 90 |
+| Sudah ditulis | 90 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_kerja.js` |
@@ -64,7 +64,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 86 kalimat, 86 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 90 kalimat, 90 kerangka, tidak ada yang sama.
 Sebelum menulis topik lain, periksa daftar ini: kerangka yang sama dengan predikat terakhir yang
 sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 
@@ -156,22 +156,38 @@ sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 | 84 | `kerja_bilang_mengerti_singkat` | 了解しました すぐ | 取りかかります |
 | 85 | `kerja_minta_diperiksa_singkat` | 見て もらえます | か |
 | 86 | `kerja_tanya_waktu_senggang` | の 午後 空いています | か |
+| 87 | `kerja_minta_contoh` | 説明 だけ では イメージ できない ので たとえば どんな 場合 か 教えて いただけます | か |
+| 88 | `kerja_telat_ke_klien` | まま では 納期 に 間に合わない ので お時間 を いただきたい の です | が |
+| 89 | `kerja_izin_sakit` | 昨夜 から 熱 が ある ので は 休ませて いただきたい の です | が |
+| 90 | `kerja_rekan_setingkat` | 出しといた から 一緒 に 確認 | しよう |
 
-Kuota terpenuhi: 86 dari 86. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti bahwa
+Kuota terpenuhi: 90 dari 90. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti bahwa
 topiknya sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: atasan 43, rekan 32, guru 6, klien 4, teman 1. Bentuk sopan 78,
-biasa 8. Panjang 77, pendek 9.
+Lawan bicara yang sudah dipakai: atasan 45, rekan 32, guru 6, klien 5, teman 2. Bentuk sopan 81,
+biasa 9. Panjang 81, pendek 9.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 
-| Celah | Buktinya |
+| Celah | Ditutup oleh |
 |---|---|
-| meminta contoh saat penjelasannya terlalu umum | tidak ada kalimat yang memuat `たとえば` atau `例` |
-| mengabarkan pekerjaan akan telat kepada klien, bukan perubahan isi | 4 kalimat ke klien ada, tetapi tidak satu pun membawa kabar mundurnya hasil |
-| mengabarkan tidak masuk karena sakit | `体調` hanya muncul di `kerja_minta_pulang_cepat`, yang artinya pulang lebih awal, bukan tidak masuk |
-| berbicara dengan teman setingkat | hanya 1 kalimat ber-`rel` teman |
+| meminta contoh saat penjelasannya terlalu umum | `kerja_minta_contoh` |
+| mengabarkan hasil mundur kepada klien, bukan perubahan isi | `kerja_telat_ke_klien` |
+| tidak masuk karena sakit | `kerja_izin_sakit` |
+| berbicara dengan rekan setingkat sebagai teman, bukan bawahan | `kerja_rekan_setingkat` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
+
+| Celah | Bukti pencarian |
+|---|---|
+| cuti melahirkan dan cuti mengasuh anak | tidak ada kalimat yang memuat `産休` atau `育休` |
+| pindah divisi atau pindah tempat kerja | tidak ada kalimat yang memuat `異動` |
+| penilaian kerja dan wawancara tahunan | tidak ada kalimat yang memuat `評価` atau `面談` |
+| upah lembur dan tunjangan | tidak ada kalimat yang memuat `残業代` atau `手当` |
+| rapat daring dan kerja dari rumah | tidak ada kalimat yang memuat `オンライン` atau `リモート` |
+
+Kuota naik dari 86 menjadi 90 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 
 Kalau topik ini dibuka lagi, empat baris itu yang pertama ditulis, bukan mengulang keadaan yang
 sudah ada. Kalimat baru juga harus menghindari kerangka di tabel atas: `check.js` bagian `distinct`
@@ -179,7 +195,7 @@ menangkap kerangka yang sama dengan predikat yang sama setelah bendanya dibuang.
 
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 86 sudah penuh.
+0 kalimat. Kuota 90 sudah penuh.
 
 Kalau nanti dibuka lagi, urutan yang disarankan: keadaan yang paling sering dulu, lalu yang
 jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
