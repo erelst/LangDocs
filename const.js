@@ -64,3 +64,35 @@ window.CONST = {
   countWord: 'kalimat / sentences',
   scrollHint: 'gulir untuk memuat lagi / scroll for more'
 };
+
+/* The measured partner distribution, and which `rel` keys make up each group. The groups are the
+ * survey's own grouping, so the deck's spread can be read against it directly.
+ *
+ * It lives here rather than in check.js because two files depend on it now: check.js prints the
+ * spread with it, and test.js checks that the documented table still matches the data with it.
+ * `measured` is a percentage of the 10.708 partner slots in data/survey.zip. */
+window.CONST.surveyWho = {
+  groups: {
+    'close family': ['keluarga', 'pasangan'],
+    'work and study': ['rekan', 'atasan', 'klien'],
+    'friends and neighbours': ['teman', 'teman_dekat', 'tetangga', 'tetangga_baru', 'sekamar', 'teman_sekolah'],
+    'public and service': ['petugas_toko', 'pelayan', 'petugas_stasiun', 'apoteker', 'dokter', 'kurir'],
+    'teacher and pupil': ['guru'],
+    'stranger': ['orang_asing']
+  },
+  /* Keyed by the label used in docs/README.md, which is also the key of `groups`. */
+  measured: {
+    'close family': 36.8,
+    'work and study': 22.7,
+    'friends and neighbours': 17.2,
+    'public and service': 10.8,
+    'teacher and pupil': 3.1,
+    'stranger': 2.4
+  },
+  /* The two groups the deck deliberately does not write, each with its reason, so a thin group is
+   * reported as a decision rather than left looking like an oversight. */
+  notWritten: {
+    'teacher and pupil': 'classroom-only wording, deliberately not a topic',
+    'relative': 'a distant relative is a rarer case of family, which has its own sentences'
+  }
+};

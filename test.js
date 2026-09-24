@@ -188,6 +188,40 @@ for (const [topic, quota] of quotaRows) {
   if (['telepon', 'sopan', 'waktu_cuaca'].includes(topic)) continue;   // cross-cutting, listed apart
   ok(`docs/topics/${topic}.md exists`, topicDocs.includes(`${topic}.md`), `quota ${quota}`);
 }
+/* Each topic file ends with how many sentences it owes against its quota, and those lines were
+ * stale by the same amount the whole file was: `jalan` claimed 20 against a quota of 28, and
+ * `belanja` claimed 0. The line is checked against the quota in the README, so the two cannot
+ * disagree. The written side is not checked here because `waktu_cuaca` and `sopan` count curated
+ * sentences from another file, which this check cannot see. */
+for (const [topic, quota] of quotaRows) {
+  const file = path.join(ROOT, 'docs/topics', `${topic}.md`);
+  if (!fs.existsSync(file)) continue;
+  const sisa = fs.readFileSync(file, 'utf8')
+    .match(/## Sisa yang harus ditulis\n\n(\d+) kalimat\. Kuota (\d+) sudah penuh\./);
+  ok(`docs/topics/${topic}.md states its own quota in the closing line`,
+     Boolean(sisa) && Number(sisa[2]) === quota,
+     sisa ? `says quota ${sisa[2]}, README says ${quota}` : 'no "N kalimat. Kuota N sudah penuh." line');
+}
+/* The header table's "Sudah ditulis" is the number a reader trusts most, and it is checked against
+ * the data: the sentences in this topic's own file, plus the curated sentences the file claims in
+ * its "Dari `kurasi`" row. That row exists because `sopan` and `waktu_cuaca` count curated
+ * sentences that live in data/curated.js, so a check that ignored it would report two false
+ * failures. Both the count and the claim are checked, so neither can hide behind the other. */
+const topicCount = new Map();
+for (const s of (window.BANK || [])) {
+  if (s.topic) topicCount.set(s.topic, (topicCount.get(s.topic) || 0) + 1);
+}
+for (const [topic] of quotaRows) {
+  const file = path.join(ROOT, 'docs/topics', `${topic}.md`);
+  if (!fs.existsSync(file)) continue;
+  const text = fs.readFileSync(file, 'utf8');
+  const shown = text.match(/\| Sudah ditulis \| (\d+) \|/);
+  const fromCurated = text.match(/\| Dari `kurasi` \| (\d+) \|/);
+  const expected = (topicCount.get(topic) || 0) + (fromCurated ? Number(fromCurated[1]) : 0);
+  ok(`docs/topics/${topic}.md states how many sentences it has`,
+     Boolean(shown) && Number(shown[1]) === expected,
+     shown ? `says ${shown[1]}, data has ${expected}` : 'no "Sudah ditulis" row');
+}
 /* The two documented counts mean different things and both are checked, because the
  * difference between them is the four curated sentences that no topic claims yet.
  *
@@ -216,6 +250,88 @@ ok('the documented "perlu ditulis" matches the quota minus what is used',
 ok('used above the quota is stated rather than left unexplained',
    written_left >= 0 || Boolean(excess),
    written_left < 0 ? `used is ${-written_left} above quota ${quota}` : 'used is within quota');
+
+/* The partner-distribution table. It drifted once already: it kept a denominator of 515 after the
+ * deck had grown past it, so the README said close family was 3,8 points short when it was 5,0, and
+ * the claim next to it ("this table cannot go stale without being seen") was simply false, because
+ * nothing read the numbers. This reads them.
+ *
+ * Both the percentage and the group members are checked, because a table can be right about the
+ * total and wrong about which rel keys are inside it. */
+const DEC = ',';
+const pct = n => (100 * n / written).toFixed(1).replace('.', DEC);
+const surveyWho = window.CONST.surveyWho;
+const relCount = new Map();
+for (const s of (window.BANK || [])) {
+  if (!s.rel) continue;
+  relCount.set(s.rel, (relCount.get(s.rel) || 0) + 1);
+}
+/* A row is matched to its group by the members in the last column, not by the label in the first,
+ * because the first column is Indonesian prose while the members are the data. A row lists only
+ * the keys that have sentences, so the group is the one containing every key the row names, not
+ * the one with the same number of keys. */
+const tableRows = docsReadme.split('\n').filter(line =>
+  /^\| .*\| \d+(,\d+)?% \| \d+(,\d+)?% \|/.test(line));
+ok('docs/README.md documents the partner distribution for every measured group',
+   tableRows.length === Object.keys(surveyWho.groups).length,
+   `${tableRows.length} rows, ${Object.keys(surveyWho.groups).length} groups`);
+for (const line of tableRows) {
+  const members = [...line.matchAll(/`([a-z_]+)` (\d+)/g)].map(m => [m[1], Number(m[2])]);
+  const groupKey = Object.keys(surveyWho.groups).find(g =>
+    surveyWho.groups[g].length >= members.length &&
+    members.every(([id]) => surveyWho.groups[g].includes(id)));
+  if (!groupKey) {
+    ok(`a documented row matches a measured group: ${line.slice(0, 40)}`, false);
+    continue;
+  }
+  const real = surveyWho.groups[groupKey].reduce((a, k) => a + (relCount.get(k) || 0), 0);
+  const shown = line.match(/\| \d+(?:,\d+)?% \| (\d+(?:,\d+)?)% \|/)[1];
+  ok(`${groupKey}: the documented deck share matches the data`,
+     shown === pct(real), `docs ${shown}%, data ${pct(real)}% (${real} of ${written})`);
+  /* The gap is the number a reader acts on, and it is the one that went stale first: it is the
+   * difference of two figures that both move when the deck grows. The sign is deck minus measured,
+   * so a negative gap means the deck has fewer of that group than the survey suggests. */
+  const gap = (100 * real / written - surveyWho.measured[groupKey]).toFixed(1).replace('.', DEC);
+  const shownGap = line.match(/\*\*([+-]\d+(?:,\d+)?)\*\*|\| ([+-]\d+(?:,\d+)?) \|/);
+  const gapText = shownGap ? (shownGap[1] || shownGap[2]) : '(none)';
+  ok(`${groupKey}: the documented gap matches the data`,
+     gapText === (Number(gap.replace(',', '.')) >= 0 ? '+' : '') + gap,
+     `docs ${gapText}, data ${gap}`);
+  const wrong = members.filter(([id, c]) => (relCount.get(id) || 0) !== c);
+  ok(`${groupKey}: the documented rel counts match the data`,
+     wrong.length === 0,
+     wrong.map(([id, c]) => `${id} ${c} vs ${relCount.get(id) || 0}`).join('; ') || 'all match');
+}
+/* The page's own summary line and the docs must agree on the size of the written bank. */
+ok('docs/README.md states the same written-sentence count as the data',
+   docsReadme.includes(`| Kalimat di berkas topik | yang tertulis di \`data/t_*.js\` | **${written}** |`),
+   `data has ${written}`);
+
+/* SPEC carries the same distribution in a different shape (deck, measured, gap) and it went stale
+ * in the same edit, so it is checked the same way. Its rows name no rel keys, so a row is matched
+ * to its group by the measured figure, which is the one column that comes straight from the survey
+ * and is different for every group. */
+const specRows = fs.readFileSync(path.join(ROOT, 'docs/SPEC.md'), 'utf8').split('\n')
+  .map(line => line.match(/^\| ([^|]+) \| (\d+),(\d+)% \| (\d+),(\d+)% \| \*{0,2}([+-]\d+,\d+)\*{0,2} \|$/))
+  .filter(Boolean)
+  .map(m => ({ label: m[1].trim(), deck: `${m[2]},${m[3]}`, measured: Number(`${m[4]}.${m[5]}`), gap: m[6] }));
+ok('docs/SPEC.md documents the partner distribution for every measured group',
+   specRows.length === Object.keys(surveyWho.groups).length,
+   `${specRows.length} rows, ${Object.keys(surveyWho.groups).length} groups`);
+for (const row of specRows) {
+  const groupKey = Object.keys(surveyWho.groups)
+    .find(g => surveyWho.measured[g] === row.measured);
+  if (!groupKey) {
+    ok(`a SPEC row has a measured figure that matches a group: ${row.label} ${row.measured}%`, false);
+    continue;
+  }
+  const real = surveyWho.groups[groupKey].reduce((a, k) => a + (relCount.get(k) || 0), 0);
+  const gap = 100 * real / written - surveyWho.measured[groupKey];
+  const shownGap = (gap >= 0 ? '+' : '') + gap.toFixed(1).replace('.', DEC);
+  ok(`SPEC ${groupKey}: the documented deck share and gap match the data`,
+     row.deck === pct(real) && row.gap === shownGap,
+     `docs ${row.deck}% / ${row.gap}, data ${pct(real)}% / ${shownGap}`);
+}
 
 console.log(`\n${cards.length} cards rendered; ${failed} failure(s)`);
 process.exit(failed ? 1 : 0);

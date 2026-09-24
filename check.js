@@ -287,20 +287,7 @@ function checkDistinct(rows) {
  * are deliberately not written, and each is named with its reason rather than left to look like a
  * gap: teacher and pupil (the words are classroom-specific) and relative (a distant relative is a
  * rarer case of family, which already has 82 sentences). Both are stated in the topic plan. */
-const WHO_GROUP = {
-  'close family': ['keluarga', 'pasangan'],
-  'friends and neighbours': ['teman', 'teman_dekat', 'tetangga', 'tetangga_baru', 'sekamar', 'teman_sekolah'],
-  'work and study': ['rekan', 'atasan', 'klien'],
-  'teacher and pupil': ['guru'],
-  'public and service': ['petugas_toko', 'pelayan', 'petugas_stasiun', 'apoteker', 'dokter', 'kurir'],
-  'stranger': ['orang_asing']
-};
-/* The two groups the deck deliberately does not write, each with its reason, so a thin group is
- * reported as a decision rather than left looking like an oversight. */
-const WHO_NOT_WRITTEN = {
-  'teacher and pupil': 'classroom-only wording, deliberately not a topic',
-  'relative': 'a distant relative is a rarer case of family, which has its own sentences'
-};
+const { groups: WHO_GROUP, notWritten: WHO_NOT_WRITTEN } = window.CONST.surveyWho;
 
 function checkWho(rows) {
   const counts = new Map(), perTopic = new Map();
