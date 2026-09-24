@@ -132,10 +132,16 @@
     return LEX[surface] || LEX[b];
   }
 
+  /* The word-by-word table. A token that is only punctuation (。) is skipped: it is part of
+   * the sentence, not a word, and giving it a row produced a line with a mark and two empty
+   * glosses on every card. Colour is still taken from the token's own index so a word keeps
+   * the same colour here as on the two lines above. */
   function glossRows(tokens) {
     var rows = [];
     for (var i = 0; i < tokens.length; i++) {
-      var t = tokens[i], colour = colourOf(i);
+      var t = tokens[i];
+      if (bare(t[0]) === '') { continue; }
+      var colour = colourOf(i);
       var edge = 'border-bottom:1px solid ' + C.edgeSoft + ';vertical-align:top;padding:4px 8px;';
       rows.push('<tr>' +
         '<td class="gk" style="' + edge + 'color:' + colour +
