@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Belanja |
-| Kuota | 26 |
-| Sudah ditulis | 26 |
+| Kuota | 27 |
+| Sudah ditulis | 27 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_belanja.js` |
@@ -17,7 +17,7 @@ Kuota dihitung di `../README.md` dari sel: 公共商業施設×家事・雑事 4
 
 | | |
 |---|---|
-| Lawan bicara | petugas toko 54%, keluarga 13%, teman 8% |
+| Lawan bicara | petugas toko 26 kalimat, teman 1 kalimat |
 | Bentuk | 用談・相談 58,7%, 雑談 41,0% |
 | Jumlah lawan | satu lawan bicara 71% |
 
@@ -44,7 +44,11 @@ Kuota dihitung di `../README.md` dari sel: 公共商業施設×家事・雑事 4
 Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan`/`biasa` di bawah berarti pasangan itu sudah, atau `-` berarti slotnya memang lewat.
 
 - **bertanya** — sopan: tanya harga, ukuran, stok, garansi, kedaluwarsa. Biasa: -.
-- **menjawab** — sopan: petugas menjawab pertanyaan pembeli. Biasa: -.
+- **menjawab** — sopan: menolak tawaran bantuan dan memilih mencari sendiri
+  (`belanja_jawab_cari_sendiri`), menolak kantong plastik (`belanja_minta_kantong_tidak`).
+  Biasa: -. Arah sebaliknya (petugas menjawab pembeli) sudah terisi lewat
+  `belanja_kasir_arah_bayar` dan `belanja_kasir_arahkan_tunai`, yang memakai `whoId`
+  untuk membalik arah bicara.
 - **mengajak** — sopan: mengajak teman memilih, mengajak melihat yang lain. Biasa: -.
 - **menerima** — sopan: menerima tawaran petugas, menerima saran warna. Biasa: -.
 - **menolak halus** — sopan: menolak bantuan, menolak kantong, membatalkan pembelian. Biasa: -.
@@ -59,6 +63,8 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 Dihitung dengan cara yang sama seperti `check.js`: semua token, kecuali kata yang masuk daftar `SHAPE` dan tanda baca, digabung dengan predikat terakhir dipisah. Dua puluh enam kalimat, dua puluh enam kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
 | # | Kalimat | Kerangka |
 |---|---|---|
 | 1 | `belanja_tanya_ada_tidak` | すみません 折りたたみ の 傘 を 探している の です が こちら で 売っています | か |
@@ -87,6 +93,7 @@ Dihitung dengan cara yang sama seperti `check.js`: semua token, kecuali kata yan
 | 24 | `belanja_petugas_tanya_kantong` | 袋 は ご入用 でしょう | か |
 | 25 | `belanja_minta_cek_gudang` | 店頭 に ない なら 奥 に ある か 見て いただけます | か |
 | 26 | `belanja_tanya_obral` | セール は いつ から 始まる か 分かったら 教えて | ください |
+| 27 | `belanja_jawab_cari_sendiri` | いいえ 自分 で ゆっくり | 見ていきます |
 
 Celah yang ditemukan saat topik ini akhirnya diperiksa, dan semuanya sudah ditulis:
 
@@ -108,7 +115,8 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 | membandingkan merek dan bahan | tidak ada kalimat yang memuat `メーカー`, `素材`, atau `ブランド` |
 | belanja lewat internet | tidak ada kalimat yang memuat `通販` atau `オンライン` |
 
-Kuota naik dari 21 menjadi 26 karena pemeriksaan ini menemukan lima keadaan yang nyata dan berbeda,
+Kuota naik dari 21 menjadi 27: lima keadaan nyata dan berbeda dari pemeriksaan celah, lalu satu
+kalimat balasan yang dituntut `../SPEC.md` K8 (`belanja_jawab_cari_sendiri`),
 termasuk lubang yang bukan sekadar kalimat tambahan tetapi slot yang dijanjikan bagian ruang ucapan
 di atas dan tidak pernah diisi. Kenaikan ini disertai dasarnya seperti yang diminta `../README.md`;
 yang dilarang adalah menaikkan kuota satu topik tanpa alasan.

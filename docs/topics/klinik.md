@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Klinik |
-| Kuota | 12 |
-| Sudah ditulis | 12 |
+| Kuota | 15 |
+| Sudah ditulis | 15 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_klinik.js` |
@@ -21,6 +21,7 @@ Kuota dihitung di `../README.md` dari sel: 公共商業施設×療養 0,81%.
 |---|---|
 | Lawan bicara | publik 47% (petugas medis), keluarga 4%, orang asing 4% |
 | Bentuk | 用談・相談 77,3%, 雑談 21,3% |
+| Kalimat balasan | 4 dari 15: `klinik_tolak_rawat_inap`, `klinik_jawab_lama_demam`, `klinik_jawab_obat_rutin`, `klinik_jawab_alergi_tidak` |
 | Jumlah lawan | satu lawan bicara 45% |
 
 ## Batas topik
@@ -44,7 +45,7 @@ Kuota dihitung di `../README.md` dari sel: 公共商業施設×療養 0,81%.
 Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan`/`biasa` di bawah berarti pasangan itu sudah, atau `-` berarti slotnya memang lewat.
 
 - **bertanya** — sopan: tanya obat, tanya biaya, tanya apakah perlu kembali. Biasa: -.
-- **menjawab** — sopan: menjawab pertanyaan dokter tentang gejala dan riwayat. Biasa: -.
+- **menjawab** — sopan: menjawab sudah berapa lama demamnya (`klinik_jawab_lama_demam`), obat apa yang sedang diminum (`klinik_jawab_obat_rutin`), apakah ada alergi obat (`klinik_jawab_alergi_tidak`). Biasa: -.
 - mengajak — **-**: tidak dipakai: ke klinik orang pergi sendiri atau diantar
 - **menerima** — sopan: menerima penjelasan dokter, menerima resep. Biasa: -.
 - **menolak halus** — sopan: menolak rawat inap, menolak obat tertentu karena tidak cocok. Biasa: -.
@@ -57,8 +58,10 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 12 kalimat, 12 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 15 kalimat, 15 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
 | # | Kalimat | Kerangka |
 |---|---|---|
 | 1 | `klinik_sebut_gejala` | 二日 前 から 熱 が 続いて いる ので | 来ました |
@@ -73,18 +76,21 @@ Dihitung dengan cara yang sama seperti `check.js`. 12 kalimat, 12 kerangka, tida
 | 10 | `klinik_tolak_rawat_inap` | 家 の こと が ある ので 入院 は 難しく 通い で お願い できない | でしょうか |
 | 11 | `klinik_tanya_obat_bebas` | 病院 に 行く ほど で は ない ので 市販薬 で いい もの は あります | か |
 | 12 | `klinik_tanya_vaksin` | 予防接種 は いつ まで に 受ければ いい か 二回目 まで どのくらい 空ける か 教えて | ください |
+| 13 | `klinik_jawab_lama_demam` | 熱 は 二日前 から で 昨夜 は 三十八度 まで | 上がりました |
+| 14 | `klinik_jawab_obat_rutin` | 血圧 の 薬 は 毎朝 飲んでいます が 欠かした こと は | ありません |
+| 15 | `klinik_jawab_alergi_tidak` | 薬 の アレルギー は ない と 思います まで 飲んで かぶれた こと が ない | ので |
 
-Kuota terpenuhi: 12 dari 12. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 15 dari 15. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: dokter 10, apoteker 2. Bentuk sopan 12, biasa 0. Panjang 12,
+Lawan bicara yang sudah dipakai: dokter 13, apoteker 2. Bentuk sopan 15, biasa 0. Panjang 15,
 pendek 0.
 
 Dua belas dari dua belas sopan, dan tidak ada satu pun yang biasa: tidak ada orang yang berbicara
 biasa kepada dokternya. Topik ini juga satu-satunya yang tidak punya slot mengajak, karena ke
 klinik orang pergi sendiri atau diantar, dan itu sudah tercatat di bagian ruang ucapan di atas.
 
-Semua dua belas panjang. Bentuk pendek tidak dipakai di ruang periksa, karena menjawab dokter
+Semua lima belas panjang. Bentuk pendek tidak dipakai di ruang periksa, karena menjawab dokter
 dengan satu kata justru terdengar tidak kooperatif.
 
 Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
@@ -105,7 +111,8 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 | meminta hasil pemeriksaan | tidak ada kalimat yang memuat `結果` |
 | biaya yang ditanggung asuransi | `かかる` ada, `保険` belum |
 
-Kuota naik dari 8 menjadi 12 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,
+Kuota naik dari 8 ke 12 lewat empat keadaan nyata, lalu ke 15 karena tiga kalimat balasan yang
+dituntut `../SPEC.md` K8, semuanya jawaban atas pertanyaan dokter,
 semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
@@ -113,4 +120,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 12 sudah penuh.
+15 kalimat. Kuota 15 sudah penuh.

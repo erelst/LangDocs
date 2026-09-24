@@ -61,6 +61,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 27 kalimat, 27 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `transportasi_tanya_peron` | 大阪 まで 行きたい の です が 何番線 から 出ます | か |
 | 2 | `transportasi_tanya_kereta_ini` | すみません 電車 は 渋谷 を 通ります | か |
 | 3 | `transportasi_jawab_arah` | 電車 なら 新宿 方面 に 向かって います | よ |
@@ -128,4 +130,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 22 sudah penuh.
+27 kalimat. Kuota 27 sudah penuh.

@@ -61,6 +61,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `santai_ajak_keluar` | 今週 の 週末 空いてる けど どっか | 行かない |
 | 2 | `santai_ajak_orang_baru` | もし ご都合 が よければ 一度 ご一緒 できれば と 思って | います |
 | 3 | `santai_ajak_nonton` | 映画 評判 が いい らしい から 一緒 に | 行かない |
@@ -123,4 +125,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 22 sudah penuh.
+22 kalimat. Kuota 22 sudah penuh.

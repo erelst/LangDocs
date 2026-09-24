@@ -61,6 +61,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 38 kalimat, 38 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `telepon_sebut_diri` | お世話になって おります 営業 の 鈴木 と | 申します |
 | 2 | `telepon_tanya_waktu_tepat` | お忙しい ところ すみません が お話し しても よろしい | でしょうか |
 | 3 | `telepon_sambung_ke_bagian` | 恐れ入ります が 配送 の 担当 の 方 に お繋ぎ いただけます | か |
@@ -138,4 +140,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 38 sudah penuh.
+38 kalimat. Kuota 38 sudah penuh.

@@ -59,6 +59,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 20 kalimat, 20 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `jalan_tanya_arah` | 駅 を 探して いる の です が 方向 で 合って います | か |
 | 2 | `jalan_jawab_arah` | まっすぐ 行くと 大きい 店 が ある ので を 左 に 曲がって | ください |
 | 3 | `jalan_tidak_tahu_arah` | 申し訳ない の です が も 辺 は 分からない の | です |
@@ -84,7 +86,7 @@ Kuota terpenuhi: 20 dari 20. **Belum diperiksa mentok.** Angka ini kuota, bukan 
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
 Lawan bicara yang sudah dipakai: teman 8, orang asing 5, tetangga 2, keluarga 1, pasangan 1.
-Bentuk sopan 11, biasa 6. Panjang 16, pendek 1.
+Bentuk sopan 11, biasa 6. Panjang 19, pendek 1.
 
 Topik ini punya dua sisi yang tidak bertemu: bertanya arah ke orang yang belum dikenal, yang
 selalu sopan, dan berjalan bersama orang yang sudah dikenal, yang hampir selalu biasa. Enam
@@ -113,4 +115,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 20 sudah penuh.
+20 kalimat. Kuota 20 sudah penuh.

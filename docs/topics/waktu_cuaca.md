@@ -5,13 +5,13 @@
 | | |
 |---|---|
 | Judul | Waktu dan cuaca |
-| Kuota | 21 |
-| Sudah ditulis | 2 |
-| Sisa | **16** |
+| Kuota | 22 |
+| Sudah ditulis | 24 |
+| Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_waktu_cuaca.js` |
 | Dari `kurasi` | 2 |
-| Perlu ditulis di `t_waktu_cuaca.js` | **16** |
+| Perlu ditulis di `t_waktu_cuaca.js` | **0** |
 
 `data/curated.js` sudah menyumbang 2 kalimat: `kurasi07` (sapaan waktu + cuaca) dan `kurasi10` (sapaan waktu kepada orang akrab, `polite: 0`, jadi pasangan bentuk biasa untuk `kurasi07`).
 
@@ -61,8 +61,10 @@ Topik ini sumbunya adalah tingkat keakraban itu sendiri, jadi kolom sopan dan bi
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
 | # | Kalimat | Kerangka |
 |---|---|---|
 | 1 | `waktu_cuaca_ohayou_rekan` | おはよう ございます は 寒い | ですね |
@@ -86,16 +88,16 @@ Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tida
 | 19 | `waktu_cuaca_taifun` | 台風 が 来る らしい から 外 の もの は 入れて | おいて |
 | 20 | `waktu_cuaca_tanya_suhu` | は 暖かかった けど は 何度 くらい でしょう | か |
 | 21 | `waktu_cuaca_hujan_berhenti` | 雨 止んだ みたい だ から そろそろ | 出よう |
+| 22 | `waktu_cuaca_jawab_hujan_sebentar` | 昼過ぎ に は 止む そう なので | 待ちましょう |
 
-Kuota terpenuhi: 21 dari 21 menurut kuota, dan berkas ini memuat 21 kalimat ditambah 2 dari `kurasi`,
-jadi topik ini berdiri di 23: **2 di atas kuota 21.** Kelebihannya berasal dari pemeriksaan celah yang
-menemukan topan dan suhu sebagai keadaan nyata, dan `../SPEC.md` T2 menyebut kuota sebagai lantai.
-Dicatat di sini supaya terlihat, bukan tersembunyi di selisih angka. **Belum
-diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
-sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
+Kuota terpenuhi: 24 dari 22. Angka itu kalimat di berkas ini (22) ditambah 2 dari
+`data/curated.js` (`kurasi07`, `kurasi10`), jadi topik ini berdiri **2 di atas kuotanya**,
+dan `../SPEC.md` T2 mengizinkan itu selama kalimat tambahannya nyata dan berbeda. Satu di
+antaranya ditambahkan saat `../SPEC.md` K8 dijalankan: `waktu_cuaca_jawab_hujan_sebentar`,
+jawaban atas pertanyaan apakah hujannya akan lama. **Belum diperiksa mentok.**
 
-Lawan bicara yang sudah dipakai: rekan 8, teman 4, keluarga 3, orang asing 2, klien 1. Bentuk
-sopan 15, biasa 3. Panjang 14, pendek 4.
+Lawan bicara yang sudah dipakai: rekan 10, teman 5, keluarga 4, orang asing 2, klien 1. Bentuk
+sopan 15, biasa 3. Panjang 18, pendek 6.
 
 Hampir semua kalimat di sini adalah pembuka percakapan, bukan isi pembicaraan, jadi banyak yang
 pendek: 4 dari 18 hanya satu klausa, dan itu memang bentuk sapaan. Yang sopan dan yang biasa
@@ -125,4 +127,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 18 sudah penuh.
+24 kalimat. Kuota 22 sudah penuh.

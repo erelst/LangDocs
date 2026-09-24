@@ -70,6 +70,8 @@ sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `kerja_tanya_waktu_rapat` | お忙しい ところ すみません の 打ち合わせ の 時間 を もう一度 確認したい の です | が |
 | 2 | `kerja_tanya_penanggung_jawab` | 件 は どなた が 担当されている の | でしょうか |
 | 3 | `kerja_minta_konfirmasi_tenggat` | 今週中 に 終わらせたい ので 締め切り の 確認 を お願いできます | か |
@@ -195,7 +197,7 @@ menangkap kerangka yang sama dengan predikat yang sama setelah bendanya dibuang.
 
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 90 sudah penuh.
+90 kalimat. Kuota 90 sudah penuh.
 
 Kalau nanti dibuka lagi, urutan yang disarankan: keadaan yang paling sering dulu, lalu yang
 jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.

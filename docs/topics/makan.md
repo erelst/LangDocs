@@ -63,6 +63,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 57 kalimat, 57 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `makan_tanya_rekomendasi` | すみません 初めて なので おすすめ を 教えて いただけます | か |
 | 2 | `makan_tanya_tanpa_daging` | 肉 が 食べられない ので 使っていない 料理 は あります | か |
 | 3 | `makan_pesan_satu` | を 一つ | お願いします |
@@ -158,4 +160,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 57 sudah penuh.
+57 kalimat. Kuota 57 sudah penuh.

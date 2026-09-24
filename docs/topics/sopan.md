@@ -69,15 +69,17 @@ Dihitung dengan cara yang sama seperti `check.js`. 28 kalimat, 28 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `sopan_setuju_sopan` | も そう 思います ので で | 進めましょう |
-| 2 | `sopan_setuju_biasa` | うん そう だ よね で いい と | 思う |
+| 2 | `sopan_setuju_biasa` | うん そう だ よね で いい と 思う | よ |
 | 3 | `sopan_setuju_ragu` | 賛成 です が ただ ひとつ 気 に なる の は 費用 | です |
 | 4 | `sopan_terkejut` | え 本当 に 引っ越す | の |
 | 5 | `sopan_terkejut_sopan` | ああ それは 存じませんでした ので | 驚きました |
 | 6 | `sopan_tidak_percaya` | ありえない よ どこ で 聞いた | の |
 | 7 | `sopan_ragu_menanggapi` | と して は 早い かもしれない と | 思います |
 | 8 | `sopan_minta_diulang` | すみません よく 聞き取れませんでした ので もう一度 お願いできます | か |
-| 9 | `sopan_minta_diulang_biasa` | え 何て | 聞こえなかった |
+| 9 | `sopan_minta_diulang_biasa` | え 何て 聞こえなかった | の |
 | 10 | `sopan_belum_paham` | よく 分からない ので たとえば どんな 場合 か 教えて いただけます | か |
 | 11 | `sopan_menyela_halus` | お話 の 途中 で 恐れ入ります が ひとつ だけ 付け加えて も いい | でしょうか |
 | 12 | `sopan_ambil_giliran` | で は 今度 は から お話し させて | いただきます |
@@ -103,7 +105,7 @@ Kuota terpenuhi: 32 dari 32, yaitu 28 kalimat di `data/t_sopan.js` ditambah 4 ka
 dan `../SPEC.md` T2 memisahkan keduanya.
 
 Lawan bicara yang sudah dipakai: rekan 11, atasan 6, teman 6, klien 3, orang asing 2. Bentuk sopan
-22, biasa 6. Panjang 19, pendek 9.
+22, biasa 6. Panjang 19, pendek 13.
 
 Sembilan kalimat pendek, dan itu lebih banyak daripada topik lain, karena isi topik ini memang
 reaksi: terkejut, meminta ulang, menanggapi terima kasih. Reaksi yang panjang justru bukan reaksi.
@@ -134,4 +136,4 @@ koreksi gaya, keduanya keluar dari data: `data/curated.js` menyumbang 4, `data/t
 28, dan sebelumnya baris di sini menulis 27 karena menghitung `kurasi` yang berbeda.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 32 sudah penuh.
+32 kalimat. Kuota 32 sudah penuh.

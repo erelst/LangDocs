@@ -62,6 +62,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 36 kalimat, 36 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `rumah_santai_minta_waktu_sendiri` | は 疲れた から 一人 に | して |
 | 2 | `rumah_santai_jangan_diganggu` | 休みたい から ご飯 まで は | 呼ばないで |
 | 3 | `rumah_santai_cerita_hari` | は 会議 ばかり だった ので 座る 暇 も | なかった |
@@ -137,4 +139,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 36 sudah penuh.
+36 kalimat. Kuota 36 sudah penuh.

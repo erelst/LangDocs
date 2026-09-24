@@ -61,6 +61,8 @@ Dihitung dengan cara yang sama seperti `check.js`. 51 kalimat, 51 kerangka, tida
 
 | # | Kalimat | Kerangka |
 |---|---|---|
+| # | Kalimat | Kerangka |
+|---|---|---|
 | 1 | `rumah_tugas_minta_jemur` | これから 出かける から 洗濯物 を 干して | おいて |
 | 2 | `rumah_tugas_bagi_tugas` | が 洗濯 を する から は 皿 を | 洗って |
 | 3 | `rumah_tugas_tagih_janji` | やる って 言った のに やってない | よね |
@@ -156,4 +158,4 @@ menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap keran
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 51 sudah penuh.
+51 kalimat. Kuota 51 sudah penuh.
