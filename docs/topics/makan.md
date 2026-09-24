@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Makan |
-| Kuota | 53 |
-| Sudah ditulis | 53 |
+| Kuota | 57 |
+| Sudah ditulis | 57 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_makan.js` |
@@ -59,7 +59,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 53 kalimat, 53 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 57 kalimat, 57 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -116,31 +116,46 @@ Dihitung dengan cara yang sama seperti `check.js`. 53 kalimat, 53 kerangka, tida
 | 51 | `makan_tanya_porsi_berdua` | は 二人 で 分けられる 量 です | か |
 | 52 | `makan_tanya_menu_hari_ini` | 日替わり が ある と 聞いた ので の 分 を 教えて いただけます | か |
 | 53 | `makan_berbagi_meja` | 二人 では 食べきれない ので 分けた ほう が いい です | ね |
+| 54 | `makan_minta_tambah` | ご飯 が 足りなかった ので おかわり を いただけます | か |
+| 55 | `makan_ajak_makan_akrab` | お腹 空いた から 何か | 食べない |
+| 56 | `makan_tanya_pendapat_rasa` | 味 は どう しょっぱすぎる と | 思わない |
+| 57 | `makan_tanya_menu_tidak_ada` | 料理 を 探して いる の です が こちら では 出していない の でしょう | か |
 
-Kuota terpenuhi: 53 dari 53. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 57 dari 57. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: pelayan 23, keluarga 14, teman 10, rekan 5, pasangan 1. Bentuk
-sopan 38, biasa 15. Panjang 47, pendek 6.
+Lawan bicara yang sudah dipakai: pelayan 25, keluarga 14, teman 12, rekan 5, pasangan 1. Bentuk
+sopan 40, biasa 17. Panjang 50, pendek 7.
 
 Dua meja ditulis terpisah karena bahasanya memang dua: di restoran pembaca adalah pelanggan yang
 berbicara ke petugas, jadi hampir semuanya sopan; di rumah lawannya keluarga, jadi hampir
 semuanya biasa. Deck yang hanya mengajarkan satu di antaranya mengajarkan separuh dari apa yang
 terdengar saat orang makan.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 
-| Celah | Buktinya |
+| Celah | Ditutup oleh |
 |---|---|
-| meminta tambah nasi atau lauk | tidak ada kalimat yang memuat `おかわり` atau `追加` |
-| mengajak makan dengan bentuk biasa | yang ada `行きませんか` dan `行きたいです`; tidak ada ajakan akrab seperti `食べない？` |
-| menanyakan pendapat orang lain soal rasanya | tidak ada kalimat yang memuat `おいしい？` atau `どう？` |
-| menanyakan menu yang tidak ada | 2 kalimat menanyakan bahan, tidak satu pun menanyakan menu yang dicari tetapi tidak tercantum |
+| meminta tambah nasi | `makan_minta_tambah` |
+| mengajak makan dengan bentuk akrab | `makan_ajak_makan_akrab` |
+| menanyakan pendapat orang lain soal rasanya | `makan_tanya_pendapat_rasa` |
+| menu yang dicari dan tidak ada di daftar | `makan_tanya_menu_tidak_ada` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
+
+| Celah | Bukti pencarian |
+|---|---|
+| memesan tempat makan lebih dulu | tidak ada kalimat yang memuat `予約` |
+| sarapan di hotel atau penginapan | tidak ada kalimat yang memuat `朝食` |
+| antre menunggu meja di restoran | tidak ada kalimat yang memuat `待ち` atau `行列` |
+| layanan dan biaya tambahan di restoran | tidak ada kalimat yang memuat `サービス` dalam arti ini |
+
+Kuota naik dari 53 menjadi 57 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 
 Kalau topik ini dibuka lagi, empat baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 53 sudah penuh.
+0 kalimat. Kuota 57 sudah penuh.
