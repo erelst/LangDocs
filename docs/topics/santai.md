@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Santai di luar |
-| Kuota | 18 |
-| Sudah ditulis | 18 |
+| Kuota | 22 |
+| Sudah ditulis | 22 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_santai.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -79,34 +79,48 @@ Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tida
 | 16 | `santai_baca_buku` | 本 読み終わった ので よかったら 貸します | よ |
 | 17 | `santai_antar_pulang` | 遅く なった ので 家 の 近く まで 送ります | よ |
 | 18 | `santai_ajak_belajar_bareng` | 一人 だと 進まない ので 一緒 に 勉強 する の は どう でしょう | か |
+| 19 | `santai_tutup_acara` | は ありがとう 久しぶり だった ので よかった | です |
+| 20 | `santai_serahkan_pilihan` | 辺 は あまり 詳しく ない ので 選んで もらえる と | 助かります |
+| 21 | `santai_ajak_karaoke` | ご飯 の あと で カラオケ でも | 行かない |
+| 22 | `santai_batal_karena_hujan` | 雨 で は 難しそう なので は やめ に しません | か |
 
-Kuota terpenuhi: 18 dari 18. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 14, petugas tempat 3, rekan 1. Bentuk sopan 13, biasa 5.
-Panjang 16, pendek 2.
+Lawan bicara yang sudah dipakai: teman 18, petugas tempat 3, rekan 1. Bentuk sopan 16, biasa 6.
+Panjang 20, pendek 2.
 
 Topik ini terbelah menurut kedekatan orangnya, bukan menurut kegiatannya, dan itu yang membuatnya
 berbeda dari `rumah_santai`: ajakan yang sama muncul dalam dua bentuk. Ke rekan yang belum akrab
 memakai `もしご都合がよければ` dan `一度`, ke teman dekat cukup `行かない？`. Lima kalimat biasa
 semuanya ke teman dekat.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
+
+| Celah | Ditutup oleh |
+|---|---|
+| slot "menerima pilihan orang lain" dijanjikan di ruang ucapan tapi tidak ada satu pun | `santai_serahkan_pilihan` |
+| slot "menutup acara: berterima kasih" dijanjikan tapi tidak ada | `santai_tutup_acara` |
+| karaoke, kegiatan berisik yang justru disengaja | `santai_ajak_karaoke` |
+| acara yang dibatalkan karena hujan | `santai_batal_karena_hujan` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| karaoke dan tempat yang berisik tapi disengaja | tidak ada kalimat yang memuat `カラオケ` |
 | menonton olahraga bersama | tidak ada kalimat yang memuat `野球` atau `サッカー` |
-| konser dan acara musik langsung | `映画` dan `本` ada, `コンサート` dan `ライブ` belum |
+| konser dan acara musik langsung | `映画` ada, `コンサート` dan `ライブ` belum |
 | liburan panjang dan menyusun rencananya | tidak ada kalimat yang memuat `連休` |
-| acara yang dibatalkan karena hujan | tidak ada kalimat yang memuat `延期` atau `中止` |
 | menanyakan jam tutup, bukan jam buka | `開いて` ada, `閉まる` belum |
 | bermain musik bersama | tidak ada kalimat yang memuat `バンド` |
+| berfoto bersama sebagai penutup | tidak ada kalimat yang memuat `写真` |
+
+Kuota naik dari 18 menjadi 22 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,
+dua di antaranya slot yang dijanjikan bagian ruang ucapan di atas dan tidak pernah diisi.
 
 Kalau topik ini dibuka lagi, tujuh baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 18 sudah penuh.
+0 kalimat. Kuota 22 sudah penuh.
