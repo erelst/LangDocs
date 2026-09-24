@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Transportasi |
-| Kuota | 22 |
-| Sudah ditulis | 22 |
+| Kuota | 27 |
+| Sudah ditulis | 27 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_transportasi.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 27 kalimat, 27 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -83,29 +83,45 @@ Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tida
 | 20 | `transportasi_rumah_ke_stasiun` | は 七時 に 家 を 出る から 起こして | ね |
 | 21 | `transportasi_terima_petunjuk` | 教えて もらった おかげで 本当 に | 助かりました |
 | 22 | `transportasi_kereta_terakhir` | 終電 が 十二時 だから まで に 帰った ほう が いい | よ |
+| 23 | `transportasi_naik_taksi` | 駅 まで なら どのくらい かかり ます | か |
+| 24 | `transportasi_tolak_bantuan` | お気遣い ありがとう ございます が 大丈夫 です ので | どうぞ |
+| 25 | `transportasi_kehilangan_tiket` | 途中 で 切符 を なくして しまった の です が どう すれば いい | でしょうか |
+| 26 | `transportasi_jam_sibuk` | は 満員 なので 次 の に しません | か |
+| 27 | `transportasi_tertinggal_barang` | 電車 に 荷物 を 忘れ た の です が どこ に 届け出れば いい | でしょうか |
 
-Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 27 dari 27. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: orang asing 9, petugas stasiun 7, teman 4, keluarga 2. Bentuk
-sopan 20, biasa 2. Panjang 17, pendek 5.
+Lawan bicara yang sudah dipakai: orang asing 11, petugas stasiun 9, teman 5, keluarga 2. Bentuk
+sopan 25, biasa 2. Panjang 22, pendek 5.
 
 20 dari 22 sopan karena hampir semua percakapan di perjalanan terjadi dengan orang yang tidak
 dikenal, baik petugas maupun penumpang lain. Dua yang biasa keduanya dengan keluarga di rumah,
 soal jam berangkat dan kereta terakhir.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
+
+| Celah | Ditutup oleh |
+|---|---|
+| taksi sama sekali tidak disebut, padahal ia kendaraan umum yang paling sering dipakai setelah kereta | `transportasi_naik_taksi` |
+| slot "menolak halus" dijanjikan di ruang ucapan tapi tidak ada satu pun | `transportasi_tolak_bantuan` |
+| tiket hilang di tengah perjalanan | `transportasi_kehilangan_tiket` |
+| kereta penuh di jam sibuk, dan memilih menunggu | `transportasi_jam_sibuk` |
+| barang tertinggal di kereta | `transportasi_tertinggal_barang` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| taksi, termasuk memanggil dan memberi alamat | tidak ada kalimat yang memuat `タクシー` |
 | kereta cepat dan memesan tempatnya | tidak ada kalimat yang memuat `新幹線` |
 | bus malam dan perjalanan jauh | tidak ada kalimat yang memuat `夜行` |
-| kartu yang hilang atau tertinggal | tidak ada kalimat yang memuat `なくした` |
 | mengantre di loket tiket | tidak ada kalimat yang memuat `並ん` |
 | pengumuman keterlambatan di stasiun | `遅れて` ada, `放送` belum |
 | naik sepeda ke stasiun | tidak ada kalimat yang memuat `自転車` |
+| gerbong khusus wanita | tidak ada kalimat yang memuat `女性専用` |
+
+Kuota naik dari 22 menjadi 27 karena pemeriksaan ini menemukan lima keadaan yang nyata dan berbeda,
+termasuk satu slot yang dijanjikan bagian ruang ucapan di atas tetapi belum pernah diisi.
 
 Kalau topik ini dibuka lagi, tujuh baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
