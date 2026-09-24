@@ -27,9 +27,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 22, not 20: ui.js drives the browser over its debug port using Node's own WebSocket,
+      # which only exists from 22. On 20 the run failed with "WebSocket is not defined" and
+      # was reported as a broken check, while the same file passed locally on 24. ui.js now
+      # names the Node version it needs instead.
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       # The sentences are data, so this is the fast check and it runs first.
       - name: Check the sentence bank

@@ -23,6 +23,13 @@ const os = require('os');
 const path = require('path');
 
 const ROOT = __dirname;
+/* The debug-port client is Node's own WebSocket, which arrives in Node 22. On Node 20 the only
+ * symptom was "WebSocket is not defined" reported as a failure of the check itself, which is
+ * what CI showed while the same file passed locally on 24. Say what is wrong instead. */
+if (typeof WebSocket === 'undefined') {
+  console.error(`node ui.js needs Node 22 or newer for the built-in WebSocket; this is ${process.version}.`);
+  process.exit(1);
+}
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function findBrowser() {
