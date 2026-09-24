@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Telepon |
-| Kuota | 33 |
-| Sudah ditulis | 33 |
+| Kuota | 38 |
+| Sudah ditulis | 38 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_telepon.js` |
@@ -57,7 +57,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 33 kalimat, 33 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 38 kalimat, 38 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -94,31 +94,48 @@ Dihitung dengan cara yang sama seperti `check.js`. 33 kalimat, 33 kerangka, tida
 | 31 | `telepon_ini_nomor_baru` | 新しく した 番号 だから 登録して | おいて |
 | 32 | `telepon_terima_kasih_ringkas` | はい ありがとう | ございました |
 | 33 | `telepon_nomor_salah_orang` | 申し訳ありません が 者 は こちら に | おりません |
+| 34 | `telepon_nomor_internal` | そちら の ご担当 に お繋ぎ いただきたい ので 内線 番号 を 教えて いただけます | か |
+| 35 | `telepon_meninggalkan_voicemail` | 留守番電話 でした ので 伝言 を | 残します |
+| 36 | `telepon_ditunggu_di_telepon` | ただいま お繋ぎ します ので 少々 お待ち | ください |
+| 37 | `telepon_orangnya_kembali` | 担当 が 戻り ました ので こちらの 電話 に お繋ぎ | します |
+| 38 | `telepon_nomor_tidak_nyambung` | 何度 かけても 繋がらない ので 番号 が 違う かも | しれません |
 
-Kuota terpenuhi: 33 dari 33. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 38 dari 38. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: atasan 10, rekan 8, klien 6, orang asing 4, keluarga 3, teman 2.
-Bentuk sopan 31, biasa 2. Panjang 27, pendek 6.
+Lawan bicara yang sudah dipakai: atasan 11, rekan 9, klien 9, orang asing 4, keluarga 3, teman 2.
+Bentuk sopan 36, biasa 2. Panjang 32, pendek 6.
 
 31 dari 33 sopan, dan alasannya khas topik ini: yang mengangkat telepon sering bukan orang yang
 dituju, jadi bahkan menelepon teman dimulai lewat orang yang belum dikenal. Dua yang biasa
 keduanya ke teman, tempat tidak ada perantara.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 
-| Celah | Buktinya |
+| Celah | Ditutup oleh |
 |---|---|
-| menyebut nomor sambungan internal | tidak ada kalimat yang memuat `内線` |
-| mesin pesan suara dan pesan rekaman | tidak ada kalimat yang memuat `留守番` atau `ボイス` |
-| dipersilakan menunggu di telepon | tidak ada kalimat yang memuat `お待ち` |
-| memberi tahu orangnya sudah kembali | `外出` ada, `戻り` belum |
-| salah sambung yang datang dari luar ke kita | `違います` ada satu, dari pihak yang menelepon |
+| nomor sambungan internal | `telepon_nomor_internal` |
+| mesin pesan suara | `telepon_meninggalkan_voicemail` |
+| dipersilakan menunggu di telepon | `telepon_ditunggu_di_telepon` |
+| memberi tahu orangnya sudah kembali | `telepon_orangnya_kembali` |
+| nomor yang tidak bisa dihubungi | `telepon_nomor_tidak_nyambung` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
+
+| Celah | Artinya |
+|---|---|
+| nomor yang salah sambung dari pihak lain | `違います` ada satu, dari pihak yang menelepon; arah sebaliknya belum |
+| telepon ke ponsel dan telepon ke rumah sebagai dua hal berbeda | tidak ada kalimat yang memuat `携帯` |
+| suara otomatis dan menu tekan angka | tidak ada kalimat yang memuat `自動音声` |
+| meminta waktu bicara lebih lama | tidak ada kalimat yang memuat `もう少し` dalam arti ini |
+| memberi tahu ada tamu di tengah telepon | tidak ada kalimat yang memuat `来客` |
+
+Kuota naik dari 33 menjadi 38 karena pemeriksaan ini menemukan lima keadaan yang nyata dan berbeda,
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
 
 Kalau topik ini dibuka lagi, lima baris itu yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 33 sudah penuh.
+0 kalimat. Kuota 38 sudah penuh.

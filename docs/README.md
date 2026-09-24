@@ -112,7 +112,7 @@ ucapan yang muncul di topik apa pun.
 
 | Lintas | Bagian dasar | Kuota | Isi |
 |---|---|---|---|
-| `telepon` | 遠隔通信 9,75% | **33** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
+| `telepon` | 遠隔通信 9,75% | **38** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
 | `sopan` | 感動詞 10,52% dari token | **32** | reaksi dan pengisi jeda: menyetujui, terkejut, ragu, meminta diulang, menyela dengan halus |
 | `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **20** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
 
@@ -133,12 +133,12 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 |---|---|
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
-| **Minimum deck** | **418** |
-| Kuota terpakai | 418 |
+| **Minimum deck** | **423** |
+| Kuota terpakai | 423 |
 | Perlu ditulis | **0** |
 
 Angka 393 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. **Semua topik sudah di
-kuota:** `kerja` 86, `makan` 53, `rumah_tugas` 45, `telepon` 33, `sopan` 32, `rumah_santai` 36,
+kuota:** `kerja` 86, `makan` 53, `rumah_tugas` 45, `telepon` 38, `sopan` 32, `rumah_santai` 36,
 `transportasi` 27, `belanja` 26, `santai` 22, `waktu_cuaca` 20, `jalan` 17, `kegiatan` 13,
 `klinik` 8.
 
@@ -150,7 +150,7 @@ aturan di bagian atas halaman ini larang, kecuali dijelaskan alasannya seperti i
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 422 kalimat di halaman, bukan 398. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 427 kalimat di halaman, bukan 398. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -224,7 +224,7 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 1 | `kerja` | 86 | **86 kalimat, kuota terpenuhi** |
 | 2 | `makan` | 53 | **53 kalimat, kuota terpenuhi** |
 | 3 | `rumah_tugas` | 45 | **45 kalimat, kuota terpenuhi** |
-| 4 | `telepon` | 33 | **33 kalimat, kuota terpenuhi** |
+| 4 | `telepon` | 38 | **38 kalimat, kuota terpenuhi** |
 | 5 | `sopan` | 32 | **32 kalimat, kuota terpenuhi** (`t_sopan.js` 28 + `kurasi` 4) |
 | 6 | `rumah_santai` | 36 | **36 kalimat, kuota terpenuhi** |
 | 7 | `transportasi` | 27 | **27 kalimat, kuota terpenuhi** |
@@ -243,7 +243,7 @@ berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya
 | `kerja` | 86 | belum | 4 celah terbuka, tercatat di berkasnya |
 | `makan` | 53 | belum | 4 celah terbuka, tercatat di berkasnya |
 | `rumah_tugas` | 45 | belum | 6 celah terbuka, tercatat di berkasnya |
-| `telepon` | 33 | belum | 5 celah terbuka, tercatat di berkasnya |
+| `telepon` | 38 | belum | 5 celah ditutup, 5 masih terbuka |
 | `rumah_santai` | 36 | belum | 6 celah ditutup, 4 masih terbuka |
 | `transportasi` | 27 | belum | 5 celah ditutup, 6 masih terbuka |
 | `santai` | 22 | belum | 4 celah ditutup, 6 masih terbuka |
