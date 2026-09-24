@@ -69,8 +69,8 @@ ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa s
 | `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **27** |
 | `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **26** |
 | `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **22** |
-| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **17** |
-| `klinik` | 公共商業施設×療養 0,81 | 0,85% | **8** |
+| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **20** |
+| `klinik` | 公共商業施設×療養 0,81 | 0,85% | **12** |
 | `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% | **13** |
 
 **Catatan `klinik` dan `kegiatan`.** Bagian terukurnya memberi 2,6 dan 5,4 kalimat, di bawah
@@ -114,7 +114,7 @@ ucapan yang muncul di topik apa pun.
 |---|---|---|---|
 | `telepon` | 遠隔通信 9,75% | **38** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
 | `sopan` | 感動詞 10,52% dari token | **32** | reaksi dan pengisi jeda: menyetujui, terkejut, ragu, meminta diulang, menyela dengan halus |
-| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **20** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
+| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **21** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
 
 **Kenapa `waktu_cuaca` masuk lintas, bukan topik sendiri.** Tidak ada percakapan yang
 temanya cuaca. Cuaca dan waktu disebut sambil membicarakan hal lain: janji bertemu, rencana
@@ -133,24 +133,27 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 |---|---|
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
-| **Minimum deck** | **437** |
-| Kuota terpakai | 437 |
+| **Minimum deck** | **445** |
+| Kuota terpakai | 445 |
 | Perlu ditulis | **0** |
 
 Angka 393 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. **Semua topik sudah di
 kuota:** `kerja` 90, `makan` 57, `rumah_tugas` 51, `telepon` 38, `sopan` 32, `rumah_santai` 36,
-`transportasi` 27, `belanja` 26, `santai` 22, `waktu_cuaca` 20, `jalan` 17, `kegiatan` 13,
-`klinik` 8.
+`transportasi` 27, `belanja` 26, `santai` 22, `waktu_cuaca` 21, `jalan` 20, `kegiatan` 13,
+`klinik` 12.
 
 Kuota `waktu_cuaca` semula 18 dan dinaikkan menjadi 20 karena barisnya salah catat: rencananya 16
 kalimat baru ditambah 2 dari `data/curated.js`, dan yang terakhir dibaca sebagai kuota total. 18
 kalimat baru sudah ditulis dan semuanya keadaan yang berbeda, jadi kuotanya yang diperbaiki, bukan
-kalimatnya yang dibuang. Dicatat di sini karena mengubah kuota satu topik saja adalah hal yang
-aturan di bagian atas halaman ini larang, kecuali dijelaskan alasannya seperti ini. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
+kalimatnya yang dibuang. Pemeriksaan celah kemudian menemukan satu keadaan lagi yang nyata, topan,
+sehingga kuotanya berdiri di 21. Dicatat di sini karena mengubah kuota satu topik saja adalah hal yang
+aturan di bagian atas halaman ini larang, kecuali dijelaskan alasannya seperti ini.
+
+Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 441 kalimat di halaman, bukan 398. Empat selisihnya adalah kalimat `kurasi` yang belum masuk topik mana pun. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 449 kalimat di halaman, bukan 445. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -194,7 +197,7 @@ Yang tidak ada di rencana lama sama sekali, dan sekarang punya kuota:
 | `rumah_tugas` | 51 | 自宅×家事・雑事 10,24%, sel terbesar kedua |
 | `telepon` | 33 | 遠隔通信 9,75%, sebelumnya tidak punya topik |
 | `rumah_santai` | 36 | 自宅×休息 8,82% |
-| `jalan` | 17 | それ以外の屋外×移動, dan berpapasan di jalan |
+| `jalan` | 20 | それ以外の屋外×移動, dan berpapasan di jalan |
 | `santai` | 22 | レジャー活動 4,63% + 付き合い 2,71% |
 | `kegiatan` | 8 | 社会参加 1,05% + 業務外・課外活動 1,27% |
 
@@ -230,9 +233,9 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 7 | `transportasi` | 27 | **27 kalimat, kuota terpenuhi** |
 | 8 | `belanja` | 26 | **26 kalimat, kuota terpenuhi** |
 | 9 | `santai` | 22 | **22 kalimat, kuota terpenuhi** |
-| 10 | `waktu_cuaca` | 20 | **20 kalimat, kuota terpenuhi** |
-| 11 | `jalan` | 17 | **17 kalimat, kuota terpenuhi** |
-| 12 | `klinik` | 8 | **8 kalimat, kuota terpenuhi** |
+| 10 | `waktu_cuaca` | 21 | **21 kalimat, kuota terpenuhi** |
+| 11 | `jalan` | 20 | **20 kalimat, kuota terpenuhi** |
+| 12 | `klinik` | 12 | **12 kalimat, kuota terpenuhi** |
 | 13 | `kegiatan` | 13 | **13 kalimat, kuota terpenuhi** |
 
 Dua angka yang berbeda artinya. **Kuota penuh** berarti jumlahnya sudah sampai; **mentok**
@@ -248,8 +251,8 @@ berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya
 | `transportasi` | 27 | belum | 5 celah ditutup, 6 masih terbuka |
 | `santai` | 22 | belum | 4 celah ditutup, 6 masih terbuka |
 | `waktu_cuaca` | 18 | belum | 3 celah terbuka, tercatat di berkasnya |
-| `jalan` | 17 | belum | 3 celah terbuka, tercatat di berkasnya |
-| `klinik` | 8 | belum | 4 celah terbuka, tercatat di berkasnya |
+| `jalan` | 20 | belum | 3 celah ditutup, 3 masih terbuka |
+| `klinik` | 12 | belum | 4 celah ditutup, 4 masih terbuka |
 | `kegiatan` | 13 | belum | 5 celah ditutup, 5 masih terbuka |
 | `sopan` | 32 | belum | 6 celah terbuka, tercatat di berkasnya |
 | `belanja` | 26 | belum | sudah diperiksa; 4 celah ditutup, 6 masih terbuka |

@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Jalanan |
-| Kuota | 17 |
-| Sudah ditulis | 17 |
+| Kuota | 20 |
+| Sudah ditulis | 20 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_jalan.js` |
@@ -55,7 +55,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 17 kalimat, 17 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 20 kalimat, 20 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -76,8 +76,11 @@ Dihitung dengan cara yang sama seperti `check.js`. 17 kalimat, 17 kerangka, tida
 | 15 | `jalan_minta_maaf_terlambat` | 遅れて すみません 道 が 分かりにくくて 迷って | しまいました |
 | 16 | `jalan_jalan_pagi` | 毎朝 歩いて いる ので 体 の 調子 が いい | です |
 | 17 | `jalan_antar_ke_rumah` | 同じ 方向 な ので 家 の 近く まで ご一緒 します | よ |
+| 18 | `jalan_tanya_gedung` | 高い ビル を 目印 に したい の です が から 見えます | か |
+| 19 | `jalan_park_jam_tutup` | 公園 を 散歩 して いる の です が 何時 まで いられ ます | か |
+| 20 | `jalan_berpisah_di_sini` | は で 曲がる から まで に | しよう |
 
-Kuota terpenuhi: 17 dari 17. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+Kuota terpenuhi: 20 dari 20. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
 Lawan bicara yang sudah dipakai: teman 8, orang asing 5, tetangga 2, keluarga 1, pasangan 1.
@@ -87,18 +90,27 @@ Topik ini punya dua sisi yang tidak bertemu: bertanya arah ke orang yang belum d
 selalu sopan, dan berjalan bersama orang yang sudah dikenal, yang hampir selalu biasa. Enam
 kalimat biasa semuanya ke teman atau keluarga yang sedang berjalan bersama.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
+
+| Celah | Ditutup oleh |
+|---|---|
+| gedung sebagai patokan untuk mencari tempat | `jalan_tanya_gedung` |
+| jam tutup taman saat sedang berjalan di situ | `jalan_park_jam_tutup` |
+| berpisah di persimpangan karena arah berbeda | `jalan_berpisah_di_sini` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| jam tutup taman atau tempat umum saat berjalan | tidak ada kalimat yang memuat `閉` |
 | berhenti mengobrol terlalu lama di jalan | tidak ada kalimat yang memuat `話し込` |
-| menanyakan nama gedung sebagai patokan | tidak ada kalimat yang memuat `ビル` |
+| menanyakan arah pulang, bukan arah pergi | `探して` dan `曲がって` ada, `戻る` belum |
+| berpapasan dengan orang yang tidak ingin ditemui | `お久しぶり` ada, keadaan sebaliknya belum |
+
+Kuota naik dari 17 menjadi 20 karena pemeriksaan ini menemukan tiga keadaan yang nyata dan berbeda.
 
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
 dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-0 kalimat. Kuota 17 sudah penuh.
+0 kalimat. Kuota 20 sudah penuh.

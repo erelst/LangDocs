@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Judul | Waktu dan cuaca |
-| Kuota | 20 |
+| Kuota | 21 |
 | Sudah ditulis | 2 |
 | Sisa | **16** |
 | Kerangka lintas topik | ya, memotong semua topik |
@@ -83,12 +83,9 @@ Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tida
 | 16 | `waktu_cuaca_berangkat_lebih_awal` | の 朝 は 雪 らしい ので いつも より 早く | 出ましょう |
 | 17 | `waktu_cuaca_pilih_hari_baik` | 土曜 より 日曜 の ほう が 晴れ そう だから 日曜 に | しよう |
 | 18 | `waktu_cuaca_sapaan_siang` | こんにちは だいぶ 暑く なり ました | ね |
-
-Baris kuota di atas semula menulis 18, dan itu salah catat: rencana topik ini adalah 16 kalimat
-baru ditambah 2 dari `data/curated.js`, jadi totalnya 18. Berkas ini ditulis 18 kalimat, sehingga
-topik ini berdiri di 20. Angkanya dinaikkan menjadi 20 karena kalimat yang sudah ditulis itu nyata
-dan semuanya keadaan yang berbeda, dan `../SPEC.md` T2 mengizinkan kuota sebagai lantai. Yang tidak
-boleh menurut aturan yang sama adalah menaikkan kuota satu topik hanya supaya cocok.
+| 19 | `waktu_cuaca_taifun` | 台風 が 来る らしい から 外 の もの は 入れて | おいて |
+| 20 | `waktu_cuaca_tanya_suhu` | は 暖かかった けど は 何度 くらい でしょう | か |
+| 21 | `waktu_cuaca_hujan_berhenti` | 雨 止んだ みたい だ から そろそろ | 出よう |
 
 Kuota terpenuhi: 20 dari 20, yaitu 18 kalimat di berkas ini ditambah 2 dari `kurasi`. **Belum
 diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
@@ -101,14 +98,24 @@ Hampir semua kalimat di sini adalah pembuka percakapan, bukan isi pembicaraan, j
 pendek: 4 dari 18 hanya satu klausa, dan itu memang bentuk sapaan. Yang sopan dan yang biasa
 dibedakan oleh lawannya, bukan oleh cuacanya.
 
-Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
-bukan dari ingatan:
+Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
+
+| Celah | Ditutup oleh |
+|---|---|
+| topan dan persiapan sebelum datang | `waktu_cuaca_taifun` |
+| menyebut suhu dalam angka | `waktu_cuaca_tanya_suhu` |
+| hujan yang berhenti dan langit yang membuka | `waktu_cuaca_hujan_berhenti` |
+
+Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| topan dan musim hujan sebagai satu peristiwa | tidak ada kalimat yang memuat `台風` |
-| menyebut suhu dalam angka | tidak ada kalimat yang memuat `度` |
-| hujan yang berhenti dan langit yang membuka | tidak ada kalimat yang memuat `止` |
+| musim hujan sebagai satu masa | tidak ada kalimat yang memuat `梅雨` |
+| cuaca beberapa hari ke depan, bukan hanya besok | `明日` ada, `来週` untuk cuaca belum |
+| peringatan resmi dan tingkat kewaspadaan | tidak ada kalimat yang memuat `警報` |
+| suhu yang turun mendadak dan kesehatan | `寒い` ada, `気温差` belum |
+
+Kuota naik dari 20 menjadi 21: satu keadaan baru yang nyata.
 
 Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis. Kalimat baru juga harus
 menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
