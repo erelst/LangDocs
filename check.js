@@ -175,6 +175,10 @@ function checkRegister(rows) {
 }
 
 // ---------------------------------------------------------------- 2. worth reading
+/* れば is the -ba conditional: 出せば, おけば, 進めれば, 伝えれば. It was missing, so
+ * この件は分からないので教えていただけますか passed on its ので while
+ * 出せばいいのか分からないので… was reported as carrying no relation at all. The two
+ * sentences have the same shape; only one of them was being seen. */
 const RELATION = ['から', 'ので', 'けど', 'けれど', 'たら', 'とき', 'ながら', 'ため', 'し',
                   'てから', 'あとで', 'まえに', '前に', 'あと', 'のに', 'なければ', 'れば',
                   'なら', 'と', 'が'];
@@ -189,7 +193,12 @@ function checkOneThought(rows) {
       if (surfaces.length < MIN_LONG_TOKENS) {
         bad.push([s.key, `marked long but only ${surfaces.length} tokens`]);
       } else {
-        const hasRelation = surfaces.some(w => RELATION.some(m => w === m || (m.length >= 2 && w.endsWith(m))));
+        // The -ba conditional is れば on ichidan verbs but せば, けば, てば on godan ones, so
+        // matching れば alone saw 進めれば and missed 出せば and おけば. Two sentences with
+        // the same shape were being judged differently. ば itself is matched as the ending.
+        const hasRelation = surfaces.some(w =>
+          RELATION.some(m => w === m || (m.length >= 2 && w.endsWith(m))) ||
+          (w.length > 1 && w.endsWith('ば')));
         if (!hasRelation) bad.push([s.key, 'marked long but carries no relation between its clauses']);
       }
     }
