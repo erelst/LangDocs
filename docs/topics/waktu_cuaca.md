@@ -87,7 +87,10 @@ Dihitung dengan cara yang sama seperti `check.js`. 18 kalimat, 18 kerangka, tida
 | 20 | `waktu_cuaca_tanya_suhu` | は 暖かかった けど は 何度 くらい でしょう | か |
 | 21 | `waktu_cuaca_hujan_berhenti` | 雨 止んだ みたい だ から そろそろ | 出よう |
 
-Kuota terpenuhi: 20 dari 20, yaitu 18 kalimat di berkas ini ditambah 2 dari `kurasi`. **Belum
+Kuota terpenuhi: 21 dari 21 menurut kuota, dan berkas ini memuat 21 kalimat ditambah 2 dari `kurasi`,
+jadi topik ini berdiri di 23: **2 di atas kuota 21.** Kelebihannya berasal dari pemeriksaan celah yang
+menemukan topan dan suhu sebagai keadaan nyata, dan `../SPEC.md` T2 menyebut kuota sebagai lantai.
+Dicatat di sini supaya terlihat, bukan tersembunyi di selisih angka. **Belum
 diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 

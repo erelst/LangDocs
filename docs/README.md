@@ -134,13 +134,18 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
 | **Minimum deck** | **445** |
-| Kuota terpakai | 445 |
+| Kuota terpakai | 447 |
 | Perlu ditulis | **0** |
 
-Angka 393 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. **Semua topik sudah di
+Angka 447 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik. **Semua topik sudah di
 kuota:** `kerja` 90, `makan` 57, `rumah_tugas` 51, `telepon` 38, `sopan` 32, `rumah_santai` 36,
 `transportasi` 27, `belanja` 26, `santai` 22, `waktu_cuaca` 21, `jalan` 20, `kegiatan` 13,
 `klinik` 12.
+
+Angka 447 itu 2 lebih tinggi dari kuota 445 karena `waktu_cuaca` berdiri di 23, dan itu memang mungkin: `../SPEC.md` T2 menyebut
+kuota sebagai lantai, bukan langit-langit, jadi sebuah topik boleh berdiri di atas kuotanya kalau
+kalimat tambahannya nyata dan berbeda. Yang berdiri di atas kuotanya adalah `waktu_cuaca`: 21
+kalimat di berkasnya sendiri ditambah 2 dari `kurasi`, sedangkan kuotanya 21.
 
 Kuota `waktu_cuaca` semula 18 dan dinaikkan menjadi 20 karena barisnya salah catat: rencananya 16
 kalimat baru ditambah 2 dari `data/curated.js`, dan yang terakhir dibaca sebagai kuota total. 18
@@ -153,7 +158,13 @@ Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 449 kalimat di halaman, bukan 445. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Angka 447 itu 441 kalimat di berkas topik ditambah 6 kalimat `kurasi` yang sudah masuk hitungan
+topik: `kurasi01`, `kurasi02`, `kurasi05`, `kurasi09` di `sopan` dan `kurasi07`, `kurasi10` di
+`waktu_cuaca`. Angka itu 2 lebih tinggi dari kuota 445 karena `waktu_cuaca` berdiri di 23 kalimat:
+21 di berkasnya sendiri ditambah 2 dari `kurasi`, sementara kuotanya 21. Kelebihan itu diizinkan
+`../SPEC.md` T2 dan dicatat di berkas topiknya.
+
+Ada 451 kalimat di halaman. Selisih 4 dari angka di atas adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih

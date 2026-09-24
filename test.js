@@ -166,9 +166,20 @@ const stillToWrite = docsReadme.match(/\| Perlu ditulis \| \*\*(\d+)\*\* \|/);
 ok('the documented "kuota terpakai" count is not more than the sentences that exist',
    consumed && Number(consumed[1]) <= onPage,
    `docs say ${consumed && consumed[1]} used, page has ${onPage}`);
-ok('the documented "perlu ditulis" count is the quota minus what is used',
-   stillToWrite && consumed && Number(stillToWrite[1]) === quota - Number(consumed[1]),
-   `${stillToWrite && stillToWrite[1]} + ${consumed && consumed[1]} vs quota ${quota}`);
+/* A topic may stand above its quota, because SPEC T2 makes the quota a floor. waktu_cuaca does:
+ * 21 written plus 2 curated against a quota of 21. So "used" can exceed the quota, and the
+ * difference then belongs in the README as a stated excess rather than in a number that cannot go
+ * negative. Both directions are checked: the remainder when there is one, and the excess when
+ * there is not. */
+const used = consumed ? Number(consumed[1]) : 0;
+const written_left = quota - used;
+const excess = docsReadme.match(/\| Kuota terpakai \| \d+ \|[\s\S]{0,400}?lebih tinggi dari kuota \d+ karena/);
+ok('the documented "perlu ditulis" matches the quota minus what is used',
+   stillToWrite && Number(stillToWrite[1]) === Math.max(0, written_left),
+   `${stillToWrite && stillToWrite[1]} + ${used} vs quota ${quota}`);
+ok('used above the quota is stated rather than left unexplained',
+   written_left >= 0 || Boolean(excess),
+   written_left < 0 ? `used is ${-written_left} above quota ${quota}` : 'used is within quota');
 
 console.log(`\n${cards.length} cards rendered; ${failed} failure(s)`);
 process.exit(failed ? 1 : 0);
