@@ -1,0 +1,12 @@
+# SENSITIVE - JANGAN commit
+config.toml
+auth.json
+pending-login/
+*.env
+
+# Artefak runtime jcode (lokal) - JANGAN commit
+logs/
+migrations/
+sessions/
+*.stamp
+telemetry_version_sent

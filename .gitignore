@@ -1,2 +1,9 @@
 # Nothing here is generated: index.html is a shell and the sentences are data, so the files
 # in this repo are the source of truth and there is no build output to ignore.
+
+# Local tool state, installed by jcode-workflow-setup / codegraph. Each of these ships its
+# own ignore file that excludes its sensitive and runtime files, and those guard files are
+# meant to be committed, which is why the directories are not ignored wholesale here:
+#   .jcode/.gitignore     config.toml, auth.json, sessions/, logs/
+#   .codegraph/.gitignore the 448 KB index database and its daemons
+# Run `node check.js` to check the bank, and `node test.js` to render the page and check it.

@@ -1,0 +1,9 @@
+# Cuplikan konfigurasi jcode untuk strict workflow
+# Gabungkan ke ~/.jcode/config.toml atau gunakan sebagai referensi
+
+[features]
+memory = true
+swarm = true
+
+# AI menangani seluruh pergerakan git, testing, merging, dan CI watching secara langsung
+# tanpa memerlukan script shell terpisah.
