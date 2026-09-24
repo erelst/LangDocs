@@ -271,7 +271,14 @@
       for (var j = 0; j < japanese.length; j++) { jpParts += '\u0001' + norm(japanese[j]); }
       jp.push(jpParts);
 
-      var everything = japanese.concat([s.id, s.en, s.sit, s.sitEn, s.note, s.noteEn]);
+      /* The relationship line is indexed because it is the only place a card names who the
+       * sentence is said to, and a reader looking for "pasangan" or "petugas toko" is asking a
+       * real question: which sentences do I have for this person. It was missing, so searching
+       * "pasangan" found one card: the one whose translation happened to contain the word. The
+       * other 21 could not be found by the only label they have. Nothing is displayed by being
+       * indexed, so V3 (the register lives in the panel only) is untouched. */
+      var who = whoLabelOf(s);
+      var everything = japanese.concat([s.id, s.en, s.sit, s.sitEn, s.note, s.noteEn, who[0], who[1]]);
       var allParts = norm(everything.join(' '));
       // each field, and each token, also on its own, so a single kanji or a single gloss
       // matches without needing the surrounding words

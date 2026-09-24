@@ -32,6 +32,27 @@ if (typeof WebSocket === 'undefined') {
 }
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+/* How many sentences carry a relationship label containing `term`.
+ *
+ * Counted here, from the data files, rather than written as a number or read back from the page.
+ * A number written here would go stale the moment a sentence is added, and reading it back from
+ * the page would only prove the page agrees with itself. */
+function whoLabelCount(term) {
+  const w = {};
+  global.window = w;
+  for (const f of ['const.js', 'data/curated.js', 'data/lexicon.js', 'data/bank.js',
+                   ...fs.readdirSync(path.join(ROOT, 'data')).filter(x => /^t_.*\.js$/.test(x)).map(x => 'data/' + x)]) {
+    new Function(fs.readFileSync(path.join(ROOT, f), 'utf8'))();
+  }
+  const C = w.CONST, rows = (w.BANK || []).concat(w.CURATED || []);
+  const label = s => s.whoId ? [s.whoId, s.whoEn] : (s.rel && C.rel[s.rel] ? [C.rel[s.rel].id, C.rel[s.rel].en] : ['', '']);
+  const t = term.toLowerCase();
+  return rows.filter(s => {
+    const l = label(s);
+    return l[0].toLowerCase().includes(t) || l[1].toLowerCase().includes(t);
+  }).length;
+}
+
 function findBrowser() {
   for (const name of ['chromium', 'chromium-browser', 'google-chrome', 'chrome']) {
     const w = spawnSync('command', ['-v', name], { shell: true, encoding: 'utf8' });
@@ -210,9 +231,34 @@ ok('the romaji line is still in the DOM, not removed',
                value: document.getElementById('q').value,
                cards: document.querySelectorAll('.jp-sent').length };
     })()`);
-    ok('clearing the search restores the list',
-       cleared.value === '' && cleared.cards > 0, `${cleared.cards} cards`);
     ok('clearing the search also returns to the top', cleared.y === 0, `scrollY ${cleared.y}`);
+
+    /* 4. The relationship line is searchable.
+     *
+     * A reader looking for "pasangan" is asking which sentences they have for that person, and the
+     * relationship line is the only place a card names them (V3). It was not in the search index,
+     * so the query found one card: the one whose Indonesian translation happened to contain the
+     * word. The other 21 could not be found by the only label they carry.
+     *
+     * The expected number comes from the data, not from a number written here, so adding a
+     * sentence for one of these people cannot silently break this check. The test is "at least":
+     * the search covers every visible field, so a term that also appears in a translation or a
+     * usage note legitimately matches more cards. */
+    const PEOPLE = ['pasangan', 'petugas toko', 'tetangga', 'kurir', 'apoteker'];
+    const expected = PEOPLE.map(t => whoLabelCount(t));
+    for (let i = 0; i < PEOPLE.length; i++) {
+      const term = PEOPLE[i];
+      const found = await evalIn(`(async () => {
+        const inp = document.getElementById('q');
+        inp.value = ${JSON.stringify(term)};
+        inp.dispatchEvent(new Event('input', { bubbles: true }));
+        await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+        return parseInt(document.getElementById('count').textContent, 10);
+      })()`);
+      ok(`searching "${term}" finds every sentence said to them`,
+         found >= expected[i], `${found} found, ${expected[i]} carry the label`);
+    }
+    await evalIn(`document.getElementById('clear').click()`);
 
     ws.close();
   } catch (e) {
