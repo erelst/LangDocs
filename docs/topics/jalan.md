@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Jalanan |
-| Kuota | 24 |
-| Sudah ditulis | 24 |
+| Kuota | 27 |
+| Sudah ditulis | 27 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_jalan.js` |
@@ -89,7 +89,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 24 kalimat, 24 kerangka, tida
 Kuota terpenuhi: 20 dari 20. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 9, orang asing di jalan 7, keluarga 5, tetangga 2, pasangan 1.
+Lawan bicara yang sudah dipakai: teman 10, orang asing di jalan 9, keluarga 5, tetangga 2, pasangan 1.
 Bentuk sopan 14, biasa 10. Panjang 23, pendek 1.
 
 Topik ini punya dua sisi yang tidak bertemu: bertanya arah ke orang yang belum dikenal, yang

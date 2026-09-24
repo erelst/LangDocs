@@ -62,14 +62,14 @@ ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa s
 
 | Topik | Sel tempat × kegiatan yang dicakup | Bagian | Kuota |
 |---|---|---|---|
-| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **92** |
-| `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% | **67** |
+| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **98** |
+| `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% | **71** |
 | `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **63** |
 | `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **58** |
 | `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **28** |
 | `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **27** |
-| `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **29** |
-| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **24** |
+| `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **33** |
+| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **27** |
 | `klinik` | 公共商業施設×療養 0,81 | 0,85% | **15** |
 | `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% | **17** |
 
@@ -185,29 +185,36 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 
 | Bagian | Kalimat |
 |---|---|
-| Sepuluh topik inti | 420 |
+| Sepuluh topik inti | 437 |
 | Tiga lintas | 101 |
-| **Minimum deck** | **521** |
-| Kuota terpakai | 521 |
+| **Minimum deck** | **538** |
+| Kuota terpakai | 538 |
 | Perlu ditulis | **0** |
 
-"Kuota terpakai" 521 lebih tinggi 2 dari kuota 521 karena `waktu_cuaca` berdiri 2 di atas
-kuotanya: 26 kalimat di berkasnya ditambah 2 dari `kurasi` melawan kuota 28. `../SPEC.md` T2
-menyebut kuota sebagai lantai, bukan langit-langit, selama kalimat tambahannya nyata dan berbeda.
+"Kuota terpakai" 538 lebih tinggi 4 dari kuota 538 karena `waktu_cuaca` dan `sopan` berdiri di
+atas kuotanya: `waktu_cuaca` 26 kalimat di berkasnya ditambah 2 dari `kurasi` melawan kuota 28, dan
+`sopan` 28 ditambah 4 dari `kurasi` melawan kuota 32. `../SPEC.md` T2 menyebut kuota sebagai lantai,
+bukan langit-langit, selama kalimat tambahannya nyata dan berbeda.
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **515** |
-| Kalimat yang dihitung topik | di atas, ditambah `kurasi` yang dipetakan ke topik | **521** |
-| Kalimat di halaman | semua yang dibaca pembaca | **525** |
-| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **521** |
+| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **532** |
+| Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **538** |
+| Kalimat di halaman | semua yang dibaca pembaca | **542** |
+| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **538** |
 
-**Kuota naik 82 kalimat pada penulisan ini, dan seluruhnya karena satu aturan.** `../SPEC.md` K9
-menemukan lawan bicara keluarga berdiri di 23,2% sementara bagiannya di survei 36,8%, selisih
-**13,6 poin** yang sebelumnya tidak pernah diukur. Batch ini menulis 66 kalimat keluarga yang
-keadaannya benar-benar baru, dan kuota tiap topik naik tepat sebanyak yang ditulis. Sesudahnya
-selisihnya **3,8 poin**, dan yang tersisa itu dicatat, bukan dirapikan angkanya.
+**Sejarah kenaikan kuota, supaya bisa diperiksa.** Dua gelombang, dan keduanya punya satu sebab
+terukur yang sama:
 
-Tidak ada kuota yang naik karena "terasa kurang": seluruh 82 kalimatnya bisa ditunjuk satu per satu
-di `data/t_*.js`, dan `check.js` mencetak sebaran lawan bicara setiap kali dijalankan sehingga
-angkanya tidak bisa basi tanpa terlihat.
+| Gelombang | Naik | Sebab |
+|---|---|---|
+| Kalimat balasan (K8) | +24 | `klinik`, `kegiatan`, dan `belanja` hanya punya 1-2 kalimat balasan padahal slot `menjawab` di berkas topiknya sudah ditulis seolah terisi |
+| Sebaran lawan bicara (K9) | +92 | lawan bicara keluarga berdiri di 23,2% melawan bagiannya 36,8% di survei, selisih 13,6 poin yang belum pernah diukur |
+
+Sesudah gelombang kedua, selisih keluarga **3,8 poin**, dan sisanya itu dicatat, bukan dirapikan
+angkanya. Menutupnya dengan menambah kalimat demi angka akan tertangkap `check.js` tiga kali
+sekaligus (K3, K4, T4), jadi yang harus dicari adalah keadaan nyata yang belum tertulis.
+
+Tidak ada kuota yang naik karena "terasa kurang": setiap kalimatnya bisa ditunjuk satu per satu di
+`data/t_*.js`, dan `check.js` mencetak jumlah per topik setiap kali dijalankan sehingga angkanya
+tidak bisa basi tanpa terlihat.

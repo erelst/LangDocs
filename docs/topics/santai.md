@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Santai di luar |
-| Kuota | 29 |
-| Sudah ditulis | 29 |
+| Kuota | 33 |
+| Sudah ditulis | 33 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_santai.js` |
@@ -96,7 +96,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 29 kalimat, 29 kerangka, tida
 Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 18, keluarga 7, petugas toko 3, rekan kerja 1. Bentuk sopan 16, biasa 13.
+Lawan bicara yang sudah dipakai: teman 21, keluarga 7, petugas toko 4, rekan kerja 1. Bentuk sopan 16, biasa 13.
 Panjang 27, pendek 2.
 
 Topik ini terbelah menurut kedekatan orangnya, bukan menurut kegiatannya, dan itu yang membuatnya
