@@ -84,7 +84,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 16 kalimat, 16 kerangka, tida
 Kuota terpenuhi: 16 dari 16. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: tetangga 13, tetangga baru 2, teman 1. Bentuk sopan 16, biasa 0.
+Lawan bicara yang sudah dipakai: tetangga 13, tetangga yang baru dikenal 2, teman 1. Bentuk sopan 16, biasa 0.
 Panjang 16, pendek 0.
 
 Delapan dari delapan sopan, dan tidak ada satu pun yang biasa. Itu memang bentuk topik ini: yang

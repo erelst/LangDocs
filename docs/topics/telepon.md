@@ -105,7 +105,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 38 kalimat, 38 kerangka, tida
 Kuota terpenuhi: 38 dari 38. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: atasan 11, rekan 9, klien 9, orang asing 4, keluarga 3, teman 2.
+Lawan bicara yang sudah dipakai: atasan 12, rekan kerja 9, klien 8, orang asing di jalan 4, keluarga 3, teman 2.
 Bentuk sopan 36, biasa 2. Panjang 32, pendek 6.
 
 31 dari 33 sopan, dan alasannya khas topik ini: yang mengangkat telepon sering bukan orang yang

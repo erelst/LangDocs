@@ -112,6 +112,52 @@ bagiannya:
 
 ---
 
+## 3b. Kepada siapa kalimatnya dipakai
+
+Ketentuan T1 menghitung berapa kalimat untuk tiap topik, dan bagian ini menjawab pertanyaan
+keduanya: kepada siapa kalimat itu diucapkan. Dua-duanya dihitung dari sumber yang sama
+(`data/survey.zip`, 9.272 percakapan), dan bagian ini ada karena sebelumnya yang pertama diukur
+dan yang kedua tidak pernah.
+
+Bagian terukur dihitung dari kolom lawan bicara di berkas survei: 10.708 slot lawan bicara.
+Kolomnya dikelompokkan seperti survei mengelompokkannya, dan `check.js` mencetak sebaran deck
+dengan pengelompokan yang sama.
+
+| Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
+|---|---|---|---|---|
+| keluarga dekat (`家族` + `親戚`) | 36,8% | 23,2% | **-13,6** | `keluarga` 82, `pasangan` 22 |
+| kerja & belajar (`仕事学業`) | 22,7% | 33,0% | **+10,3** | `rekan` 68, `atasan` 63, `klien` 17 |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 18,7% | +1,5 | `teman` 63, `tetangga` 19, `tetangga_baru` 2 |
+| publik & jasa (`公共商業関係`) | 10,8% | 17,6% | **+6,8** | `petugas_toko` 29, `pelayan` 25, `dokter` 13, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
+| guru-murid (`先生生徒`) | 3,1% | 1,3% | -1,8 | `guru` 6 |
+| orang asing (`見知らぬ人`) | 2,4% | 6,2% | **+3,8** | `orang_asing` 28 |
+
+Angka deck di atas tidak dijumlahkan sampai 100% karena `telepon` (遠隔通信 8,4%) adalah keadaan
+yang memotong topik, bukan lawan bicara, jadi tidak masuk tabel ini.
+
+**Keluarga dekat kurang 13,6 poin, dan itu dicatat, bukan dirapikan angkanya.** Kata paling
+ringkas untuk mengelompokkan percakapan adalah tempat × kegiatan, dan di rumah satu orang
+menghadapi anggota keluarga sekaligus, sehingga keluarga jatuh ke dalam 82 kalimat yang bertopik,
+sedangkan pasangan (22 kalimat) dan keluarga yang berkunjung (yang dijawab dengan bentuk sopan)
+tersebar di beberapa topik. Sisa selisihnya berasal dari `pasangan` yang baru ditulis 22 kali
+walau jumlah itu sudah sesuai tempatnya.
+
+**Dua kelompok sengaja tidak ditulis**, dan `check.js` mencetak alasan yang sama di sebelah
+angkanya supaya tidak terlihat seperti kelalaian:
+
+| Kelompok | Kenapa tidak ditulis |
+|---|---|
+| guru-murid (`先生生徒` 3,1%) | kata-katanya khusus ruang kelas, tidak bisa dipakai di luar sekolah |
+| kerabat (`親戚` 2,3%) | kerabat jauh adalah keadaan yang lebih jarang dari keluarga, dan keluarga sudah punya kalimatnya. Hitungannya masih masuk keluarga dekat di atas |
+
+**Yang harus dipatuhi kalau sebaran ini diperbaiki.** Menambah kalimat hanya demi menyamakan angka
+akan tertangkap `check.js` tiga kali sekaligus: kalimat pendek hanya yang benar-benar lazim (K4),
+kalimat panjang wajib punya relasi klausa (K3), dan kerangka wajib unik (T4). Jadi yang harus
+dicari adalah **keadaan nyata yang belum tertulis** untuk kelompok yang kurang, bukan menulis
+ulang keadaan yang sudah ada dengan lawan bicara yang berbeda.
+
+---
+
 ## 4. Kuota topik lintas
 
 Delapan puluh tiga kalimat berikut memotong semua topik. Isinya bukan topik baru, melainkan

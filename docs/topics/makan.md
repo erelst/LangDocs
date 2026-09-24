@@ -126,7 +126,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 57 kalimat, 57 kerangka, tida
 Kuota terpenuhi: 57 dari 57. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: pelayan 25, keluarga 14, teman 12, rekan 5, pasangan 1. Bentuk
+Lawan bicara yang sudah dipakai: pelayan 25, keluarga 14, teman 12, rekan kerja 5, pasangan 1. Bentuk
 sopan 40, biasa 17. Panjang 50, pendek 7.
 
 Dua meja ditulis terpisah karena bahasanya memang dua: di restoran pembaca adalah pelanggan yang

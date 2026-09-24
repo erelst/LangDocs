@@ -119,7 +119,7 @@ Kuota terpenuhi: 51 dari 51. **Belum diperiksa mentok.** Angka ini kuota, bukan 
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya. T2 juga menetapkan kuota adalah lantai:
 kalau masih ada keadaan yang belum punya kalimat, kalimatnya ditambahkan walau 45 sudah lewat.
 
-Lawan bicara yang sudah dipakai: keluarga 38, pasangan 6, tetangga 4, orang asing 2, kurir 1.
+Lawan bicara yang sudah dipakai: keluarga 38, pasangan 6, tetangga 4, orang asing di jalan 2, kurir pengantar 1.
 Bentuk sopan 7, biasa 44. Panjang 41, pendek 10.
 
 39 dari 45 biasa karena 65% percakapan topik ini memang dengan keluarga, dan bahasa di dapur

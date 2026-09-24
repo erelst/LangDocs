@@ -17,7 +17,7 @@ Kuota dihitung di `../README.md` dari sel: 公共商業施設×家事・雑事 4
 
 | | |
 |---|---|
-| Lawan bicara | petugas toko 26 kalimat, teman 1 kalimat |
+| Lawan bicara | petugas toko 24, pembeli 2, teman 1 |
 | Bentuk | 用談・相談 58,7%, 雑談 41,0% |
 | Jumlah lawan | satu lawan bicara 71% |
 
@@ -61,7 +61,10 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`: semua token, kecuali kata yang masuk daftar `SHAPE` dan tanda baca, digabung dengan predikat terakhir dipisah. Dua puluh enam kalimat, dua puluh enam kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`: semua token, kecuali kata yang masuk daftar `SHAPE` dan tanda baca, digabung dengan predikat terakhir dipisah. Dua puluh tujuh kalimat, dua puluh tujuh kerangka, tidak ada yang sama.
+
+Lawan bicara yang sudah dipakai: petugas toko 24, pembeli 2, teman 1. Bentuk sopan 26, biasa 1.
+Panjang 24, pendek 3.
 
 | # | Kalimat | Kerangka |
 |---|---|---|

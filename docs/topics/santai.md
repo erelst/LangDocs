@@ -89,7 +89,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 22 kalimat, 22 kerangka, tida
 Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 18, petugas tempat 3, rekan 1. Bentuk sopan 16, biasa 6.
+Lawan bicara yang sudah dipakai: teman 18, petugas toko 3, rekan kerja 1. Bentuk sopan 16, biasa 6.
 Panjang 20, pendek 2.
 
 Topik ini terbelah menurut kedekatan orangnya, bukan menurut kegiatannya, dan itu yang membuatnya
