@@ -86,9 +86,15 @@ yang lebih baik. Sebaliknya 「おはようございます。」 yang dipanjangk
 hanya terdengar seperti latihan.
 
 **Ukuran "benar-benar lazim" yang bisa diperiksa.** Waktu pertama aturan ini berbunyi, tidak
-ada yang memeriksanya, dan hasilnya terbaca di data: 31 dari 58 kalimat pendek tidak punya
-penanda apa pun bahwa itu memang yang diucapkan orang. Ada dua ukuran, dan satu kalimat pendek
-cukup memenuhi salah satunya:
+ada yang memeriksanya. Cara menghitungnya ditulis di sini supaya bisa diulang siapa pun, karena
+dua angka di bagian ini sempat salah: angkanya dulu dihitung dengan pemeriksa yang mencari
+penanda hanya di **kata terakhir**, dan pemeriksa itu melewatkan `でしょうか` yang terpecah
+menjadi dua kata serta penanda yang berada di tanda baca. Yang dihitung sekarang adalah ujung
+**seluruh kalimat** setelah tanda baca penutupnya dibuang, sama seperti yang didengar pembaca.
+Dengan cara itu, lima dari 58 kalimat pendek tidak punya penanda apa pun bahwa itu memang yang
+diucapkan orang.
+
+Ada dua ukuran, dan satu kalimat pendek cukup memenuhi salah satunya:
 
 | Ukuran | Kenapa itu bukti |
 |---|---|
@@ -100,9 +106,12 @@ ukuran di atas, dan jumlah yang bertanda `short: 1` dicetak supaya kenaikannya t
 Alasan pada penanda itu ditulis juga di berkas topik pada kolom slot `pendek`.
 
 **Gejala pelanggaran.** Kalimat pendek muncul sebagai jalan keluar saat kalimat panjangnya
-tidak jadi, lalu diberi alasan sesudahnya. Di data, gejalanya bentuknya khas: 18 dari 31
-kalimat pendek tanpa penanda diakhiri kata kerja kamus (`〜する`, `〜思う`), karena kalimatnya
-berhenti tepat saat sudah cukup panjang untuk ditulis panjang.
+tidak jadi, lalu diberi alasan sesudahnya. Bentuk yang sering muncul: kalimat berhenti tepat
+saat sudah cukup panjang untuk ditulis panjang. Di data yang ada sekarang, lima kalimat pendek
+yang tanpa penanda **hampir semuanya memang lazim** (`おやすみ` saat berangkat tidur,
+`ごちそうさま、おいしかった` setelah makan, `いただきまーす` sebelum makan, dan dua jawaban
+pendek), dan itulah sebabnya ukuran kedua ada: yang menentukan bukan bentuknya, melainkan
+apakah kalimat itu memang dipakai.
 
 ### K5. Register harus cocok dengan lawan bicaranya
 
@@ -186,8 +195,9 @@ banyak dari lantainya.
 balasan**, dan situasinya harus menyebut pemicunya. Daftar pemicu ada di `check.js`
 (`TRIGGER`, `TRIGGER_EN`), dan setiap topik juga mencantumkan baris balasannya di berkas topik
 pada slot `menjawab`. Angka 3 dipilih karena tanpa lantai, kalimat balasan ternyata tidak
-merata: pada pemeriksaan pertama 4 dari 13 topik berdiri di bawahnya, dan `kegiatan` serta
-`klinik` hanya punya 1 padahal slot `menjawab` di berkas topiknya sudah ditulis seolah
+merata. Diukur dengan daftar pemicu di `check.js` pada data sebelum penulisan ini: 4 dari 13
+topik berdiri di bawah 3, `kegiatan` dan `klinik` hanya punya 1, dan `belanja` serta
+`waktu_cuaca` punya 2, padahal slot `menjawab` di berkas topik keduanya sudah ditulis seolah
 terisi. Lantai 3 dan lantai panjang 60% mengukur hal yang berbeda dan keduanya bisa berlaku
 bersamaan; yang satu menuntut isi, yang satu menuntut fungsi.
 
