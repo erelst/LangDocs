@@ -6,10 +6,10 @@
 |---|---|
 | Judul | Rumah: tugas |
 | Kuota | 45 |
-| Sudah ditulis | 0 |
-| Sisa | **45** |
+| Sudah ditulis | 45 |
+| Sisa | **0** |
 | Kerangka lintas topik | tidak |
-| Berkas | `data/t_rumah_tugas.js` (belum ada) |
+| Berkas | `data/t_rumah_tugas.js` |
 
 Kuota dihitung di `../README.md` dari sel: 自宅×家事・雑事 10,24% + 自宅×身周りの用事 3,96%.
 
@@ -57,10 +57,83 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Belum ada. Kerangka yang sudah dipakai topik lain bisa dilihat di berkas topik masing-masing, dan yang perlu dihindari adalah `ので`/`から` yang sama dengan kata kerja terakhir yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 45 kalimat, 45 kerangka, tidak ada yang sama.
 
+| # | Kalimat | Kerangka |
+|---|---|---|
+| 1 | `rumah_tugas_minta_jemur` | これから 出かける から 洗濯物 を 干して | おいて |
+| 2 | `rumah_tugas_bagi_tugas` | が 洗濯 を する から は 皿 を | 洗って |
+| 3 | `rumah_tugas_tagih_janji` | やる って 言った のに やってない | よね |
+| 4 | `rumah_tugas_tanya_sudah_dibuang` | ゴミ 出して | くれた |
+| 5 | `rumah_tugas_jawab_sudah` | あ 出した | よ |
+| 6 | `rumah_tugas_jawab_belum` | だけど から やる | よ |
+| 7 | `rumah_tugas_tolak_sekarang` | は 無理 だけど 夜 なら できる | よ |
+| 8 | `rumah_tugas_harus_sekarang` | 雨 が 降りそう だから 先 に 洗濯物 を | 取り込んで |
+| 9 | `rumah_tugas_buang_sampah` | は ゴミ の 日 だから 出して | おいて |
+| 10 | `rumah_tugas_tanya_jenis_sampah` | 燃える ゴミ で いい | の |
+| 11 | `rumah_tugas_pisah_plastik` | プラ は 別 の 袋 だから 一緒 に | 入れないで |
+| 12 | `rumah_tugas_masuk_jemuran` | 暗く なって きた から 洗濯物 を 入れて | くれる |
+| 13 | `rumah_tugas_manfaatkan_cuaca` | 天気 が いい から 乾く うちに 布団 も 干して | おこう |
+| 14 | `rumah_tugas_bersih_kamar` | 部屋 掃除 して から 出かける | ね |
+| 15 | `rumah_tugas_tanya_bagi_kamar_mandi` | お風呂 の 掃除 は どっち が | やる |
+| 16 | `rumah_tugas_kehabisan_kertas` | トイレットペーパー が 切れた から 買って | きて |
+| 17 | `rumah_tugas_titip_beli_deterjen` | 帰り に 店 に 寄る なら 洗剤 を 買って きて | くれる |
+| 18 | `rumah_tugas_bayar_tagihan` | 払わない と 止まっちゃう から 中 に | お願い |
+| 19 | `rumah_tugas_sudah_bayar` | 電気代 なら 払って おいた | よ |
+| 20 | `rumah_tugas_lupa_bayar` | 払う の を 忘れてて 気づいた から 急いで 行って | くる |
+| 21 | `rumah_tugas_terima_paket` | 宅配便 が 来た から 受け取って おいた | よ |
+| 22 | `rumah_tugas_titip_paket_kurir` | すみません 玄関 の 前 に 置いて いただけます | か |
+| 23 | `rumah_tugas_barang_rusak` | 洗濯機 が 変 な 音 が して 回らなく | なっちゃった |
+| 24 | `rumah_tugas_panggil_tukang` | ネット が 繋がらない から 修理 を 頼んで | おいて |
+| 25 | `rumah_tugas_antar_tukang` | 場所 が 分かりにくい ので 一緒 に 上がって いただけます | か |
+| 26 | `rumah_tugas_terima_kasih_tukang` | 来て もらえた ので 助かりました 本当 に ありがとう | ございました |
+| 27 | `rumah_tugas_pinjam_gula` | すみません 砂糖 を お借り できません | か |
+| 28 | `rumah_tugas_kembalikan_pinjaman` | 使い終わった ので さっき お借りした の を お返し に | 来ました |
+| 29 | `rumah_tugas_minta_maaf_berisik` | は 遅く まで 音 が して しまい すみません | でした |
+| 30 | `rumah_tugas_ingatkan_halus` | 忙しい ところ 悪い けど だけ お願い | できる |
+| 31 | `rumah_tugas_minta_angkat` | 一人 じゃ 持てない から 手伝って | くれる |
+| 32 | `rumah_tugas_sibuk_jangan_diganggu` | 手 が 離せない から だけ やって | おいて |
+| 33 | `rumah_tugas_sebut_yang_belum` | 洗濯 は 終わった けど 掃除 は 残って | いる |
+| 34 | `rumah_tugas_susun_urutan` | 洗濯物 を 干して から 買い物 に | 行こう |
+| 35 | `rumah_tugas_ajarkan_anak` | 食器 は 泡 を 流して から 拭いて | ね |
+| 36 | `rumah_tugas_tanya_letak_kunci` | 鍵 を どこ に 置いた か | 分かる |
+| 37 | `rumah_tugas_jawab_letak` | テーブル の 上 に ある | よ |
+| 38 | `rumah_tugas_rawat_tanaman` | 水 を やらない と 枯れちゃう から | お願い |
+| 39 | `rumah_tugas_ganti_lampu` | 電球 が 切れた から 暗く なる 前 に 交換 しない | と |
+| 40 | `rumah_tugas_buang_barang_besar` | は 大きい から 粗大ごみ で 出さない と いけない | ね |
+| 41 | `rumah_tugas_cek_jadwal_besar` | 粗大ごみ は いつ 出せる か 分からない から 調べて | くれる |
+| 42 | `rumah_tugas_lapor_selesai_hari` | は 洗濯 と 買い物 が 終わった から あと は | 休もう |
+| 43 | `rumah_tugas_terima_kasih_bantuan` | 手伝って くれた から 思った より 早く 終わった | よ |
+| 44 | `rumah_tugas_minta_pindah_lemari` | タンス を 動かす の に 一人 じゃ 無理 だから 手伝って | くれる |
+| 45 | `rumah_tugas_tolak_bukan_bagiannya` | の 分担 じゃない から 自分 で やって | ね |
+
+Kuota terpenuhi: 45 dari 45. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
+sudah habis, dan `../SPEC.md` T2 memisahkan keduanya. T2 juga menetapkan kuota adalah lantai:
+kalau masih ada keadaan yang belum punya kalimat, kalimatnya ditambahkan walau 45 sudah lewat.
+
+Lawan bicara yang sudah dipakai: keluarga 33, pasangan 6, tetangga 3, orang asing 2, kurir 1.
+Bentuk sopan 6, biasa 39. Panjang 35, pendek 10.
+
+39 dari 45 biasa karena 65% percakapan topik ini memang dengan keluarga, dan bahasa di dapur
+sendiri bukan bahasa sopan. Keenam yang sopan semuanya ke orang luar: tiga ke tetangga, dua ke
+tukang, satu ke kurir. Tidak ada satu pun yang sopan ke keluarga atau pasangan, karena kalimat
+sopan di antara orang serumah justru terdengar menjauhkan.
+
+Celah yang masih terbuka saat kuota penuh, diperiksa dengan mencari kata kuncinya di berkas ini,
+bukan dari ingatan:
+
+| Celah | Buktinya |
+|---|---|
+| tagihan air dan gas, bukan hanya listrik | tidak ada kalimat yang memuat `水道` atau `ガス`; yang ada hanya `電気代` |
+| memperbaiki barang sendiri sebelum memanggil tukang | `修理を頼んで` ada, tidak ada kalimat yang mencoba memperbaiki sendiri lebih dulu |
+| barang yang hilang di rumah | tidak ada kalimat yang memuat `なくした` atau `見つからない` |
+| menitipkan sesuatu ke tetangga saat pergi | 3 kalimat ke tetangga ada, tidak satu pun menitipkan barang |
+| membuat kunci duplikat | tidak ada kalimat yang memuat `合鍵` |
+| memilah sampah daur ulang | `燃えるゴミ` dan `プラ` ada, `リサイクル` belum |
+
+Kalau topik ini dibuka lagi, enam baris itu yang pertama ditulis. Kalimat baru juga harus
+menghindari kerangka di tabel atas: `check.js` bagian `distinct` menangkap kerangka yang sama
+dengan predikat yang sama setelah bendanya dibuang.
 ## Sisa yang harus ditulis
 
-45 kalimat, yaitu seluruh kuota.
-
-Urutan yang disarankan: keadaan yang paling sering dulu, lalu yang jarang. Slot `bertanya`, `menjawab`, dan `menerima` lebih dulu daripada `rencana` dan `lampau`.
+0 kalimat. Kuota 45 sudah penuh.

@@ -134,15 +134,15 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
 | **Minimum deck** | **391** |
-| Kuota terpakai | 166 |
-| Perlu ditulis | **225** |
+| Kuota terpakai | 211 |
+| Perlu ditulis | **180** |
 
-Angka 166 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `belanja` 21, `kerja` 86,
-dan `makan` 53 (ketiganya penuh), `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
+Angka 211 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `kerja` 86, `makan` 53,
+`rumah_tugas` 45, dan `belanja` 21 (keempatnya penuh), `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 170 kalimat di halaman, bukan 166. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 215 kalimat di halaman, bukan 211. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -215,7 +215,7 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 |---|---|---|---|
 | 1 | `kerja` | 86 | **86 kalimat, kuota terpenuhi** |
 | 2 | `makan` | 53 | **53 kalimat, kuota terpenuhi** |
-| 3 | `rumah_tugas` | 45 | belum ditulis |
+| 3 | `rumah_tugas` | 45 | **45 kalimat, kuota terpenuhi** |
 | 4 | `telepon` | 33 | belum ditulis |
 | 5 | `sopan` | 32 | `kurasi` sudah menyumbang 5 kalimat |
 | 6 | `rumah_santai` | 30 | belum ditulis |
@@ -234,9 +234,10 @@ berarti tidak ada lagi yang tersisa untuk ditulis. Tidak satu pun dari ketiganya
 |---|---|---|---|
 | `kerja` | 86 | belum | 4 celah terbuka, tercatat di berkasnya |
 | `makan` | 53 | belum | 4 celah terbuka, tercatat di berkasnya |
+| `rumah_tugas` | 45 | belum | 6 celah terbuka, tercatat di berkasnya |
 | `belanja` | 21 | belum diperiksa | penuh kuota, belum pernah dicari celahnya |
 
-Karena itu ketiganya masih akan bertambah, walau kuotanya sudah penuh. `SPEC.md` T2: kuota
+Karena itu keempatnya masih akan bertambah, walau kuotanya sudah penuh. `SPEC.md` T2: kuota
 adalah lantai, bukan langit-langit.
 
-Dua topik sudah punya sebagian kecilnya di `data/curated.js`. Delapan topik belum punya apa pun.
+Dua topik sudah punya sebagian kecilnya di `data/curated.js`. Tujuh topik belum punya apa pun.
