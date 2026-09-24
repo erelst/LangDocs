@@ -250,20 +250,31 @@ asing 2,4%.
 
 | Kelompok | Deck | Terukur | Selisih |
 |---|---|---|---|
-| kerja & belajar | 33,0% | 22,7% | **+10,3** |
-| publik & jasa | 17,6% | 10,8% | **+6,8** |
-| orang asing | 6,2% | 2,4% | **+3,8** |
-| teman & tetangga | 18,7% | 17,2% | +1,5 |
-| guru-murid | 1,3% | 3,1% | -1,8 |
-| keluarga dekat | 23,2% | 36,8% | **-13,6** |
+| kerja & belajar | 29,0% | 22,7% | **+6,3** |
+| publik & jasa | 15,9% | 10,8% | **+5,1** |
+| orang asing | 5,8% | 2,4% | **+3,4** |
+| teman & tetangga | 16,4% | 17,2% | -0,8 |
+| guru-murid | 1,1% | 3,1% | -2,0 |
+| keluarga dekat | 31,8% | 36,8% | **-5,0** |
 
-**Keluarga dekat kurang 13,6 poin, dan itu diakui, bukan dibiarkan terlihat seperti sebaran yang
+Kolom Deck dihitung dari 535 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
+penyebut 515) dan tidak ada yang menyadarinya, karena itu `test.js` sekarang menghitung ulang tiap
+barisnya dari berkas data dan berkas topik. Kelompok dengan selisih **5,0 poin atau lebih** disebut
+menyimpang, dan itu berlaku untuk keluarga dekat serta kerja & belajar.
+
+**Keluarga dekat kurang 5,0 poin, dan itu diakui, bukan dibiarkan terlihat seperti sebaran yang
 seimbang.** Sebab terukurnya: kata paling ringkas untuk mengelompokkan percakapan adalah tempat ×
 kegiatan, dan di rumah satu orang menghadapi anggota keluarga sekaligus, sehingga keluarga jatuh
-ke dalam 82 kalimat yang bertopik, sedangkan pasangan (22 kalimat) dan keluarga yang berkunjung
+ke dalam kalimat yang bertopik, sedangkan pasangan (23 kalimat) dan keluarga yang berkunjung
 (berkata sopan) tersebar di beberapa topik. Jadi arah penyimpangannya diketahui dan sebabnya
 tercatat; yang belum ada adalah kalimat untuk keluarga dalam jumlah yang sebanding, dan itu
 pekerjaan yang masih terbuka.
+
+**Kenapa 5,0 dan bukan 3,8.** 3,8 poin adalah angka dari penyebut lama (449 kalimat). Setelah
+gelombang berikutnya, penyebutnya 535 dan selisihnya 5,0, walaupun jumlah kalimat keluarga tidak
+berkurang sama sekali (tetap 170). Selisih sebaran seperti ini **selalu dihitung ulang**, tidak
+pernah dikutip dari catatan sebelumnya, karena tambahan kalimat untuk kelompok lain saja sudah
+cukup untuk menggesernya.
 
 **Harus dipatuhi.** Sebelum menambah kalimat untuk menyamakan sebaran, ingat aturan bahasa yang
 tidak bisa ditawar: kalimat pendek hanya yang benar-benar lazim (K4), kalimat panjang wajib punya

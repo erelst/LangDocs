@@ -125,23 +125,39 @@ dengan pengelompokan yang sama.
 
 | Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
 |---|---|---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,0% | **-3,8** | `keluarga` 148, `pasangan` 22 |
-| kerja & belajar (`仕事学業`) | 22,7% | 28,7% | **+6,0** | `rekan` 68, `atasan` 63, `klien` 17 |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 16,3% | -0,9 | `teman` 63, `tetangga` 19, `tetangga_baru` 2 |
-| publik & jasa (`公共商業関係`) | 10,8% | 15,3% | **+4,5** | `petugas_toko` 29, `pelayan` 25, `dokter` 13, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
-| guru-murid (`先生生徒`) | 3,1% | 1,2% | -1,9 | `guru` 6 |
-| orang asing (`見知らぬ人`) | 2,4% | 5,4% | **+3,0** | `orang_asing` 28 |
+| keluarga dekat (`家族` + `親戚`) | 36,8% | 31,8% | **-5,0** | `keluarga` 147, `pasangan` 23 |
+| kerja & belajar (`仕事学業`) | 22,7% | 29,0% | **+6,3** | `rekan` 70, `atasan` 68, `klien` 17 |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 16,4% | -0,8 | `teman` 67, `tetangga` 19, `tetangga_baru` 2 |
+| publik & jasa (`公共商業関係`) | 10,8% | 15,9% | **+5,1** | `petugas_toko` 31, `pelayan` 29, `dokter` 13, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
+| guru-murid (`先生生徒`) | 3,1% | 1,1% | -2,0 | `guru` 6 |
+| orang asing (`見知らぬ人`) | 2,4% | 5,8% | **+3,4** | `orang_asing` 31 |
 
-Kolom Deck dihitung dari 515 kalimat yang bertopik, dan `check.js` mencetak angka yang sama setiap
-kali dijalankan, jadi tabel ini tidak bisa basi tanpa terlihat.
+Kolom Deck dihitung dari 535 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
+dijalankan. **Tabel ini pernah basi dan tidak ada yang melihatnya**: angka di atas sempat dihitung
+dengan penyebut 515 dari batch sebelum batch keluarga terakhir, sehingga keluarga tercatat 33,0%
+padahal sebenarnya 31,8% dan selisihnya tercatat -3,8 padahal -5,0. Kalimat "tabel ini tidak bisa
+basi tanpa terlihat" ternyata tidak benar pada saat itu, karena tidak ada yang membacanya. Sekarang
+`test.js` menghitung ulang setiap baris tabel ini dari `data/t_*.js` dan `const.js`, jadi kalimat
+itu baru berlaku.
+
+**5,0 poin adalah batas yang dipakai untuk menyebut sebuah kelompok menyimpang**, dan itu dibuat
+eksplisit di sini karena keluarga (-5,0) serta kerja & belajar (+6,3) berdiri di sekitar batas itu.
+`check.js` sengaja hanya **mencetak** sebaran ini dan tidak menggagalkan apa pun karena selisihnya:
+sebaran yang miring adalah keadaan yang dicatat, bukan kesalahan sintaks. Yang diperiksa `test.js`
+adalah apakah angka di tabel ini masih sama dengan datanya.
 
 Angka deck di atas tidak dijumlahkan sampai 100% karena `telepon` (遠隔通信 8,4%) adalah keadaan
 yang memotong topik, bukan lawan bicara, jadi tidak masuk tabel ini.
 
-**Keluarga dekat sudah hampir sebanding: kurang 3,8 poin dari 13,6 poin sebelumnya.** Batch
-penulisan ini menambah 66 kalimat keluarga, dan semuanya keadaan yang benar-benar baru. Sisa 3,8
+**Keluarga dekat sudah hampir sebanding: kurang 5,0 poin dari 13,6 poin sebelumnya.** Dua batch
+penulisan keluarga menambah 66 kalimat, dan semuanya keadaan yang benar-benar baru. Sisa 5,0
 poin itu dicatat, bukan dirapikan angkanya, karena menutupnya dengan menambah kalimat demi angka
 akan tertangkap `check.js` tiga kali sekaligus (K3, K4, T4).
+
+Angka 13,6 poin itu penyebutunya 449 kalimat; angka 5,0 poin penyebutnya 535. Deck yang bertambah
+membuat persentase yang sama menghasilkan poin yang lebih kecil, jadi **selisih ini harus dihitung
+ulang setiap kali deck bertambah, bukan dikutip dari catatan lama**. Itu tepat kesalahan yang
+terjadi pada tabel di atas.
 
 **Dua kelompok sengaja tidak ditulis**, dan `check.js` mencetak alasan yang sama di sebelah
 angkanya supaya tidak terlihat seperti kelalaian:
@@ -191,15 +207,24 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 | Kuota terpakai | 541 |
 | Perlu ditulis | **0** |
 
-"Kuota terpakai" 541 lebih tinggi 4 dari kuota 538 karena `waktu_cuaca` dan `sopan` berdiri di
-atas kuotanya: `waktu_cuaca` 26 kalimat di berkasnya ditambah 2 dari `kurasi` melawan kuota 28, dan
-`sopan` 28 ditambah 4 dari `kurasi` melawan kuota 32. `../SPEC.md` T2 menyebut kuota sebagai lantai,
-bukan langit-langit, selama kalimat tambahannya nyata dan berbeda.
+"Kuota terpakai" **541 sama dengan kuota 541, dan tidak ada topik yang berdiri di atas kuotanya.**
+Angka itu berasal dari 535 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
+`sopan` menerima 4 (`kurasi01`, `kurasi02`, `kurasi05`, `kurasi09`) dan `waktu_cuaca` 2 (`kurasi07`,
+`kurasi10`). Empat kalimat `kurasi` yang tersisa (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`)
+tidak dipetakan ke topik mana pun dan karena itu tidak dihitung terhadap kuota, walaupun tetap
+muncul di halaman. Rinciannya ada di baris "Dari `kurasi`" pada `topics/sopan.md` dan
+`topics/waktu_cuaca.md`.
+
+Perhitungan yang sama, per topik, semuanya berakhir tepat di kuotanya. `sopan` berdiri di 28 dari
+berkasnya ditambah 4 `kurasi` melawan kuota 32, dan `waktu_cuaca` 27 ditambah 2 melawan kuota 29.
+`../SPEC.md` T2 menyebut kuota sebagai lantai, bukan langit-langit, jadi sebuah topik memang boleh
+berdiri di atasnya selama kalimat tambahannya nyata dan berbeda; keadaan itu sekarang tidak terjadi,
+dan bagian "Sisa yang harus ditulis" di tiap berkas topik karena itu semuanya berisi **0**.
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
 | Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **535** |
-| Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **538** |
+| Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **541** |
 | Kalimat di halaman | semua yang dibaca pembaca | **545** |
 | Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **541** |
 
@@ -209,11 +234,16 @@ terukur yang sama:
 | Gelombang | Naik | Sebab |
 |---|---|---|
 | Kalimat balasan (K8) | +24 | `klinik`, `kegiatan`, dan `belanja` hanya punya 1-2 kalimat balasan padahal slot `menjawab` di berkas topiknya sudah ditulis seolah terisi |
-| Sebaran lawan bicara (K9) | +92 | lawan bicara keluarga berdiri di 23,2% melawan bagiannya 36,8% di survei, selisih 13,6 poin yang belum pernah diukur |
+| Sebaran lawan bicara (K9) | +92 | lawan bicara keluarga berdiri di 23,2% (dari 449 kalimat) melawan bagiannya 36,8% di survei, selisih 13,6 poin yang belum pernah diukur |
 
-Sesudah gelombang kedua, selisih keluarga **3,8 poin**, dan sisanya itu dicatat, bukan dirapikan
-angkanya. Menutupnya dengan menambah kalimat demi angka akan tertangkap `check.js` tiga kali
-sekaligus (K3, K4, T4), jadi yang harus dicari adalah keadaan nyata yang belum tertulis.
+Sesudah gelombang kedua, selisih keluarga **5,0 poin** (170 dari 535 kalimat), dan sisanya itu
+dicatat, bukan dirapikan angkanya. Menutupnya dengan menambah kalimat demi angka akan tertangkap
+`check.js` tiga kali sekaligus (K3, K4, T4), jadi yang harus dicari adalah keadaan nyata yang belum
+tertulis.
+
+**Selisihnya membesar dari 3,8 ke 5,0 bukan karena kalimat keluarga berkurang**, melainkan karena
+dua gelombang terakhir menambah kalimat untuk lawan bicara lain lebih banyak daripada keluarga.
+Ini terlihat dari perubahan penyebut, bukan dari perubahan pembilang: keluarga tetap 170.
 
 Tidak ada kuota yang naik karena "terasa kurang": setiap kalimatnya bisa ditunjuk satu per satu di
 `data/t_*.js`, dan `check.js` mencetak jumlah per topik setiap kali dijalankan sehingga angkanya
