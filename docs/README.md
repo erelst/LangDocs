@@ -134,15 +134,15 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 | Sembilan topik inti | 308 |
 | Tiga lintas | 83 |
 | **Minimum deck** | **391** |
-| Kuota terpakai | 113 |
-| Perlu ditulis | **278** |
+| Kuota terpakai | 166 |
+| Perlu ditulis | **225** |
 
-Angka 113 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `belanja` 21 dan
-`kerja` 86 (keduanya penuh), `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
+Angka 166 itu kalimat yang sudah ada **dan** sudah masuk hitungan topik: `belanja` 21, `kerja` 86,
+dan `makan` 53 (ketiganya penuh), `sopan` 4, `waktu_cuaca` 2. Tidak ada yang dihitung dua kali: `kurasi01`, `kurasi02`,
 `kurasi05`, dan `kurasi09` masuk `sopan`, sedangkan `kurasi07` dan `kurasi10` masuk
 `waktu_cuaca`.
 
-Ada 117 kalimat di halaman, bukan 113. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
+Ada 170 kalimat di halaman, bukan 166. Selisih 4 adalah kalimat `kurasi` yang belum masuk topik
 mana pun (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`): keadaannya terlalu khusus untuk
 jadi contoh sebuah topik, dan menariknya masuk salah satu topik akan melebihkan salah satu
 keadaan. Keduanya disebut supaya tidak ada yang mengira sisa pekerjaannya 4 kalimat lebih
@@ -214,7 +214,7 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | # | Topik | Kuota | Keadaan |
 |---|---|---|---|
 | 1 | `kerja` | 86 | **86 kalimat, kuota terpenuhi** |
-| 2 | `makan` | 53 | belum ditulis |
+| 2 | `makan` | 53 | **53 kalimat, kuota terpenuhi** |
 | 3 | `rumah_tugas` | 45 | belum ditulis |
 | 4 | `telepon` | 33 | belum ditulis |
 | 5 | `sopan` | 32 | `kurasi` sudah menyumbang 5 kalimat |
@@ -227,5 +227,5 @@ Urutan yang dipakai, dari yang paling sering dibutuhkan ke yang paling jarang:
 | 12 | `klinik` | 8 | belum ditulis |
 | 13 | `kegiatan` | 8 | belum ditulis |
 
-Dua topik sudah di kuota dan belum diperiksa mentok: `belanja` 21 dan `kerja` 86. Dua topik
-sudah punya sebagian kecilnya di `data/curated.js`. Sembilan topik belum punya apa pun.
+Tiga topik sudah di kuota dan belum diperiksa mentok: `belanja` 21, `kerja` 86, dan `makan` 53.
+Dua topik sudah punya sebagian kecilnya di `data/curated.js`. Delapan topik belum punya apa pun.
