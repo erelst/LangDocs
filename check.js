@@ -91,6 +91,10 @@ const PAST_FORMS = ['ました', 'でした', 'だった', 'ていた', 'おい�
 // the check accepts a clause whose last verb is a た-form as past. Without this the kept
 // restaurant sentence was reported as ungrammatical, and it is not.
 const PLAIN_PAST = /(った|いた|えた|べた|んだ|した|きた)$/;
+// 明日早いんだから is the explanatory んだ, not a past verb, but it ends in んだ and was read as
+// one, so the sentence was reported as mixing future time with a past verb. An い before it makes
+// it an adjective plus explanation, which is never past.
+const isPlainPast = w => PLAIN_PAST.test(w) && w !== 'んだ' && !/いんだ$/.test(w);
 // The -te form continues a sentence and can carry past reference on its own:
 // 「家で箱を開けたら」 is past even though nothing after it says ました.
 const PAST_TE = ['開けたら', '買って', '食べて', '忘れて'];
@@ -152,7 +156,7 @@ function checkTense(rows) {
       const nonpast = NONPAST_TIME.filter(t => c.includes(t));
       const hasPast = PAST_FORMS.some(f => c.some(w => w.endsWith(f))) ||
                       PAST_TE.some(f => c.some(w => w === f)) ||
-                      c.some(w => PLAIN_PAST.test(w));
+                      c.some(isPlainPast);
       if (past.length && !hasPast && !c.some(w => /ています|ています。/.test(w))) {
         bad.push([s.key, `past time ${past} with no past verb in its own clause`]);
       }
