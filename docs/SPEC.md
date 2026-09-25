@@ -89,17 +89,17 @@ dibuktikan.
 **Beda checkpoint dengan pola.** Pola mengatakan kalimatnya harus berbentuk apa. Checkpoint
 mengatakan apa yang **tidak boleh menumpuk**, dan itu membiarkan bentuknya bebas.
 
-**Angka yang dipakai, diukur dari bank yang ada sekarang (498 kalimat panjang).** Inilah dasarnya,
+**Angka yang dipakai, diukur dari bank yang ada sekarang (514 kalimat panjang).** Inilah dasarnya,
 dan ini yang tidak boleh memburuk:
 
 | Checkpoint | Sekarang | Batas | Kenapa angka itu |
 |---|---|---|---|
-| Pola akhir kalimat (3 aksara terakhir) yang paling sering | `ますか` 16,3% | **di bawah 20%** | satu bentuk tanya tidak boleh mendominasi seperlima bank |
-| Kalimat panjang yang pola akhirnya dipakai lebih dari sekali | 83,1% | **di bawah 90%** | memperhatikan bahwa 498 kalimat hanya punya 137 pola akhir, jadi berbagi pola itu normal; yang dilarang adalah menumpuk di satu pola |
-| Pembuka kalimat yang paling sering | `この` 5,0% | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca; angkanya diukur, bukan dihitung tangan dari tiga pembuka teratas |
-| Akhiran 6 aksara yang dipakai 3 kali atau lebih | 20 pola | **di bawah 25 pola** | kalau jumlahnya naik terus, kalimatnya makin sering berakhir sama |
-| Penanda relasi teratas (`ので`) | 41,8% | **di bawah 45%** | K3 mengizinkan banyak relasi, jadi menumpuk di satu penanda itu pilihan, bukan keharusan |
-| Kalimat panjang yang klausanya disambung **sebab** | 66,3% | **di bawah 72%** | bentuk "karena X, maka Y" adalah bentuk termudah ditulis dan paling sulit dirasakan pengulangannya |
+| Pola akhir kalimat (3 aksara terakhir) yang paling sering | `ますか` 15,8% | **di bawah 20%** | satu bentuk tanya tidak boleh mendominasi seperlima bank |
+| Kalimat panjang yang pola akhirnya dipakai lebih dari sekali | 83,5% | **di bawah 90%** | memperhatikan bahwa 498 kalimat hanya punya 137 pola akhir, jadi berbagi pola itu normal; yang dilarang adalah menumpuk di satu pola |
+| Pembuka kalimat yang paling sering | `この` 4,9% | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca; angkanya diukur, bukan dihitung tangan dari tiga pembuka teratas |
+| Akhiran 6 aksara yang dipakai 3 kali atau lebih | 21 pola | **di bawah 25 pola** | kalau jumlahnya naik terus, kalimatnya makin sering berakhir sama |
+| Penanda relasi teratas (`ので`) | 41,1% | **di bawah 45%** | K3 mengizinkan banyak relasi, jadi menumpuk di satu penanda itu pilihan, bukan keharusan |
+| Kalimat panjang yang klausanya disambung **sebab** | 65,6% | **di bawah 72%** | bentuk "karena X, maka Y" adalah bentuk termudah ditulis dan paling sulit dirasakan pengulangannya |
 
 **Checkpoint relasi diukur pada penanda yang benar-benar ada, bukan pada pasangan teks.** Dua
 kesalahan pengukuran ditemukan saat aturan ini diperiksa ulang, dan keduanya membuat angkanya
@@ -107,10 +107,10 @@ terlihat lebih baik daripada kenyataannya:
 
 | Yang salah | Kenapa salah |
 |---|---|
-| Relasi dihitung sebagai **pasangan** (`ので+し`) | `ので` muncul bersama banyak pasangan berbeda, jadi tidak ada satu pasangan yang terlihat besar, padahal `ので` sendiri memegang **208 dari 498** kalimat |
+| Relasi dihitung sebagai **pasangan** (`ので+し`) | `ので` muncul bersama banyak pasangan berbeda, jadi tidak ada satu pasangan yang terlihat besar, padahal `ので` sendiri memegang **211 dari 514** kalimat |
 | `ので` dan `から` dicocokkan sebagai teks mentah | `ので` diikuti `す` adalah pelembut `〜のですが` dan diikuti `し` adalah tanya sopan `〜のでしょうか`; `から` yang bukan sebab adalah `てから`, `いつから`, dan `から` di dalam `分からない`. Dihitung sebagai sebab, angkanya membengkak dari 42,4% menjadi 50,4% |
 
-Sesudah dibetulkan: `ので` **208** kalimat (41,8%), `から` **118** (23,7%), `し` **71** (14,3%).
+Sesudah dibetulkan: `ので` **211** kalimat (41,1%), `から` **122** (23,7%), `し` **73** (14,2%).
 Penanda sebanyak itu tidak bisa dilarang, karena K3 sendiri yang mengizinkannya. Yang diukur
 bukan penandanya, melainkan **relasinya**: sebab, syarat, kontras, tambahan, atau waktu. Itulah
 yang benar-benar menumpuk, dan itu tidak terlihat selama hanya penanda yang dihitung.
@@ -311,31 +311,37 @@ asing 2,4%.
 
 | Kelompok | Deck | Terukur | Selisih |
 |---|---|---|---|
-| kerja & belajar | 28,5% | 22,7% | **+5,8** |
-| publik & jasa | 15,3% | 10,8% | **+4,5** |
-| orang asing | 6,6% | 2,4% | **+4,2** |
-| teman & tetangga | 18,0% | 17,2% | **+0,8** |
-| guru-murid | 1,1% | 3,1% | -2,0 |
-| keluarga dekat | 30,5% | 36,8% | **-6,3** |
+| kerja & belajar | 27,7% | 22,7% | **+5,0** |
+| publik & jasa | 14,8% | 10,8% | **+4,0** |
+| orang asing | 6,5% | 2,4% | **+4,1** |
+| teman & tetangga | 17,5% | 17,2% | **+0,3** |
+| guru-murid | 1,0% | 3,1% | -2,1 |
+| keluarga dekat | 32,5% | 36,8% | **-4,3** |
 
-Kolom Deck dihitung dari 557 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
+Kolom Deck dihitung dari 573 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
 penyebut 515) dan tidak ada yang menyadarinya, karena itu `test.js` sekarang menghitung ulang tiap
 barisnya dari berkas data dan berkas topik. Kelompok dengan selisih **5,0 poin atau lebih** disebut
-menyimpang, dan itu berlaku untuk keluarga dekat serta kerja & belajar.
+menyimpang, dan itu berlaku untuk keluarga dekat saja: kerja & belajar tepat di 5,0.
 
-**Keluarga dekat kurang 6,3 poin, dan itu diakui, bukan dibiarkan terlihat seperti sebaran yang
-seimbang.** Sebab terukurnya: kata paling ringkas untuk mengelompokkan percakapan adalah tempat ×
+**Keluarga dekat kurang 4,3 poin, turun dari 6,3 setelah batch medan makna keluarga, dan itu
+diakui, bukan dibiarkan terlihat seperti sebaran yang seimbang.** Sebab terukurnya: kata paling ringkas untuk mengelompokkan percakapan adalah tempat ×
 kegiatan, dan di rumah satu orang menghadapi anggota keluarga sekaligus, sehingga keluarga jatuh
 ke dalam kalimat yang bertopik, sedangkan pasangan (23 kalimat) dan keluarga yang berkunjung
 (berkata sopan) tersebar di beberapa topik. Jadi arah penyimpangannya diketahui dan sebabnya
 tercatat; yang belum ada adalah kalimat untuk keluarga dalam jumlah yang sebanding, dan itu
 pekerjaan yang masih terbuka.
 
-**Kenapa 6,3 dan bukan 3,8.** 3,8 poin adalah angka dari penyebut lama (449 kalimat). Setelah
-gelombang berikutnya, penyebutnya 557 dan selisihnya 6,3, walaupun jumlah kalimat keluarga tidak
-berkurang sama sekali (tetap 170). Selisih sebaran seperti ini **selalu dihitung ulang**, tidak
-pernah dikutip dari catatan sebelumnya, karena tambahan kalimat untuk kelompok lain saja sudah
-cukup untuk menggesernya.
+**Kenapa angkanya bergerak tanpa kalimat keluarga ditambah.** 3,8 poin adalah angka dari penyebut
+449 kalimat, lalu 6,3 dari penyebut 557, lalu 4,3 dari penyebut 573, walaupun kalimat keluarga
+hanya bertambah pada langkah terakhir. Tambahan kalimat untuk kelompok lain saja sudah cukup untuk
+menggeser setiap baris, jadi selisih sebaran seperti ini **selalu dihitung ulang**, tidak pernah
+dikutip dari catatan sebelumnya.
+
+**Kenapa 16 kalimat hanya menutup 2,0 poin, bukan 6,3.** Poin adalah bagian dari seluruh deck, jadi
+setiap kalimat baru sekaligus menaikkan penyebutnya: `keluarga` naik dari 147 ke 163 kalimat, tetapi
+bagiannya hanya naik dari 30,5% ke 32,5%. Yang perlu diperhatikan justru efek sampingnya: kelompok
+lain turun tanpa satu kalimat pun berubah di sana (kerja & belajar 28,5% menjadi 27,7%). **Poin
+bukan selisih jumlah kalimat.**
 
 **Harus dipatuhi.** Sebelum menambah kalimat untuk menyamakan sebaran, ingat aturan bahasa yang
 tidak bisa ditawar: kalimat pendek hanya yang benar-benar lazim (K4), kalimat panjang wajib punya

@@ -30,8 +30,8 @@ window.COVERAGE = {
   benda_dapur: {
     note: 'benda yang dipakai waktu makan dan memasak',
     words: ['箸', '皿', '茶碗', 'コップ', 'スプーン', 'フォーク', '鍋', '冷蔵庫', '包丁', 'まな板',
-            'お盆', 'ふきん'],
-    needEntry: ['茶碗', '包丁', 'まな板', 'お盆', 'ふきん'],
+            'ふきん'],
+    needEntry: ['茶碗', '包丁', 'まな板', 'ふきん'],
   },
   benda_rumah: {
     note: 'benda di dalam rumah di luar dapur',
@@ -70,10 +70,11 @@ window.COVERAGE = {
   /* Keluarga. The deck counted the family share by relationship line, so these are the words that
    * make the family sentences concrete instead of only numerous. */
   keluarga: {
-    note: 'sebutan anggota keluarga',
+    note: 'sebutan anggota keluarga. 祖母 親 夫 妻 sudah dipakai di tiap kalimat rumah_santai, '
+        + 'jadi field ini tidak punya celah entry lagi',
     words: ['父', '母', '兄', '姉', '弟', '妹', '祖父', '祖母', 'いとこ', '親', '息子', '娘', '夫',
             '妻', 'おじ', 'おば', '家族', '両親'],
-    needEntry: ['祖母', '親', '夫', '妻'],
+    needEntry: [],
   },
   /* Bakat dan kemahiran: how good somebody is at something, said about oneself and about others. */
   bakat: {

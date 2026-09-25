@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Rumah: santai |
 | Kuota | 58 |
-| Sudah ditulis | 58 |
+| Sudah ditulis | 74 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_santai.js` |
@@ -58,7 +58,7 @@ Ketentuan T3 di `../SPEC.md`: tiap slot ada dalam bentuk sopan dan biasa. `sopan
 
 ## Kerangka yang sudah diklaim
 
-Dihitung dengan cara yang sama seperti `check.js`. 58 kalimat, 58 kerangka, tidak ada yang sama.
+Dihitung dengan cara yang sama seperti `check.js`. 74 kalimat, 74 kerangka, tidak ada yang sama.
 
 | # | Kalimat | Kerangka |
 |---|---|---|
@@ -126,7 +126,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 58 kalimat, 58 kerangka, tida
 Kuota terpenuhi: 36 dari 36. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: keluarga 42, pasangan 14, teman 2. Bentuk sopan 7, biasa 51.
+Lawan bicara yang sudah dipakai: keluarga 58, pasangan 14, teman 2. Bentuk sopan 23, biasa 51.
 Panjang 55, pendek 3.
 
 28 dari 30 biasa karena 59% percakapan topik ini dengan keluarga dan tidak ada yang memakai
@@ -170,3 +170,5 @@ melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
 ## Sisa yang harus ditulis
 
 58 kalimat. Kuota 58 sudah penuh.
+
+16 kalimat terakhir datang dari batch medan makna keluarga (bagian 3b `../README.md`), jadi berkas ini berisi 74 kalimat di atas kuota 58 yang tetap tidak berubah. Kalimat-kalimat itu tidak mengubah kuota, karena kuotanya diukur dari survei dan kata benda tidak punya sel di survei itu (T6).
