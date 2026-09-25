@@ -88,7 +88,7 @@ window.COVERAGE = {
     note: 'hobi dan kegiatan waktu luang',
     words: ['趣味', '歌', '歌う', 'ギター', 'ピアノ', '読書', '本', '映画', 'ゲーム', '釣り', '写真',
             '旅行', '散歩', '泳ぐ', '絵'],
-    needEntry: ['歌', '歌う', 'ギター', '読書', '釣り', '泳ぐ', '絵'],
+    needEntry: [],
   },
   /* Nama pekerjaan. */
   pekerjaan: {

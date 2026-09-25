@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Santai di luar |
 | Kuota | 42 |
-| Sudah ditulis | 48 |
+| Sudah ditulis | 57 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_santai.js` |
