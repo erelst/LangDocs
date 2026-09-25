@@ -326,10 +326,10 @@ window.BANK = (window.BANK || []).concat([
   {
     key: 'transportasi_parkir_penuh', topic: 'transportasi',
     rel: 'petugas_stasiun', polite: 1, long: 1,
-    sit: 'Menanyakan tempat parkir yang penuh sampai kapan',
+    sit: 'Menanyakan sampai kapan parkir penuh',
     sitEn: 'Asking how long the car park stays full',
-    id: 'Karena parkirnya penuh, sampai kapan biasanya seramai ini?',
-    en: 'The car park is full, so how long does it usually stay this busy?',
+    id: 'Karena parkirnya penuh, biasanya ramai sampai jam berapa?',
+    en: 'The car park is full, so until what time is it usually like this?',
     note: 'Papan penuhnya kelihatan, jadi pertanyaannya menunjuk keadaan yang sedang terjadi.',
     noteEn: 'The full sign is visible, so the question points at a situation happening now.',
     t: ["駐車場","が","いっぱい","です","から","、","いつ","まで","混んで","いますか","。"],

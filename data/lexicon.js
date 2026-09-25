@@ -1463,6 +1463,7 @@ window.LEX = {
   "感じる": ["kanjiru", "merasa", "feel"],
   "慣れた": ["nareta", "sudah terbiasa (lampau)", "got used to"],
   "慣れて": ["narete", "terbiasa (bentuk -te)", "get used to (te-form)"],
+  "慣れています": ["narete imasu", "sudah terbiasa", "is used to"],
   "慣れました": ["naremashita", "sudah terbiasa (sopan)", "got used to (polite)"],
   "慣れる": ["nareru", "menjadi terbiasa", "get used to"],
   "我慢": ["gaman", "menahan diri", "putting up with"],
