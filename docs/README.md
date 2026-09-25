@@ -355,19 +355,22 @@ jalan sampai ujung. Menggantinya dengan `#q21` akan menghemat 4 detik dan menghi
 | Sepuluh topik inti | 456 |
 | Tiga lintas | 107 |
 | **Minimum deck** | **563** |
-| Kuota terpakai | 563 |
+| Kuota terpakai | 690 |
 | Perlu ditulis | **0** |
 
-"Kuota terpakai" **563 sama dengan kuota 563, dan tidak ada topik yang berdiri di atas kuotanya.**
-Angka itu berasal dari 684 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
+"Kuota terpakai" **690 lebih tinggi dari kuota 563 karena** deck ditulis lebih jauh daripada
+lantainya: 684 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik. Tabel di atas
+adalah lantai, bukan langit-langit, dan `../SPEC.md` T2 menyebutnya lantai; dua topik karena itu
+berdiri di atas kuotanya sendiri (`sopan` 38+4 melawan 37, dan `waktu_cuaca` 33+2 melawan 29),
+selama kalimat tambahannya nyata dan berbeda. Angka itu berasal dari:
 `sopan` menerima 4 (`kurasi01`, `kurasi02`, `kurasi05`, `kurasi09`) dan `waktu_cuaca` 2 (`kurasi07`,
 `kurasi10`). Empat kalimat `kurasi` yang tersisa (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`)
 tidak dipetakan ke topik mana pun dan karena itu tidak dihitung terhadap kuota, walaupun tetap
 muncul di halaman. Rinciannya ada di baris "Dari `kurasi`" pada `topics/sopan.md` dan
 `topics/waktu_cuaca.md`.
 
-Perhitungan yang sama, per topik, semuanya berakhir tepat di kuotanya. `sopan` berdiri di 33 dari
-berkasnya ditambah 4 `kurasi` melawan kuota 37, dan `waktu_cuaca` 27 ditambah 2 melawan kuota 29.
+Perhitungan yang sama, per topik: `sopan` berdiri di 38 dari berkasnya ditambah 4 `kurasi` melawan
+kuota 37, dan `waktu_cuaca` 33 ditambah 2 melawan kuota 29, jadi keduanya di atas kuotanya sendiri.
 `../SPEC.md` T2 menyebut kuota sebagai lantai, bukan langit-langit, jadi sebuah topik memang boleh
 berdiri di atasnya selama kalimat tambahannya nyata dan berbeda; keadaan itu sekarang tidak terjadi,
 dan bagian "Sisa yang harus ditulis" di tiap berkas topik karena itu semuanya berisi **0**.
