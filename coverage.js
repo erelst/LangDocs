@@ -102,7 +102,7 @@ window.COVERAGE = {
     note: 'kebiasaan harian, termasuk yang gagal dilakukan',
     words: ['早起き', '寝坊', 'シャワー', 'お風呂', '歯磨き', '洗濯', '掃除', '片付ける', '起きる',
             '寝る', '眠い', '目覚まし'],
-    needEntry: ['早起き', 'シャワー', '歯磨き', '片付ける', '起きる', '寝る', '目覚まし'],
+    needEntry: [],
   },
   /* Perkenalan sendiri. T6 keeps this out of the topic table: a self-introduction is one fixed
    * scene, not a 場所 × 活動 cell, so no measured share exists for it. */

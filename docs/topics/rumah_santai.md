@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Rumah: santai |
 | Kuota | 58 |
-| Sudah ditulis | 86 |
+| Sudah ditulis | 89 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_santai.js` |

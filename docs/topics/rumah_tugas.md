@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Rumah: tugas |
 | Kuota | 63 |
-| Sudah ditulis | 79 |
+| Sudah ditulis | 82 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_tugas.js` |

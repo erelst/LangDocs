@@ -694,4 +694,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The singing is actually heard, so the job belongs to a person one can meet.',
     t: ["歌手","の","友だち","が","いる","から","、","たま","に","見","に","行く","。"],
   },
+  {
+    key: 'santai_sulit_bangun_tanpa_alarm', topic: 'santai',
+    rel: 'teman', polite: 0, long: 1,
+    sit: 'Mengeluh tidak bisa bangun tanpa alarm',
+    sitEn: 'Complaining about not waking up without an alarm',
+    id: 'Karena saya tidak bisa bangun sendiri, saya pasang alarm.',
+    en: 'I cannot wake up on my own, so I set an alarm.',
+    note: 'Diucapkan sebelum tidur, dan itu waktu alarmnya memang dipasang.',
+    noteEn: 'It is said before bed, which is when the alarm is actually set.',
+    t: ["自分","で","起きる","の","が","苦手","だ","から","、","目覚まし","を","かける","。"],
+  },
 ]);

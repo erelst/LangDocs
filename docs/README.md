@@ -125,14 +125,14 @@ dengan pengelompokan yang sama.
 
 | Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
 |---|---|---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | 32,8% | **-4,0** | `keluarga` 193, `pasangan` 23 |
-| kerja & belajar (`仕事学業`) | 22,7% | 24,5% | **+1,8** | `rekan` 75, `atasan` 69, `klien` 17 |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 19,0% | **+1,8** | `teman` 98, `tetangga` 20, `tetangga_baru` 7 |
-| publik & jasa (`公共商業関係`) | 10,8% | 15,8% | **+5,0** | `petugas_toko` 35, `pelayan` 30, `dokter` 25, `petugas_stasiun` 11, `apoteker` 2, `kurir` 1 |
+| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,4% | **-3,4** | `keluarga` 197, `pasangan` 25 |
+| kerja & belajar (`仕事学業`) | 22,7% | 24,2% | **+1,5** | `rekan` 75, `atasan` 69, `klien` 17 |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 18,9% | **+1,7** | `teman` 99, `tetangga` 20, `tetangga_baru` 7 |
+| publik & jasa (`公共商業関係`) | 10,8% | 15,6% | **+4,8** | `petugas_toko` 35, `pelayan` 30, `dokter` 25, `petugas_stasiun` 11, `apoteker` 2, `kurir` 1 |
 | guru-murid (`先生生徒`) | 3,1% | 1,1% | **-2,0** | `guru` 7 |
 | orang asing (`見知らぬ人`) | 2,4% | 6,8% | **+4,4** | `orang_asing` 45 |
 
-Kolom Deck dihitung dari 658 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
+Kolom Deck dihitung dari 665 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
 dijalankan. **Tabel ini pernah basi dan tidak ada yang melihatnya**: angka di atas sempat dihitung
 dengan penyebut 515 dari batch sebelum batch keluarga terakhir, lalu tertinggal lagi waktu deck
 tumbuh dari 535 ke 557, lalu ke 573. Kalimat "tabel ini tidak bisa basi tanpa terlihat" ternyata tidak benar,
@@ -213,10 +213,10 @@ sekaligus menambah entrinya.
 | `bakat` | 4 | 9 | 5 | 2 | 3 |
 | `hobi` | 15 | 15 | 0 | 0 | 0 |
 | `pekerjaan` | 14 | 14 | 0 | 0 | 0 |
-| `kebiasaan` | 5 | 12 | 7 | 0 | 7 |
+| `kebiasaan` | 12 | 12 | 0 | 0 | 0 |
 | `perkenalan` | 8 | 10 | 2 | 1 | 1 |
 | `arah` | 15 | 17 | 2 | 1 | 1 |
-| **Jumlah** | **182** | **205** | **23** | **9** | **14** |
+| **Jumlah** | **189** | **205** | **16** | **9** | **7** |
 
 **Cara membaca kolom Celah.** Angka itu jumlah kata yang belum dipakai kalimat mana pun, dan
 sekaligus **lantai** jumlah kalimat yang perlu ditulis, bukan target. Satu kalimat bisa memuat dua
@@ -328,6 +328,15 @@ Diukur di mesin ini, dengan seluruh berkas diperiksa:
 | `node check.js` | **0,35 detik** | seluruh isi kalimat dan dokumen, tanpa browser |
 | `node test.js` | **10 detik** | sama, ditambah dua kali merender halaman di browser |
 | `node ui.js` | **15 detik** | mengemudikan halaman: pencarian, balon, fokus keyboard |
+| `node syncdocs.js` | **0,4 detik** | **menulis**: menyalin angka terukur ke dokumen, lalu diam |
+
+**`syncdocs.js` yang menulis, `check.js` dan `test.js` yang memeriksa.** Angka di dokumen ini
+tadinya ditulis tangan setiap kali deck bertambah, dan hampir setiap kali ada satu yang salah:
+poin sebaran lawan bicara bergerak dua arah karena penyebutnya ikut tumbuh, dan jumlah kalimat per
+topik berubah setiap kali satu kalimat ditambahkan. Keduanya tidak bisa dihitung ulang di kepala,
+jadi sekarang disalin dari data. Skripnya berhenti pada ketidakcocokan pertama dan tidak menulis
+apa pun sebelum semuanya cocok, karena menulis separuh angka lebih berbahaya daripada tidak menulis:
+angkanya terlihat baru padahal sebagian masih lama.
 
 **Yang paling lambat bukan bahasanya.** 97% waktu `test.js` dan 96% waktu `ui.js` terpakai untuk
 **membuka browser dan menunggunya**, bukan untuk menghitung. Halaman kosong pun butuh 1,8-2,0 detik
@@ -363,7 +372,7 @@ jalan sampai ujung. Menggantinya dengan `#q21` akan menghemat 4 detik dan menghi
 | Perlu ditulis | **0** |
 
 "Kuota terpakai" **563 sama dengan kuota 563, dan tidak ada topik yang berdiri di atas kuotanya.**
-Angka itu berasal dari 658 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
+Angka itu berasal dari 665 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
 `sopan` menerima 4 (`kurasi01`, `kurasi02`, `kurasi05`, `kurasi09`) dan `waktu_cuaca` 2 (`kurasi07`,
 `kurasi10`). Empat kalimat `kurasi` yang tersisa (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`)
 tidak dipetakan ke topik mana pun dan karena itu tidak dihitung terhadap kuota, walaupun tetap
@@ -378,7 +387,7 @@ dan bagian "Sisa yang harus ditulis" di tiap berkas topik karena itu semuanya be
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **658** |
+| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **665** |
 | Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **563** |
 | Kalimat di halaman | semua yang dibaca pembaca | **567** |
 | Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **563** |
