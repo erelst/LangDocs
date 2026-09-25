@@ -120,7 +120,7 @@ bukan dari ingatan:
 | memberi izin dengan `どうぞ` dalam arti mempersilakan, bukan hanya menyetujui pendapat | `どうぞ` sudah dipakai tujuh kali, tapi untuk menyilakan masuk, menyilakan duduk, dan menyilakan mencoba; belum sekali pun sebagai jawaban atas permintaan izin. `かまいません` belum ada |
 | mengalihkan topik pembicaraan | tidak ada kalimat yang memuat `ところで` |
 | bercanda ringan untuk mencairkan suasana | tidak ada kalimat yang memuat `冗談` |
-| mengingatkan bahwa orangnya boleh minta bantuan lagi | `いつでも言ってください` ada satu, `遠慮なく` belum |
+| mengingatkan bahwa orangnya boleh minta bantuan lagi | `いつでも言ってください` ada satu. `遠慮なく` sudah dipakai `kerja_minta_kritik_pekerjaan_sendiri`, tapi di sana meminta kritik, bukan mengingatkan orang lain |
 | menyimpan rahasia dan meminta dijaga | tidak ada kalimat yang memuat `内緒` |
 | memberi semangat sebelum orangnya menghadapi sesuatu | tidak ada kalimat yang memuat `頑張れ` atau `応援` |
 

@@ -113,6 +113,7 @@ Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 | karaoke, kegiatan berisik yang justru disengaja | `santai_ajak_karaoke` |
 | acara yang dibatalkan karena hujan | `santai_batal_karena_hujan` |
 | liburan panjang dan menyusun rencananya | `santai_liburan_panjang` |
+| konser dan acara musik langsung | `santai_konser_keluarga` (コンサート), `santai_live_musik` (ライブ) |
 | berfoto bersama sebagai penutup | `santai_foto_keluarga` |
 
 Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
@@ -120,7 +121,6 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 | Celah | Bukti pencarian |
 |---|---|
 | menonton olahraga bersama | tidak ada kalimat yang memuat `野球` atau `サッカー` |
-| konser dan acara musik langsung | `映画` ada, `コンサート` dan `ライブ` belum |
 | menanyakan jam tutup, bukan jam buka | `開いて` ada, `閉まる` belum |
 | bermain musik bersama | tidak ada kalimat yang memuat `バンド` |
 

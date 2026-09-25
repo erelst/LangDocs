@@ -156,7 +156,7 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 | Celah | Bukti pencarian |
 |---|---|
 | kebocoran air dan keran yang menetes | tidak ada kalimat yang memuat `漏れ` atau `水漏れ` |
-| menjadwalkan pengangkutan barang besar | `粗大ごみ` ada, `予約` belum |
+| menjadwalkan pengangkutan barang besar | `粗大ごみ` ada. `予約` sudah dipakai `makan_reservasi_tempat` dan `santai_pesan_tempat`, tapi untuk memesan meja; untuk pengangkutan belum |
 | mengeluh atau menanggapi kebisingan tetangga | tidak ada kalimat yang memuat `騒音` atau `苦情` |
 | mengunci diri di luar rumah | `鍵` dan `合鍵` ada, `締め出` belum |
 

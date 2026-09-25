@@ -120,7 +120,7 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 | Celah | Bukti pencarian |
 |---|---|
 | musim hujan sebagai satu masa | tidak ada kalimat yang memuat `梅雨` |
-| cuaca beberapa hari ke depan, bukan hanya besok | `明日` ada, `来週` untuk cuaca belum |
+| cuaca beberapa hari ke depan, bukan hanya besok | `明日` ada. `来週` sudah dipakai `belanja_tanya_kadaluarsa` dan dua kalimat `kerja`, tapi tidak sekali pun untuk cuaca |
 | peringatan resmi dan tingkat kewaspadaan | tidak ada kalimat yang memuat `警報` |
 | suhu yang turun mendadak dan kesehatan | `寒い` ada, `気温差` belum |
 
