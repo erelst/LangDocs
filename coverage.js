@@ -31,7 +31,7 @@ window.COVERAGE = {
     note: 'benda yang dipakai waktu makan dan memasak',
     words: ['箸', '皿', '茶碗', 'コップ', 'スプーン', 'フォーク', '鍋', '冷蔵庫', '包丁', 'まな板',
             'ふきん'],
-    needEntry: ['茶碗', '包丁', 'まな板', 'ふきん'],
+    needEntry: ['茶碗', 'まな板', 'ふきん'],
   },
   benda_rumah: {
     note: 'benda di dalam rumah di luar dapur',
@@ -62,10 +62,11 @@ window.COVERAGE = {
   /* Anggota tubuh. 尻尾 is here rather than in a pet field because the deck has no pet topic and the
    * tail is only ever named while talking about an animal. */
   tubuh: {
-    note: 'anggota tubuh, dipakai waktu mengeluh atau menjelaskan',
+    note: 'anggota tubuh, dipakai waktu mengeluh atau menjelaskan. Semua katanya sudah punya '
+        + 'entri lexicon sejak batch tubuh ditulis',
     words: ['手', '足', '目', '耳', '口', '鼻', '顔', '頭', '首', '肩', '背', 'お腹', '腰', '指',
             '歯', '髪', 'のど', '尻尾'],
-    needEntry: ['足', '耳', '口', '鼻', '首', '指', '髪', 'のど', '尻尾'],
+    needEntry: [],
   },
   /* Keluarga. The deck counted the family share by relationship line, so these are the words that
    * make the family sentences concrete instead of only numerous. */

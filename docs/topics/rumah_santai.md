@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Rumah: santai |
 | Kuota | 58 |
-| Sudah ditulis | 74 |
+| Sudah ditulis | 83 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_rumah_santai.js` |
@@ -151,7 +151,7 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 | Celah | Bukti pencarian |
 |---|---|
 | hobi baru yang mulai ditekuni | `好き` dan `趣味` belum muncul sebagai topik pembicaraan |
-| tamu yang menginap, bukan sekadar berkunjung | `お上がり` dan `お送り` ada, `泊まる` belum |
+| tamu yang menginap, bukan sekadar berkunjung | `お上がり` dan `お送り` ada; `泊まる` sudah terpakai sejak batch medan makna keluarga, jadi celahnya tinggal bagian "tamu"-nya |
 
 Kuota naik dari 30 menjadi 36 karena pemeriksaan ini menemukan enam keadaan yang nyata dan berbeda,
 semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.

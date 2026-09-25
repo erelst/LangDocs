@@ -125,14 +125,14 @@ dengan pengelompokan yang sama.
 
 | Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
 |---|---|---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | 32,5% | **-4,3** | `keluarga` 163, `pasangan` 23 |
-| kerja & belajar (`仕事学業`) | 22,7% | 27,7% | **+5,0** | `rekan` 73, `atasan` 69, `klien` 17 |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 17,5% | **+0,3** | `teman` 77, `tetangga` 19, `tetangga_baru` 4 |
-| publik & jasa (`公共商業関係`) | 10,8% | 14,8% | **+4,0** | `petugas_toko` 31, `pelayan` 29, `dokter` 13, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
+| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,1% | **-3,7** | `keluarga` 173, `pasangan` 23 |
+| kerja & belajar (`仕事学業`) | 22,7% | 26,9% | **+4,2** | `rekan` 73, `atasan` 69, `klien` 17 |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 16,9% | **-0,3** | `teman` 77, `tetangga` 19, `tetangga_baru` 4 |
+| publik & jasa (`公共商業関係`) | 10,8% | 15,9% | **+5,1** | `petugas_toko` 31, `pelayan` 29, `dokter` 22, `petugas_stasiun` 9, `apoteker` 2, `kurir` 1 |
 | guru-murid (`先生生徒`) | 3,1% | 1,0% | -2,1 | `guru` 6 |
-| orang asing (`見知らぬ人`) | 2,4% | 6,5% | **+4,1** | `orang_asing` 37 |
+| orang asing (`見知らぬ人`) | 2,4% | 6,3% | **+3,9** | `orang_asing` 37 |
 
-Kolom Deck dihitung dari 573 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
+Kolom Deck dihitung dari 592 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
 dijalankan. **Tabel ini pernah basi dan tidak ada yang melihatnya**: angka di atas sempat dihitung
 dengan penyebut 515 dari batch sebelum batch keluarga terakhir, lalu tertinggal lagi waktu deck
 tumbuh dari 535 ke 557, lalu ke 573. Kalimat "tabel ini tidak bisa basi tanpa terlihat" ternyata tidak benar,
@@ -141,10 +141,12 @@ karena tidak ada yang membacanya. Sekarang
 itu baru berlaku.
 
 **5,0 poin adalah batas yang dipakai untuk menyebut sebuah kelompok menyimpang**, dan itu dibuat
-eksplisit di sini karena keluarga (-4,3) berdiri di atasnya, sedangkan kerja & belajar (+5,0) tepat
-di batasnya dan teman & tetangga (+0,3) sudah sebanding. Batch keluarga berikutnya menurunkan
-keluarga dari -6,3 ke -4,3, dan pada saat yang sama menaikkan kelompok lain sedikit karena
-penyebutnya ikut bertambah; itu sebabnya setiap angka di tabel ini dihitung ulang, bukan dikutip.
+eksplisit di sini. Setelah batch keluarga dan batch tubuh, yang berdiri di atas batas adalah publik
+& jasa (+5,1) dan kerja & belajar (+4,2); keluarga turun ke -3,7 dari -6,3. **Dua kelompok yang
+saling bertukar tempat itu memperlihatkan hal yang harus diingat:** batch tubuh hampir seluruhnya
+berlawan bicara dokter, jadi kelompok publik & jasa naik, sementara kelompok lain turun bukan karena
+kalimatnya dikurangi melainkan karena penyebutnya bertambah. Setiap angka di tabel ini dihitung
+ulang, tidak pernah dikutip.
 `check.js` sengaja hanya **mencetak** sebaran ini dan tidak menggagalkan apa pun karena selisihnya:
 sebaran yang miring adalah keadaan yang dicatat, bukan kesalahan sintaks. Yang diperiksa `test.js`
 adalah apakah angka di tabel ini masih sama dengan datanya.
@@ -152,12 +154,12 @@ adalah apakah angka di tabel ini masih sama dengan datanya.
 Angka deck di atas tidak dijumlahkan sampai 100% karena `telepon` (遠隔通信 8,4%) adalah keadaan
 yang memotong topik, bukan lawan bicara, jadi tidak masuk tabel ini.
 
-**Keluarga dekat kurang 4,3 poin, turun dari 6,3.** Batch medan makna keluarga menambah 16 kalimat
-(58 menjadi 74 di `rumah_santai`), dan 16 kalimat itu menaikkan `keluarga` dari 147 ke 163.
-Perhatikan bahwa 16 kalimat hanya menutup 2,0 poin, bukan 6,3: penyebutnya ikut bertambah dari 557
-ke 573, jadi kelompok lain juga bergerak (kerja & belajar 28,5% menjadi 27,7%) tanpa satu kalimat
-pun berubah di sana. **Poin bukan selisih jumlah kalimat**, dan itulah alasan tabel ini dihitung
-ulang setiap kali deck bertambah.
+**Keluarga dekat kurang 3,7 poin, turun dari 6,3.** Batch medan makna keluarga dan batch tubuh
+menambah 35 kalimat bersama-sama, dan `keluarga` naik dari 147 ke 173. Perhatikan bahwa 26 kalimat
+keluarga hanya menutup 3,9 poin: penyebutnya ikut bertambah dari 557 ke 592, jadi kelompok lain juga
+bergerak tanpa satu kalimat pun berubah di sana (**publik & jasa naik ke +5,1** justru karena batch
+tubuh hampir semuanya ke dokter). **Poin bukan selisih jumlah kalimat**, dan itulah alasan tabel ini
+dihitung ulang setiap kali deck bertambah.
 
 Angka 13,6 poin itu penyebutnya 449 kalimat; angka 4,3 poin penyebutnya 573. Deck yang bertambah
 membuat persentase yang sama menghasilkan poin yang lebih kecil, jadi **selisih ini harus dihitung
@@ -195,20 +197,20 @@ sekaligus menambah entrinya.
 | Medan | Dipakai | Total | Celah (kalimat) | Siap ditulis | Perlu entri lexicon |
 |---|---|---|---|---|---|
 | `latar` | 13 | 20 | 7 | 5 | 2 |
-| `benda_dapur` | 3 | 11 | 8 | 4 | 4 |
+| `benda_dapur` | 4 | 11 | 7 | 4 | 3 |
 | `benda_rumah` | 5 | 12 | 7 | 0 | 7 |
 | `benda_bawa` | 4 | 10 | 6 | 3 | 3 |
 | `bangunan` | 8 | 18 | 10 | 3 | 7 |
 | `keadaan` | 9 | 21 | 12 | 3 | 9 |
-| `tubuh` | 4 | 18 | 14 | 5 | 9 |
+| `tubuh` | 18 | 18 | 0 | 0 | 0 |
 | `keluarga` | 18 | 18 | 0 | 0 | 0 |
 | `bakat` | 3 | 9 | 6 | 3 | 3 |
 | `hobi` | 8 | 15 | 7 | 0 | 7 |
 | `pekerjaan` | 4 | 14 | 10 | 10 | 0 |
 | `kebiasaan` | 5 | 12 | 7 | 0 | 7 |
 | `perkenalan` | 8 | 10 | 2 | 1 | 1 |
-| `arah` | 14 | 17 | 3 | 2 | 1 |
-| **Jumlah** | **106** | **205** | **99** | **39** | **60** |
+| `arah` | 15 | 17 | 2 | 1 | 1 |
+| **Jumlah** | **122** | **205** | **83** | **33** | **50** |
 
 **Cara membaca kolom Celah.** Angka itu jumlah kata yang belum dipakai kalimat mana pun, dan
 sekaligus **lantai** jumlah kalimat yang perlu ditulis, bukan target. Satu kalimat bisa memuat dua
@@ -234,8 +236,21 @@ Dua hal ditemukan waktu batch ini ditulis, dan keduanya dicatat:
   akan membuat `berelasi sebab` naik ke atas batas 72%. Sambungnya karena itu divariasikan
   (`けれど`, `たら`, `と`, `から`, `てから`, `のに`) dan hasilnya 66,3% menjadi 65,6%.
 
-**Yang paling tipis sekarang, dan itu dicatat bukan disembunyikan.** `tubuh` (14 kalimat), `keadaan`
-(12), dan `bangunan` (10) adalah tiga celah terbesar.
+**`tubuh` dan `keluarga` sudah tidak punya celah.** Batch tubuh menutup 18 katanya dengan 22 kalimat
+(15 di `klinik`, 7 di topik rumah), dan kata yang paling lama kosong, `足` `耳` `口` `鼻` `首` `指`
+`髪` `のど` `尻尾`, masing-masing kini dipakai kalimat yang mengeluhkannya ke orang yang tepat.
+
+Tiga hal ditemukan waktu batch ini ditulis:
+- **`背` punya dua arti.** Untuk orang ia punggung, untuk benda ia tinggi. Dua kalimat memakainya
+  sekaligus: satu mengeluh punggung pegal, satu lagi meminta tukar tempat karena orang di belakang
+  tinggi. Kalimatnya yang membedakan, bukan daftarnya.
+- **Kata tubuh hampir selalu berpasangan dengan lawan bicara tertentu.** Mengeluh itu ke dokter,
+  dan itu menaikkan kelompok publik & jasa ke +5,1, sekarang kelompok paling menyimpang. Itu
+  konsekuensi yang tercatat, bukan cacat yang disembunyikan.
+- **`お盆` masih punya dua arti** (nampan dan obon), dan itu tetap alasan ia tidak dipakai.
+
+**Yang paling tipis sekarang, dan itu dicatat bukan disembunyikan.** `keadaan` (12 kalimat),
+`bangunan` (10), dan `benda_dapur` (7, semuanya perlu entri) adalah tiga celah terbesar.
 
 ---
 
@@ -305,7 +320,7 @@ jalan sampai ujung. Menggantinya dengan `#q21` akan menghemat 4 detik dan menghi
 | Perlu ditulis | **0** |
 
 "Kuota terpakai" **563 sama dengan kuota 563, dan tidak ada topik yang berdiri di atas kuotanya.**
-Angka itu berasal dari 573 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
+Angka itu berasal dari 592 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
 `sopan` menerima 4 (`kurasi01`, `kurasi02`, `kurasi05`, `kurasi09`) dan `waktu_cuaca` 2 (`kurasi07`,
 `kurasi10`). Empat kalimat `kurasi` yang tersisa (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`)
 tidak dipetakan ke topik mana pun dan karena itu tidak dihitung terhadap kuota, walaupun tetap
@@ -320,7 +335,7 @@ dan bagian "Sisa yang harus ditulis" di tiap berkas topik karena itu semuanya be
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **573** |
+| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **592** |
 | Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **563** |
 | Kalimat di halaman | semua yang dibaca pembaca | **567** |
 | Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **563** |
@@ -333,7 +348,7 @@ terukur yang sama:
 | Kalimat balasan (K8) | +24 | `klinik`, `kegiatan`, dan `belanja` hanya punya 1-2 kalimat balasan padahal slot `menjawab` di berkas topiknya sudah ditulis seolah terisi |
 | Sebaran lawan bicara (K9) | +92 | lawan bicara keluarga berdiri di 23,2% (dari 449 kalimat) melawan bagiannya 36,8% di survei, selisih 13,6 poin yang belum pernah diukur |
 
-Sesudah gelombang kedua dan batch medan makna keluarga, selisih keluarga **4,3 poin** (186 dari 573 kalimat), dan sisanya itu
+Sesudah gelombang kedua dan kedua batch medan makna, selisih keluarga **3,7 poin** (196 dari 592 kalimat), dan sisanya itu
 dicatat, bukan dirapikan angkanya. Menutupnya dengan menambah kalimat demi angka akan tertangkap
 `check.js` tiga kali sekaligus (K3, K4, T4), jadi yang harus dicari adalah keadaan nyata yang belum
 tertulis.

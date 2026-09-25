@@ -704,4 +704,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'Asking about what is missing invites the guest to say, so they do not have to hold back.',
     t: ["お部屋","は","用意","して","あります","ので","、","足り","ない","もの","が","あれば","おっしゃって","ください","。"],
   },
+  {
+    key: 'rumah_tugas_air_mata_tidak_berhenti', topic: 'rumah_tugas',
+    rel: 'keluarga', polite: 1, long: 1,
+    sit: 'Memberi tahu air mata tidak berhenti waktu memotong bawang',
+    sitEn: 'Saying the tears will not stop while cutting onions',
+    id: 'Meskipun sudah dibilas, air mata saya tidak berhenti, jadi saya berhenti dulu sebentar.',
+    en: 'Even after rinsing my tears will not stop, so I am stopping for a moment.',
+    note: 'のに dan ので keduanya ada, dan yang menyambung ke tindakan adalah ので.',
+    noteEn: 'Both a contrast and a cause are present, and the cause is the one that leads to the action.',
+    t: ["洗って","も","涙","が","止まらない","ので","、","少し","休みます","。"],
+  },
 ]);
