@@ -184,16 +184,18 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| cuti melahirkan dan cuti mengasuh anak | tidak ada kalimat yang memuat `産休` atau `育休` |
-| pindah divisi atau pindah tempat kerja | tidak ada kalimat yang memuat `異動` |
-| penilaian kerja dan wawancara tahunan | tidak ada kalimat yang memuat `評価` atau `面談` |
-| upah lembur dan tunjangan | tidak ada kalimat yang memuat `残業代` atau `手当` |
-| rapat daring dan kerja dari rumah | tidak ada kalimat yang memuat `オンライン` atau `リモート` |
+| cuti melahirkan, yang belum tertulis | tidak ada kalimat yang memuat `産休` |
+| pindah tempat kerja tanpa pindah divisi | `異動` sudah dipakai `kerja_minta_pindah_divisi`; `転勤` belum |
+| penilaian yang menilai hasil kerjanya | `面談` sudah dipakai `kerja_lapor_penilaian`; `評価` belum |
+| upah lembur yang belum ditanyakan | `手当` sudah dipakai `kerja_tanya_lembur_dibayar`; `残業代` belum |
+| kerja dari rumah tanpa rapat | `オンライン` sudah dipakai `kerja_rapat_daring`; `リモート` belum |
 
 Kuota naik dari 86 menjadi 90 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,
-semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis.
+semuanya dari daftar celah yang sudah tercatat sejak topik ini ditulis. Lima baris di atas sempat
+masih tertulis sebagai celah padahal kalimatnya sudah ada dan sudah ditulis di topik ini sendiri;
+yang tersisa di situ sekarang hanya bagian yang benar-benar belum tertulis.
 
-Kalau topik ini dibuka lagi, empat baris itu yang pertama ditulis, bukan mengulang keadaan yang
+Kalau topik ini dibuka lagi, baris di atas yang pertama ditulis, bukan mengulang keadaan yang
 sudah ada. Kalimat baru juga harus menghindari kerangka di tabel atas: `check.js` bagian `distinct`
 menangkap kerangka yang sama dengan predikat yang sama setelah bendanya dibuang.
 

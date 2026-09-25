@@ -149,13 +149,13 @@ Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 | menitipkan kunci ke tetangga saat pergi | `rumah_tugas_titip_tetangga` |
 | membuat kunci duplikat | `rumah_tugas_kunci_duplikat` |
 | memilah sampah daur ulang | `rumah_tugas_pilah_daur_ulang` |
+| listrik yang mati dan sekring yang turun | `rumah_tugas_sekring_turun` |
 
 Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
 | kebocoran air dan keran yang menetes | tidak ada kalimat yang memuat `漏れ` atau `水漏れ` |
-| listrik yang mati dan sekring yang turun | tidak ada kalimat yang memuat `停電` atau `ブレーカー` |
 | menjadwalkan pengangkutan barang besar | `粗大ごみ` ada, `予約` belum |
 | mengeluh atau menanggapi kebisingan tetangga | tidak ada kalimat yang memuat `騒音` atau `苦情` |
 | mengunci diri di luar rumah | `鍵` dan `合鍵` ada, `締め出` belum |

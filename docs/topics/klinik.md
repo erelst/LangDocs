@@ -108,7 +108,7 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 |---|---|
 | alergi makanan, bukan alergi obat | `アレルギー` ada untuk obat, `食物` belum |
 | menanyakan apakah perlu datang lagi | tidak ada kalimat yang memuat `また来て` |
-| meminta hasil pemeriksaan | tidak ada kalimat yang memuat `結果` |
+| meminta hasil pemeriksaan | tidak ada kalimat yang memuat `検査結果`. `結果` sudah dipakai `rumah_santai_puji_usaha`, tapi untuk hasil latihan anak |
 | biaya yang ditanggung asuransi | `かかる` ada, `保険` belum |
 
 Kuota naik dari 8 ke 12 lewat empat keadaan nyata, lalu ke 15 karena tiga kalimat balasan yang

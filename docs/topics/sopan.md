@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Sopan dan reaksi |
-| Kuota | 32 |
-| Sudah ditulis | 32 |
+| Kuota | 37 |
+| Sudah ditulis | 37 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_sopan.js` |
@@ -117,7 +117,7 @@ bukan dari ingatan:
 
 | Celah | Bukti pencarian |
 |---|---|
-| memberi izin dengan `どうぞ`, bukan hanya menyetujui pendapat | tidak ada kalimat yang memuat `どうぞ` atau `かまいません` |
+| memberi izin dengan `どうぞ` dalam arti mempersilakan, bukan hanya menyetujui pendapat | `どうぞ` sudah dipakai tujuh kali, tapi untuk menyilakan masuk, menyilakan duduk, dan menyilakan mencoba; belum sekali pun sebagai jawaban atas permintaan izin. `かまいません` belum ada |
 | mengalihkan topik pembicaraan | tidak ada kalimat yang memuat `ところで` |
 | bercanda ringan untuk mencairkan suasana | tidak ada kalimat yang memuat `冗談` |
 | mengingatkan bahwa orangnya boleh minta bantuan lagi | `いつでも言ってください` ada satu, `遠慮なく` belum |
@@ -136,4 +136,4 @@ koreksi gaya, keduanya keluar dari data: `data/curated.js` menyumbang 4, `data/t
 28, dan sebelumnya baris di sini menulis 27 karena menghitung `kurasi` yang berbeda.
 ## Sisa yang harus ditulis
 
-32 kalimat. Kuota 32 sudah penuh.
+37 kalimat. Kuota 37 sudah penuh.

@@ -152,14 +152,16 @@ Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 | mengajak makan dengan bentuk akrab | `makan_ajak_makan_akrab` |
 | menanyakan pendapat orang lain soal rasanya | `makan_tanya_pendapat_rasa` |
 | menu yang dicari dan tidak ada di daftar | `makan_tanya_menu_tidak_ada` |
+| memesan tempat makan lebih dulu | `makan_reservasi_tempat` |
+| sarapan di hotel atau penginapan | `makan_sarapan_penginapan` |
 
 Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| memesan tempat makan lebih dulu | tidak ada kalimat yang memuat `予約` |
-| sarapan di hotel atau penginapan | tidak ada kalimat yang memuat `朝食` |
-| antre menunggu meja di restoran | tidak ada kalimat yang memuat `待ち` atau `行列` |
+
+
+| antre menunggu meja di restoran | tidak ada kalimat yang memuat `行列` atau `順番待ち`. `待ち` sudah dipakai `kerja_menunggu_jawaban` dan `telepon_minta_ditunggu`, tapi untuk menunggu jawaban dan menunggu di telepon |
 | layanan dan biaya tambahan di restoran | tidak ada kalimat yang memuat `サービス` dalam arti ini |
 
 Kuota naik dari 53 menjadi 57 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,

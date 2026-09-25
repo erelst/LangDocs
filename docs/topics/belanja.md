@@ -113,10 +113,10 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 |---|---|
 | membayar tanpa uang tunai: uang elektronik dan kode bayar | tidak ada kalimat yang memuat `電子マネー`, `ペイ`, atau `タッチ` |
 | obral yang sedang berlangsung, bukan kapan mulainya | `セール` ada di kalimat kapan mulai; `割引` dan `バーゲン` belum |
-| menanyakan jam buka dan tutup toko | tidak ada kalimat yang memuat `営業時間` atau `何時まで` |
+| menanyakan jam buka dan tutup toko | tidak ada kalimat yang memuat `営業時間` atau `開店`. `何時まで` sudah dipakai tiga kali, tapi tidak sekali pun untuk toko: taman, sarapan penginapan, dan kafe. `閉店` muncul di `rumah_santai_berita_baru`, tapi di berita, bukan waktu menanyakan jam toko |
 | menawar di pasar, bukan di toko | `少し安く` ada di toko; `値切` dan `負けて` belum |
 | membandingkan merek dan bahan | tidak ada kalimat yang memuat `メーカー`, `素材`, atau `ブランド` |
-| belanja lewat internet | tidak ada kalimat yang memuat `通販` atau `オンライン` |
+| belanja lewat internet | tidak ada kalimat yang memuat `通販` atau `ネット注文`. `オンライン` sudah dipakai `kerja_rapat_daring`, tapi untuk rapat, bukan belanja |
 
 Kuota naik dari 21 menjadi 27: lima keadaan nyata dan berbeda dari pemeriksaan celah, lalu satu
 kalimat balasan yang dituntut `../SPEC.md` K8 (`belanja_jawab_cari_sendiri`),

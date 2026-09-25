@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Santai di luar |
-| Kuota | 33 |
-| Sudah ditulis | 33 |
+| Kuota | 42 |
+| Sudah ditulis | 42 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_santai.js` |
@@ -112,6 +112,8 @@ Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 | slot "menutup acara: berterima kasih" dijanjikan tapi tidak ada | `santai_tutup_acara` |
 | karaoke, kegiatan berisik yang justru disengaja | `santai_ajak_karaoke` |
 | acara yang dibatalkan karena hujan | `santai_batal_karena_hujan` |
+| liburan panjang dan menyusun rencananya | `santai_liburan_panjang` |
+| berfoto bersama sebagai penutup | `santai_foto_keluarga` |
 
 Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
@@ -119,10 +121,8 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 |---|---|
 | menonton olahraga bersama | tidak ada kalimat yang memuat `野球` atau `サッカー` |
 | konser dan acara musik langsung | `映画` ada, `コンサート` dan `ライブ` belum |
-| liburan panjang dan menyusun rencananya | tidak ada kalimat yang memuat `連休` |
 | menanyakan jam tutup, bukan jam buka | `開いて` ada, `閉まる` belum |
 | bermain musik bersama | tidak ada kalimat yang memuat `バンド` |
-| berfoto bersama sebagai penutup | tidak ada kalimat yang memuat `写真` |
 
 Kuota naik dari 18 menjadi 22 karena pemeriksaan ini menemukan empat keadaan yang nyata dan berbeda,
 dua di antaranya slot yang dijanjikan bagian ruang ucapan di atas dan tidak pernah diisi.
@@ -140,4 +140,4 @@ melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
 
 ## Sisa yang harus ditulis
 
-33 kalimat. Kuota 33 sudah penuh.
+42 kalimat. Kuota 42 sudah penuh.

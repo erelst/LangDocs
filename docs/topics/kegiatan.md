@@ -112,7 +112,7 @@ Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 |---|---|
 | ~~menjawab pertanyaan orang yang baru dikenal tentang diri sendiri~~ | **ditutup** oleh `kegiatan_jawab_siap_bawa`, `kegiatan_jawab_tidak_bisa_hari_itu`, dan `kegiatan_jawab_bisa_bawa` saat `../SPEC.md` K8 dijalankan |
 | mengucapkan terima kasih kepada panitia setelah acara | tidak ada kalimat yang memuat `お疲れ様` |
-| membawa makanan atau minuman untuk kegiatan | tidak ada kalimat yang memuat `差し入れ` atau `飲み物` |
+| membawa makanan atau minuman untuk kegiatan | tidak ada kalimat yang memuat `差し入れ`. `飲み物` sudah dipakai `makan_tanya_minuman`, tapi untuk memesan minuman di restoran |
 | kursus atau klub yang diikuti atas kemauan sendiri | tidak ada kalimat yang memuat `サークル` atau `教室` |
 | menanyakan siapa ketua atau penanggung jawab kegiatan | tidak ada kalimat yang memuat `会長` atau `代表` |
 

@@ -5,8 +5,8 @@
 | | |
 |---|---|
 | Judul | Jalanan |
-| Kuota | 28 |
-| Sudah ditulis | 28 |
+| Kuota | 36 |
+| Sudah ditulis | 36 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_jalan.js` |
@@ -103,13 +103,16 @@ Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 | gedung sebagai patokan untuk mencari tempat | `jalan_tanya_gedung` |
 | jam tutup taman saat sedang berjalan di situ | `jalan_park_jam_tutup` |
 | berpisah di persimpangan karena arah berbeda | `jalan_berpisah_di_sini` |
+| menanyakan arah pulang, bukan arah pergi | `jalan_tanya_arah_pulang_dua_kemungkinan` |
+| alamat yang tidak ada di peta, jadi petanya tidak menolong | `jalan_tanya_arah_jalan_kecil` |
+| tidak tahu daerahnya lalu mengarahkan ke tempat bertanya | `jalan_jawab_tidak_yakin_arah` |
+| permintaan mengulang karena suaranya tidak terdengar | `jalan_dengar_arah_ulang` |
 
 Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
 | berhenti mengobrol terlalu lama di jalan | tidak ada kalimat yang memuat `話し込` |
-| menanyakan arah pulang, bukan arah pergi | `探して` dan `曲がって` ada, `戻る` belum |
 | berpapasan dengan orang yang tidak ingin ditemui | `お久しぶり` ada, keadaan sebaliknya belum |
 
 Kuota naik dari 17 menjadi 20 karena pemeriksaan ini menemukan tiga keadaan yang nyata dan berbeda.
@@ -125,6 +128,13 @@ kalimat). Kalimat keluarga yang ditulis di topik ini semuanya keadaan yang benar
 baru, bukan keadaan lama yang lawan bicaranya diganti, karena penggantian seperti itu
 melanggar K9 dan akan tertangkap K3, K4, serta T4 sekaligus.
 
+**Catatan kenaikan kuota 28 menjadi 36.** Sebabnya bukan angka sebaran, melainkan medan makna
+yang berlubang di topik ini: `arah` dan `bangunan`. Delapan kalimat menutup `地図`, `交差点`,
+`信号`, `二つ目`, `曲がる`, `渡る`, `郵便局`, `建物`, `手前`, dan `戻る`, yang sebelumnya tidak
+dipakai kalimat mana pun. Ketentuannya di `../SPEC.md` T6, dan semuanya keadaan nyata: menanyakan
+jalan kecil yang tidak ada di peta, menjelaskan dua belokan sekaligus, mengarahkan orang ke pos
+polisi karena tidak tahu daerahnya, meminta arah diulang karena tidak terdengar.
+
 ## Sisa yang harus ditulis
 
-28 kalimat. Kuota 28 sudah penuh.
+36 kalimat. Kuota 36 sudah penuh.

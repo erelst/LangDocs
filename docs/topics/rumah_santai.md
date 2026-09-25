@@ -143,13 +143,13 @@ Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:
 | lelah fisik, bukan hanya lelah pikiran | `rumah_santai_lelah_fisik` |
 | main game bersama sebagai cara istirahat | `rumah_santai_ajak_game` |
 | musik sebagai cara istirahat | `rumah_santai_dengar_musik` |
+| bercanda dan tertawa bersama | `rumah_santai_bercanda_tertawa` |
+| menonton televisi atau berita bersama | `rumah_santai_nonton_berita, rumah_santai_kecilkan_volume` |
 
 Celah yang masih terbuka setelah pemeriksaan itu, dicari dengan kata kuncinya:
 
 | Celah | Bukti pencarian |
 |---|---|
-| bercanda dan tertawa bersama | tidak ada kalimat yang memuat `笑` atau `冗談` |
-| menonton televisi atau berita bersama | tidak ada kalimat yang memuat `テレビ` atau `ニュース` |
 | hobi baru yang mulai ditekuni | `好き` dan `趣味` belum muncul sebagai topik pembicaraan |
 | tamu yang menginap, bukan sekadar berkunjung | `お上がり` dan `お送り` ada, `泊まる` belum |
 
