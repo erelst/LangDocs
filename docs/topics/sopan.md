@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Sopan dan reaksi |
 | Kuota | 37 |
-| Sudah ditulis | 37 |
+| Sudah ditulis | 41 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_sopan.js` |

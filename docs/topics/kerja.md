@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Kerja |
 | Kuota | 98 |
-| Sudah ditulis | 98 |
+| Sudah ditulis | 99 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_kerja.js` |

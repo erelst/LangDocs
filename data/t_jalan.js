@@ -450,4 +450,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The building is visible, so the direction can be pointed at while speaking.',
     t: ["病院","は","この","先","です","から","、","エレベーター","で","三階","まで","行って","ください","。"],
   },
+  {
+    key: 'jalan_tanya_pos_polisi', topic: 'jalan',
+    rel: 'orang_asing', polite: 1, long: 1,
+    sit: 'Mencari pos polisi untuk bertanya',
+    sitEn: 'Looking for the police box to ask',
+    id: 'Karena tidak tahu jalannya, saya tanya ke pos polisi.',
+    en: 'I do not know the way, so I will ask at the police box.',
+    note: 'Pos polisinya kelihatan di seberang, jadi tujuannya bisa ditunjuk.',
+    noteEn: 'The police box is visible across the street, so the destination can be pointed at.',
+    t: ["道","が","分からない","ので","、","警官","に","聞いて","みます","。"],
+  },
 ]);

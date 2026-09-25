@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Klinik |
 | Kuota | 15 |
-| Sudah ditulis | 26 |
+| Sudah ditulis | 27 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_klinik.js` |

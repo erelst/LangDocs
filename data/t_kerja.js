@@ -1091,4 +1091,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The reason is given so colleagues know you are reachable online rather than gone.',
     t: ["子ども","が","熱","を","出して","いる","ので","、","今日","は","在宅","で","失礼","します","。"],
   },
+  {
+    key: 'kerja_rekan_aktor', topic: 'kerja',
+    rel: 'rekan', polite: 1, long: 1,
+    sit: 'Menjelaskan rekan yang juga aktor',
+    sitEn: 'Explaining that a colleague also acts',
+    id: 'Karena rekan saya juga aktor, jadwalnya sering tidak tetap.',
+    en: 'My colleague also acts, so the schedule often shifts.',
+    note: 'Jadwalnya sedang dibicarakan, jadi alasan tidak tetapnya masuk akal di tempat kerja.',
+    noteEn: 'The schedule is the topic, so the reason for it changing makes sense at work.',
+    t: ["同じ","部署","の","人","は","俳優","も","して","いる","ので","、","予定","が","変わりやすい","です","。"],
+  },
 ]);

@@ -207,4 +207,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The move has just been announced, which is what one talks about before practice.',
     t: ["学校","の","体育館","が","使えません","から","、","練習","は","向こう","の","体育館","です","。"],
   },
+  {
+    key: 'kegiatan_guru_piano', topic: 'kegiatan',
+    rel: 'guru', polite: 1, long: 1,
+    sit: 'Menjelaskan guru piano yang mengajar di lingkungan itu',
+    sitEn: 'Explaining that the piano teacher takes pupils nearby',
+    id: 'Karena gurunya tinggal dekat, saya belajar piano di rumahnya.',
+    en: 'The teacher lives close by, so I take piano lessons at her house.',
+    note: 'Rumahnya bisa ditunjuk, jadi kalimat ini menyebut orang dan tempat yang nyata.',
+    noteEn: 'The house can be pointed at, so the sentence names a real person and place.',
+    t: ["先生","の","家","が","近い","から","、","ピアノ","を","習って","います","。"],
+  },
 ]);

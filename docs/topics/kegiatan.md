@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Kegiatan |
 | Kuota | 17 |
-| Sudah ditulis | 18 |
+| Sudah ditulis | 19 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_kegiatan.js` |

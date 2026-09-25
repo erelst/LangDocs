@@ -296,4 +296,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The medicine is in hand while asking, so the question is direct and clear.',
     t: ["毎朝","お茶","を","飲みます","から","、","この","薬","も","お茶","で","飲んで","も","いい","ですか","。"],
   },
+  {
+    key: 'klinik_kata_dokter_istirahat', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Diminta istirahat oleh dokter',
+    sitEn: 'Being told by the doctor to rest',
+    id: 'Karena dokter bilang begitu, saya berhenti dulu sebentar.',
+    en: 'The doctor said so, so I am stopping for a while.',
+    note: 'Diucapkan sesudah diperiksa, jadi yang dirujuk adalah perkataan yang baru didengar.',
+    noteEn: 'It is said after the examination, so it refers to something just heard.',
+    t: ["医者","に","休む","よう","に","言われた","ので","、","少し","休みます","。"],
+  },
 ]);

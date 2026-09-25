@@ -94,12 +94,12 @@ dan ini yang tidak boleh memburuk:
 
 | Checkpoint | Sekarang | Batas | Kenapa angka itu |
 |---|---|---|---|
-| Pola akhir kalimat (3 aksara terakhir) yang paling sering | `ますか` 14,8% | **di bawah 20%** | satu bentuk tanya tidak boleh mendominasi seperlima bank |
+| Pola akhir kalimat (3 aksara terakhir) yang paling sering | `ますか` 14,5% | **di bawah 20%** | satu bentuk tanya tidak boleh mendominasi seperlima bank |
 | Kalimat panjang yang pola akhirnya dipakai lebih dari sekali | 83,1% | **di bawah 90%** | memperhatikan bahwa 498 kalimat hanya punya 137 pola akhir, jadi berbagi pola itu normal; yang dilarang adalah menumpuk di satu pola |
-| Pembuka kalimat yang paling sering | `この` 5,1% | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca; angkanya diukur, bukan dihitung tangan dari tiga pembuka teratas |
+| Pembuka kalimat yang paling sering | `この` 5,0% | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca; angkanya diukur, bukan dihitung tangan dari tiga pembuka teratas |
 | Akhiran 6 aksara yang dipakai 3 kali atau lebih | 22 pola | **di bawah 25 pola** | kalau jumlahnya naik terus, kalimatnya makin sering berakhir sama |
-| Penanda relasi teratas (`ので`) | 39,2% | **di bawah 45%** | K3 mengizinkan banyak relasi, jadi menumpuk di satu penanda itu pilihan, bukan keharusan |
-| Kalimat panjang yang klausanya disambung **sebab** | 68,3% | **di bawah 72%** | bentuk "karena X, maka Y" adalah bentuk termudah ditulis dan paling sulit dirasakan pengulangannya |
+| Penanda relasi teratas (`ので`) | 39,1% | **di bawah 45%** | K3 mengizinkan banyak relasi, jadi menumpuk di satu penanda itu pilihan, bukan keharusan |
+| Kalimat panjang yang klausanya disambung **sebab** | 68,6% | **di bawah 72%** | bentuk "karena X, maka Y" adalah bentuk termudah ditulis dan paling sulit dirasakan pengulangannya |
 
 **Checkpoint relasi diukur pada penanda yang benar-benar ada, bukan pada pasangan teks.** Dua
 kesalahan pengukuran ditemukan saat aturan ini diperiksa ulang, dan keduanya membuat angkanya
@@ -311,14 +311,14 @@ asing 2,4%.
 
 | Kelompok | Deck | Terukur | Selisih |
 |---|---|---|---|
-| kerja & belajar | 24,8% | 22,7% | **+2,1** |
-| publik & jasa | 15,9% | 10,8% | **+5,1** |
+| kerja & belajar | 24,5% | 22,7% | **+1,8** |
+| publik & jasa | 15,8% | 10,8% | **+5,0** |
 | orang asing | 6,8% | 2,4% | **+4,4** |
-| teman & tetangga | 18,1% | 17,2% | **+0,9** |
-| guru-murid | 0,9% | 3,1% | -2,2 |
-| keluarga dekat | 33,4% | 36,8% | **-3,4** |
+| teman & tetangga | 19,0% | 17,2% | **+1,8** |
+| guru-murid | 1,1% | 3,1% | -2,0 |
+| keluarga dekat | 32,8% | 36,8% | **-4,0** |
 
-Kolom Deck dihitung dari 646 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
+Kolom Deck dihitung dari 658 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
 penyebut 515) dan tidak ada yang menyadarinya, karena itu `test.js` sekarang menghitung ulang tiap
 barisnya dari berkas data dan berkas topik. Kelompok dengan selisih **5,0 poin atau lebih** disebut
 menyimpang, dan setelah tujuh batch medan makna itu berlaku untuk publik & jasa lagi (+5,1), karena batch benda berisi pertanyaan ke petugas.
