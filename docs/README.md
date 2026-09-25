@@ -197,6 +197,14 @@ sekaligus menambah entrinya.
 | `arah` | 17 | 17 | 0 | 0 | 0 |
 | **Jumlah** | **205** | **205** | **0** | **0** | **0** |
 
+**Yang dihitung "terpakai" adalah satu kalimat yang memuat kata itu, dan cakupan ini rapuh.**
+Diukur dari data: **136 dari 205 kata hanya dipakai di satu kalimat saja**, sisanya di dua atau
+lebih. Artinya menghapus atau menulis ulang satu kalimat bisa membuka kembali celahnya, dan
+`check.js` akan menunjukkannya pada jalannya berikutnya. Itu bukan cacat angka, melainkan batas
+yang perlu diketahui sebelum membaca tabel ini sebagai "kata-kata ini aman": yang benar adalah
+"kata-kata ini punya setidaknya satu kalimat", dan menambah kalimat lain untuk kata yang sama
+tetap pekerjaan yang berguna.
+
 **Cara membaca kolom Celah.** Angka itu jumlah kata yang belum dipakai kalimat mana pun, dan
 sekaligus **lantai** jumlah kalimat yang perlu ditulis, bukan target. Satu kalimat bisa memuat dua
 kata sekaligus ("adik saya ikut makan di sini" memuat `弟` dan meja makannya), jadi kalimat yang
