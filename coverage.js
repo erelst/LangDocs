@@ -31,7 +31,7 @@ window.COVERAGE = {
     note: 'benda yang dipakai waktu makan dan memasak',
     words: ['箸', '皿', '茶碗', 'コップ', 'スプーン', 'フォーク', '鍋', '冷蔵庫', '包丁', 'まな板',
             'ふきん'],
-    needEntry: ['茶碗', 'まな板', 'ふきん'],
+    needEntry: [],
   },
   benda_rumah: {
     note: 'benda di dalam rumah di luar dapur',
@@ -42,7 +42,7 @@ window.COVERAGE = {
   benda_bawa: {
     note: 'benda yang dibawa orang sehari-hari',
     words: ['財布', '鍵', '傘', 'かばん', 'スマホ', '充電器', 'ハンカチ', '眼鏡', '薬', '切符'],
-    needEntry: ['かばん', '充電器', 'ハンカチ'],
+    needEntry: [],
   },
   /* Bangunan dan tempat umum. */
   bangunan: {

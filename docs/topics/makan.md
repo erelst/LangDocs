@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Makan |
 | Kuota | 71 |
-| Sudah ditulis | 71 |
+| Sudah ditulis | 72 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_makan.js` |

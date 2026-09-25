@@ -460,4 +460,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'Apologising for the hour first, then the reason for calling, so it does not feel intrusive.',
     t: ["夜分", "に", "すみません", "。", "久しぶり", "に", "声", "が", "聞きたく", "なった", "ので", "、", "電話", "しました", "。"],
   },
+  {
+    key: 'telepon_obat_di_rumah_masih_ada', topic: 'telepon',
+    rel: 'keluarga', polite: 1, long: 1,
+    sit: 'Memberi tahu obat di rumah masih ada lewat telepon',
+    sitEn: 'Saying on the phone that the medicine at home is still there',
+    id: 'Karena obat di rumah masih ada, saya tidak perlu membeli lagi.',
+    en: 'There is still medicine at home, so I do not need to buy more.',
+    note: 'Diucapkan di telepon karena obatnya diperiksa sebelum menelepon, dan itu yang membuatnya nyata.',
+    noteEn: 'It is said on the phone because the medicine was checked before calling, which is what makes it real.',
+    t: ["薬","は","うち","に","まだ","ある","から","、","買わなくて","いい","です","。"],
+  },
 ]);

@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Belanja |
 | Kuota | 28 |
-| Sudah ditulis | 30 |
+| Sudah ditulis | 32 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_belanja.js` |

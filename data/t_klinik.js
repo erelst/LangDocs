@@ -285,4 +285,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The flood has already happened and can be described, so this explains where the pain started.',
     t: ["洪水","で","足","が","水","に","つかって","から","、","痛く","なって","きました","。"],
   },
+  {
+    key: 'klinik_tanya_obat_diminum_kapan', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menanyakan apakah obat boleh diminum dengan teh',
+    sitEn: 'Asking whether the medicine may be taken with tea',
+    id: 'Karena saya selalu minum teh, apakah obatnya boleh diminum dengan teh?',
+    en: 'I always drink tea, so may the medicine be taken with it?',
+    note: 'Obatnya sedang dipegang waktu bertanya, jadi pertanyaannya jelas dan langsung.',
+    noteEn: 'The medicine is in hand while asking, so the question is direct and clear.',
+    t: ["毎朝","お茶","を","飲みます","から","、","この","薬","も","お茶","で","飲んで","も","いい","ですか","。"],
+  },
 ]);

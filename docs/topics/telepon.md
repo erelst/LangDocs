@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Telepon |
 | Kuota | 41 |
-| Sudah ditulis | 41 |
+| Sudah ditulis | 42 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_telepon.js` |

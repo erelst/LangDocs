@@ -794,4 +794,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'Asked before ordering, so it does not come across as an objection after the meal.',
     t: ["注文","する","前","に","、","値段","の","ほか","に","かかる","もの","は","あります","か","。"],
   },
+  {
+    key: 'makan_tanya_panci_bisa_dipakai', topic: 'makan',
+    rel: 'pelayan', polite: 1, long: 1,
+    sit: 'Menanyakan apakah panci boleh dipakai untuk memanaskan porsi besar',
+    sitEn: 'Asking whether the pot may be used to heat a large portion',
+    id: 'Karena porsinya banyak, apakah boleh dipanaskan di panci?',
+    en: 'The portion is large, so may it be heated in a pot?',
+    note: 'Porsinya kelihatan banyak, jadi alasan permintaannya bisa dilihat pelayan.',
+    noteEn: 'The portion is visibly large, so the waiter can see the reason for the request.',
+    t: ["量","が","多い","ので","、","鍋","で","温めて","いただけますか","。"],
+  },
 ]);
