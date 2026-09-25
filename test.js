@@ -496,21 +496,32 @@ ok('the topic files still carry open-gap claims to check', gapClaims > 0, `${gap
   const shape = s => s.t.map(t => (Array.isArray(t) ? t[0] : t)).join('').replace(/[、。！？…]/g, '');
   const MARKS = ['ので', 'から', 'けど', 'けれど', 'たら', 'とき', 'ながら', 'ため', 'し',
                  'てから', 'あとで', 'まえに', 'のに', 'なければ', 'れば', 'なら', 'と', 'が'];
-  const tally = (fn, len) => {
+  /* ので before す is the softener 〜のですが and before し the question 〜のでしょうか; から is a
+   * cause only when it closes a clause with a comma, otherwise it is てから, いつから, or the から
+   * of 分からない. The relation is therefore read on a copy that keeps the comma. */
+  const relShape = s => s.t.map(t => (Array.isArray(t) ? t[0] : t)).join('').replace(/[。！？…]/g, '');
+  const isRing = (k, m, at) => (m === 'ので' ? !'すし'.includes(k[at + 2])
+                              : m === 'から' ? k[at + 2] === '、'
+                              : true);
+  const tally = (fn, len, of = shape) => {
     const m = new Map();
-    for (const s of long) { const k = fn(shape(s), len); m.set(k, (m.get(k) || 0) + 1); }
+    for (const s of long) { const k = fn(of(s), len); m.set(k, (m.get(k) || 0) + 1); }
     return [...m.entries()].sort((a, b) => b[1] - a[1]);
   };
   const pct = n => 100 * n / long.length;
   const endings = tally((k, n) => k.slice(-n), 3);
   const openings = tally((k, n) => k.slice(0, n), 2);
   const habits = tally((k, n) => k.slice(-n), 6).filter(([, n]) => n >= 3);
-  const relations = tally((k, n) => MARKS.filter(m => k.includes(m)).slice(0, 2).join('+') || '(none)');
+  const relations = tally((k) => MARKS.find(m => k.includes(m) && isRing(k, m, k.indexOf(m))) || '(none)', undefined, relShape);
   const shared = endings.filter(([, n]) => n > 1).reduce((a, [, n]) => a + n, 0);
-  const twoRel = pct(relations[0][1] + relations[1][1]);
+  const topRel = pct(relations[0][1]);
+  /* Clauses joined by cause, counted across the whole bank. A per-marker limit cannot see this one:
+   * swapping ので for から leaves every marker share low while the sentence still says "because X, Y". */
+  const REASON = /ので(?![すし])|から(?=[、,])|ため[に、]|おかげで|せいで/;
+  const cause = pct(long.filter(s => REASON.test(relShape(s))).length);
   /* The limits are the ones K10 states, repeated here as numbers rather than prose so that widening
    * a limit is a visible edit in the file that enforces it. */
-  const CHK = { topEnding: 20, topOpening: 8, sharedEnding: 90, habits: 25, topRelations: 45 };
+  const CHK = { topEnding: 20, topOpening: 8, sharedEnding: 90, habits: 25, topRelation: 45, cause: 72 };
   ok('K10: one ending does not dominate the long sentences',
      pct(endings[0][1]) < CHK.topEnding,
      `${endings[0][0]} ${pct(endings[0][1]).toFixed(1)}% of ${long.length}, limit ${CHK.topEnding}%`);
@@ -523,9 +534,35 @@ ok('the topic files still carry open-gap claims to check', gapClaims > 0, `${gap
   ok('K10: the count of repeated six-character endings stays low',
      habits.length < CHK.habits,
      `${habits.length} endings used 3+ times, limit ${CHK.habits}`);
-  ok('K10: two clause relations do not carry the deck',
-     twoRel < CHK.topRelations,
-     `${relations[0][0]} + ${relations[1][0]} = ${twoRel.toFixed(1)}%, limit ${CHK.topRelations}%`);
+  ok('K10: one clause relation does not carry the deck',
+     topRel < CHK.topRelation,
+     `${relations[0][0]} = ${topRel.toFixed(1)}%, limit ${CHK.topRelation}%`);
+  ok('K10: cause-and-result is not the only shape a long sentence takes',
+     cause < CHK.cause,
+     `${cause.toFixed(1)}% of ${long.length} join their clauses by cause, limit ${CHK.cause}%`);
+
+  /* The SPEC table is what a future writer reads before writing, so a stale figure there is worse
+   * than a stale figure anywhere else: it is the one number they steer by. Each figure in the table
+   * is therefore recomputed here and compared, so re-measuring the bank without editing the table
+   * fails. Only the two count cells say something other than "the figure the checker just printed",
+   * and they are checked against their own count. */
+  const specK10 = fs.readFileSync(path.join(ROOT, 'docs/SPEC.md'), 'utf8').split('\n')
+    .map(line => line.match(/^\| .+ \| (?:`[^`]*` )?([\d,]+(?:%| pola)) \|/))
+    .filter(Boolean)
+    .map(m => m[1]);
+  const comma = n => `${pct(n).toFixed(1)}`.replace('.', ',') + '%';
+  const expected = [
+    comma(endings[0][1]),                 // the commonest ending
+    comma(shared),                        // share that repeats an ending
+    comma(openings[0][1]),                // the commonest opening
+    `${habits.length} pola`,              // six-character endings used 3+ times
+    comma(relations[0][1]),               // the commonest relation
+    comma(long.filter(s => REASON.test(relShape(s))).length),  // clauses joined by cause
+  ];
+  const missing = expected.filter(v => !specK10.includes(v));
+  ok('docs/SPEC.md quotes each K10 checkpoint figure the checker just measured',
+     missing.length === 0,
+     missing.length ? `SPEC has no row quoting ${missing.join(', ')}` : '');
 }
 
 console.log(`\n${cards.length} cards rendered; ${failed} failure(s)`);
