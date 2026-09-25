@@ -1744,6 +1744,7 @@ window.LEX = {
   "水分": ["suibun", "cairan tubuh", "fluids"],
   "水曜日": ["suiyoubi", "hari Rabu", "Wednesday"],
   "水道": ["suidou", "air ledeng", "water supply"],
+  "汗": ["ase", "keringat", "sweat"],
   "汚い": ["kitanai", "kotor", "dirty"],
   "汚れて": ["yogorete", "kotor (bentuk -te)", "get dirty (te-form)"],
   "決まった": ["kimatta", "yang sudah diputuskan (lampau)", "decided (past)"],
