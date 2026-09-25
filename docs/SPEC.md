@@ -76,6 +76,47 @@ menyatakan hubungan sebab, dan itu yang membuat satu kalimat berarti satu hal.
 
 **Gejala pelanggaran.** `〜しました。それから〜しました。` sebagai satu kalimat panjang.
 
+### K10. Kalimat dinamis: tidak ada pola tetap, tapi ada checkpoint yang diukur
+
+Kalimatnya ditulis untuk keadaannya, bukan diambil dari daftar pola. Tidak ada rangka yang
+disiapkan lalu diisi, dan tidak ada aturan yang berbunyi "untuk slot ini pakai bentuk X". Yang ada
+adalah **checkpoint**: angka keberagaman yang harus tetap benar saat bank bertambah. Checkpoint
+memaksa penulisnya bergerak, dan angkanya diperiksa, jadi "dinamis" bukan klaim yang tidak bisa
+dibuktikan.
+
+**Beda checkpoint dengan pola.** Pola mengatakan kalimatnya harus berbentuk apa. Checkpoint
+mengatakan apa yang **tidak boleh menumpuk**, dan itu membiarkan bentuknya bebas.
+
+**Angka yang dipakai, diukur dari bank yang ada sekarang (498 kalimat panjang).** Inilah dasarnya,
+dan ini yang tidak boleh memburuk:
+
+| Checkpoint | Sekarang | Batas | Kenapa angka itu |
+|---|---|---|---|
+| Pola akhir kalimat (3 aksara terakhir) yang paling sering | `ますか` 16,3% | **di bawah 20%** | satu bentuk tanya tidak boleh mendominasi seperlima bank |
+| Kalimat panjang yang pola akhirnya dipakai lebih dari sekali | 83,1% | **di bawah 90%** | memperhatikan bahwa 498 kalimat hanya punya 137 pola akhir, jadi berbagi pola itu normal; yang dilarang adalah menumpuk di satu pola |
+| Tiga pembuka teratas | 25+16+15 | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca |
+| Akhiran 6 aksara yang dipakai 3 kali atau lebih | 20 pola | **di bawah 25 pola** | kalau jumlahnya naik terus, kalimatnya makin sering berakhir sama |
+| Dua relasi klausa teratas (`ので+し` 24,3%, `から+し` 11,2%) | 35,5% | **di bawah 45%** | K3 mengizinkan banyak relasi, jadi menumpuk di dua itu pilihan, bukan keharusan |
+
+**Alasan.** Bank yang besar tidak dengan sendirinya beragam: menambah kalimat dengan bentuk yang
+sama membuatnya lebih panjang tanpa membuatnya lebih berguna, dan itu persis keluhan yang memulai
+K1. Bedanya, K1 memeriksa kerangkanya sama atau tidak, sedangkan aturan ini memeriksa
+**penumpukannya**, yaitu hal yang baru terlihat setelah ratusan kalimat.
+
+**Cara memakainya saat menulis, bukan sesudah.** Sebelum menulis satu kalimat panjang, lihat lima
+checkpoint di atas. Kalau kalimat yang akan ditulis memakai pola akhir atau relasi yang sedang
+memuncak, ganti bentuknya: ubah kalimat tanya jadi pernyataan, ubah `ので` jadi `たら` atau `のに`,
+ubah pembukanya. Yang **tidak** boleh dilakukan adalah menulis kalimat yang lebih buruk supaya
+angkanya membaik: kalau pilihan yang lebih beragam ternyata tidak wajar diucapkan, kalimatnya
+tetap yang wajar, dan penyimpangannya dicatat sebagai keputusan seperti K9.
+
+**Diperiksa oleh.** `check.js` mencetak kelima angka itu setiap kali dijalankan, dan `test.js`
+gagal kalau salah satu melewati batasnya. Angka yang dicetak adalah dasarnya, jadi checkpoint ini
+tidak bisa basi tanpa terlihat.
+
+**Gejala pelanggaran.** Ratusan kalimat panjang yang berakhir `〜いただけますか`, atau sebagian
+besar kalimat tersambung `ので` seperti terlihat di tabel di atas.
+
 ### K4. Kalimat pendek hanya untuk yang benar-benar lazim dipakai
 
 Kalimat pendek dipakai bila memang itu yang diucapkan orang dan versi panjangnya tidak lebih
