@@ -18,6 +18,14 @@
 const fs = require('fs'), { execFileSync } = require('child_process');
 const out = execFileSync('node', ['check.js'], { encoding: 'utf8' });
 const die = m => { console.error('GAGAL: ' + m); process.exit(1); };
+/* Semua tulisan ditahan sampai seluruh berkas selesai diperiksa. Menulis lebih dulu
+ * membuat kegagalan di berkas terakhir meninggalkan berkas pertama sudah berubah, dan
+ * berkas yang separuh baru lebih berbahaya daripada yang belum disentuh sama sekali. */
+const pending = {};
+/* Satu jalur tulis. Setiap tahap membaca lewat read() di bawah, supaya perubahan yang sudah
+ * dihitung tidak hilang waktu tahap berikutnya membaca ulang dari disk dan menimpa hasilnya.
+ * Bug itu nyata: dua kerusakan di berkas yang sama sempat saling menimpa. */
+const read = f => (f in pending ? pending[f] : fs.readFileSync(f, 'utf8'));
 const c = v => v.replace('.', ',');
 
 // --- medan makna di README ---
@@ -30,7 +38,7 @@ for (const m of out.matchAll(/^ {2}(\w+) +(\d+)\/(\d+) +celah +(\d+) kalimat(.*)
                 need: need ? need.split(/\s+/).filter(Boolean).length : 0 });
 }
 if (fields.length !== 14) die(`${fields.length} field terbaca, bukan 14`);
-let readme = fs.readFileSync('docs/README.md', 'utf8');
+let readme = read('docs/README.md');
 for (const f of fields) {
   const cur = new RegExp('^\\| `' + f.name + '` \\|( \\d+ \\|){5}$', 'm');
   if (!cur.test(readme)) die(`baris medan ${f.name} tidak ada`);
@@ -40,7 +48,7 @@ const sum = k => fields.reduce((a, f) => a + f[k], 0);
 const totCur = /^\| \*\*Jumlah\*\* \|( \*\*\d+\*\* \|){5}$/m;
 if (!totCur.test(readme)) die('baris Jumlah tidak ada');
 readme = readme.replace(totCur, `| **Jumlah** | **${sum('have')}** | **${sum('total')}** | **${sum('gap')}** | **${sum('ready')}** | **${sum('need')}** |`);
-fs.writeFileSync('docs/README.md', readme);
+pending['docs/README.md'] = readme;
 console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${sum('total')}, celah ${sum('gap')}`);
 
 
@@ -75,7 +83,7 @@ console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${su
     const isi = mem.map(m => '`' + m + '` ' + (rel.get(m) || 0)).join(', ');
     rows.push({ name, measured: String(W.CONST.surveyWho.measured[grp]).replace('.', ','), deck: c2(share), gap, isi });
   }
-  let r = fs.readFileSync('docs/README.md', 'utf8');
+  let r = read('docs/README.md');
   for (const row of rows) {
     const pat = new RegExp('^\\| ' + row.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ' \\| [\\d,]+% \\| [\\d,]+% \\| \\*{0,2}[+-]?[\\d,.]+\\*{0,2} \\|[^\\n]*', 'm');
     if (!pat.test(r)) die('baris tabel 3b di README tidak cocok: ' + row.name);
@@ -86,9 +94,9 @@ console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${su
   r = r.replace(/\| Kalimat di berkas topik \| yang tertulis di `data\/t_\*\.js` \| \*\*\d+\*\* \|/,
                 `| Kalimat di berkas topik | yang tertulis di \`data/t_*.js\` | **${n}** |`);
   r = r.replace(/Angka itu berasal dari \d+ kalimat tertulis/, `Angka itu berasal dari ${n} kalimat tertulis`);
-  fs.writeFileSync('docs/README.md', r);
+  pending['docs/README.md'] = r;
 
-  let sp = fs.readFileSync('docs/SPEC.md', 'utf8');
+  let sp = read('docs/SPEC.md');
   /* SPEC memakai label pendek, tanpa isi per rel, dan selalu bertanda di kolom selisih.
    * Barisnya dicari dengan bentuk apa pun yang ada sekarang supaya skrip ini bisa dijalankan
    * berkali-kali tanpa merusak tabelnya sendiri. */
@@ -100,7 +108,7 @@ console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${su
     const gapTxt = `**${row.gap >= 0 ? '+' : ''}${row.gap.toFixed(1).replace('.', ',')}**`;
     sp = sp.replace(pat, `| ${short} | ${row.deck}% | ${row.measured}% | ${gapTxt} |`);
   }
-  fs.writeFileSync('docs/SPEC.md', sp);
+  pending['docs/SPEC.md'] = sp;
   console.log(`tabel 3b: ${rows.length} baris di README + SPEC, penyebut ${n}`);
   /* "Sudah ditulis" per berkas topik: hitungannya dari berkas data yang sama, jadi topik yang
    * dapat kalimat baru tidak bisa meninggalkan angka lama di dokumennya. */
@@ -113,12 +121,12 @@ console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${su
   for (const [topic, count] of perTopic) {
     const file = `docs/topics/${topic}.md`;
     if (!fs.existsSync(file)) continue;
-    let t = fs.readFileSync(file, 'utf8');
+    let t = read(file);
     const shown = t.match(/\| Sudah ditulis \| (\d+) \|/);
     if (!shown) continue;
     const claimed = t.match(/\| Dari `kurasi` \| (\d+) \|/);
     const want = count + (claimed ? Number(claimed[1]) : 0);
-    if (Number(shown[1]) !== want) { t = t.replace(/\| Sudah ditulis \| \d+ \|/, `| Sudah ditulis | ${want} |`); fs.writeFileSync(file, t); touched++; }
+    if (Number(shown[1]) !== want) { pending[file] = t.replace(/\| Sudah ditulis \| \d+ \|/, `| Sudah ditulis | ${want} |`); touched++; }
   }
   console.log(`topik: ${touched} baris "Sudah ditulis" diperbarui`);
 
@@ -140,12 +148,12 @@ console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${su
   for (const [topic, list] of Object.entries(perTopic)) {
     const file = `docs/topics/${topic}.md`;
     if (!fs.existsSync(file)) continue;
-    let t = fs.readFileSync(file, 'utf8');
+    let t = read(file);
     const line = t.match(/^Lawan bicara yang sudah dipakai: [^\n]*$/m);
     if (!line) { missing++; continue; }
     const rest = line[0].slice('Lawan bicara yang sudah dipakai: '.length).split('. ').slice(1).join('. ');
     const want = `Lawan bicara yang sudah dipakai: ${list}.` + (rest ? ' ' + rest : '');
-    if (line[0] !== want) { t = t.replace(line[0], want); fs.writeFileSync(file, t); touched++; }
+    if (line[0] !== want) { pending[file] = t.replace(line[0], want); touched++; }
   }
   console.log(`lawan bicara per topik: ${touched} baris disalin${missing ? `, ${missing} dokumen tanpa baris itu` : ''}`);
 }
@@ -159,7 +167,7 @@ const shared = g(/akhir dipakai >1x +\d+x +([\d.]+)%/)[1];
 const habits = g(/kebiasaan akhir +(\d+) pola/)[1];
 const topRel = g(/relasi teratas +(\S+) +(\d+)x +([\d.]+)%/);
 const cause = g(/berelasi sebab +\d+x +([\d.]+)%/)[1];
-let spec = fs.readFileSync('docs/SPEC.md', 'utf8');
+let spec = read('docs/SPEC.md');
 /* Guard memeriksa BARISNYA ADA, bukan apakah teksnya berubah: kalau angkanya kebetulan sudah
  * benar, penggantian menghasilkan teks yang sama dan itu bukan kegagalan. */
 const set = (pat, rep) => { if (!pat.test(spec)) die('baris SPEC tidak cocok: ' + pat); spec = spec.replace(pat, rep); };
@@ -171,5 +179,8 @@ set(/Penanda relasi teratas \(`[^`]+`\) \| [\d,]+% \|/, `Penanda relasi teratas 
 set(/disambung \*\*sebab\*\* \| [\d,]+% \|/, `disambung **sebab** | ${c(cause)}% |`);
 set(/\*\*\d+ dari \d+\*\* kalimat/, `**${topRel[2]} dari ${long}** kalimat`);
 set(/\(\d+ kalimat panjang\)/, `(${long} kalimat panjang)`);
-fs.writeFileSync('docs/SPEC.md', spec);
+pending['docs/SPEC.md'] = spec;
 console.log(`SPEC: 6 baris K10, panjang ${long}, sebab ${c(cause)}%`);
+
+for (const [file, text] of Object.entries(pending)) fs.writeFileSync(file, text);
+console.log(`${Object.keys(pending).length} berkas ditulis`);

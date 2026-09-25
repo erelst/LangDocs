@@ -95,8 +95,8 @@ dan ini yang tidak boleh memburuk:
 | Checkpoint | Sekarang | Batas | Kenapa angka itu |
 |---|---|---|---|
 | Pola akhir kalimat (3 aksara terakhir) yang paling sering | `ますか` 13,9% | **di bawah 20%** | satu bentuk tanya tidak boleh mendominasi seperlima bank |
-| Kalimat panjang yang pola akhirnya dipakai lebih dari sekali | 82,6% | **di bawah 90%** | memperhatikan bahwa 498 kalimat hanya punya 137 pola akhir, jadi berbagi pola itu normal; yang dilarang adalah menumpuk di satu pola |
-| Pembuka kalimat yang paling sering | `この` 5,0% | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca; angkanya diukur, bukan dihitung tangan dari tiga pembuka teratas |
+| Kalimat panjang yang pola akhirnya dipakai lebih dari sekali | 82,7% | **di bawah 90%** | memperhatikan bahwa 498 kalimat hanya punya 137 pola akhir, jadi berbagi pola itu normal; yang dilarang adalah menumpuk di satu pola |
+| Pembuka kalimat yang paling sering | `この` 5,1% | **tidak ada satu pun di atas 8%** | pembuka adalah tempat pengulangan paling mudah terlihat pembaca; angkanya diukur, bukan dihitung tangan dari tiga pembuka teratas |
 | Akhiran 6 aksara yang dipakai 3 kali atau lebih | 23 pola | **di bawah 25 pola** | kalau jumlahnya naik terus, kalimatnya makin sering berakhir sama |
 | Penanda relasi teratas (`ので`) | 39,2% | **di bawah 45%** | K3 mengizinkan banyak relasi, jadi menumpuk di satu penanda itu pilihan, bukan keharusan |
 | Kalimat panjang yang klausanya disambung **sebab** | 69,0% | **di bawah 72%** | bentuk "karena X, maka Y" adalah bentuk termudah ditulis dan paling sulit dirasakan pengulangannya |
