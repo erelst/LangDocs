@@ -28,6 +28,7 @@ function load(file) {
   new Function(src)();
 }
 load('const.js');
+load('coverage.js');
 load('data/curated.js');
 load('data/lexicon.js');
 load('data/bank.js');
@@ -151,13 +152,27 @@ function checkTense(rows) {
       if (!cl.some(w => VERBISH.test(w)) && i + 1 < merged.length) { joined.push(cl.concat(merged[++i])); }
       else { joined.push(cl); }
     }
+    /* A continuing state anywhere in the sentence, which the start-point case below needs. から is
+     * a clause break, so 「去年から」 ends its own clause and the verb that belongs with it sits in
+     * the next one: 「去年からここに住んでいます」 is one statement split in two, and judging the
+     * first half alone calls correct Japanese ungrammatical. */
+    const ongoing = joined.some(c => c.some(w => /(て|で)います/.test(w)));
     for (const c of joined) {
       const past = PAST_TIME.filter(t => c.includes(t));
       const nonpast = NONPAST_TIME.filter(t => c.includes(t));
       const hasPast = PAST_FORMS.some(f => c.some(w => w.endsWith(f))) ||
-                      PAST_TE.some(f => c.some(w => w === f)) ||
-                      c.some(isPlainPast);
-      if (past.length && !hasPast && !c.some(w => /ています|ています。/.test(w))) {
+                     PAST_TE.some(f => c.some(w => w === f)) ||
+                     c.some(isPlainPast);
+      /* A past time word with a continuing state is not a tense clash: 「去年から住んでいます」 is
+       * the ordinary way to say how long something has gone on, and it has no past verb because the
+       * state is still true. The carve-out used to name only ています, which missed every verb whose
+       * -te form ends in で: 住んで, 読んで, 飲んで, 遊んで. That is a large class, and the sentence
+       * it rejected was correct Japanese. It now accepts both. */
+      /* A clause that ends in から is a starting point rather than a finished action, so the past
+       * word it carries is not asking for a past verb: what follows is how long that has been true. */
+      const startsAt = c[c.length - 1] === 'から';
+      if (past.length && !hasPast && !(startsAt && ongoing) &&
+          !c.some(w => /(て|で)います/.test(w))) {
         bad.push([s.key, `past time ${past} with no past verb in its own clause`]);
       }
       if (nonpast.length && hasPast && !c.some(w => w.endsWith('ます'))) {
@@ -301,6 +316,56 @@ function checkWho(rows) {
   return { counts, perTopic, bank };
 }
 
+/* Cakupan medan makna. The fields are listed in coverage.js and the question this answers is the
+ * one the per-topic lines cannot: not "does this topic have enough sentences" but "can a reader
+ * name the thing that is sitting on the table".
+ *
+ * The unit is the sentence, not the word. A field is a list of words, but a word is not something
+ * the deck hands to a reader: the deck hands over sentences, so a hole in a field is a sentence
+ * that has not been written yet. `sentenceGap` is that count, and it is what the docs quote; the
+ * word counts are kept because they say which words to use when the sentence gets written.
+ *
+ * A word nobody uses is a recorded gap rather than a finding, for the reason T6 in docs/SPEC.md
+ * gives: a word field has no measured share to compare against, so a floor here would be a number
+ * somebody invented. What is checked is the one mechanical thing: every surface must exist in the
+ * lexicon. A gap list that names words the bank cannot even gloss is not a gap list, it is typos,
+ * and that is the failure this catches. */
+function checkCoverage(rows) {
+  const used = new Set();
+  for (const { s } of rows) {
+    for (const t of tokens(s)) if (t[0]) used.add(t[0]);
+  }
+  const fields = [], bad = [];
+  for (const [name, f] of Object.entries(window.COVERAGE || {})) {
+    /* Two kinds of gap, and they are different work. A word declared in `needEntry` has no lexicon
+     * entry yet and gets one when its sentence is written. A word already in the lexicon and still
+     * unused needs a sentence, and the deck can gloss it today. Keeping them apart stops "87 gaps"
+     * from reading like 87 mistakes when most of them are the plan. */
+    const declared = new Set(f.needEntry || []);
+    for (const w of f.words) {
+      /* The one mechanical failure: a word with no lexicon entry that nobody declared, or one
+       * declared twice over. Either way the list is wrong rather than the plan being unmet, and a
+       * gap list that is wrong is worse than no list. */
+      if (!LEX[w] && !declared.has(w)) bad.push([name, `${w} has no lexicon entry and is not in needEntry`]);
+    }
+    for (const w of declared) {
+      if (LEX[w]) bad.push([name, `${w} is declared as needing an entry but the lexicon already has it`]);
+      if (!f.words.includes(w)) bad.push([name, `${w} is declared in needEntry but not listed in words`]);
+    }
+    fields.push({ name, note: f.note,
+                  noEntry: f.words.filter(w => declared.has(w)),
+                  unused: f.words.filter(w => LEX[w] && !used.has(w)),
+                  have: f.words.filter(w => LEX[w] && used.has(w)).length,
+                  /* One sentence can carry several words of the same field, and a field is not
+                   * closed until every word in it has been used somewhere, so the honest floor is
+                   * the number of still-unused words: that many sentences at least. It is called a
+                   * floor because a single sentence may well close two of them. */
+                  sentenceGap: f.words.filter(w => !used.has(w)).length,
+                  total: f.words.length });
+  }
+  return { fields, bad };
+}
+
 /* The long sentences should be most of the deck, so a regression back to a phrasebook of
  * greetings is visible in the numbers rather than only to a reader.
  *
@@ -429,6 +494,7 @@ const groups = {
   short: short.bad,
   reply: reply.bad,
   who: [],   // reported below rather than as findings: see the spread and per-topic print
+  coverage: checkCoverage(rows).bad,   // only the list being wrong; the gaps are printed below
 };
 
 let total = 0;
@@ -460,6 +526,23 @@ console.log('\nwho, per topic:');
 for (const t of [...whoInfo.perTopic.keys()].sort()) {
   const parts = [...whoInfo.perTopic.get(t).entries()].sort((a, b) => b[1] - a[1]);
   console.log(`  ${t.padEnd(14)} ${parts.map(([k, n]) => `${rel[k] ? rel[k].id : k} ${n}`).join(', ')}`);
+}
+
+/* The word fields, with the words no sentence uses yet. Printed rather than failed: see
+ * checkCoverage and T6. The count on the right is what a topic file can cite instead of counting
+ * by hand, which is how the topic docs drifted the first time. */
+const cov = checkCoverage(rows);
+const covOf = k => cov.fields.reduce((a, f) => a + f[k].length, 0);
+const have = cov.fields.reduce((a, f) => a + f.have, 0);
+const gapSent = cov.fields.reduce((a, f) => a + f.sentenceGap, 0);
+console.log(`\nmedan makna: ${have} kata sudah dipakai, jadi celahnya paling sedikit ` +
+            `${gapSent} kalimat baru; ${covOf('unused')} kata siap ditulis dan ` +
+            `${covOf('noEntry')} kata belum ada di lexicon.`);
+for (const f of cov.fields) {
+  console.log(`  ${f.name.padEnd(14)} ${String(f.have).padStart(2)}/${String(f.total).padEnd(2)}` +
+              `  celah ${String(f.sentenceGap).padStart(2)} kalimat` +
+              `  siap: ${f.unused.join(' ') || '-'}` +
+              (f.noEntry.length ? `  | perlu entry: ${f.noEntry.join(' ')}` : ''));
 }
 
 /* Printed per topic so the topic docs can cite the number instead of counting again by hand, which
