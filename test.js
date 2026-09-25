@@ -48,6 +48,7 @@ global.window = {};
 for (const f of ['const.js', 'data/curated.js', 'data/lexicon.js', 'data/bank.js']) {
   new Function(fs.readFileSync(path.join(ROOT, f), 'utf8'))();
 }
+new Function(fs.readFileSync(path.join(ROOT, 'coverage.js'), 'utf8'))();
 for (const f of fs.readdirSync(path.join(ROOT, 'data')).filter(f => /^t_.*\.js$/.test(f))) {
   new Function(fs.readFileSync(path.join(ROOT, 'data', f), 'utf8'))();
 }
@@ -184,6 +185,20 @@ const quotaRows = docsReadme.split('\n')
   .filter(Boolean);
 ok('docs/README.md lists a quota for every topic',
    quotaRows.length === 13, `${quotaRows.length} quota rows`);
+/* A topic's quota is written more than once: once in the big table where it is bold, and then in
+ * the tables that explain why it is not larger. The guard used to read only the bold one, so
+ * `rumah_santai` said 58 in one table and 36 in the other, and `santai` said 42 and 22. Every row
+ * that names a topic alongside a plain number is now checked against the bold quota. */
+const quotaByTopic = new Map(quotaRows);
+for (const line of docsReadme.split('\n')) {
+  const row = line.match(/^\| `([a-z_]+)` \| [^|]*\| (\d+) \|/);
+  if (!row) continue;
+  const [, topic, shown] = row;
+  const quota = quotaByTopic.get(topic);
+  if (quota === undefined) continue;                       // a table using the topic name as a label
+  ok(`docs/README.md quotes the quota for \`${topic}\` the same way everywhere`,
+     Number(shown) === quota, `this table says ${shown}, the quota table says ${quota}`);
+}
 for (const [topic, quota] of quotaRows) {
   if (['telepon', 'sopan', 'waktu_cuaca'].includes(topic)) continue;   // cross-cutting, listed apart
   ok(`docs/topics/${topic}.md exists`, topicDocs.includes(`${topic}.md`), `quota ${quota}`);
@@ -332,6 +347,98 @@ for (const row of specRows) {
      row.deck === pct(real) && row.gap === shownGap,
      `docs ${row.deck}% / ${row.gap}, data ${pct(real)}% / ${shownGap}`);
 }
+
+/* The medan makna table in section 3c, checked against coverage.js and the bank for the same
+ * reason as the tables above: it is a set of numbers in prose, and prose drifts. Both the per-field
+ * numbers and the totals are checked, because the totals are the ones a reader quotes. */
+const covUsed = new Set();
+for (const s of [...(window.CURATED || []), ...(window.BANK || [])]) {
+  for (const t of s.t) covUsed.add(Array.isArray(t) ? t[0] : t);
+}
+let covTotals = { used: 0, total: 0, gap: 0, ready: 0, noEntry: 0 };
+for (const [name, f] of Object.entries(window.COVERAGE || {})) {
+  const used = f.words.filter(w => window.LEX[w] && covUsed.has(w)).length;
+  const gap = f.words.filter(w => !covUsed.has(w)).length;
+  const ready = f.words.filter(w => window.LEX[w] && !covUsed.has(w)).length;
+  const noEntry = f.words.filter(w => !window.LEX[w]).length;
+  covTotals = { used: covTotals.used + used, total: covTotals.total + f.words.length,
+                gap: covTotals.gap + gap, ready: covTotals.ready + ready,
+                noEntry: covTotals.noEntry + noEntry };
+  const row = docsReadme.match(new RegExp('^\\| `' + name + '` \\| (\\d+) \\| (\\d+) \\| (\\d+) \\| (\\d+) \\| (\\d+) \\|$', 'm'));
+  ok(`docs/README.md documents the medan makna field \`${name}\``,
+     row && [used, f.words.length, gap, ready, noEntry].every((v, i) => Number(row[i + 1]) === v),
+     row ? `docs ${row.slice(1).join('/')}, data ${[used, f.words.length, gap, ready, noEntry].join('/')}`
+         : 'no row for this field');
+}
+ok('docs/README.md states the medan makna totals that the data adds up to',
+   docsReadme.includes(`| **Jumlah** | **${covTotals.used}** | **${covTotals.total}** | ` +
+                       `**${covTotals.gap}** | **${covTotals.ready}** | **${covTotals.noEntry}** |`),
+   `data says ${Object.values(covTotals).join('/')}`);
+
+/* Section 4 states its own total in words, and it had gone stale: it said eighty-three while the
+ * three rows above it added up to 107. A total that only appears in prose is exactly the kind of
+ * number nothing reads, so it is checked against the bold quotas the rows already carry. */
+const crossRows = docsReadme.split('\n')
+  .map(line => line.match(/^\| `(telepon|sopan|waktu_cuaca)` \| [^|]*\| \*\*(\d+)\*\* \|/))
+  .filter(Boolean);
+ok('docs/README.md lists a quota for each cross-cutting topic',
+   crossRows.length === 3, `${crossRows.length} rows`);
+const crossTotal = crossRows.reduce((a, m) => a + Number(m[2]), 0);
+const NUMWORD = { 83: 'Delapan puluh tiga', 107: 'Seratus tujuh' };
+const crossLine = docsReadme.match(/([A-Z][a-z]+(?: [a-z]+)*) kalimat berikut memotong semua topik/);
+ok('docs/README.md states the cross-cutting total that its own rows add up to',
+   crossLine && crossLine[1] === NUMWORD[crossTotal],
+   `docs says "${crossLine && crossLine[1]}", rows add up to ${crossTotal}` +
+   (NUMWORD[crossTotal] ? ` ("${NUMWORD[crossTotal]}")` : ' (no spelled-out form known)'));
+
+/* Every topic file keeps a table of gaps that are still open, and each row justifies itself with a
+ * search: "no sentence contains 話し込", or "割引 and バーゲン まだ". Those are checkable claims
+ * about the bank, and one of them was already false: jalan.md said 戻る was still missing after a
+ * sentence using it had been written, so the file would have sent the next writer off to write a
+ * sentence that already existed. A gap list that lies is worse than no gap list.
+ *
+ * Only the assertion itself is read, up to the first full stop. A row may go on to explain its
+ * search, and that explanation names terms that ARE used ("何時まで sudah dipakai tiga kali"), which
+ * are not claims. Reading past the full stop turns every such note into a false failure, which is
+ * how this check first reported seven rows that were correct.
+ *
+ * A row that says the term is used "in this sense" is a qualified claim and is left alone: it
+ * cannot be checked by searching for the string, and pretending otherwise would be a worse guard
+ * than none. `ada` claims are left alone for the same reason they never go stale: they are about
+ * sentences that were already there. */
+const allSurfaces = [...(window.CURATED || []), ...(window.BANK || [])]
+  .map(s => s.t.map(t => (Array.isArray(t) ? t[0] : t)).join(''));
+const contains = term => allSurfaces.some(k => k.includes(term));
+let gapClaims = 0;
+for (const file of topicDocs.sort()) {
+  const text = fs.readFileSync(path.join(ROOT, 'docs/topics', file), 'utf8');
+  for (const line of text.split('\n')) {
+    if (!line.startsWith('|')) continue;
+    /* Shape 1: everything backticked after "tidak ada kalimat yang memuat" must really be absent. */
+    const absent = line.split('tidak ada kalimat yang memuat')[1];
+    if (absent) {
+      const assertion = absent.split('.')[0];
+      if (/dalam arti ini|arti ini/.test(assertion)) continue;   // qualified, not checkable by string
+      const terms = [...assertion.matchAll(/`([^`]+)`/g)].map(m => m[1]);
+      gapClaims += terms.length;
+      const wrong = terms.filter(contains);
+      ok(`${file} claim "no sentence contains" is still true`,
+         wrong.length === 0,
+         wrong.length ? `${wrong.join(', ')} IS used by a sentence now` : `${terms.length} terms absent`);
+    }
+    /* Shape 2: the terms in the clause that ends in  belum must also be absent. */
+    const before = line.split(/[;；]/).map(x => x.trim()).filter(x => x.endsWith('belum'));
+    for (const clause of before) {
+      const terms = [...clause.matchAll(/`([^`]+)`/g)].map(m => m[1]);
+      gapClaims += terms.length;
+      const wrong = terms.filter(contains);
+      ok(`${file} claim "... belum" is still true`,
+         wrong.length === 0,
+         wrong.length ? `${wrong.join(', ')} IS used by a sentence now` : `${terms.length} terms absent`);
+    }
+  }
+}
+ok('the topic files still carry open-gap claims to check', gapClaims > 0, `${gapClaims} terms`);
 
 console.log(`\n${cards.length} cards rendered; ${failed} failure(s)`);
 process.exit(failed ? 1 : 0);
