@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Waktu dan cuaca |
 | Kuota | 29 |
-| Sudah ditulis | 30 |
+| Sudah ditulis | 35 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_waktu_cuaca.js` |

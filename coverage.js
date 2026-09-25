@@ -24,7 +24,7 @@ window.COVERAGE = {
     note: 'nama tempat dan waktu yang dipakai untuk membuka keadaan',
     words: ['家', '外', '中', '朝', '昼', '夜', '今朝', '今晩', '昨日', '明日', '今週', '週末',
             '今年', '去年', '夏', '冬', '春', '秋', '雨の日', '昼休み'],
-    needEntry: ['春', '雨の日'],
+    needEntry: [],
   },
   /* Benda: everything a hand can pick up, grouped by where it is used. */
   benda_dapur: {
@@ -81,7 +81,7 @@ window.COVERAGE = {
   bakat: {
     note: 'bakat, kemahiran, dan cara menyebutnya',
     words: ['上手', '下手', '得意', '苦手', '才能', '練習', '覚える', '慣れる', '間に合う'],
-    needEntry: ['下手', '得意', '間に合う'],
+    needEntry: [],
   },
   /* Hobi dan kegiatan waktu luang. */
   hobi: {
@@ -109,13 +109,13 @@ window.COVERAGE = {
   perkenalan: {
     note: 'memperkenalkan diri: nama, asal, pekerjaan, dan penutupnya',
     words: ['名前', '出身', '専攻', '留学生', '自己紹介', 'よろしく', '大学', '国', '来る', '住む'],
-    needEntry: ['住む'],
+    needEntry: [],
   },
   /* Arah: asking for and giving directions. */
   arah: {
     note: 'menanyakan dan memberi arah',
     words: ['右', '左', '前', '後ろ', '隣', '近く', '遠い', '角', '曲がる', 'まっすぐ', '道', '交差点',
             '通り', '信号', '渡る', '地図', '目印'],
-    needEntry: ['通り'],
+    needEntry: [],
   }
 };

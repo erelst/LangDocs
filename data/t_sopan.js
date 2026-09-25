@@ -424,4 +424,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'It is asked while that relative is already the topic, so it is not idle small talk.',
     t: ["よかったら","、","お兄さん","は","何","の","仕事","を","して","いる","の","ですか","。"],
   },
+  {
+    key: 'sopan_perkenalan_asal_negara', topic: 'sopan',
+    rel: 'orang_asing', polite: 1, long: 1,
+    sit: 'Menjawab asal negara waktu berkenalan',
+    sitEn: 'Answering where one is from during introductions',
+    id: 'Saya dari Indonesia, sudah setahun tinggal di sini.',
+    en: 'I am from Indonesia and have lived here a year.',
+    note: 'Dijawab waktu orang baru bertanya, jadi ini urutan perkenalan yang sebenarnya.',
+    noteEn: 'It answers the question a new person asks, so it is the real introduction order.',
+    t: ["国","は","インドネシア","です","。","家族","と","一緒","に","住む","予定","です","。"],
+  },
 ]);

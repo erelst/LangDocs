@@ -461,4 +461,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The police box is visible across the street, so the destination can be pointed at.',
     t: ["道","が","分からない","ので","、","警官","に","聞いて","みます","。"],
   },
+  {
+    key: 'jalan_menyeberang_di_jembatan', topic: 'jalan',
+    rel: 'orang_asing', polite: 1, long: 1,
+    sit: 'Menjelaskan jalan menyeberang lewat jembatan',
+    sitEn: 'Explaining to cross by the bridge',
+    id: 'Karena tidak bisa menyeberang di sini, lewat jembatan itu.',
+    en: 'You cannot cross here, so use that bridge.',
+    note: 'Jembatannya kelihatan di atas jalan, jadi arahnya bisa ditunjuk.',
+    noteEn: 'The bridge is visible above the road, so the direction can be pointed at.',
+    t: ["この","通り","は","そのまま","行けば","、","橋","を","渡る","ところ","です","。"],
+  },
 ]);

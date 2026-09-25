@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Sopan dan reaksi |
 | Kuota | 37 |
-| Sudah ditulis | 41 |
+| Sudah ditulis | 42 |
 | Sisa | **0** |
 | Kerangka lintas topik | ya, memotong semua topik |
 | Berkas | `data/t_sopan.js` |
@@ -118,7 +118,7 @@ bukan dari ingatan:
 | Celah | Bukti pencarian |
 |---|---|
 | memberi izin dengan `どうぞ` dalam arti mempersilakan, bukan hanya menyetujui pendapat | `どうぞ` sudah dipakai tujuh kali, tapi untuk menyilakan masuk, menyilakan duduk, dan menyilakan mencoba; belum sekali pun sebagai jawaban atas permintaan izin. `かまいません` belum ada |
-| mengalihkan topik pembicaraan | tidak ada kalimat yang memuat `ところで` |
+| mengalihkan topik pembicaraan | `ところで` sudah terpakai sejak batch medan makna terakhir, jadi celah ini tertutup |
 | bercanda ringan untuk mencairkan suasana | tidak ada kalimat yang memuat `冗談` |
 | mengingatkan bahwa orangnya boleh minta bantuan lagi | `いつでも言ってください` ada satu. `遠慮なく` sudah dipakai `kerja_minta_kritik_pekerjaan_sendiri`, tapi di sana meminta kritik, bukan mengingatkan orang lain |
 | menyimpan rahasia dan meminta dijaga | tidak ada kalimat yang memuat `内緒` |

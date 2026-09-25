@@ -125,14 +125,14 @@ dengan pengelompokan yang sama.
 
 | Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
 |---|---|---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,4% | **-3,4** | `keluarga` 197, `pasangan` 25 |
-| kerja & belajar (`仕事学業`) | 22,7% | 24,2% | **+1,5** | `rekan` 75, `atasan` 69, `klien` 17 |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 18,9% | **+1,7** | `teman` 99, `tetangga` 20, `tetangga_baru` 7 |
-| publik & jasa (`公共商業関係`) | 10,8% | 15,6% | **+4,8** | `petugas_toko` 35, `pelayan` 30, `dokter` 25, `petugas_stasiun` 11, `apoteker` 2, `kurir` 1 |
-| guru-murid (`先生生徒`) | 3,1% | 1,1% | **-2,0** | `guru` 7 |
-| orang asing (`見知らぬ人`) | 2,4% | 6,8% | **+4,4** | `orang_asing` 45 |
+| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,2% | **-3,6** | `keluarga` 202, `pasangan` 25 |
+| kerja & belajar (`仕事学業`) | 22,7% | 24,3% | **+1,6** | `rekan` 79, `atasan` 70, `klien` 17 |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 19,3% | **+2,1** | `teman` 105, `tetangga` 20, `tetangga_baru` 7 |
+| publik & jasa (`公共商業関係`) | 10,8% | 15,2% | **+4,4** | `petugas_toko` 35, `pelayan` 30, `dokter` 25, `petugas_stasiun` 11, `apoteker` 2, `kurir` 1 |
+| guru-murid (`先生生徒`) | 3,1% | 1,2% | **-1,9** | `guru` 8 |
+| orang asing (`見知らぬ人`) | 2,4% | 6,9% | **+4,5** | `orang_asing` 47 |
 
-Kolom Deck dihitung dari 665 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
+Kolom Deck dihitung dari 684 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
 dijalankan. **Tabel ini pernah basi dan tidak ada yang melihatnya**: angka di atas sempat dihitung
 dengan penyebut 515 dari batch sebelum batch keluarga terakhir, lalu tertinggal lagi waktu deck
 tumbuh dari 535 ke 557, lalu ke 573. Kalimat "tabel ini tidak bisa basi tanpa terlihat" ternyata tidak benar,
@@ -202,7 +202,7 @@ sekaligus menambah entrinya.
 
 | Medan | Dipakai | Total | Celah (kalimat) | Siap ditulis | Perlu entri lexicon |
 |---|---|---|---|---|---|
-| `latar` | 13 | 20 | 7 | 5 | 2 |
+| `latar` | 20 | 20 | 0 | 0 | 0 |
 | `benda_dapur` | 11 | 11 | 0 | 0 | 0 |
 | `benda_rumah` | 12 | 12 | 0 | 0 | 0 |
 | `benda_bawa` | 10 | 10 | 0 | 0 | 0 |
@@ -210,13 +210,13 @@ sekaligus menambah entrinya.
 | `keadaan` | 21 | 21 | 0 | 0 | 0 |
 | `tubuh` | 18 | 18 | 0 | 0 | 0 |
 | `keluarga` | 18 | 18 | 0 | 0 | 0 |
-| `bakat` | 4 | 9 | 5 | 2 | 3 |
+| `bakat` | 9 | 9 | 0 | 0 | 0 |
 | `hobi` | 15 | 15 | 0 | 0 | 0 |
 | `pekerjaan` | 14 | 14 | 0 | 0 | 0 |
 | `kebiasaan` | 12 | 12 | 0 | 0 | 0 |
-| `perkenalan` | 8 | 10 | 2 | 1 | 1 |
-| `arah` | 15 | 17 | 2 | 1 | 1 |
-| **Jumlah** | **189** | **205** | **16** | **9** | **7** |
+| `perkenalan` | 10 | 10 | 0 | 0 | 0 |
+| `arah` | 17 | 17 | 0 | 0 | 0 |
+| **Jumlah** | **205** | **205** | **0** | **0** | **0** |
 
 **Cara membaca kolom Celah.** Angka itu jumlah kata yang belum dipakai kalimat mana pun, dan
 sekaligus **lantai** jumlah kalimat yang perlu ditulis, bukan target. Satu kalimat bisa memuat dua
@@ -372,7 +372,7 @@ jalan sampai ujung. Menggantinya dengan `#q21` akan menghemat 4 detik dan menghi
 | Perlu ditulis | **0** |
 
 "Kuota terpakai" **563 sama dengan kuota 563, dan tidak ada topik yang berdiri di atas kuotanya.**
-Angka itu berasal dari 665 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
+Angka itu berasal dari 684 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik:
 `sopan` menerima 4 (`kurasi01`, `kurasi02`, `kurasi05`, `kurasi09`) dan `waktu_cuaca` 2 (`kurasi07`,
 `kurasi10`). Empat kalimat `kurasi` yang tersisa (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`)
 tidak dipetakan ke topik mana pun dan karena itu tidak dihitung terhadap kuota, walaupun tetap
@@ -387,7 +387,7 @@ dan bagian "Sisa yang harus ditulis" di tiap berkas topik karena itu semuanya be
 
 | Angka | Artinya | Sekarang |
 |---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **665** |
+| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **684** |
 | Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **563** |
 | Kalimat di halaman | semua yang dibaca pembaca | **567** |
 | Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **563** |

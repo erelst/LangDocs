@@ -1102,4 +1102,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The schedule is the topic, so the reason for it changing makes sense at work.',
     t: ["同じ","部署","の","人","は","俳優","も","して","いる","ので","、","予定","が","変わりやすい","です","。"],
   },
+  {
+    key: 'kerja_jam_makan_siang_belum', topic: 'kerja',
+    rel: 'rekan', polite: 1, long: 1,
+    sit: 'Memberi tahu belum makan siang',
+    sitEn: 'Saying lunch has not happened yet',
+    id: 'Karena belum makan siang, saya istirahat dulu sebentar.',
+    en: 'I have not had lunch, so I am taking a break now.',
+    note: 'Jamnya sedang berjalan, jadi kalimat ini menjawab keadaan hari itu.',
+    noteEn: 'The time is running, so this answers the question about that day.',
+    t: ["昼休み","に","まだ","ご飯","を","食べて","いない","ので","、","少し","休みます","。"],
+  },
 ]);

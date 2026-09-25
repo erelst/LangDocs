@@ -471,4 +471,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'It is said on the phone because the medicine was checked before calling, which is what makes it real.',
     t: ["薬","は","うち","に","まだ","ある","から","、","買わなくて","いい","です","。"],
   },
+  {
+    key: 'telepon_malam_ini_akan_telat', topic: 'telepon',
+    rel: 'keluarga', polite: 1, long: 1,
+    sit: 'Memberi tahu lewat telepon akan pulang malam',
+    sitEn: 'Saying on the phone that the return will be late tonight',
+    id: 'Karena malam ini ada pekerjaan, saya pulang terlambat.',
+    en: 'There is work tonight, so I will be late home.',
+    note: 'Diucapkan malam itu juga, dan itu yang membuatnya nyata bagi yang di rumah.',
+    noteEn: 'It is said the same evening, which is what makes it real for the household.',
+    t: ["今晩","は","仕事","が","ある","ので","、","遅く","帰ります","。"],
+  },
 ]);
