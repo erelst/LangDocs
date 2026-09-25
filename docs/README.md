@@ -141,36 +141,15 @@ karena tidak ada yang membacanya. Sekarang
 itu baru berlaku.
 
 **5,0 poin adalah batas yang dipakai untuk menyebut sebuah kelompok menyimpang**, dan itu dibuat
-eksplisit di sini. Setelah tujuh batch medan makna, **publik & jasa kembali ke +5,1**: batch benda
-dapur dan benda bawaan hampir seluruhnya berisi pertanyaan ke petugas toko dan stasiun. Keluarga
-tetap -3,4 dari -6,3.
+eksplisit di sini. Selisih setiap kelompok dicetak `check.js` di sebelah bagiannya, jadi tidak perlu
+dihitung di kepala: bagiannya bergerak dua arah karena penyebutnya tumbuh setiap kali satu kalimat
+ditambahkan, dan menghitungnya sendiri adalah sumber kesalahan yang berulang di halaman ini.
 
-**Angka ini bergerak dua arah, dan itu bukan tanda pemeriksaannya rusak.** Batch bangunan membawa
-publik & jasa ke 5,1, batch benda rumah menurunkannya ke 4,9, batch hobi menaikkan teman & tetangga
-ke +1,3 karena hobi dibicarakan ke teman. Yang tidak berubah adalah aturannya: `test.js` menghitung
-ulang setiap baris dari berkas data, jadi angka yang tidak lagi benar akan muncul sebagai kegagalan.
-
-**Klaim yang pernah salah di sini, dan itu sebabnya angkanya ditulis ulang.** Catatan sebelumnya
-berbunyi "tidak ada kelompok di atas 5,0 lagi". Klaim itu benar untuk satu commit, lalu batch
-berikutnya membatalkannya. Yang membuatnya ketahuan: `test.js` menghitung ulang setiap baris dari
-berkas data, jadi klaim seperti itu tidak bisa bertahan lebih lama daripada datanya.
-`check.js` sengaja hanya **mencetak** sebaran ini dan tidak menggagalkan apa pun karena selisihnya:
-sebaran yang miring adalah keadaan yang dicatat, bukan kesalahan sintaks. Yang diperiksa `test.js`
-adalah apakah angka di tabel ini masih sama dengan datanya.
-
-Angka deck di atas tidak dijumlahkan sampai 100% karena `telepon` (遠隔通信 8,4%) adalah keadaan
-yang memotong topik, bukan lawan bicara, jadi tidak masuk tabel ini.
-
-**Keluarga dekat kurang 3,4 poin, turun dari 6,3.** Enam batch medan makna menambah 75 kalimat
-bersama-sama, dan `keluarga` naik dari 147 ke 188. Perhatikan bahwa 41 kalimat keluarga hanya
-menutup 2,9 poin, dan angkanya sempat naik-turun (2,9 lalu 3,4) karena penyebutnya tumbuh dari 557
-ke 632. **Poin bukan selisih jumlah kalimat**, dan itulah alasan tabel ini dihitung ulang setiap
-kali deck bertambah.
-
-Angka 13,6 poin itu penyebutnya 449 kalimat; angka 4,3 poin penyebutnya 573. Deck yang bertambah
-membuat persentase yang sama menghasilkan poin yang lebih kecil, jadi **selisih ini harus dihitung
-ulang setiap kali deck bertambah, bukan dikutip dari catatan lama**. Itu tepat kesalahan yang
-terjadi pada tabel di atas.
+**Angka di tabel ini sudah dua kali ditulis salah, dan itu sebabnya angkanya tidak lagi ditulis di
+prosa.** Percobaan pertama memakai penyebut 515 yang sudah usang; percobaan kedua menyalin angka dari
+batch sebelumnya. Yang membuat keduanya ketahuan sama: `test.js` menghitung ulang setiap baris dari
+berkas data, dan `syncdocs.js` menyalinnya kembali. Karena itu paragraf ini hanya menyebut batas dan
+sebabnya, bukan angkanya, supaya tidak ada lagi angka yang bisa basi di luar tabel.
 
 **Dua kelompok sengaja tidak ditulis**, dan `check.js` mencetak alasan yang sama di sebelah
 angkanya supaya tidak terlihat seperti kelalaian:
@@ -251,8 +230,8 @@ Tiga hal ditemukan waktu batch ini ditulis:
   sekaligus: satu mengeluh punggung pegal, satu lagi meminta tukar tempat karena orang di belakang
   tinggi. Kalimatnya yang membedakan, bukan daftarnya.
 - **Kata tubuh hampir selalu berpasangan dengan lawan bicara tertentu.** Mengeluh itu ke dokter,
-  dan itu menaikkan kelompok publik & jasa ke +5,1, sekarang kelompok paling menyimpang. Itu
-  konsekuensi yang tercatat, bukan cacat yang disembunyikan.
+  dan itu menaikkan kelompok publik & jasa di atas posisinya sebelumnya. Itu konsekuensi yang
+  tercatat, bukan cacat yang disembunyikan.
 - **`お盆` masih punya dua arti** (nampan dan obon), dan itu tetap alasan ia tidak dipakai.
 
 Batch keadaan menutup 12 katanya dengan 15 kalimat (4 di rumah, 4 di jalan dan santai, 3 di dapur,
@@ -270,8 +249,8 @@ sedang didatangi: apartemen yang ditinggali, parkir yang penuh, tangga atau lift
 sebelum acara, gedung olahraga tempat latihan pindah.
 
 Tiga hal ditemukan waktu batch ini ditulis:
-- **Tempat yang didatangi hampir selalu dilayani petugas.** Itu sebabnya publik & jasa naik kembali
-  ke +5,1, dan itu dilaporkan apa adanya.
+- **Tempat yang didatangi hampir selalu dilayani petugas.** Itu sebabnya publik & jasa naik lagi
+  setelah sempat turun, dan itu dilaporkan apa adanya.
 - **`アパート` baru muncul sekarang**, padahal tempat tinggal dibicarakan setiap hari; kata yang
   dipakai sebelumnya hanya `家`. Sama untuk `階段` dan `エレベーター` waktu menanyakan jalan.
 - **Dua entri lexicon hampir tertimpa.** `本屋` dan `コンビニ` sudah punya entri dengan pembacaan

@@ -302,7 +302,7 @@ function checkDistinct(rows) {
  * are deliberately not written, and each is named with its reason rather than left to look like a
  * gap: teacher and pupil (the words are classroom-specific) and relative (a distant relative is a
  * rarer case of family, which already has 82 sentences). Both are stated in the topic plan. */
-const { groups: WHO_GROUP, notWritten: WHO_NOT_WRITTEN } = window.CONST.surveyWho;
+const { groups: WHO_GROUP, notWritten: WHO_NOT_WRITTEN, measured: WHO_MEASURED } = window.CONST.surveyWho;
 
 function checkWho(rows) {
   const counts = new Map(), perTopic = new Map();
@@ -628,10 +628,18 @@ console.log(`\nreplies: ${replies} of ${bank.length} (${Math.round(100 * replies
 /* The spread across the measured partner groups, printed so the question a per-topic line cannot
  * answer has somewhere to be read: is a whole kind of person missing. */
 console.log('\nwho the sentences are said to, grouped as the survey groups them:');
+/* The difference against the survey is printed, not left to the reader. It is the number a topic
+ * decision is made from, and computing it in the head is what made the documented figures wrong
+ * repeatedly: the share moves in two directions because the denominator grows with every sentence
+ * added. The 5,0 mark is where docs/README.md calls a group deviating, so it is shown here too. */
 for (const g of Object.keys(WHO_GROUP)) {
   const n = WHO_GROUP[g].reduce((a, k) => a + (whoInfo.counts.get(k) || 0), 0);
   const note = WHO_NOT_WRITTEN[g] ? `  (${WHO_NOT_WRITTEN[g]})` : '';
-  console.log(`  ${g.padEnd(24)} ${String(n).padStart(4)}  ${String(Math.round(100 * n / whoInfo.bank.length)).padStart(2)}%${note}`);
+  const share = 100 * n / whoInfo.bank.length;
+  const gap = share - WHO_MEASURED[g];
+  const mark = Math.abs(gap) >= 5 ? '  <- di atas batas 5,0' : '';
+  console.log(`  ${g.padEnd(24)} ${String(n).padStart(4)}  ${String(Math.round(share)).padStart(2)}%` +
+              `  selisih ${(gap >= 0 ? '+' : '') + gap.toFixed(1)}${mark}${note}`);
 }
 /* Per topic, so a topic doc line can be copied from here rather than counted by hand, which is how
  * nine of the twelve lines came to be wrong. */

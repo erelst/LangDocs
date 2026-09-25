@@ -321,7 +321,7 @@ asing 2,4%.
 Kolom Deck dihitung dari 665 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
 penyebut 515) dan tidak ada yang menyadarinya, karena itu `test.js` sekarang menghitung ulang tiap
 barisnya dari berkas data dan berkas topik. Kelompok dengan selisih **5,0 poin atau lebih** disebut
-menyimpang, dan setelah tujuh batch medan makna itu berlaku untuk publik & jasa lagi (+5,1), karena batch benda berisi pertanyaan ke petugas.
+menyimpang. `check.js` mencetak selisih tiap kelompok di sebelah bagiannya, supaya angka itu tidak pernah dihitung di kepala.
 
 **Keluarga dekat kurang 3,4 poin, turun dari 6,3 setelah tujuh batch medan makna, dan itu
 diakui, bukan dibiarkan terlihat seperti sebaran yang seimbang.** Sebab terukurnya: kata paling ringkas untuk mengelompokkan percakapan adalah tempat ×
