@@ -366,6 +366,91 @@ function checkCoverage(rows) {
   return { fields, bad };
 }
 
+/* Keberagaman bentuk: the five checkpoints of K10, measured on the long sentences.
+ *
+ * K1 catches a reused skeleton and K3 insists a long sentence carries a relation. Neither notices
+ * the thing that only appears at this size: hundreds of sentences that are each fine but keep
+ * ending the same way. Of the 498 long sentences, 137 distinct endings carry all of them and the
+ * commonest alone is 16,3%. These numbers are printed every run and test.js fails if one crosses
+ * its limit, so a writer adding sentences sees the pile building rather than meeting it later. */
+const VARIETY = {
+  /* The commonest three-character ending as a share of long sentences. One question form must not
+   * run away with a fifth of the deck. */
+  topEnding: 0.20,
+  /* Share of long sentences whose ending is used by more than one sentence. Sharing is normal at
+   * this size, so the limit catches only a collapse onto a handful of endings. */
+  sharedEnding: 0.90,
+  /* No single opening may exceed this share of long sentences; readers see repetition first at the
+   * start of a sentence. */
+  topOpening: 0.08,
+  /* Openings longer than this are not repetition, they are the sentence beginning. */
+  openingLen: 2,
+  endingLen: 3,
+  /* Count of six-character endings used three or more times. It is a count rather than a share
+   * because each one is a specific habit worth naming. */
+  habitEndings: 25,
+  /* Share held by the two commonest relation combinations. */
+  topRelations: 0.45
+};
+
+/* The relation markers of K3, in the same spirit as its own list. A sentence usually carries two,
+ * and it is the pair that repeats, so the pair is what gets counted. */
+const RELATION_MARKS = ['ので', 'から', 'けど', 'けれど', 'たら', 'とき', 'ながら', 'ため', 'し',
+                        'てから', 'あとで', 'まえに', 'のに', 'なければ', 'れば', 'なら', 'と', 'が'];
+
+function checkVariety(rows) {
+  const long = rows.filter(r => r.origin === 'bank' && r.s.long);
+  const kanji = r => tokens(r.s).map(t => t[0]).join('');
+  const shape = r => kanji(r).replace(/[、。！？…]/g, '');
+  const share = (part, whole) => (whole ? part / whole : 0);
+
+  const endings = new Map();
+  const openings = new Map();
+  const relations = new Map();
+  const habits = new Map();
+  for (const r of long) {
+    const k = shape(r);
+    const e = k.slice(-VARIETY.endingLen);
+    endings.set(e, (endings.get(e) || 0) + 1);
+    const o = k.slice(0, VARIETY.openingLen);
+    openings.set(o, (openings.get(o) || 0) + 1);
+    habits.set(k.slice(-6), (habits.get(k.slice(-6)) || 0) + 1);
+    const pair = RELATION_MARKS.filter(m => k.includes(m)).slice(0, 2).join('+') || '(none)';
+    relations.set(pair, (relations.get(pair) || 0) + 1);
+  }
+  const rank = m => [...m.entries()].sort((a, b) => b[1] - a[1]);
+  const topEnding = rank(endings)[0] || ['-', 0];
+  const topOpening = rank(openings)[0] || ['-', 0];
+  const topRelation = rank(relations).slice(0, 2);
+  const shared = [...endings.values()].filter(n => n > 1).reduce((a, n) => a + n, 0);
+  const habitsOver = [...habits.values()].filter(n => n >= 3).length;
+  const relationShare = topRelation.reduce((a, [, n]) => a + share(n, long.length), 0);
+
+  const bad = [];
+  if (share(topEnding[1], long.length) >= VARIETY.topEnding) {
+    bad.push(['variety', `ending ${topEnding[0]} carries ${topEnding[1]} of ${long.length} long ` +
+                         `sentences, over the ${VARIETY.topEnding * 100}% checkpoint`]);
+  }
+  if (share(shared, long.length) >= VARIETY.sharedEnding) {
+    bad.push(['variety', `${shared} of ${long.length} long sentences share an ending, over the ` +
+                         `${VARIETY.sharedEnding * 100}% checkpoint`]);
+  }
+  if (share(topOpening[1], long.length) >= VARIETY.topOpening) {
+    bad.push(['variety', `opening ${topOpening[0]} carries ${topOpening[1]} of ${long.length} long ` +
+                         `sentences, over the ${VARIETY.topOpening * 100}% checkpoint`]);
+  }
+  if (habitsOver >= VARIETY.habitEndings) {
+    bad.push(['variety', `${habitsOver} six-character endings are used three times or more, over ` +
+                         `the ${VARIETY.habitEndings} checkpoint`]);
+  }
+  if (relationShare >= VARIETY.topRelations) {
+    bad.push(['variety', `the two commonest relations (${topRelation.map(([p]) => p).join(', ')}) ` +
+                         `carry ${(relationShare * 100).toFixed(1)}% of long sentences, over the ` +
+                         `${VARIETY.topRelations * 100}% checkpoint`]);
+  }
+  return { bad, long: long.length, topEnding, topOpening, topRelation, shared, habitsOver, relationShare };
+}
+
 /* The long sentences should be most of the deck, so a regression back to a phrasebook of
  * greetings is visible in the numbers rather than only to a reader.
  *
@@ -495,6 +580,7 @@ const groups = {
   reply: reply.bad,
   who: [],   // reported below rather than as findings: see the spread and per-topic print
   coverage: checkCoverage(rows).bad,   // only the list being wrong; the gaps are printed below
+  variety: checkVariety(rows).bad,
 };
 
 let total = 0;
@@ -544,6 +630,17 @@ for (const f of cov.fields) {
               `  siap: ${f.unused.join(' ') || '-'}` +
               (f.noEntry.length ? `  | perlu entry: ${f.noEntry.join(' ')}` : ''));
 }
+
+/* The five K10 checkpoints, printed as the baseline they are measured against. Someone about to
+ * write a sentence reads this first and sees which form is already crowded. */
+const v = checkVariety(rows);
+const pct1 = n => (100 * n / v.long).toFixed(1) + '%';
+console.log(`\nkeberagaman bentuk (${v.long} kalimat panjang), batas K10:`);
+console.log(`  akhir teratas     ${v.topEnding[0]}  ${String(v.topEnding[1]).padStart(3)}x  ${pct1(v.topEnding[1]).padStart(6)}   batas 20%`);
+console.log(`  pembuka teratas   ${v.topOpening[0]}      ${String(v.topOpening[1]).padStart(3)}x  ${pct1(v.topOpening[1]).padStart(6)}   batas 8%`);
+console.log(`  akhir dipakai >1x ${String(v.shared).padStart(3)}x            ${pct1(v.shared).padStart(6)}   batas 90%`);
+console.log(`  kebiasaan akhir   ${String(v.habitsOver).padStart(3)} pola                        batas 25`);
+console.log(`  dua relasi teratas ${v.topRelation.map(([p, n]) => p + ' ' + pct1(n)).join(', ')}   batas 45%`);
 
 /* Printed per topic so the topic docs can cite the number instead of counting again by hand, which
  * is how the docs and the data drifted apart the first time. */

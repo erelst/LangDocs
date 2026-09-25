@@ -247,6 +247,39 @@ setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengaja
 
 ---
 
+## 5b. Waktu menjalankan pemeriksaan, dan kenapa begitu
+
+Diukur di mesin ini, dengan seluruh berkas diperiksa:
+
+| Perintah | Waktu | Isinya |
+|---|---|---|
+| `node check.js` | **0,35 detik** | seluruh isi kalimat dan dokumen, tanpa browser |
+| `node test.js` | **10 detik** | sama, ditambah dua kali merender halaman di browser |
+| `node ui.js` | **15 detik** | mengemudikan halaman: pencarian, balon, fokus keyboard |
+
+**Yang paling lambat bukan bahasanya.** 97% waktu `test.js` dan 96% waktu `ui.js` terpakai untuk
+**membuka browser dan menunggunya**, bukan untuk menghitung. Halaman kosong pun butuh 1,8-2,0 detik
+sekali render, dan `check.js` yang memeriksa seluruh 567 kalimat hanya butuh 0,35 detik. Jadi
+mengganti JavaScript dengan bahasa lain **tidak menolong**: yang mahal adalah Chromium, dan bahasa
+apa pun yang menjalankannya tetap membayar harga yang sama.
+
+**Yang benar-benar salah, dan sudah diperbaiki.** Sampai commit sebelum ini `test.js` butuh **231
+detik**, dan 89,7% waktunya ada di satu fungsi: `withoutBubbles`, yang membuang balon per kata dari
+DOM sebelum teksnya diperiksa. Setiap balon disingkirkan dengan `out = out.slice(0, at) +
+out.slice(i)`, dan itu menyalin ulang seluruh string. Halaman deep link `#q567` berisi 10 MB DOM
+dengan 11.250 balon, jadi satu kalimat pemeriksaan menyalin **109 GB**. Sekarang balonnya
+disingkirkan dalam satu lintasan: keluaran tetap identik byte per byte, waktunya turun dari 231
+detik ke 10 detik, dan yang penting **tidak lagi tumbuh kuadratik** terhadap jumlah kalimat.
+Kalimat yang bertambah dua kali lipat akan menggandakan waktu, bukan melipatgandakannya.
+
+**Yang disengaja tetap lambat.** Render kedua di `test.js` sengaja membuka `#q567` dan bukan
+`#q21`, walaupun yang mahal itu justru `#q567` (7 detik melawan 3 detik). Deep link memang
+menambahkan kartu satu batch demi satu batch sampai kartunya ada, tanpa batas atas, jadi hanya
+dengan menunjuk kalimat terakhir pemeriksaan itu membuktikan penambahan bertahapnya benar-benar
+jalan sampai ujung. Menggantinya dengan `#q21` akan menghemat 4 detik dan menghilangkan buktinya.
+
+---
+
 ## 5. Total
 
 | Bagian | Kalimat |
