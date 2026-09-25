@@ -375,6 +375,23 @@ ok('docs/README.md states the medan makna totals that the data adds up to',
                        `**${covTotals.gap}** | **${covTotals.ready}** | **${covTotals.noEntry}** |`),
    `data says ${Object.values(covTotals).join('/')}`);
 
+/* The lexicon is kept in kana order, and lexadd.js is the tool that maintains it. Adding entries by
+ * hand instead put all 65 of one batch before every kana entry, because a plain sort in Node orders
+ * by code unit while the file is ordered by localeCompare: あ is U+3042 and ア is U+30A2, so a code
+ * unit sort puts every hiragana entry before every katakana one. The file looks fine, searches miss
+ * nothing, and the next person to run lexadd.js gets a diff of a thousand lines. That is the failure
+ * this catches, and it is why the check exists rather than a note telling people to use the tool. */
+{
+  const keys = Object.keys(window.LEX || {});
+  const sorted = [...keys].sort((a, b) => a.localeCompare(b));
+  const firstBad = keys.findIndex((k, i) => k !== sorted[i]);
+  ok('data/lexicon.js is kept in kana order, the order lexadd.js writes',
+     firstBad === -1,
+     firstBad === -1 ? `${keys.length} entries in order`
+                     : `${keys.length} entries, first out of place at ${keys[firstBad]}, ` +
+                       `expected ${sorted[firstBad]} (run node lexadd.js to fix)`);
+}
+
 /* Section 4 states its own total in words, and it had gone stale: it said eighty-three while the
  * three rows above it added up to 107. A total that only appears in prose is exactly the kind of
  * number nothing reads, so it is checked against the bold quotas the rows already carry. */
@@ -405,7 +422,14 @@ ok('docs/README.md states the cross-cutting total that its own rows add up to',
  * A row that says the term is used "in this sense" is a qualified claim and is left alone: it
  * cannot be checked by searching for the string, and pretending otherwise would be a worse guard
  * than none. `ada` claims are left alone for the same reason they never go stale: they are about
- * sentences that were already there. */
+ * sentences that were already there.
+ *
+ * The second shape was dead code until a negative test failed to make it fire. It looked for a
+ * clause ending in "belum", but the text it was given was the whole markdown row, which ends in
+ * " |", so the condition was never true: nineteen rows carrying a "belum" claim were passing
+ * without being read. It now takes the last table cell and splits that on the semicolons inside
+ * it, which is where the claims are.
+ */
 const allSurfaces = [...(window.CURATED || []), ...(window.BANK || [])]
   .map(s => s.t.map(t => (Array.isArray(t) ? t[0] : t)).join(''));
 const contains = term => allSurfaces.some(k => k.includes(term));
@@ -427,9 +451,22 @@ for (const file of topicDocs.sort()) {
          wrong.length ? `${wrong.join(', ')} IS used by a sentence now` : `${terms.length} terms absent`);
     }
     /* Shape 2: the terms in the clause that ends in  belum must also be absent. */
-    const before = line.split(/[;；]/).map(x => x.trim()).filter(x => x.endsWith('belum'));
+    const cells = line.split('|');
+    const note = cells.length > 2 ? cells[cells.length - 2] : '';
+    const before = note.split(/[;；]/).map(x => x.trim()).filter(x => x.endsWith('belum'));
     for (const clause of before) {
-      const terms = [...clause.matchAll(/`([^`]+)`/g)].map(m => m[1]);
+      /* A row of this shape names what exists before it names what does not: 「`セール` ada di
+       * kalimat kapan mulai; `割引` dan `バーゲン` belum」. Only what follows the last "ada" is the
+       * claim, and reading the whole clause reports the word that is deliberately there as a false
+       * failure. Rows that say "`お久しぶり` ada, keadaan sebaliknya belum" have no terms after the
+       * marker at all, which is correct: they claim a situation is missing, not a word. */
+      /* When the clause has no "ada" the semicolon already separated it from the one that does, so
+       * the whole clause is the claim. Reading lastIndexOf straight into slice() skipped the first
+       * characters instead, because it returns -1: the terms then came out mangled and this branch
+       * reported nothing while appearing to work. */
+      const at = clause.lastIndexOf(' ada');
+      const tail = at === -1 ? clause : clause.slice(at + ' ada'.length);
+      const terms = [...tail.matchAll(/`([^`]+)`/g)].map(m => m[1]);
       gapClaims += terms.length;
       const wrong = terms.filter(contains);
       ok(`${file} claim "... belum" is still true`,
