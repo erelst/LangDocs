@@ -96,8 +96,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 29 kalimat, 29 kerangka, tida
 Kuota terpenuhi: 22 dari 22. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: teman 21, keluarga 7, petugas toko 4, rekan kerja 1. Bentuk sopan 16, biasa 13.
-Panjang 27, pendek 2.
+Lawan bicara yang sudah dipakai: teman 49, keluarga 7, petugas toko 4, rekan kerja 1, atasan 1.
 
 Topik ini terbelah menurut kedekatan orangnya, bukan menurut kegiatannya, dan itu yang membuatnya
 berbeda dari `rumah_santai`: ajakan yang sama muncul dalam dua bentuk. Ke rekan yang belum akrab

@@ -95,7 +95,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 28 kalimat, 28 kerangka, tida
 Kuota terpenuhi: 27 dari 27. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: orang asing di jalan 11, petugas stasiun 9, teman 5, keluarga 3. Bentuk
+Lawan bicara yang sudah dipakai: orang asing di jalan 15, petugas stasiun 11, teman 5, keluarga 4, rekan kerja 1.
 sopan 25, biasa 2. Panjang 23, pendek 5.
 
 20 dari 22 sopan karena hampir semua percakapan di perjalanan terjadi dengan orang yang tidak

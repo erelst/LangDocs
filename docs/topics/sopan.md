@@ -104,7 +104,7 @@ Kuota terpenuhi: 32 dari 32, yaitu 28 kalimat di `data/t_sopan.js` ditambah 4 ka
 `data/curated.js`. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya sudah habis,
 dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: rekan kerja 11, atasan 6, teman 6, klien 3, orang asing di jalan 2. Bentuk sopan
+Lawan bicara yang sudah dipakai: rekan kerja 14, teman 7, atasan 6, tetangga yang baru dikenal 5, orang asing di jalan 3, klien 3.
 22, biasa 6. Panjang 19, pendek 9.
 
 Sembilan kalimat pendek, dan itu lebih banyak daripada topik lain, karena isi topik ini memang

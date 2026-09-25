@@ -124,6 +124,32 @@ console.log(`README: ${fields.length} baris medan + jumlah = ${sum('have')}/${su
 
 }
 
+// --- daftar lawan bicara per topik di berkas topik ---
+/* check.js sudah mencetaknya dengan nama tampilan yang sama, jadi baris ini disalin, bukan dihitung
+ * lagi. Yang hanya bisa disalin adalah bagian daftarnya; sisanya ("Bentuk sopan", "Panjang", dan
+ * sebagainya) tetap ditulis tangan karena bukan angka yang dicetak check.js. */
+{
+  const perTopic = {};
+  const inBlock = out.split('who, per topic:')[1] || die('keluaran tidak memuat "who, per topic:"');
+  for (const line of inBlock.split('\n')) {
+    const m = line.match(/^ {2}(\w+) +(.*)$/);
+    if (!m) { if (line.trim() === '') continue; if (/^\S/.test(line)) break; continue; }
+    perTopic[m[1]] = m[2].trim();
+  }
+  let touched = 0, missing = 0;
+  for (const [topic, list] of Object.entries(perTopic)) {
+    const file = `docs/topics/${topic}.md`;
+    if (!fs.existsSync(file)) continue;
+    let t = fs.readFileSync(file, 'utf8');
+    const line = t.match(/^Lawan bicara yang sudah dipakai: [^\n]*$/m);
+    if (!line) { missing++; continue; }
+    const rest = line[0].slice('Lawan bicara yang sudah dipakai: '.length).split('. ').slice(1).join('. ');
+    const want = `Lawan bicara yang sudah dipakai: ${list}.` + (rest ? ' ' + rest : '');
+    if (line[0] !== want) { t = t.replace(line[0], want); fs.writeFileSync(file, t); touched++; }
+  }
+  console.log(`lawan bicara per topik: ${touched} baris disalin${missing ? `, ${missing} dokumen tanpa baris itu` : ''}`);
+}
+
 // --- angka K10 di SPEC ---
 const g = re => { const m = out.match(re); if (!m) die('keluaran tidak memuat: ' + re); return m; };
 const long = g(/keberagaman bentuk \((\d+) kalimat panjang\)/)[1];

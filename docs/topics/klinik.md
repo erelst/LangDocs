@@ -83,7 +83,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 15 kalimat, 15 kerangka, tida
 Kuota terpenuhi: 15 dari 15. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: dokter 13, apoteker 2. Bentuk sopan 15, biasa 0. Panjang 15,
+Lawan bicara yang sudah dipakai: dokter 25, apoteker 2.
 pendek 0.
 
 Dua belas dari dua belas sopan, dan tidak ada satu pun yang biasa: tidak ada orang yang berbicara

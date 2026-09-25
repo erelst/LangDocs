@@ -89,8 +89,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 24 kalimat, 24 kerangka, tida
 Kuota terpenuhi: 20 dari 20. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: orang asing di jalan 10, teman 10, keluarga 5, tetangga 2, pasangan 1.
-Bentuk sopan 14, biasa 10. Panjang 23, pendek 1.
+Lawan bicara yang sudah dipakai: orang asing di jalan 21, teman 12, keluarga 5, tetangga 2, pasangan 1.
 
 Topik ini punya dua sisi yang tidak bertemu: bertanya arah ke orang yang belum dikenal, yang
 selalu sopan, dan berjalan bersama orang yang sudah dikenal, yang hampir selalu biasa. Enam

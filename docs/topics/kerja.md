@@ -168,7 +168,7 @@ sama akan tertangkap `check.js` bagian `distinct` (batas 3 per kerangka).
 Kuota terpenuhi: 90 dari 90. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti bahwa
 topiknya sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: atasan 50, rekan kerja 33, guru 6, klien 5, teman 2, keluarga 2. Bentuk sopan 81,
+Lawan bicara yang sudah dipakai: atasan 50, rekan kerja 35, guru 6, klien 5, teman 2, keluarga 2.
 biasa 9. Panjang 83, pendek 9.
 
 Celah yang ditemukan saat topik ini diperiksa, dan semuanya sudah ditulis:

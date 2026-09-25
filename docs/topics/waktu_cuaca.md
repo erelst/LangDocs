@@ -100,7 +100,7 @@ dan `../SPEC.md` T2 mengizinkan itu selama kalimat tambahannya nyata dan berbeda
 antaranya ditambahkan saat `../SPEC.md` K8 dijalankan: `waktu_cuaca_jawab_hujan_sebentar`,
 jawaban atas pertanyaan apakah hujannya akan lama. **Belum diperiksa mentok.**
 
-Lawan bicara yang sudah dipakai: rekan kerja 11, keluarga 8, teman 5, orang asing di jalan 2, klien 1. Bentuk
+Lawan bicara yang sudah dipakai: keluarga 13, rekan kerja 11, teman 5, orang asing di jalan 2, klien 1, atasan 1.
 sopan 15, biasa 3. Panjang 22, pendek 4.
 
 Hampir semua kalimat di sini adalah pembuka percakapan, bukan isi pembicaraan, jadi banyak yang

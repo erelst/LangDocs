@@ -126,8 +126,7 @@ Dihitung dengan cara yang sama seperti `check.js`. 74 kalimat, 74 kerangka, tida
 Kuota terpenuhi: 36 dari 36. **Belum diperiksa mentok.** Angka ini kuota, bukan bukti topiknya
 sudah habis, dan `../SPEC.md` T2 memisahkan keduanya.
 
-Lawan bicara yang sudah dipakai: keluarga 58, pasangan 14, teman 2. Bentuk sopan 23, biasa 51.
-Panjang 55, pendek 3.
+Lawan bicara yang sudah dipakai: keluarga 71, pasangan 16, teman 2.
 
 28 dari 30 biasa karena 59% percakapan topik ini dengan keluarga dan tidak ada yang memakai
 bentuk sopan ke pasangan sendiri di sofa. Dua yang sopan keduanya ke kerabat yang berkunjung,
