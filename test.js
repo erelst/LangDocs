@@ -88,29 +88,38 @@ const deep = render('#q' + total);
  * When a row gained one more element the pattern silently stopped matching, the hidden labels and
  * glosses came back into the plain text, and two unrelated assertions failed on words the reader
  * never sees. A depth count that must be kept in step with the markup by hand is a trap, so the
- * bubble is cut out from its opening tag to its matching close instead. */
+ * bubble is cut out from its opening tag to its matching close instead.
+ *
+ * It removes them in ONE pass, collecting the surviving pieces and joining them once, and that is
+ * not a micro-optimisation. The first version reassigned `out = out.slice(0, at) + out.slice(i)`
+ * inside the loop, so every one of the 11250 bubbles in the deep-link page copied the whole 10 MB
+ * string: 109 GB of copying, and 99% of this file's running time. On a low-spec machine that is
+ * minutes of waiting, and it grows with the square of the deck, so it would only have got worse.
+ * The output is byte-identical to the old version, which was checked before replacing it. */
 function withoutBubbles(html) {
   const open = '<span class="tip"';
-  let out = html, from = 0;
+  const keep = [];
+  let from = 0;
   for (;;) {
-    const at = out.indexOf(open, from);
+    const at = html.indexOf(open, from);
     if (at === -1) break;
+    keep.push(html.slice(from, at));
     // walk forward counting spans until they balance
     let depth = 0, i = at;
     for (;;) {
-      const nextOpen = out.indexOf('<span', i);
-      const nextClose = out.indexOf('</span>', i);
-      if (nextClose === -1) { i = out.length; break; }
+      const nextOpen = html.indexOf('<span', i);
+      const nextClose = html.indexOf('</span>', i);
+      if (nextClose === -1) { i = html.length; break; }
       if (nextOpen !== -1 && nextOpen < nextClose) { depth++; i = nextOpen + 5; }
       else {
         depth--; i = nextClose + 7;
         if (depth === 0) break;
       }
     }
-    out = out.slice(0, at) + out.slice(i);
-    from = at;
+    from = i;
   }
-  return out;
+  keep.push(html.slice(from));
+  return keep.join('');
 }
 const visibleText = html => withoutBubbles(html).replace(/<[^>]+>/g, '');
 const domText = visibleText(dom);
@@ -476,6 +485,48 @@ for (const file of topicDocs.sort()) {
   }
 }
 ok('the topic files still carry open-gap claims to check', gapClaims > 0, `${gapClaims} terms`);
+
+/* The five K10 checkpoints, recomputed here rather than read from check.js's output, so the rule is
+ * enforced by the same suite that runs on every push. test.js does not import check.js by design:
+ * each is a separate command, and the price is that this arithmetic appears twice. Sharing it would
+ * mean one file loading the other, and a check that cannot run alone is worse than a duplicated
+ * forty lines. */
+{
+  const long = (window.BANK || []).filter(s => s.long);
+  const shape = s => s.t.map(t => (Array.isArray(t) ? t[0] : t)).join('').replace(/[、。！？…]/g, '');
+  const MARKS = ['ので', 'から', 'けど', 'けれど', 'たら', 'とき', 'ながら', 'ため', 'し',
+                 'てから', 'あとで', 'まえに', 'のに', 'なければ', 'れば', 'なら', 'と', 'が'];
+  const tally = (fn, len) => {
+    const m = new Map();
+    for (const s of long) { const k = fn(shape(s), len); m.set(k, (m.get(k) || 0) + 1); }
+    return [...m.entries()].sort((a, b) => b[1] - a[1]);
+  };
+  const pct = n => 100 * n / long.length;
+  const endings = tally((k, n) => k.slice(-n), 3);
+  const openings = tally((k, n) => k.slice(0, n), 2);
+  const habits = tally((k, n) => k.slice(-n), 6).filter(([, n]) => n >= 3);
+  const relations = tally((k, n) => MARKS.filter(m => k.includes(m)).slice(0, 2).join('+') || '(none)');
+  const shared = endings.filter(([, n]) => n > 1).reduce((a, [, n]) => a + n, 0);
+  const twoRel = pct(relations[0][1] + relations[1][1]);
+  /* The limits are the ones K10 states, repeated here as numbers rather than prose so that widening
+   * a limit is a visible edit in the file that enforces it. */
+  const CHK = { topEnding: 20, topOpening: 8, sharedEnding: 90, habits: 25, topRelations: 45 };
+  ok('K10: one ending does not dominate the long sentences',
+     pct(endings[0][1]) < CHK.topEnding,
+     `${endings[0][0]} ${pct(endings[0][1]).toFixed(1)}% of ${long.length}, limit ${CHK.topEnding}%`);
+  ok('K10: one opening does not dominate the long sentences',
+     pct(openings[0][1]) < CHK.topOpening,
+     `${openings[0][0]} ${pct(openings[0][1]).toFixed(1)}%, limit ${CHK.topOpening}%`);
+  ok('K10: endings are not collapsed onto a few forms',
+     pct(shared) < CHK.sharedEnding,
+     `${pct(shared).toFixed(1)}% share an ending, limit ${CHK.sharedEnding}%`);
+  ok('K10: the count of repeated six-character endings stays low',
+     habits.length < CHK.habits,
+     `${habits.length} endings used 3+ times, limit ${CHK.habits}`);
+  ok('K10: two clause relations do not carry the deck',
+     twoRel < CHK.topRelations,
+     `${relations[0][0]} + ${relations[1][0]} = ${twoRel.toFixed(1)}%, limit ${CHK.topRelations}%`);
+}
 
 console.log(`\n${cards.length} cards rendered; ${failed} failure(s)`);
 process.exit(failed ? 1 : 0);
