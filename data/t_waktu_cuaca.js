@@ -303,4 +303,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'After the time, まだ間に合います gives the conclusion, which is what the person asking usually wants.',
     t: ["十時","を","回った","ところ","な","ので","、","まだ","間","に","合い","ます","よ","。"],
   },
+  {
+    key: 'waktu_cuaca_kemarau_panas', topic: 'waktu_cuaca',
+    rel: 'keluarga', polite: 0, long: 1,
+    sit: 'Mengeluh cuaca panas menyengat',
+    sitEn: 'Complaining that the heat is harsh',
+    id: 'Karena akhir-akhir ini panas menyengat, sepertinya tidak akan turun hujan.',
+    en: 'It has been brutally hot lately, so it does not look like rain.',
+    note: 'Pananya sedang dirasakan, jadi keluhannya nyata, bukan contoh kalimat.',
+    noteEn: 'The heat is being felt, so the complaint is real rather than a sample sentence.',
+    t: ["今年","は","暑い","から","、","雨","が","なかなか","降らない","ね","。"],
+  },
 ]);

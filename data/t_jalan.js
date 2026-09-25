@@ -417,4 +417,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'Not having heard comes first, so the request does not blame the speaker.',
     t: ['声', 'が', '小さく', 'て', '聞こえ', 'なかった', 'から', '、', 'もう一度', 'ゆっくり', '言って', '。'],
   },
+  {
+    key: 'jalan_kemacetan_panjang', topic: 'jalan',
+    rel: 'orang_asing', polite: 1, long: 1,
+    sit: 'Menjelaskan macet panjang dan memilih jalan kaki',
+    sitEn: 'Explaining the long traffic jam and choosing to walk',
+    id: 'Karena macetnya panjang, lebih cepat jalan kaki saja.',
+    en: 'The traffic is bad, so it is faster to just walk.',
+    note: 'Antrean mobilnya kelihatan, jadi alasan memilih jalan kaki terlihat sendiri.',
+    noteEn: 'The queue of cars is visible, so the reason for walking can be seen directly.',
+    t: ["渋滞","が","ひどい","から","、","歩いて","行った","ほう","が","早い","です","。"],
+  },
 ]);

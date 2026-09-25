@@ -57,7 +57,7 @@ window.COVERAGE = {
     words: ['古い', '新しい', 'きれい', '汚い', '静か', 'うるさい', '広い', '狭い', '暗い', '明るい',
             '涼しい', '暖かい', '混んでいる', '空いている', '壊れる', '故障', '停電', '洪水', '地震',
             '台風', '渋滞'],
-    needEntry: ['汚い', 'うるさい', '広い', '狭い', '故障', '停電', '洪水', '地震', '渋滞'],
+    needEntry: [],
   },
   /* Anggota tubuh. 尻尾 is here rather than in a pet field because the deck has no pet topic and the
    * tail is only ever named while talking about an animal. */

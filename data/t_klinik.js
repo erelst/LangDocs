@@ -274,4 +274,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'A when-clause names the trigger, so the doctor knows when the pain comes.',
     t: ["冷たい","物","を","食べる","と","、","歯","が","痛く","なります","。"],
   },
+  {
+    key: 'klinik_kaki_terendam_banjir', topic: 'klinik',
+    rel: 'dokter', polite: 1, long: 1,
+    sit: 'Menjelaskan kaki terendam banjir sehingga sakit',
+    sitEn: 'Explaining that the foot hurt after wading through a flood',
+    id: 'Sejak kaki saya terendam banjir, kaki saya sakit.',
+    en: 'Since my foot was in the flood water, it has hurt.',
+    note: 'Banjirnya sudah terjadi dan bisa diceritakan, jadi kalimat ini menerangkan sebab sakitnya.',
+    noteEn: 'The flood has already happened and can be described, so this explains where the pain started.',
+    t: ["洪水","で","足","が","水","に","つかって","から","、","痛く","なって","きました","。"],
+  },
 ]);
