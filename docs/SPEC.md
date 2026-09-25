@@ -250,19 +250,19 @@ asing 2,4%.
 
 | Kelompok | Deck | Terukur | Selisih |
 |---|---|---|---|
-| kerja & belajar | 29,0% | 22,7% | **+6,3** |
-| publik & jasa | 15,9% | 10,8% | **+5,1** |
-| orang asing | 5,8% | 2,4% | **+3,4** |
-| teman & tetangga | 16,4% | 17,2% | -0,8 |
+| kerja & belajar | 28,5% | 22,7% | **+5,8** |
+| publik & jasa | 15,3% | 10,8% | **+4,5** |
+| orang asing | 6,6% | 2,4% | **+4,2** |
+| teman & tetangga | 18,0% | 17,2% | **+0,8** |
 | guru-murid | 1,1% | 3,1% | -2,0 |
-| keluarga dekat | 31,8% | 36,8% | **-5,0** |
+| keluarga dekat | 30,5% | 36,8% | **-6,3** |
 
-Kolom Deck dihitung dari 535 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
+Kolom Deck dihitung dari 557 kalimat tertulis. Angka di tabel ini pernah basi (dihitung dengan
 penyebut 515) dan tidak ada yang menyadarinya, karena itu `test.js` sekarang menghitung ulang tiap
 barisnya dari berkas data dan berkas topik. Kelompok dengan selisih **5,0 poin atau lebih** disebut
 menyimpang, dan itu berlaku untuk keluarga dekat serta kerja & belajar.
 
-**Keluarga dekat kurang 5,0 poin, dan itu diakui, bukan dibiarkan terlihat seperti sebaran yang
+**Keluarga dekat kurang 6,3 poin, dan itu diakui, bukan dibiarkan terlihat seperti sebaran yang
 seimbang.** Sebab terukurnya: kata paling ringkas untuk mengelompokkan percakapan adalah tempat ×
 kegiatan, dan di rumah satu orang menghadapi anggota keluarga sekaligus, sehingga keluarga jatuh
 ke dalam kalimat yang bertopik, sedangkan pasangan (23 kalimat) dan keluarga yang berkunjung
@@ -270,8 +270,8 @@ ke dalam kalimat yang bertopik, sedangkan pasangan (23 kalimat) dan keluarga yan
 tercatat; yang belum ada adalah kalimat untuk keluarga dalam jumlah yang sebanding, dan itu
 pekerjaan yang masih terbuka.
 
-**Kenapa 5,0 dan bukan 3,8.** 3,8 poin adalah angka dari penyebut lama (449 kalimat). Setelah
-gelombang berikutnya, penyebutnya 535 dan selisihnya 5,0, walaupun jumlah kalimat keluarga tidak
+**Kenapa 6,3 dan bukan 3,8.** 3,8 poin adalah angka dari penyebut lama (449 kalimat). Setelah
+gelombang berikutnya, penyebutnya 557 dan selisihnya 6,3, walaupun jumlah kalimat keluarga tidak
 berkurang sama sekali (tetap 170). Selisih sebaran seperti ini **selalu dihitung ulang**, tidak
 pernah dikutip dari catatan sebelumnya, karena tambahan kalimat untuk kelompok lain saja sudah
 cukup untuk menggesernya.
@@ -390,6 +390,99 @@ Berkas `data/t_nama.js` dan satu baris `<script src="data/t_nama.js"></script>` 
 halaman tetap terlihat normal.
 
 **Diperiksa oleh.** `test.js`: setiap berkas topik di `data/` harus ada di `index.html`.
+
+### T6. Medan makna adalah daftar celah, bukan topik
+
+Deck ini menutup dua hal yang berbeda, dan keduanya harus disebut dengan nama yang berbeda:
+
+| | **Keadaan** (situasi) | **Medan makna** (kata) |
+|---|---|---|
+| Contoh | memesan makanan, menolak lembur, menanyakan arah | sumpit, piring, tangan, kakak, penyanyi, banjir, bangun pagi |
+| Bentuk di repo | topik: `data/t_*.js` + `docs/topics/*.md` | daftar kata di `coverage.js` |
+| Sumber angkanya | 場所 × 活動 di `data/survey.zip` | **tidak ada** |
+| Punya kuota | ya | **tidak** |
+| Kalau kurang | salah satu topiknya kurang | kalimatnya yang kurang, dan itu tercatat |
+
+**Satuan yang dihitung deck ini adalah kalimat, bukan kata.** Kedua kolom di atas berakhir di
+satuan yang sama: topik yang terukur punya kuota **kalimat**, dan medan makna yang tak terukur
+punya celah **kalimat**. `coverage.js` memang menyimpan daftar kata, tapi kata itu hanya penanda
+medannya, dan yang dicetak `check.js` adalah berapa **kalimat** yang belum ditulis untuk memuatnya.
+Yang dibaca pembaca juga kalimat, bukan kata lepas, jadi menyebut celahnya dalam satuan kata akan
+menghitung hal yang tidak pernah muncul di halaman.
+
+Aturan ini berlaku untuk seluruh berkas: **"kata" hanya dipakai kalau yang dibicarakan memang
+kata itu sendiri** (isinya daftar, ada tidaknya entri di `lexicon.js`, kata benda tidak punya
+tempat dan kegiatan). Di luar itu, satuan yang dipakai adalah kalimat.
+
+**Semua yang disebut di kolom kanan itu memang kehidupan sehari-hari.** Bangun pagi, sebutan
+kakak dan kakek, nama pekerjaan, gunting kuku, banjir, dan memperkenalkan diri semuanya dipakai
+orang setiap hari. Yang membuatnya **bukan topik** bukan "kurang sehari-hari", melainkan satu hal
+yang lebih sempit: **survei tidak bisa mengukurnya.** Survei mencatat 場所 (tempat) × 活動
+(kegiatan) untuk tiap percakapan. Kata benda tidak punya tempat dan tidak punya kegiatan, jadi
+tidak ada satu sel pun yang bisa dipakai menghitung "berapa bagian percakapan yang membicarakan
+sumpit". Memberi medan makna sebuah kuota berarti mengarang angka, dan itu persis yang dilarang T1.
+
+**Kenapa tidak boleh diabaikan juga.** Kalau deck tidak pernah menyebut sumpit, piring, atau
+kakak, kalimatnya benar tapi tidak bisa dipakai untuk hal yang sedang dihadapi pembaca. Aturan
+yang membuat keduanya hidup bersama: **kata medan makna disebar ke dalam topik yang keadaannya
+memang membutuhkannya.** `箸` masuk ke `makan` karena di sanalah orang menyebutnya, `お腹` ke
+`klinik`, `祖父` ke `rumah_santai`, `交差点` ke `jalan`. Topiknya tetap diukur, dan kata itu ikut
+terbawa di dalam kalimatnya.
+
+**Yang dilarang, dan ini mudah sekali dilanggar:**
+
+1. **Membuat topik dari medan makna.** "Topik anggota tubuh", "topik nama pekerjaan", "topik
+   bangunan" tidak boleh ada, karena tidak ada angka terukur di belakangnya.
+2. **Menambah kalimat hanya untuk memasang kata.** `皿を洗いました` dan `コップを洗いました`
+   adalah satu keadaan dengan kata benda yang ditukar, dan T2 sudah menyebutnya bukan keadaan
+   baru. Kalimat yang ditulis begitu tetap membuat katanya terhitung "dipakai" oleh `coverage.js`
+   tanpa menambah kalimat yang berguna, jadi aturan ini yang menjaganya.
+3. **Menyebut sebuah topik mentok padahal medan maknanya masih berlubang.** Kalau
+   `pekerjaan` masih 0 dari 14, topik `santai` belum mentok.
+
+**Cara menutup celah.** Kalimatnya harus keadaan nyata yang menyebut kata itu karena keadaannya
+memang menyebutnya: "adik saya yang masih SD ikut makan di sini" memuat `弟` sekaligus
+menambahkan keadaan baru. "Adik saya ada di rumah" cuma kalimat yang memasang katanya.
+
+**Setiap kalimat yang memasang kata itu wajib terpakai di dunia nyata, bukan hanya ada di buku
+pelajaran.** Ini syarat yang sama kerasnya dengan larangan di atas, dan cara memeriksanya satu:
+**tanyakan apakah orang Jepang mengatakan kalimat itu sambil menunjuk benda atau keadaan yang
+benar-benar ada di depan matanya.** `私は弟がいます` lulus tata bahasa tapi tidak ada orang yang
+mengatakannya; yang diucapkan orang adalah `弟が二人いる` waktu ditanya, atau `弟に貸した` waktu
+benda itu dibicarakan. Kalimat yang lulus uji ini biasanya muncul sebagai **jawaban** atau
+**penjelasan**, bukan sebagai pelajaran tata bahasa.
+
+Uji yang dipakai kalau masih ragu, tiga sekaligus dan ketiganya harus lulus:
+
+| Uji | Gagal berarti |
+|---|---|
+| Apakah ada alasannya diucapkan, bukan untuk mendemonstrasikan pola? | itu contoh buku teks |
+| Apakah orang yang mendengarnya tahu benda/keadaan mana yang dibicarakan? | kalimatnya menggantung |
+| Kalau diucapkan sekarang, kepada lawan bicara yang sudah ada, apakah masuk akal? | itu kalimat latihan |
+
+**Kata yang tidak bisa dipakai di dunia nyata dihapus dari daftar, dengan alasan tertulis.** Daftar
+medan makna bukan kamus: kata yang dicantumkan hanya supaya daftarnya kelihatan lengkap sama
+salahnya dengan topik yang dibuat tanpa angka. `coverage.js` mencatat penghapusan seperti itu di
+komentar, dan alasan yang bisa dipakai adalah "kata ini tidak muncul dalam percakapan sehari-hari",
+bukan "belum sempat ditulis".
+
+**Perkenalan diri (自己紹介) disebut khusus.** Ia satu adegan yang tetap dan tidak berubah: nama,
+asal, pekerjaan, penutup. Ia bukan sel 場所 × 活動, jadi ia medan makna juga dan bukan topik.
+Bedanya dengan medan makna lain, isinya bisa didaftar sampai habis karena adegannya pasti, jadi
+`coverage.js` mencantumkan bagiannya satu per satu.
+
+**Diperiksa oleh.** `check.js` mencetak, per medan, kata mana yang belum dipakai kalimat mana
+pun, sekaligus berapa **kalimat celah** yang perlu ditulis. Dua jenis celah dibedakan karena
+pekerjaannya berbeda: kata yang **siap ditulis** (sudah ada di `lexicon.js`, tinggal kalimatnya)
+dan kata yang **belum ada di lexicon** (butuh entri dulu). Beda itu penting supaya "87 kata"
+tidak terbaca seperti 87 kesalahan, padahal sebagian besar cuma rencana.
+
+**Celah tercatat, bukan angka gagal.** `check.js` **tidak** gagal karena medan makna berlubang,
+dengan alasan yang sama seperti sebaran lawan bicara di K9: tidak ada ambang yang bisa
+dipertanggungjawabkan, jadi ambang yang dipasang cuma akan jadi angka karangan. Yang gagal adalah
+hal mekanisnya: `coverage.js` menyebut kata yang tidak ada di `lexicon.js` **dan** tidak
+dinyatakan sebagai "belum ada entri". Daftar celah yang menyebut kata yang tidak bisa diglosa deck
+bukan daftar celah, itu salah tulis.
 
 ---
 
