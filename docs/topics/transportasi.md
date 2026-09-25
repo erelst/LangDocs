@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Transportasi |
 | Kuota | 28 |
-| Sudah ditulis | 28 |
+| Sudah ditulis | 30 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_transportasi.js` |

@@ -6,7 +6,7 @@
 |---|---|
 | Judul | Jalanan |
 | Kuota | 36 |
-| Sudah ditulis | 37 |
+| Sudah ditulis | 39 |
 | Sisa | **0** |
 | Kerangka lintas topik | tidak |
 | Berkas | `data/t_jalan.js` |

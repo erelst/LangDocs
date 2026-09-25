@@ -49,7 +49,7 @@ window.COVERAGE = {
     note: 'bangunan dan tempat yang orang datangi',
     words: ['学校', '病院', '駅', '公園', '建物', 'アパート', '図書館', '本屋', '体育館', '郵便局',
             '銀行', '交番', '美容院', '八百屋', 'コンビニ', '駐車場', '階段', 'エレベーター'],
-    needEntry: ['アパート', '体育館', '美容院', '八百屋', '駐車場', '階段', 'エレベーター'],
+    needEntry: [],
   },
   /* Keadaan sekitar: how a place looks and what happened to it. */
   keadaan: {

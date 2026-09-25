@@ -759,4 +759,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'The machine can be pointed at, which is what makes this real at home.',
     t: ["洗濯","機","が","故障","した","から","、","手","で","洗って","いる","。"],
   },
+  {
+    key: 'rumah_tugas_potong_rambut_sebelum_acara', topic: 'rumah_tugas',
+    rel: 'keluarga', polite: 1, long: 1,
+    sit: 'Membuat janji ke salon sebelum acara',
+    sitEn: 'Making a hair appointment before an event',
+    id: 'Karena ada acara minggu ini, saya mau ke salon dulu.',
+    en: 'There is an event this week, so I want to go to the salon first.',
+    note: 'Acaranya sudah dijadwalkan, jadi alasan ke salonnya jelas.',
+    noteEn: 'The event is already scheduled, which is what makes the salon visit make sense.',
+    t: ["今週","は","式","が","ある","ので","、","美容院","に","行きます","。"],
+  },
 ]);

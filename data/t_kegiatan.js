@@ -196,4 +196,15 @@ window.BANK = (window.BANK || []).concat([
     noteEn: 'If you have time leaves a way out, so the invitation does not weigh on them.',
     t: ["お時間","が","あれば","、","日曜","の","活動","に","一緒","に","いかが","ですか","。"],
   },
+  {
+    key: 'kegiatan_latihan_di_gedung_olahraga', topic: 'kegiatan',
+    rel: 'teman', polite: 1, long: 1,
+    sit: 'Memberi tahu latihan pindah ke gedung olahraga',
+    sitEn: 'Saying the practice has moved to the sports hall',
+    id: 'Karena aula sekolah sedang dipakai, latihan kita pindah ke gedung olahraga.',
+    en: 'The school hall is in use, so our practice has moved to the sports hall.',
+    note: 'Perpindahannya baru diberitahukan, dan itu yang wajar dibicarakan sebelum latihan.',
+    noteEn: 'The move has just been announced, which is what one talks about before practice.',
+    t: ["学校","の","体育館","が","使えません","から","、","練習","は","向こう","の","体育館","です","。"],
+  },
 ]);
