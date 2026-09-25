@@ -182,5 +182,11 @@ set(/\(\d+ kalimat panjang\)/, `(${long} kalimat panjang)`);
 pending['docs/SPEC.md'] = spec;
 console.log(`SPEC: 6 baris K10, panjang ${long}, sebab ${c(cause)}%`);
 
-for (const [file, text] of Object.entries(pending)) fs.writeFileSync(file, text);
-console.log(`${Object.keys(pending).length} berkas ditulis`);
+/* Hanya berkas yang benar-benar berubah yang ditulis, dan itu yang dilaporkan: menulis berkas yang
+ * isinya sama membuat laporannya berbunyi "2 berkas ditulis" pada clone yang sudah sinkron. */
+let changed = 0;
+for (const [file, text] of Object.entries(pending)) {
+  if (fs.readFileSync(file, 'utf8') === text) continue;
+  fs.writeFileSync(file, text); changed++;
+}
+console.log(changed ? `${changed} berkas diperbarui` : 'sudah sinkron, tidak ada yang diubah');
