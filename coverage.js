@@ -37,7 +37,7 @@ window.COVERAGE = {
     note: 'benda di dalam rumah di luar dapur',
     words: ['タオル', '石鹸', '歯ブラシ', '布団', '枕', '掛け布団', 'ハンガー', '洗剤', 'ごみ袋',
             '電池', '電球', '鍵'],
-    needEntry: ['タオル', '石鹸', '歯ブラシ', '枕', '掛け布団', 'ハンガー', 'ごみ袋'],
+    needEntry: [],
   },
   benda_bawa: {
     note: 'benda yang dibawa orang sehari-hari',
