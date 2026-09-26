@@ -371,6 +371,20 @@ tersentuh saat menulis narasi:
   `node --check <berkas>` untuk sintaks, dan membuka halaman di browser untuk hal yang tampak.
   Pemeriksa kalimat sudah tidak ada.
 
+### Satu cacat tampilan yang ditemukan sesudah narasi ditulis, dan itu mengajarkan satu hal
+
+Waktu blok narasi mulai dipakai, kelas `jp-sent` **tidak ikut** dipasang pada pembungkus tiap
+baris. Akibatnya bukan hiasan yang hilang: seluruh aturan balon dan panel ditulis sebagai
+`.jp-sent .tk > .tip`, jadi balon per kata jatuh ke `position: static` dan **selalu terlihat**.
+Yang dibaca pembaca adalah tiga baris teks menggantung di bawah setiap kata, bukan balon yang
+muncul saat disorot.
+
+Yang menemukannya adalah pengukuran, bukan pembacaan: `getComputedStyle(...).position` bernilai
+`static` dan `display` bernilai `inline`, padahal seharusnya `absolute` dan `none`. Pelajarannya
+ditulis di sini karena berlaku untuk ketentuan mana pun di berkas ini: **kelas yang membuat aturan
+berlaku tidak lebih kecil artinya daripada aturannya**, dan ketentuan yang "sudah ada di CSS"
+belum tentu berlaku pada markup yang baru.
+
 ### Hasil pemeriksaan sekali pakai atas seluruh 156 narasi (2026-09-26)
 
 Sebelum deck ini diserahkan untuk di-merge, seluruh narasi diperiksa sekali dengan skrip

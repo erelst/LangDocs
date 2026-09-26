@@ -303,7 +303,11 @@
     var sp = speakerKey(s, block.sp);
     var spText = sp ? relLabel(sp) : '';
     var spColour = sp ? relColour(sp) : '';
-    return '<div class="block"' + (block.sp ? ' data-sp="' + esc(block.sp) + '"' : '') + '>' +
+    /* `jp-sent` is not decoration: every rule for the word bubble and the panel is written as
+     * `.jp-sent .tk > .tip` and `.jp-sent .qdet`. Without it the bubble fell back to
+     * `position: static` and was simply always visible, which a reader would see as three lines
+     * of text hanging under every word. The block carries the class so the rules apply. */
+    return '<div class="block jp-sent"' + (block.sp ? ' data-sp="' + esc(block.sp) + '"' : '') + '>' +
       (spText ? '<span class="speaker" style="background:' + spColour + ';">' +
         esc(spText) + '</span>' : '') +
       '<div class="kanji">' + tokenSpans(tokens, 0) + '</div>' +
