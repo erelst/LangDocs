@@ -84,7 +84,17 @@
     return allTokens(s).map(function (t) { return t[0]; }).join('');
   }
 
-  function langOf() { return state.lang || 'id'; }
+  /* The language code, always one of the two the page speaks. A hash anyone can type
+   * (`#/read/EN/jp`, or a typo) is normalised instead of trusted: an unknown code used to reach
+   * the lookup as-is, and although every string fell back to Indonesian so nothing broke, the
+   * state then held a code no table had a column for. Normalising here means the rest of the file
+   * only ever sees a language it knows. */
+  var LANGS = ['id', 'en'];
+  function normLang(x) {
+    var v = String(x || '').toLowerCase();
+    return LANGS.indexOf(v) === -1 ? 'id' : v;
+  }
+  function langOf() { return normLang(state.lang); }
   /* A field written as `id`/`en` rather than `idId`/`idEn`. */
   function tr(s, base) {
     if (!s) { return ''; }
@@ -594,19 +604,19 @@
       /* The language is deliberately NOT cleared here. A reader who comes back to this screen to
        * switch languages should see the choice they already made, in the language they made it in,
        * not a reset to Indonesian. */
-      state.lang = state.lang || 'id';
+      state.lang = normLang(state.lang);
       show('lang');
       renderChoosers();
       return;
     }
     if (parts[0] === 'target') {
-      state.lang = parts[1] || 'id';
+      state.lang = normLang(parts[1]);
       show('target');
       renderChoosers();
       return;
     }
     if (parts[0] === 'read') {
-      state.lang = parts[1] || 'id';
+      state.lang = normLang(parts[1]);
       state.target = parts[2] || 'jp';
       if (parts[3]) { openNarrative(decodeURIComponent(parts[3])); return; }
       state.openKey = null;
