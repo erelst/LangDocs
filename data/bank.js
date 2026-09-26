@@ -1,33 +1,48 @@
-/* The written bank: the sentences this deck is built from.
+/* The written bank: the narratives this deck is built from.
  *
- * Empty on purpose right now. The next step is writing them, and the shape below is what
- * they will be written in, so writing a sentence is only writing the sentence.
+ * Empty on purpose. The shape below is what a narrative is written in, so writing one is only
+ * writing the narrative and not also deciding how it is stored.
  *
- * One entry per sentence:
- *   key      a stable name, used by the deep links and by review comments
- *   topic    which subject it belongs to
- *   who      'dekat' (green chip: someone close) or 'asing' (yellow chip: someone distant)
- *   whoId/whoEn  who the sentence is said to, in both languages
- *   polite   1 for です/ます speech, 0 for plain speech
- *   long     1 for the longer sentences, which are meant to be most of the deck
- *   sit/sitEn    the situation it is used in, in both languages
- *   id/en        the translation, in both languages
- *   note/noteEn  why the sentence is built the way it is, in both languages
- *   t        the tokens in order, as surfaces:
- *            ["日本語", "gloss (ID)", "gloss (EN)"]
- *            or plain strings, in which case the lexicon supplies the romaji and glosses
- *            Punctuation rides on the word before it: "ください。"
+ * A narrative is not a sentence. It is a piece of speech with a title: a conversation, a story,
+ * a chronology, someone venting, an explanation, a report. Each one says something that takes
+ * more than one line to say, which is the whole point of the rework.
  *
- * Example of one written sentence, kept here so the shape is visible while the rest is
- * being written:
+ * One narrative:
+ *   key        a stable name, used by the deep link and by the title checkpoint
+ *   topic      which subject it belongs to, and therefore which file it lives in
+ *   jenis      what shape it takes, one of CONST.jenis
+ *   judul      the title, in the reader's chosen language and in the other one
+ *   judulEn
+ *   rel        who it is aimed at (CONST.rel), for a narrative with one voice
+ *   speakers   only for `percakapan`: { A: 'rekan', B: 'petugas_stasiun' }
+ *   sit/sitEn  the situation it is used in
+ *   id/en      the translation, in both languages; the page shows the one that was chosen
+ *   note/noteEn  why it is written the way it is
+ *   blocks     the narrative itself, one entry per line of speech
+ *
+ * A block:
+ *   sp   optional speaker, one of the keys in `speakers`. Absent means the narrative's one voice.
+ *   t    the tokens of that line, as surfaces:
+ *          ["日本語", "gloss (ID)", "gloss (EN)"]  for a word written out in full, or
+ *          "日本語"                                  for a word data/lexicon.js already knows
+ *        Punctuation rides on the word before it: "ください。"
+ *
+ * There is no `polite` flag and no `long` flag. Language style is read off the text itself by
+ * the page (CONST.POLITE_MARK / CONST.PLAIN_MARK), so it cannot drift away from what was
+ * written, and `long` meant nothing once a narrative had more than one line.
+ *
+ * Example of one written narrative, kept here so the shape stays visible:
  *
  *   {
- *     key: "belanja_tanya_harga_murah", topic: "belanja",
- *     who: "asing", whoId: "petugas toko", whoEn: "shop attendant", polite: 1, long: 1,
- *     sit: "...", sitEn: "...",
- *     id: "...", en: "...",
- *     note: "...", noteEn: "...",
- *     t: ["これ", "は", "安い", "です", "か", "。"]
- *   },
+ *     key: 'transportasi_kronologi_kereta_terakhir', topic: 'transportasi',
+ *     jenis: 'kronologi',
+ *     judul: 'Kereta terakhir yang saya kejar', judulEn: 'The last train I ran for',
+ *     rel: 'rekan', sit: '...', sitEn: '...',
+ *     id: '...', en: '...', note: '...', noteEn: '...',
+ *     blocks: [
+ *       { t: ['...', '...'] },
+ *       { t: ['...'] }
+ *     ]
+ *   }
  */
 window.BANK = [];
