@@ -433,6 +433,7 @@ angkanya tidak hilang bersama skripnya.
 | K10 | kunci ganda | **0** |
 | K11 | topik yang belum memakai 12 jenis | **0** (13 topik, 12 jenis masing-masing) |
 | T4 | berkas topik yang belum terdaftar di `index.html` | **0** (13 dari 13 terdaftar) |
+| V9 | berkas yang diminta browser ketika halaman disajikan dari subpath | **18**, semuanya 200, tidak ada 404 |
 | K10 | pasangan narasi dengan >=40% kata isi sama | **0** dari 12.090 pasangan |
 | K10 | pasangan narasi dengan >=55% bigram aksara sama | **0** dari 12.090 pasangan |
 
@@ -461,6 +462,26 @@ setelah versi lama dan CSS-nya punya breakpoint sendiri. Yang diperiksa dan hasi
 | Baris kanji dan tabel glosa muat setelah panel dibuka | ya (29-297 px dan 42-284 px) |
 | Pencarian menyaring dan tombol `Baca judul ... penuh` muat | ya (tepi kanan 333 px) |
 | Kesalahan konsol | **0** |
+
+**Halaman juga diuji disajikan dari subpath, bukan dari berkas lokal.** Selama pengembangan,
+halaman dibuka sebagai `file://`, dan itu **tidak membuktikan apa pun tentang produksi**: GitHub
+Pages menyajikannya dari `/LangDocs/`, dan satu jalur absolut saja akan membuat berkas gagal dimuat
+hanya di sana. Yang dilakukan: salinan situs disajikan lewat server lokal di bawah `/LangDocs/`,
+lalu diperiksa. Hasilnya:
+
+| Yang diukur dari `/LangDocs/` | Hasil |
+|---|---|
+| Berkas js/css yang diminta browser | **18**, semuanya **200**, tidak ada 404 |
+| Kesalahan konsol dan berkas gagal muat | **0** |
+| Lexicon termuat | 3.579 entri |
+| Daftar jenis termuat | 12 |
+| Narasi terbaca | **156** |
+| Tautan langsung `#/read/id/jp/kurasi06` | membuka narasi, glosa terisi, tidak ada sel kosong |
+| Berkas yang dibutuhkan tiap rute | **tidak ada**: seluruh rute lewat hash, jadi tidak ada satu pun alamat yang perlu berkas terpisah dan bisa 404 |
+
+Rute yang berbasis hash dipilih sejak awal, dan uji ini membuktikan alasannya berlaku: tidak ada
+`pushState` dan tidak ada `location.pathname` di `app.js`, sehingga satu-satunya berkas yang perlu
+ada di server adalah berkas yang memang ada di repo.
 
 **Yang tidak bisa diukur dan karena itu tidak ada di tabel ini:** apakah bahasa Jepangnya benar,
 apakah nadanya pantas untuk keadaan itu, dan apakah dua narasi benar-benar membahas hal yang
