@@ -433,6 +433,22 @@ angkanya tidak hilang bersama skripnya.
 | K10 | kunci ganda | **0** |
 | K11 | topik yang belum memakai 12 jenis | **0** (13 topik, 12 jenis masing-masing) |
 | T4 | berkas topik yang belum terdaftar di `index.html` | **0** (13 dari 13 terdaftar) |
+| K10 | pasangan narasi dengan >=40% kata isi sama | **0** dari 12.090 pasangan |
+| K10 | pasangan narasi dengan >=55% bigram aksara sama | **0** dari 12.090 pasangan |
+
+**Cara dua baris K10 itu diukur, karena ukuran yang salah sempat menyesatkan.** Percobaan pertama
+memakai "kerangka kalimat", yaitu setiap kata isi diganti satu huruf `W`. Ukuran itu **tidak
+berguna**: frasa panjang ikut runtuh menjadi rentetan `W` yang sama, sehingga 8 kelompok narasi
+yang sama sekali tidak berhubungan terlihat "berkerangka identik". Yang akhirnya dipakai dua
+ukuran yang tidak bisa dibohongi begitu: **irisan kata isi** (kata sepanjang dua aksara atau lebih)
+dan **irisan bigram aksara**, yaitu tiap pasangan dua aksara berurutan, sehingga frasa yang sama
+tetap terdeteksi walau kata-katanya dipecah berbeda. Pada ambang 40% dan 55%, **tidak ada satu pun
+dari 12.090 pasangan** yang melewatinya.
+
+Ukuran yang salah itu tetap dicatat di sini supaya tidak dicoba lagi. Yang menemukan tiga narasi
+berulang di K10 adalah **membaca seluruh judul dikelompokkan per jenis**, bukan ukuran apa pun.
+Ukuran hanya memastikan tidak ada yang terlewat setelahnya.
+
 
 **Alur tiga halaman juga diuji di lebar ponsel (360 px),** karena tiga halaman itu ditambahkan
 setelah versi lama dan CSS-nya punya breakpoint sendiri. Yang diperiksa dan hasilnya:
