@@ -102,7 +102,9 @@ Judul dan setiap paragraf ditulis dalam **bahasa sasaran**. Mengarahkan kursor k
 memunculkan balon yang menunjuk ke kata itu, berisi romaji dan artinya dalam bahasa yang dipilih.
 Yang menerangkan teks juga berbahasa sasaran dan bisa di-hover: **jenis** (`会話`, `時系列`),
 **gaya bahasa** (`敬語`, `丁寧`, `普通`, `混在`, dihitung dari teksnya, bukan ditulis sebagai label),
-**lawan bicara** (`友達`, `上司`), dan **penutur** di dalam percakapan. Warnanya tetap dari tabel di
+**lawan bicara** (`友達`, `上司`, and `小さな 子` for a small child, who gets their own label because
+what changes when you speak to one is the shape of the request and not the level of politeness), and
+**penutur** di dalam percakapan. Warnanya tetap dari tabel di
 `const.js`, jadi makna warnanya tidak berubah.
 
 Di atas ada **bar bacaan** yang tetap terlihat saat sebuah judul dibuka: kotak pencarian, pilihan

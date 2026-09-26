@@ -10,8 +10,9 @@ dokumen yang basi. Pemeriksa itu sudah dihapus atas permintaan pemilik proyek, j
 sekarang **tidak dijaga apa pun**: ia dibaca saat menulis, dan ketentuannya ada di `SPEC.md` T1.
 
 **Keadaan deck saat halaman ini ditulis, supaya angkanya tidak dibaca sebagai rencana.** Seluruh
-13 topik sudah terisi, masing-masing **12 narasi**, seluruh **12 jenis** terpakai di setiap topik,
-seluruhnya **156 narasi**. Setiap narasi berisi **paragraf**, bukan satu kalimat per baris: batas
+13 topik sudah terisi, **10** di antaranya **12 narasi** dan **3** (`jalan`, `makan`, `rumah_santai`)
+**13 narasi** karena masing-masing mendapat satu narasi untuk lawan bicara anak kecil (lihat `SPEC.md`
+K5), seluruh **12 jenis** terpakai di setiap topik, dan seluruhnya **159 narasi**. Setiap narasi berisi **paragraf**, bukan satu kalimat per baris: batas
 kalimat di dalam paragraf dibaca dari tanda baca, dan itu dijelaskan di `SPEC.md` K2. Jadi tabel di
 bawah bukan lagi daftar pekerjaan yang tersisa, melainkan dasar yang menjelaskan **kenapa** topik
 yang satu mendapat porsi bahasan lebih besar daripada yang lain. Daftar judulnya ada di `JUDUL.md`, dan keadaan itu mudah diperiksa
@@ -90,12 +91,18 @@ narasi (K9 di `SPEC.md`), dan **tidak lagi dihitung otomatis** untuk dibandingka
 
 | Kelompok lawan bicara | Terukur | Isi |
 |---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | `keluarga`, `pasangan` |
-| kerja & belajar (`仕事学業`) | 22,7% | `rekan`, `atasan`, `klien` |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | `teman`, `teman_dekat`, `tetangga`, `tetangga_baru`, `sekamar`, `teman_sekolah` |
-| publik & jasa (`公共商業関係`) | 10,8% | `petugas_toko`, `pelayan`, `dokter`, `petugas_stasiun`, `apoteker`, `kurir` |
+| keluarga dekat (`家族` + `親戚`) | 36,8% | `keluarga`, `pasangan`, `ibu`, `ayah`, `anak`, `anak_kecil`, `kakak`, `adik` |
+| kerja & belajar (`仕事学業`) | 22,7% | `rekan`, `atasan`, `klien`, `teman_kerja` |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | `teman`, `teman_dekat`, `tetangga`, `tetangga_baru`, `tetangga_lama`, `sekamar`, `teman_sekolah` |
+| publik & jasa (`公共商業関係`) | 10,8% | `petugas_toko`, `pelayan`, `dokter`, `petugas_stasiun`, `apoteker`, `kurir`, `petugas`, `pasien`, `penumpang` |
 | guru-murid (`先生生徒`) | 3,1% | `guru` |
 | orang asing (`見知らぬ人`) | 2,4% | `orang_asing` |
+
+**`anak_kecil` ada di kelompok keluarga dekat, dan itu memang tempatnya.** Anak kecil adalah anggota
+keluarga, bukan kelompok lawan bicara yang baru di dalam survei: CEJC menghitungnya di dalam `家族`
+36,8%. Yang baru adalah **labelnya**, bukan kelompoknya, karena berbicara kepada anak kecil memakai
+bentuk yang berbeda dari berbicara kepada orang dewasa (lihat `SPEC.md` K5), dan perbedaan itu perlu
+bisa dilihat pembaca.
 
 **Dua kelompok sengaja tidak ditulis**, dan alasannya disebut supaya tidak terbaca sebagai
 kelalaian:
@@ -161,7 +168,7 @@ daftar rencana, dan tidak lagi dihitung otomatis.
 | `keluarga` | 父, 母, 兄, 姉, 弟, 妹, 祖父, 祖母, いとこ, 親, 息子, 娘, 夫, 妻, おじ, おば, 家族, 両親 |
 | `bakat` | 上手, 下手, 得意, 苦手, 才能, 練習, 覚える, 慣れる, 間に合う |
 | `hobi` | 趣味, 歌, 歌う, ギター, ピアノ, 読書, 本, 映画, ゲーム, 釣り, 写真, 旅行, 散歩, 泳ぐ, 絵 |
-| `pekerjaan` | 会社員, 公務員, 看護師, 医者, 先生, 店員, 運転手, 学生, 歌手, 俳優, 農家, 美容師, 料理人, 警官 |
+| `pekerjaan` | 会社員, 公務員, 看護師, 医者, 先生, 店員, 運転手, 学生, 歌手, 俳優, 農家, 美容師, 料理人, 警官, ユーチューバー, 配信, 動画 |
 | `kebiasaan` | 早起き, 寝坊, シャワー, お風呂, 歯磨き, 洗濯, 掃除, 片付ける, 起きる, 寝る, 眠い, 目覚まし |
 | `perkenalan` | 名前, 出身, 専攻, 留学生, 自己紹介, よろしく, 大学, 国, 来る, 住む |
 | `arah` | 右, 左, 前, 後ろ, 隣, 近く, 遠い, 角, 曲がる, まっすぐ, 道, 交差点, 通り, 信号, 渡る, 地図, 目印 |
@@ -170,6 +177,42 @@ daftar rencana, dan tidak lagi dihitung otomatis.
 dikejar, dan supaya tidak ada medan yang benar-benar terlupa. Kata yang ternyata tidak bisa dipakai
 di percakapan nyata dihapus dari daftar dengan alasan tertulis, dan alasan yang boleh dipakai
 adalah "kata ini tidak muncul dalam percakapan sehari-hari", bukan "belum sempat ditulis".
+
+### 5.1 Berapa yang sudah tercakup (2026-09-26, 159 narasi)
+
+Diukur dengan cara yang sama seperti halaman membacanya: **token**, bukan pencocokan teks. Kata
+dihitung terpakai kalau ia berdiri sebagai satu token di dalam sebuah blok, karena `家族` yang
+muncul di tengah kata lain bukan bukti bahwa kata itu dipakai. Angka kanan dihitung, bukan disalin:
+
+| Medan | Kata di daftar | Ada di lexicon | **Dipakai di deck** | Belum dipakai |
+|---|---|---|---|---|
+| `latar` | 20 | 20 | **14** | 6 |
+| `benda_dapur` | 11 | 11 | **5** | 6 |
+| `benda_rumah` | 12 | 12 | **5** | 7 |
+| `benda_bawa` | 10 | 10 | **5** | 5 |
+| `bangunan` | 18 | 18 | **6** | 12 |
+| `keadaan` | 21 | 21 | **9** | 12 |
+| `tubuh` | 18 | 18 | **9** | 9 |
+| `keluarga` | 18 | 18 | **2** | 16 |
+| `bakat` | 9 | 9 | **2** | 7 |
+| `hobi` | 15 | 15 | **4** | 11 |
+| `pekerjaan` | 17 | 17 | **2** | 15 |
+| `kebiasaan` | 12 | 12 | **6** | 6 |
+| `perkenalan` | 10 | 10 | **2** | 8 |
+| `arah` | 17 | 17 | **17** | 0 |
+| **Total** | **208** | **208** | **88** | **120** |
+
+**Yang harus dibaca dari tabel ini, dan yang tidak boleh.** Seluruh 208 kata **sudah ada di
+lexicon**, jadi tidak ada kata di daftar ini yang belum bisa dipakai; yang kurang adalah
+**pemakaiannya di narasi**. Yang paling tertinggal adalah `keluarga` (16 dari 18 belum dipakai),
+`pekerjaan` (15 dari 17), `bangunan` dan `keadaan` (masing-masing 12), dan `hobi` (11). `arah`
+justru sudah penuh.
+
+Ini **bukan** daftar pekerjaan yang harus dihabiskan. Cara menutupnya sudah ditulis di bawah, dan
+syaratnya tetap sama: kata masuk sebagai **akibat** dari keadaan yang memang menyebutnya, bukan
+sebagai kalimat yang memasang katanya. Kalau sebuah keadaan nyata kebetulan memuat `箸` atau
+`図書館`, kata itu ikut terpakai; kalau tidak ada keadaan seperti itu, kata itu memang belum
+dibutuhkan dan **tidak** ditambahkan hanya demi angka.
 
 **Cara menutup celah.** Kata yang sama harus masuk sebagai akibat dari keadaan yang memang
 menyebutnya: "adik saya yang masih SD ikut makan di sini" memuat `弟` sekaligus menambahkan
