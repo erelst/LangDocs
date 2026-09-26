@@ -6,8 +6,9 @@
  * lines of insertion were being rewritten for every topic batch, which is the repetition this
  * was meant to remove rather than add.
  *
- * check.js is the test: it names every surface the sentences use, and reports any that this
- * failed to add.
+ * The only test left is the page itself: app.js warns in the browser console about every surface
+ * the narratives use that this failed to add, so the way to check a batch of new words is to open
+ * a narrative that uses them and read the console. check.js used to do that check, and it is gone.
  */
 'use strict';
 const fs = require('fs'), path = require('path');

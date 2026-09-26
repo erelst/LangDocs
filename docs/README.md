@@ -1,404 +1,198 @@
-# Rencana topik: berapa kalimat untuk tiap topik
+# Topik, jenis, dan bagian terukurnya
 
-Halaman ini menjawab satu pertanyaan: topik apa saja yang harus ada, dan berapa kalimat
-untuk masing-masing. Jawabannya dihitung dari data percakapan, bukan dibagi rata dan bukan
-dikira-kira.
+Halaman ini menjawab tiga pertanyaan: topik apa saja yang ada, dari mana angkanya, dan kata apa
+saja yang perlu tercakup. Ketentuan yang mengikat tiap narasi ada di `SPEC.md`; judul dan isi yang
+sudah dibuat ada di `JUDUL.md`.
 
-Syarat yang mengikat tiap kalimat ada di `SPEC.md`. Berkas ini hanya soal jumlah dan
-cakupan. Apa yang sudah ditulis untuk sebuah topik dicatat di `topics/<topik>.md`.
+**Angka di halaman ini adalah panduan, bukan lantai yang ditegakkan mesin.** Dulu ada pemeriksa
+(`check.js`, `test.js`, `syncdocs.js`) yang menghitung ulang setiap tabel di sini dan menolak
+dokumen yang basi. Pemeriksa itu sudah dihapus atas permintaan pemilik proyek, jadi angka di bawah
+sekarang **tidak dijaga apa pun**: ia dibaca saat menulis, dan ketentuannya ada di `SPEC.md` T1.
 
 ---
 
-## 1. Dasar perhitungan
-
-Jumlah kalimat sebuah topik mengikuti seberapa sering keadaannya terjadi. Ukurannya dari dua
-sumber yang sudah ada di repo:
+## 1. Dari mana angkanya
 
 | Sumber | Isi | Dipakai untuk |
 |---|---|---|
 | CEJC 会話行動調査 2014-2015 (`data/survey.zip`, 9.272 percakapan, 729 person-day) | setiap percakapan sehari penuh dicatat: tempat, kegiatan, bentuk, lawan bicara | bagian tiap topik, dan siapa yang diajak bicara |
 | CEJC 語数表 ver.202209 (`data/wc.zip`, 2.419.171 token) | frekuensi per kelas kata, per bentuk, per tempat | menimbang bahasa yang dipakai di dalam topik |
 
-Kolom yang dipakai dari survei adalah `場所` (tempat) dan `活動` (kegiatan), keduanya
-terisi di 9.207 dari 9.272 percakapan. Setiap topik adalah gabungan beberapa sel
-tempat × kegiatan, dan kuotanya adalah bagian sel-sel itu dari seluruh percakapan.
+Kolom yang dipakai dari survei adalah `場所` (tempat) dan `活動` (kegiatan), keduanya terisi di
+9.207 dari 9.272 percakapan. Setiap topik adalah gabungan beberapa sel tempat × kegiatan.
 
-**Kenapa tempat × kegiatan, bukan salah satunya.** `自宅` saja 34,9% percakapan, terlalu
-lebar untuk jadi satu topik. `食事` saja 16,9%, tapi tersebar di empat tempat berbeda yang
-kalimatnya tidak sama. Pasangan keduanya baru menunjuk keadaan yang nyata.
-
----
-
-## 2. Ruang kalimat yang ditutup deck
-
-Sembilan dari dua belas sel kegiatan terbesar masuk ke dalam topik. Tidak semuanya masuk akal
-dijadikan kalimat yang bisa dihafal, dan yang dilewati disebut alasannya:
-
-| Sel yang dilewati | Bagian | Alasan |
-|---|---|---|
-| `しない` (tidak melakukan apa-apa) | _tidak ada di data_ | bukan keadaan, tidak ada yang diucapkan |
-| kegiatan yang bagiannya di bawah 0,2% | ~0,5% gabungan | terlalu jarang untuk ditemui pembelajar |
-
-Dua keadaan yang bukan topik tapi memotong semua topik:
-
-| Keadaan | Bagian | Kenapa bukan topik sendiri |
-|---|---|---|
-| 遠隔通信 (telepon, pesan) | 9,75% | yang berubah hanya salurannya; kalimatnya tetap kalimat topik asalnya, ditambah pembuka dan penutup telepon |
-| 非母語話者 (lawan bicara bukan penutur asli) | 0,91% | topiknya tetap sama; yang berubah hanya cara mengucapkannya |
-
-Dua baris di atas tetap memerlukan kalimat sendiri, jadi kuotanya dihitung terpisah di
-bagian 4, bukan dihilangkan.
-
-Ruang yang tertutup: **95,23%** percakapan. Sisa 4,77% adalah sel di bawah ambang dan
-percakapan tanpa tempat atau kegiatan yang tercatat.
+**Kenapa tempat × kegiatan, bukan salah satunya.** `自宅` saja 34,9% percakapan, terlalu lebar
+untuk jadi satu topik. `食事` saja 16,9%, tapi tersebar di empat tempat berbeda yang isinya tidak
+sama. Pasangan keduanya baru menunjuk keadaan yang nyata.
 
 ---
 
-## 3. Kuota per topik
+## 2. Cakupan topik
 
-Bagian tiap topik dihitung dari sel tempat × kegiatan miliknya, lalu dikalikan skala deck.
-Skalanya **300 kalimat** untuk sepuluh topik inti di tabel ini: cukup besar untuk memuat seluruh ruang
-ucapan tiap topik, cukup kecil untuk benar-benar ditulis sendiri dan diperiksa satu per satu.
+Bagian tiap topik, dan cakupan percakapan yang ditutup deck. Ini yang dulu dipakai menghitung
+kuota **kalimat**; deck sekarang berisi **narasi**, jadi angkanya dipakai untuk menimbang berapa
+banyak narasi yang pantas ada di tiap topik, bukan sebagai jumlah yang harus dipenuhi.
 
-| Topik | Sel tempat × kegiatan yang dicakup | Bagian | Kuota |
-|---|---|---|---|
-| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% | **98** |
-| `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% | **71** |
-| `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% | **63** |
-| `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% | **58** |
-| `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% | **28** |
-| `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% | **28** |
-| `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% | **42** |
-| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% | **36** |
-| `klinik` | 公共商業施設×療養 0,81 | 0,85% | **15** |
-| `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% | **17** |
+| Topik | Sel tempat × kegiatan yang dicakup | Bagian |
+|---|---|---|
+| `kerja` | 職場・学校×仕事・学業 22,88 + 自宅×仕事・学業 0,71 + それ以外の屋内×仕事・学業 0,85 + 職場・学校×休息 2,74 | 28,54% |
+| `makan` | 自宅×食事 9,72 + 公共商業施設×食事 4,37 + 職場・学校×食事 1,60 + それ以外の屋内×食事 1,04 | 17,55% |
+| `rumah_tugas` | 自宅×家事・雑事 10,24 + 自宅×身周りの用事 3,96 | 14,90% |
+| `rumah_santai` | 自宅×休息 8,82 + それ以外の屋内×休息 0,42 + 自宅×レジャー活動 0,22 | 9,93% |
+| `transportasi` | 交通機関×移動 4,69 + 職場・学校×移動 0,78 + 公共商業施設×移動 1,13 + それ以外の屋内×移動 0,31 + 自宅×移動 0,23 | 7,50% |
+| `belanja` | 公共商業施設×家事・雑事 4,98 + 公共商業施設×身周りの用事 0,51 + それ以外の屋外×家事・雑事 0,69 + それ以外の屋内×家事・雑事 0,53 | 7,04% |
+| `santai` | 公共商業施設×レジャー活動 3,18 + それ以外の屋内×レジャー活動 0,37 + 公共商業施設×付き合い 0,99 + 自宅×付き合い 0,71 + 職場・学校×付き合い 0,27 + それ以外の屋内×付き合い 0,29 + 交通機関×付き合い 0,02 | 6,13% |
+| `jalan` | それ以外の屋外×移動 4,36 + それ以外の屋外×付き合い 0,40 + それ以外の屋外×レジャー活動 0,72 | 5,75% |
+| `klinik` | 公共商業施設×療養 0,81 | 0,85% |
+| `kegiatan` | 公共商業施設×社会参加 0,70 + 公共商業施設×業務外・課外活動 0,57 + 職場・学校×業務外・課外活動 0,44 | 1,80% |
 
-**Catatan `klinik` dan `kegiatan`.** Bagian terukurnya memberi 2,6 dan 5,4 kalimat, jauh di
-bawah yang dibutuhkan untuk menutup ruang ucapan sebuah topik, jadi keduanya memang berdiri di
-atas bagian terukurnya dan penyimpangannya dicatat di sini.
+**Sel tidak ada yang dipakai dua kali.** Setiap pasangan tempat × kegiatan masuk tepat satu topik,
+dan jumlah baris tabel ini sama dengan cakupan yang dihitung sebagai ruang yang ditutup deck:
+**95,23%** percakapan. Sisa 4,77% adalah sel di bawah ambang (bagian di bawah 0,2%) dan percakapan
+tanpa tempat atau kegiatan yang tercatat, dan keduanya dilewati dengan alasan: yang pertama terlalu
+jarang untuk ditemui pembelajar, yang kedua bukan keadaan.
 
-Kuota keduanya naik lagi karena satu sebab yang terukur, bukan karena terasa kurang: slot
-`menjawab` di kedua berkas topiknya **sudah tertulis seolah terisi**, padahal `check.js` hanya
-menemukan 1 kalimat balasan di masing-masing (`klinik` 1, `kegiatan` 1). Aturan `../SPEC.md` K8
-menuntut sedikitnya 3, jadi tiap topik menambah 3 kalimat balasan yang nyata: menjawab berapa
-lama demamnya, obat apa yang sedang diminum, dan apakah ada alergi obat di `klinik`; menjawab
-apa yang perlu dibawa, menjawab undangan rapat RT, dan menjawab tawaran kerja bakti di
-`kegiatan`. Kuota `klinik` 12 menjadi 15 dan `kegiatan` 13 menjadi 16.
+Dua keadaan yang bukan topik tapi memotong semua topik: 遠隔通信 (telepon, pesan) 9,75% dan
+lawan bicara bukan penutur asli 0,91%. Yang berubah hanya salurannya atau cara mengucapkannya,
+sedangkan topiknya tetap sama.
 
-**Kenapa tidak ada baris `sopan` di tabel ini.** 感動詞 adalah kelas kata, dan percakapan yang
+**Topik lintas** adalah ucapan yang muncul di topik apa pun, dan bukan topik baru:
+
+| Lintas | Dasar | Isi |
+|---|---|---|
+| `telepon` | 遠隔通信 9,75% | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
+| `sopan` | 感動詞 10,52% dari token | reaksi dan pengisi jeda: menyetujui, terkejut, ragu, meminta diulang, menyela dengan halus |
+| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
+
+**Kenapa `waktu_cuaca` masuk lintas, bukan topik sendiri.** Tidak ada percakapan yang temanya
+cuaca. Cuaca dan waktu disebut sambil membicarakan hal lain: janji bertemu, rencana akhir pekan,
+mengantar barang.
+
+**Kenapa tidak ada baris `sopan` di tabel topik.** 感動詞 adalah kelas kata, dan percakapan yang
 hanya berisi reaksi tidak punya tempat atau kegiatan yang tetap, jadi tidak mungkin dihitung
-sebagai sel. `sopan` masuk tabel lintas di bagian 4 dengan dasar persentase token, bukan
-persentase percakapan, dan percakapan yang cakupan topiknya berada di dalamnya.
-
-**Sel tidak ada yang dipakai dua kali.** Setiap pasangan tempat × kegiatan masuk tepat satu
-topik, dan itu diperiksa: jumlah baris tabel ini sama dengan cakupan yang dihitung di bagian
-2, yaitu 95,23%. Sisa 4,77% (442 percakapan) adalah sel di bawah ambang dan percakapan tanpa
-tempat atau kegiatan yang tercatat.
-
-**Catatan `kerja`.** 90 kalimat terdengar besar, dan memang `kerja` adalah satu-satunya topik
-yang benar-benar besar dalam percakapan sehari-hari: 22,88% dari seluruh percakapan adalah
-bekerja atau belajar di kantor dan sekolah. Yang membuatnya bisa ditulis 90 kali tanpa
-mengulang kerangka adalah ruang ucapannya juga besar: meminta, melapor, mengoreksi, menolak
-tugas, meminta tenggat, mengabarkan hasil, menyanggah dengan halus, mengajak makan siang,
-menanyakan yang tidak dimengerti.
-
-Topik yang bagiannya besar tapi jumlah kalimatnya dibatasi oleh ruang ucapan, bukan oleh
-bagiannya:
-
-| Topik | Bagian | Kuota | Kenapa tidak lebih banyak |
-|---|---|---|---|
-| `rumah_santai` | 9,93% | 58 | sebagian besar percakapan di rumah adalah mengobrol tanpa isi yang perlu dihafal |
-| `santai` | 6,13% | 42 | waktu luang punya banyak keadaan tapi sedikit kalimat yang benar-benar baru bentuknya |
+sebagai sel. `sopan` masuk tabel lintas dengan dasar persentase token, bukan persentase percakapan.
 
 ---
 
-## 3b. Kepada siapa kalimatnya dipakai
+## 3. Kepada siapa narasinya dipakai
 
-Ketentuan T1 menghitung berapa kalimat untuk tiap topik, dan bagian ini menjawab pertanyaan
-keduanya: kepada siapa kalimat itu diucapkan. Dua-duanya dihitung dari sumber yang sama
-(`data/survey.zip`, 9.272 percakapan), dan bagian ini ada karena sebelumnya yang pertama diukur
-dan yang kedua tidak pernah.
+Bagian terukur ini dihitung dari kolom lawan bicara `data/survey.zip`: 10.708 slot lawan bicara,
+dikelompokkan seperti survei mengelompokkannya. Angka ini dipakai untuk menimbang lawan bicara
+narasi (K9 di `SPEC.md`), dan **tidak lagi dihitung otomatis** untuk dibandingkan dengan data.
 
-Bagian terukur dihitung dari kolom lawan bicara di berkas survei: 10.708 slot lawan bicara.
-Kolomnya dikelompokkan seperti survei mengelompokkannya, dan `check.js` mencetak sebaran deck
-dengan pengelompokan yang sama.
+| Kelompok lawan bicara | Terukur | Isi |
+|---|---|---|
+| keluarga dekat (`家族` + `親戚`) | 36,8% | `keluarga`, `pasangan` |
+| kerja & belajar (`仕事学業`) | 22,7% | `rekan`, `atasan`, `klien` |
+| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | `teman`, `teman_dekat`, `tetangga`, `tetangga_baru`, `sekamar`, `teman_sekolah` |
+| publik & jasa (`公共商業関係`) | 10,8% | `petugas_toko`, `pelayan`, `dokter`, `petugas_stasiun`, `apoteker`, `kurir` |
+| guru-murid (`先生生徒`) | 3,1% | `guru` |
+| orang asing (`見知らぬ人`) | 2,4% | `orang_asing` |
 
-| Kelompok lawan bicara | Terukur | Deck | Selisih | Isi |
-|---|---|---|---|---|
-| keluarga dekat (`家族` + `親戚`) | 36,8% | 33,2% | **-3,6** | `keluarga` 202, `pasangan` 25 |
-| kerja & belajar (`仕事学業`) | 22,7% | 24,3% | **+1,6** | `rekan` 79, `atasan` 70, `klien` 17 |
-| teman & tetangga (`友人知人` + `顔見知り`) | 17,2% | 19,3% | **+2,1** | `teman` 105, `tetangga` 20, `tetangga_baru` 7 |
-| publik & jasa (`公共商業関係`) | 10,8% | 15,2% | **+4,4** | `petugas_toko` 35, `pelayan` 30, `dokter` 25, `petugas_stasiun` 11, `apoteker` 2, `kurir` 1 |
-| guru-murid (`先生生徒`) | 3,1% | 1,2% | **-1,9** | `guru` 8 |
-| orang asing (`見知らぬ人`) | 2,4% | 6,9% | **+4,5** | `orang_asing` 47 |
-
-Kolom Deck dihitung dari 684 kalimat tertulis, dan `check.js` mencetak angka yang sama setiap kali
-dijalankan. **Tabel ini pernah basi dan tidak ada yang melihatnya**: angka di atas sempat dihitung
-dengan penyebut 515 dari batch sebelum batch keluarga terakhir, lalu tertinggal lagi waktu deck
-tumbuh dari 535 ke 557, lalu ke 573. Kalimat "tabel ini tidak bisa basi tanpa terlihat" ternyata tidak benar,
-karena tidak ada yang membacanya. Sekarang
-`test.js` menghitung ulang setiap baris tabel ini dari `data/t_*.js` dan `const.js`, jadi kalimat
-itu baru berlaku.
-
-**5,0 poin adalah batas yang dipakai untuk menyebut sebuah kelompok menyimpang**, dan itu dibuat
-eksplisit di sini. Selisih setiap kelompok dicetak `check.js` di sebelah bagiannya, jadi tidak perlu
-dihitung di kepala: bagiannya bergerak dua arah karena penyebutnya tumbuh setiap kali satu kalimat
-ditambahkan, dan menghitungnya sendiri adalah sumber kesalahan yang berulang di halaman ini.
-
-**Angka di tabel ini sudah dua kali ditulis salah, dan itu sebabnya angkanya tidak lagi ditulis di
-prosa.** Percobaan pertama memakai penyebut 515 yang sudah usang; percobaan kedua menyalin angka dari
-batch sebelumnya. Yang membuat keduanya ketahuan sama: `test.js` menghitung ulang setiap baris dari
-berkas data, dan `syncdocs.js` menyalinnya kembali. Karena itu paragraf ini hanya menyebut batas dan
-sebabnya, bukan angkanya, supaya tidak ada lagi angka yang bisa basi di luar tabel.
-
-**Dua kelompok sengaja tidak ditulis**, dan `check.js` mencetak alasan yang sama di sebelah
-angkanya supaya tidak terlihat seperti kelalaian:
+**Dua kelompok sengaja tidak ditulis**, dan alasannya disebut supaya tidak terbaca sebagai
+kelalaian:
 
 | Kelompok | Kenapa tidak ditulis |
 |---|---|
 | guru-murid (`先生生徒` 3,1%) | kata-katanya khusus ruang kelas, tidak bisa dipakai di luar sekolah |
-| kerabat (`親戚` 2,3%) | kerabat jauh adalah keadaan yang lebih jarang dari keluarga, dan keluarga sudah punya kalimatnya. Hitungannya masih masuk keluarga dekat di atas |
+| kerabat jauh (`親戚` 2,3%) | kerabat jauh adalah keadaan yang lebih jarang dari keluarga, dan keluarga sudah punya narasinya |
 
-**Yang harus dipatuhi kalau sebaran ini diperbaiki.** Menambah kalimat hanya demi menyamakan angka
-akan tertangkap `check.js` tiga kali sekaligus: kalimat pendek hanya yang benar-benar lazim (K4),
-kalimat panjang wajib punya relasi klausa (K3), dan kerangka wajib unik (T4). Jadi yang harus
-dicari adalah **keadaan nyata yang belum tertulis** untuk kelompok yang kurang, bukan menulis
-ulang keadaan yang sudah ada dengan lawan bicara yang berbeda.
-
----
-
-## 3c. Medan makna: celah yang dicatat
-
-Bagian 3 mengukur **keadaan** (tempat × kegiatan). Bagian ini mencatat hal kedua yang ditutup
-deck: **medan makna**, yaitu kata-kata yang dibutuhkan pembaca di dalam keadaan itu. Ketentuannya
-di `../SPEC.md` T6.
-
-Satuan yang dihitung tetap **kalimat**, bukan kata. Daftar katanya ada di `coverage.js`, dan
-`check.js` mencetak tabel di bawah setiap kali dijalankan, jadi angkanya tidak bisa basi tanpa
-terlihat. Kolom "Siap ditulis" memuat kata yang sudah ada di `lexicon.js` dan tinggal dipakai
-kalimat; kolom "Perlu entri lexicon" memuat kata yang entrinya belum ada, jadi kalimatnya
-sekaligus menambah entrinya.
-
-| Medan | Dipakai | Total | Celah (kalimat) | Siap ditulis | Perlu entri lexicon |
-|---|---|---|---|---|---|
-| `latar` | 20 | 20 | 0 | 0 | 0 |
-| `benda_dapur` | 11 | 11 | 0 | 0 | 0 |
-| `benda_rumah` | 12 | 12 | 0 | 0 | 0 |
-| `benda_bawa` | 10 | 10 | 0 | 0 | 0 |
-| `bangunan` | 18 | 18 | 0 | 0 | 0 |
-| `keadaan` | 21 | 21 | 0 | 0 | 0 |
-| `tubuh` | 18 | 18 | 0 | 0 | 0 |
-| `keluarga` | 18 | 18 | 0 | 0 | 0 |
-| `bakat` | 9 | 9 | 0 | 0 | 0 |
-| `hobi` | 15 | 15 | 0 | 0 | 0 |
-| `pekerjaan` | 14 | 14 | 0 | 0 | 0 |
-| `kebiasaan` | 12 | 12 | 0 | 0 | 0 |
-| `perkenalan` | 10 | 10 | 0 | 0 | 0 |
-| `arah` | 17 | 17 | 0 | 0 | 0 |
-| **Jumlah** | **205** | **205** | **0** | **0** | **0** |
-
-**Yang dihitung "terpakai" adalah satu kalimat yang memuat kata itu, dan cakupan ini rapuh.**
-Diukur dari data: **136 dari 205 kata hanya dipakai di satu kalimat saja**, sisanya di dua atau
-lebih. Artinya menghapus atau menulis ulang satu kalimat bisa membuka kembali celahnya, dan
-`check.js` akan menunjukkannya pada jalannya berikutnya. Itu bukan cacat angka, melainkan batas
-yang perlu diketahui sebelum membaca tabel ini sebagai "kata-kata ini aman": yang benar adalah
-"kata-kata ini punya setidaknya satu kalimat", dan menambah kalimat lain untuk kata yang sama
-tetap pekerjaan yang berguna.
-
-**Cara membaca kolom Celah.** Angka itu jumlah kata yang belum dipakai kalimat mana pun, dan
-sekaligus **lantai** jumlah kalimat yang perlu ditulis, bukan target. Satu kalimat bisa memuat dua
-kata sekaligus ("adik saya ikut makan di sini" memuat `弟` dan meja makannya), jadi kalimat yang
-benar-benar ditulis bisa lebih sedikit daripada angka celahnya. Yang tidak boleh adalah
-kebalikannya: menulis satu kalimat hanya untuk satu kata tanpa keadaan baru, karena itu T6 larang.
-
-**Kenapa tidak ada kuota per medan.** Survei mencatat 場所 × 活動, jadi angka terukurnya hanya ada
-untuk keadaan, bukan untuk kata. Memberi `tubuh` kuota 14 berarti mengarang angka, dan T1 melarang
-tepat hal itu. Karena itu medan makna masuk lewat dua pintu yang sudah ada: disebar ke kalimat
-topik yang keadaannya membutuhkannya, dan dicatat celahnya di sini.
-
-**`keluarga` sudah tidak punya celah.** Batch pertama medan makna menutup seluruh 18 katanya dengan
-16 kalimat (58 menjadi 74 di `rumah_santai`) yang sekaligus menaikkan kelompok lawan bicara keluarga
-dari 30,5% ke 32,5%. Kata yang tadinya paling lama kosong, `祖母` `親` `夫` `妻` `実家` `孫`, masing-masing
-kini dipakai kalimat sendiri, dan `畑` ikut terpakai di kalimat kakek.
-
-Dua hal ditemukan waktu batch ini ditulis, dan keduanya dicatat:
-- **`お盆` punya dua arti.** Sebagai nampan ia barang dapur, sebagai obon ia hari raya. Satu daftar
-  kata tidak bisa membedakan keduanya, jadi ia dikeluarkan dari `benda_dapur` dan tidak dipakai
-  untuk obon, karena memakainya akan membuat satu permukaan mewakili dua medan yang berbeda.
-- **`ので` tidak boleh diulang enam kali.** Enam kalimat keluarga berturut-turut dengan pola yang sama
-  akan membuat `berelasi sebab` naik ke atas batas 72%. Sambungnya karena itu divariasikan
-  (`けれど`, `たら`, `と`, `から`, `てから`, `のに`) dan hasilnya 66,3% menjadi 65,6%.
-
-**Delapan medan sudah tidak punya celah:** `benda_dapur`, `benda_bawa`, `hobi`, `benda_rumah`, `bangunan`, `keadaan`, `tubuh`, dan `keluarga`. Batch tubuh menutup 18 katanya dengan 22 kalimat
-(15 di `klinik`, 7 di topik rumah), dan kata yang paling lama kosong, `足` `耳` `口` `鼻` `首` `指`
-`髪` `のど` `尻尾`, masing-masing kini dipakai kalimat yang mengeluhkannya ke orang yang tepat.
-
-Tiga hal ditemukan waktu batch ini ditulis:
-- **`背` punya dua arti.** Untuk orang ia punggung, untuk benda ia tinggi. Dua kalimat memakainya
-  sekaligus: satu mengeluh punggung pegal, satu lagi meminta tukar tempat karena orang di belakang
-  tinggi. Kalimatnya yang membedakan, bukan daftarnya.
-- **Kata tubuh hampir selalu berpasangan dengan lawan bicara tertentu.** Mengeluh itu ke dokter,
-  dan itu menaikkan kelompok publik & jasa di atas posisinya sebelumnya. Itu konsekuensi yang
-  tercatat, bukan cacat yang disembunyikan.
-- **`お盆` masih punya dua arti** (nampan dan obon), dan itu tetap alasan ia tidak dipakai.
-
-Batch keadaan menutup 12 katanya dengan 15 kalimat (4 di rumah, 4 di jalan dan santai, 3 di dapur,
-2 di klinik, 1 di cuaca), dan kata yang paling lama kosong, `汚い` `うるさい` `広い` `狭い` `暗い`
-`涼しい` `暖かい` `故障` `停電` `洪水` `地震` `渋滞`, masing-masing kini dipakai kalimat yang
-menyebut keadaan saat itu juga.
-
-Satu hal ditemukan waktu batch ini ditulis: **`渋滞` dan `込んで` bukan kata yang sama.** Kalimat
-macet pertama saya tulis dengan `込んで` (padat), padahal kata yang dipakai orang untuk jalan raya
-adalah `渋滞`, dan kata itu ada di daftar medan. Kalimatnya ditulis ulang supaya kata yang memang
-ditunggu benar-benar terpakai, bukan kata lain yang artinya mirip.
-
-Batch bangunan menutup 10 katanya dengan 10 kalimat, dan setiap kalimat menyebut tempat yang
-sedang didatangi: apartemen yang ditinggali, parkir yang penuh, tangga atau lift ke peron, salon
-sebelum acara, gedung olahraga tempat latihan pindah.
-
-Tiga hal ditemukan waktu batch ini ditulis:
-- **Tempat yang didatangi hampir selalu dilayani petugas.** Itu sebabnya publik & jasa naik lagi
-  setelah sempat turun, dan itu dilaporkan apa adanya.
-- **`アパート` baru muncul sekarang**, padahal tempat tinggal dibicarakan setiap hari; kata yang
-  dipakai sebelumnya hanya `家`. Sama untuk `階段` dan `エレベーター` waktu menanyakan jalan.
-- **Dua entri lexicon hampir tertimpa.** `本屋` dan `コンビニ` sudah punya entri dengan pembacaan
-  dan glosarium yang benar, jadi entri lama itu dipulihkan, bukan diganti versi baru.
-
-Batch benda rumah menutup 7 katanya dengan 7 kalimat, masing-masing barang yang memang sedang
-dipegang atau dilihat: handuk kotor, sabun habis, sikat gigi baru yang diserahkan, bantal rendah,
-selimut belum kering, gantungan kurang, kantong sampah habis.
-
-Batch hobi menutup 7 katanya dengan 9 kalimat, dan setiap kalimat menyebut kegiatan yang sedang
-berjalan: lagu yang sedang diputar lalu dinyanyikan bersama, gitar yang baru mulai dipelajari,
-buku tebal yang sedang dibaca, gitar yang dijemur di luar, ajakan memancing akhir pekan, anak yang
-berenang sejak kecil, gambar anak yang menempel di kulkas.
-
-Dua batch terakhir menutup 13 kata dengan 13 kalimat, dan semuanya barang yang sedang dipegang
-atau dicari: mangkuk kurang untuk tamu, talenan belum dicuci, lap piring karena piring dan sumpit
-masih basah, gelas dan sendok untuk anak, dompet tertinggal di kursi, ponsel tertinggal di rumah,
-kacamata tertinggal di taksi, tas sudah penuh, pengisi daya dipinjam, sapu tangan diserahkan.
-
-**Yang paling tipis sekarang, dan itu dicatat bukan disembunyikan.** `pekerjaan` (10 kalimat,
-semuanya siap ditulis), `kebiasaan` (7, semuanya perlu entri), dan `bakat` (5, 3 perlu entri)
-adalah tiga celah terbesar.
+**Yang harus dipatuhi kalau sebaran ini diperbaiki.** Menambah narasi hanya demi menyamakan angka
+akan tertangkap aturan bahasa: kalimatnya wajib punya relasi klausa (K3), narasinya harus keadaan
+nyata (K1), dan register-nya harus benar (K4). Jadi yang harus dicari adalah **keadaan nyata yang
+belum tertulis** untuk kelompok yang kurang, bukan menulis ulang keadaan yang sudah ada dengan
+lawan bicara yang berbeda.
 
 ---
 
-## 4. Kuota topik lintas
+## 4. Jenis: sumbu yang wajib bergerak
 
-Seratus tujuh kalimat berikut memotong semua topik. Isinya bukan topik baru, melainkan
-ucapan yang muncul di topik apa pun.
+Satu topik wajib berganti jenis terus menerus sampai seluruh jenis terpakai (K11 di `SPEC.md`).
+Daftar jenisnya ada di `const.js` (`CONST.jenis`), dan **jenis baru ditambahkan di sana** kalau
+sebuah narasi memang mengambil bentuk yang benar-benar baru:
 
-| Lintas | Bagian dasar | Kuota | Isi |
-|---|---|---|---|
-| `telepon` | 遠隔通信 9,75% | **41** | membuka, menutup, menelepon kembali, salah sambung, tidak terdengar, meninggalkan pesan |
-| `sopan` | 感動詞 10,52% dari token | **37** | reaksi dan pengisi jeda: menyetujui, terkejut, ragu, meminta diulang, menyela dengan halus |
-| `waktu_cuaca` | 名詞 17,35% dari token, bagian terbesar adalah waktu dan cuaca | **29** | menyebut hari, jam, perkiraan cuaca, dan mengaitkannya dengan rencana |
-
-**Kenapa `waktu_cuaca` masuk lintas, bukan topik sendiri.** Tidak ada percakapan yang
-temanya cuaca. Cuaca dan waktu disebut sambil membicarakan hal lain: janji bertemu, rencana
-akhir pekan, mengantar barang. Pembelajar membutuhkannya, tapi tidak sebagai topik.
-
-**Kuota `sopan` datang dari pengukuran, bukan perasaan.** Partikel akhir kalimat muncul
-163.670 kali dalam 2.419.171 kata, dan 感動詞 (kata seru) 10,52% dari seluruh token. Hampir
-setiap kalimat percakapan Jepang membawa partikel akhir. Deck yang tidak mengajarkan `ね`,
-`よ`, dan `か` sebagai kalimat tersendiri melewatkan bagian percakapan yang paling padat.
-
----
-
-## 5b. Waktu menjalankan pemeriksaan, dan kenapa begitu
-
-Diukur di mesin ini, dengan seluruh berkas diperiksa:
-
-| Perintah | Waktu | Isinya |
-|---|---|---|
-| `node check.js` | **0,35 detik** | seluruh isi kalimat dan dokumen, tanpa browser |
-| `node test.js` | **10 detik** | sama, ditambah dua kali merender halaman di browser |
-| `node ui.js` | **15 detik** | mengemudikan halaman: pencarian, balon, fokus keyboard |
-| `node syncdocs.js` | **0,4 detik** | **menulis**: menyalin angka terukur ke dokumen, lalu diam |
-
-**`syncdocs.js` yang menulis, `check.js` dan `test.js` yang memeriksa.** Angka di dokumen ini
-tadinya ditulis tangan setiap kali deck bertambah, dan hampir setiap kali ada satu yang salah:
-poin sebaran lawan bicara bergerak dua arah karena penyebutnya ikut tumbuh, dan jumlah kalimat per
-topik berubah setiap kali satu kalimat ditambahkan. Keduanya tidak bisa dihitung ulang di kepala,
-jadi sekarang disalin dari data. Skripnya berhenti pada ketidakcocokan pertama dan tidak menulis
-apa pun sebelum semuanya cocok, karena menulis separuh angka lebih berbahaya daripada tidak menulis:
-angkanya terlihat baru padahal sebagian masih lama.
-
-**Yang paling lambat bukan bahasanya.** 97% waktu `test.js` dan 96% waktu `ui.js` terpakai untuk
-**membuka browser dan menunggunya**, bukan untuk menghitung. Halaman kosong pun butuh 1,8-2,0 detik
-sekali render, dan `check.js` yang memeriksa seluruh 567 kalimat hanya butuh 0,35 detik. Jadi
-mengganti JavaScript dengan bahasa lain **tidak menolong**: yang mahal adalah Chromium, dan bahasa
-apa pun yang menjalankannya tetap membayar harga yang sama.
-
-**Yang benar-benar salah, dan sudah diperbaiki.** Sampai commit sebelum ini `test.js` butuh **231
-detik**, dan 89,7% waktunya ada di satu fungsi: `withoutBubbles`, yang membuang balon per kata dari
-DOM sebelum teksnya diperiksa. Setiap balon disingkirkan dengan `out = out.slice(0, at) +
-out.slice(i)`, dan itu menyalin ulang seluruh string. Halaman deep link `#q567` berisi 10 MB DOM
-dengan 11.250 balon, jadi satu kalimat pemeriksaan menyalin **109 GB**. Sekarang balonnya
-disingkirkan dalam satu lintasan: keluaran tetap identik byte per byte, waktunya turun dari 231
-detik ke 10 detik, dan yang penting **tidak lagi tumbuh kuadratik** terhadap jumlah kalimat.
-Kalimat yang bertambah dua kali lipat akan menggandakan waktu, bukan melipatgandakannya.
-
-**Yang disengaja tetap lambat.** Render kedua di `test.js` sengaja membuka `#q567` dan bukan
-`#q21`, walaupun yang mahal itu justru `#q567` (7 detik melawan 3 detik). Deep link memang
-menambahkan kartu satu batch demi satu batch sampai kartunya ada, tanpa batas atas, jadi hanya
-dengan menunjuk kalimat terakhir pemeriksaan itu membuktikan penambahan bertahapnya benar-benar
-jalan sampai ujung. Menggantinya dengan `#q21` akan menghemat 4 detik dan menghilangkan buktinya.
-
----
-
-## 5. Total
-
-| Bagian | Kalimat |
+| Jenis | Bentuknya |
 |---|---|
-| Sepuluh topik inti | 456 |
-| Tiga lintas | 107 |
-| **Minimum deck** | **563** |
-| Kuota terpakai | 690 |
-| Perlu ditulis | **0** |
+| `percakapan` | dua orang atau lebih bertukar giliran |
+| `cerita` | satu kejadian yang diceritakan sampai selesai |
+| `kronologi` | urutan kejadian, dengan waktu yang jelas |
+| `curhatan` | mengeluh panjang tanpa meminta solusi |
+| `keluhan` | keluhan yang ditujukan pada pihak tertentu |
+| `penjelasan` | menerangkan cara, sebab, atau aturan |
+| `laporan` | melaporkan hasil atau keadaan kepada yang berhak tahu |
+| `rencana` | menyusun rencana, dengan pilihan dan alasan |
+| `nasihat` | menyarankan, dengan alasan yang bisa diperiksa |
+| `permintaan` | meminta sesuatu, dengan alasan dan batas waktu |
+| `pengalaman` | mengingat yang pernah terjadi, dengan tanggapan |
+| `pengumuman` | memberi tahu banyak orang sekaligus |
 
-"Kuota terpakai" **690 lebih tinggi dari kuota 563 karena** deck ditulis lebih jauh daripada
-lantainya: 684 kalimat tertulis ditambah 6 kalimat `kurasi` yang dipetakan ke topik. Tabel di atas
-adalah lantai, bukan langit-langit, dan `../SPEC.md` T2 menyebutnya lantai; dua topik karena itu
-berdiri di atas kuotanya sendiri (`sopan` 38+4 melawan 37, dan `waktu_cuaca` 33+2 melawan 29),
-selama kalimat tambahannya nyata dan berbeda. Angka itu berasal dari:
-`sopan` menerima 4 (`kurasi01`, `kurasi02`, `kurasi05`, `kurasi09`) dan `waktu_cuaca` 2 (`kurasi07`,
-`kurasi10`). Empat kalimat `kurasi` yang tersisa (`kurasi03`, `kurasi04`, `kurasi06`, `kurasi08`)
-tidak dipetakan ke topik mana pun dan karena itu tidak dihitung terhadap kuota, walaupun tetap
-muncul di halaman. Rinciannya ada di baris "Dari `kurasi`" pada `topics/sopan.md` dan
-`topics/waktu_cuaca.md`.
+**Kenapa ini sumbu yang terpisah dari topik.** Satu topik yang isinya sepuluh cerita tetap terasa
+sebagai satu hal yang sama walaupun ceritanya berbeda-beda; yang membuatnya terasa berbeda adalah
+bentuknya berubah. Topik menentukan apa yang dibicarakan, jenis menentukan bagaimana.
 
-Perhitungan yang sama, per topik: `sopan` berdiri di 38 dari berkasnya ditambah 4 `kurasi` melawan
-kuota 37, dan `waktu_cuaca` 33 ditambah 2 melawan kuota 29, jadi keduanya di atas kuotanya sendiri.
-`../SPEC.md` T2 menyebut kuota sebagai lantai, bukan langit-langit, jadi sebuah topik memang boleh
-berdiri di atasnya selama kalimat tambahannya nyata dan berbeda; keadaan itu sekarang tidak terjadi,
-dan bagian "Sisa yang harus ditulis" di tiap berkas topik karena itu semuanya berisi **0**.
+---
 
-| Angka | Artinya | Sekarang |
-|---|---|---|
-| Kalimat di berkas topik | yang tertulis di `data/t_*.js` | **684** |
-| Kalimat yang dihitung topik | di atas, ditambah 6 `kurasi` yang dipetakan ke topik | **563** |
-| Kalimat di halaman | semua yang dibaca pembaca | **567** |
-| Kuota | lantai yang harus ditulis, per `../SPEC.md` T2 | **563** |
+## 5. Medan makna: daftar kata yang perlu tercakup
 
-**Sejarah kenaikan kuota, supaya bisa diperiksa.** Dua gelombang, dan keduanya punya satu sebab
-terukur yang sama:
+Bagian 2 mengukur **keadaan** (tempat × kegiatan). Bagian ini mencatat hal kedua: **kata-kata**
+yang dibutuhkan pembaca di dalam keadaan itu.
 
-| Gelombang | Naik | Sebab |
-|---|---|---|
-| Kalimat balasan (K8) | +24 | `klinik`, `kegiatan`, dan `belanja` hanya punya 1-2 kalimat balasan padahal slot `menjawab` di berkas topiknya sudah ditulis seolah terisi |
-| Sebaran lawan bicara (K9) | +92 | lawan bicara keluarga berdiri di 23,2% (dari 449 kalimat) melawan bagiannya 36,8% di survei, selisih 13,6 poin yang belum pernah diukur |
+Daftarnya dulu ada di `coverage.js` dan diperiksa `check.js`, yang mencetak kata mana yang belum
+dipakai kalimat mana pun. **Keduanya sudah dihapus**, jadi daftarnya dipindahkan ke sini sebagai
+daftar rencana, dan tidak lagi dihitung otomatis.
 
-Sesudah gelombang kedua dan tujuh batch medan makna, selisih keluarga **3,4 poin** (216 dari 646 kalimat), dan sisanya itu
-dicatat, bukan dirapikan angkanya. Menutupnya dengan menambah kalimat demi angka akan tertangkap
-`check.js` tiga kali sekaligus (K3, K4, T4), jadi yang harus dicari adalah keadaan nyata yang belum
-tertulis.
+| Medan | Katanya |
+|---|---|
+| `latar` | 家, 外, 中, 朝, 昼, 夜, 今朝, 今晩, 昨日, 明日, 今週, 週末, 今年, 去年, 夏, 冬, 春, 秋, 雨の日, 昼休み |
+| `benda_dapur` | 箸, 皿, 茶碗, コップ, スプーン, フォーク, 鍋, 冷蔵庫, 包丁, まな板, ふきん |
+| `benda_rumah` | タオル, 石鹸, 歯ブラシ, 布団, 枕, 掛け布団, ハンガー, 洗剤, ごみ袋, 電池, 電球, 鍵 |
+| `benda_bawa` | 財布, 鍵, 傘, かばん, スマホ, 充電器, ハンカチ, 眼鏡, 薬, 切符 |
+| `bangunan` | 学校, 病院, 駅, 公園, 建物, アパート, 図書館, 本屋, 体育館, 郵便局, 銀行, 交番, 美容院, 八百屋, コンビニ, 駐車場, 階段, エレベーター |
+| `keadaan` | 古い, 新しい, きれい, 汚い, 静か, うるさい, 広い, 狭い, 暗い, 明るい, 涼しい, 暖かい, 混んでいる, 空いている, 壊れる, 故障, 停電, 洪水, 地震, 台風, 渋滞 |
+| `tubuh` | 手, 足, 目, 耳, 口, 鼻, 顔, 頭, 首, 肩, 背, お腹, 腰, 指, 歯, 髪, のど, 尻尾 |
+| `keluarga` | 父, 母, 兄, 姉, 弟, 妹, 祖父, 祖母, いとこ, 親, 息子, 娘, 夫, 妻, おじ, おば, 家族, 両親 |
+| `bakat` | 上手, 下手, 得意, 苦手, 才能, 練習, 覚える, 慣れる, 間に合う |
+| `hobi` | 趣味, 歌, 歌う, ギター, ピアノ, 読書, 本, 映画, ゲーム, 釣り, 写真, 旅行, 散歩, 泳ぐ, 絵 |
+| `pekerjaan` | 会社員, 公務員, 看護師, 医者, 先生, 店員, 運転手, 学生, 歌手, 俳優, 農家, 美容師, 料理人, 警官 |
+| `kebiasaan` | 早起き, 寝坊, シャワー, お風呂, 歯磨き, 洗濯, 掃除, 片付ける, 起きる, 寝る, 眠い, 目覚まし |
+| `perkenalan` | 名前, 出身, 専攻, 留学生, 自己紹介, よろしく, 大学, 国, 来る, 住む |
+| `arah` | 右, 左, 前, 後ろ, 隣, 近く, 遠い, 角, 曲がる, まっすぐ, 道, 交差点, 通り, 信号, 渡る, 地図, 目印 |
 
-**Selisihnya membesar dari 3,8 ke 5,0 bukan karena kalimat keluarga berkurang**, melainkan karena
-dua gelombang terakhir menambah kalimat untuk lawan bicara lain lebih banyak daripada keluarga.
-Ini terlihat dari perubahan penyebut, bukan dari perubahan pembilang: keluarga tetap 170.
+**Daftar ini bukan kamus, dan bukan kewajiban.** Ia ada supaya penulisnya punya hal yang bisa
+dikejar, dan supaya tidak ada medan yang benar-benar terlupa. Kata yang ternyata tidak bisa dipakai
+di percakapan nyata dihapus dari daftar dengan alasan tertulis, dan alasan yang boleh dipakai
+adalah "kata ini tidak muncul dalam percakapan sehari-hari", bukan "belum sempat ditulis".
 
-Tidak ada kuota yang naik karena "terasa kurang": setiap kalimatnya bisa ditunjuk satu per satu di
-`data/t_*.js`, dan `check.js` mencetak jumlah per topik setiap kali dijalankan sehingga angkanya
-tidak bisa basi tanpa terlihat.
+**Cara menutup celah.** Kata yang sama harus masuk sebagai akibat dari keadaan yang memang
+menyebutnya: "adik saya yang masih SD ikut makan di sini" memuat `弟` sekaligus menambahkan
+keadaan baru. "Adik saya ada di rumah" hanya kalimat yang memasang katanya.
+
+**Uji yang dipakai kalau ragu,** tiga sekaligus dan ketiganya harus lulus:
+
+| Uji | Gagal berarti |
+|---|---|
+| Apakah ada alasannya diucapkan, bukan untuk mendemonstrasikan pola? | itu contoh buku teks |
+| Apakah orang yang mendengarnya tahu benda atau keadaan mana yang dibicarakan? | kalimatnya menggantung |
+| Kalau diucapkan sekarang, kepada lawan bicara yang sudah ada, apakah masuk akal? | itu kalimat latihan |
+
+`私は弟がいます` lulus tata bahasa tapi tidak ada orang yang mengatakannya; yang diucapkan orang
+adalah `弟が二人いる` waktu ditanya, atau `弟に貸した` waktu benda itu dibicarakan.
+
+---
+
+## 6. Yang sudah tidak ada lagi
+
+Disebut di sini karena pembaca dokumen lama akan mencarinya:
+
+| Dulu | Sekarang |
+|---|---|
+| `check.js` — memeriksa isi, kelayakan, sebaran, dan angka K10 | dihapus |
+| `test.js` — merender halaman dan memeriksa DOM | dihapus |
+| `ui.js` — mengemudikan pencarian, balon, fokus keyboard | dihapus |
+| `coverage.js` — daftar kata medan makna | isinya dipindahkan ke bagian 5 |
+| `syncdocs.js` — menyalin angka terukur ke dokumen | dihapus |
+| `docs/topics/*.md` — berkas per topik: kuota, slot, kerangka | cakupannya dipindah ke komentar kepala `data/t_<topik>.js`; checkpoint judulnya di `docs/JUDUL.md` |
+| Kuota kalimat per topik | diganti panduan jumlah narasi (bagian 2), dan sumbu jenis (bagian 4) |
+
+Yang menggantikan kelimanya: `docs/JUDUL.md` untuk mencegah pengulangan, pembacaan penulis untuk
+bahasa, dan `.github/workflows/ci.yml` yang hanya memeriksa berkas JavaScript bisa di-parse.
