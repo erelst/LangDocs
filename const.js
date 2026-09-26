@@ -75,6 +75,7 @@ window.CONST = {
     /* Two speakers that only appear inside a conversation or an announcement. A general
      * announcement is addressed to the passenger, so it is named the same way as a person. */
     penumpang:       { id: 'penumpang', en: 'passenger', close: true },
+    pasien:          { id: 'pasien', en: 'patient', close: false },
   },
 
   /* Kind: what shape the narrative takes. This is the axis a topic is required to move along,
