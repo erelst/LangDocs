@@ -208,6 +208,32 @@ yang sudah terjadi dan sudah diukur:
    adalah bentuk santun biasa. Memasukkannya membuat 9 narasi yang diucapkan kepada kawan terbaca
    敬語. Yang dihitung hanya bentuk hormat dan rendah hati yang tulen.
 
+**Gaya lain yang ditolak, dan angkanya.** Register yang diminta "sebanyak-banyaknya sampai mentok"
+tidak bisa ditambah hanya karena ada namanya. Deck ini 155 narasi, sekitar 124.000 karakter, dengan
+2.086 permukaan kata unik, dan tiap calon tingkat diukur dulu:
+
+| Calon tingkat | Isi deck | Keputusan |
+| — | — | — |
+| **敬語** (tingkat keempat) | 16 narasi, 4 jenis penanda, 0 menyasar orang jauh dalam bentuk biasa | **dipakai** |
+| Gaya jalanan / preman / laki-laki kasar | `お前` 0, `てめえ` 0, `あんた` 0, `だぜ` 0, `だぞ` 0, `かしら` 0 | ditolak: kosong |
+| Gaya pacaran / mesra | `大好き` 0, `愛して` 0, `キス` 0, `デート` 0 | ditolak: kosong |
+| Bahasa gaul sehari-hari (*slang*) | `すげえ` 0, `めっちゃ` 0, `ぶっちゃけ` 0, `うるせえ` 0 | ditolak: kosong |
+| Dialek (関西 dst.) | `やで` 0, `あかん` 0, `せや` 0, `へん` 0, `やん` 0 | ditolak: kosong |
+| Bahasa pria/wanita (人称) | `俺` 0, `僕` 0, `あたし` 0, `わたくし` 0 | ditolak: kosong |
+| Tingkat 敬語 dinaikkan ke **setiap** kata rendah hati | `〜ていただ` muncul di 22 permukaan, tersebar ke kawan, kolega, tetangga, dan sesama penumpang | ditolak: lihat di bawah |
+
+**Kenapa "rendah hati" bukan tingkat tersendiri di deck ini.** `〜ていただけますか` (kepada orang
+asing) dan `開けてもらえますか` (kepada kawan) **sama-sama 丁寧**. Yang membedakan bukan tingkatnya,
+tapi apakah permintaannya masih bisa ditolak. Kalau `〜ていただ` dihitung 敬語, 19 narasi naik ke
+敬語, **10 di antaranya ditujukan kepada orang dekat**, dan **19 dari 19 sudah memuat kata kerja
+santun** sehingga tidak ada satu pun yang informasinya bertambah. Sama untuk `お願いします`: 4
+narasi naik, keempatnya sudah santun. Menghitungnya akan melanggar K4 pada bentuk rendah hati, dan
+`〜ていただ` kepada rekan kerja adalah bahasa kantor yang normal, bukan 敬語.
+
+**Kesimpulan terukur.** Batas atas deck ini adalah **empat tingkat**, dan tidak ada tingkat kelima
+yang bisa dibuktikan: sisanya nol contoh. Ini bukan karena aturannya kurang; ini karena deck berisi
+percakapan sehari-hari yang santun, dan bagian "sampai mentok" berhenti di tempat buktinya berhenti.
+
 ### K6. Waktu lampau harus cocok dengan kata kerja di klausanya sendiri
 
 Kata waktu lampau (`昨日`, `今朝`, `先週`, `去年`, `先月`, `おととい`) menuntut kata kerja bentuk
@@ -252,6 +278,24 @@ saat disorot, atau romaji berbeda untuk kata yang sama. Daftar kata baru ditamba
 bicara, penutur) ditulis dalam bahasa sasaran dengan permukaannya di `const.js` dan romaji serta
 glosanya di lexicon yang sama, jadi sebuah label bisa di-hover persis seperti kata di dalam
 kalimat, dan tidak ada satu pun permukaan label yang ditulis terpisah dari lexicon.
+
+**Cara sebuah label lolos dari aturan ini, dan kenapa tidak ada yang sadar.** Ketika tingkat
+**敬語** ditambahkan ke `CONST.style`, ketiga tingkat lain (`丁寧`, `普通`, `混在`) sudah ada di
+lexicon sejak awal, jadi label baru itu bisa tampil penuh dengan arti dan balonnya, **kecuali baris
+romajinya**, yang keluar kosong. Tidak ada yang rusak: chip tetap terpasang, tidak ada galat
+konsol, dan `memory list`/pemeriksaan label yang memeriksa **keberadaan chip** tetap lulus. Yang
+hilang hanya satu baris, dan hanya pada satu kata.
+
+Dua hal yang menutupnya:
+
+1. **Aturan mekanis.** Setiap permukaan yang ditunjuk `CONST.jenis`, `CONST.style`, dan `CONST.rel`
+   – termasuk setiap kata yang dipisah spasi dari sebuah label, dan setiap angka yang ditunjuk
+   `CONST.num` – wajib punya entri di lexicon. Diperiksa di `chipaudit.js` dengan membaca tabel
+   itu sendiri, bukan daftar label yang ditulis ulang.
+2. **Pemeriksaan yang mengukur yang benar-benar tampak.** `chipaudit.js` memeriksa baris romaji dan
+   baris arti **punya tinggi > 0 di layar**, bukan sekadar ada di DOM, untuk chip, judul, dan label
+   penutur, pada `ui=id` dan `ui=en`. Memeriksa keberadaan chip saja tidak akan pernah menangkap
+   kasus ini.
 
 ### K12. Setiap paragraf punya terjemahannya sendiri
 
