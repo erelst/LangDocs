@@ -66,9 +66,21 @@ ditulis adalah satu baris, dan itu bukan narasi.
 **Alasan.** Percakapan sehari-hari yang berguna bukan daftar sapaan. Yang sulit dan paling sering
 dibutuhkan adalah yang membawa isi.
 
+**Satu blok adalah satu paragraf, bukan satu kalimat.** Sebuah paragraf boleh memuat beberapa
+kalimat, dan memang itu yang diharapkan: satu paragraf yang isinya satu kalimat hanya wajar bila
+kalimat itu memang berdiri sendiri, misalnya satu ucapan dalam percakapan. Di luar itu, paragraf
+yang memuat beberapa kalimat dibaca sebagai satu hal yang utuh, dan itulah bentuk yang dipakai deck
+ini. Batas kalimat di dalam paragraf **dibaca dari tanda baca** (`。`, `！`, `？`), bukan disimpan
+sebagai penanda tersendiri, karena tanda itu juga yang dilihat pembaca.
+
 **Ukuran yang dipakai.** Sedikitnya **3 blok** untuk sebuah narasi, dan untuk `percakapan`
 sedikitnya **4 giliran bicara** yang dimiliki lebih dari satu pembicara. Angka itu lantai, bukan
-target: narasi yang butuh delapan baris ditulis delapan baris.
+target: narasi yang butuh delapan paragraf ditulis delapan paragraf.
+
+**Satu blok yang memuat satu kalimat adalah tanda bahaya, bukan bentuk yang sah.** Narasi yang
+isinya satu paragraf satu kalimat tidak memuat apa pun yang butuh beberapa baris, dan itu tepat
+keadaan yang K2 larang. `kurasi06` pernah berada di keadaan itu, dan sudah diperluas menjadi empat
+paragraf.
 
 **Satu pengecualian, dan hanya satu: `kurasi06`.** Narasi yang tersimpan dari versi pertama deck
 ini berisi **satu blok**, jadi ia tidak memenuhi lantai tiga blok di atas. Pemilik proyek meminta
@@ -343,9 +355,8 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 |---|---|---|
 | V1 | Mode gelap saja | tidak dijaga |
 | V2 | Setiap kata bisa disorot dan punya balon berisi romaji dan glosa dalam satu bahasa | `app.js` |
-| V3 | Chip panel ada satu, isinya gaya bahasa yang dihitung dari teks, bukan rel | `app.js` |
+| V3 | **Tidak ada tombol `?`, tidak ada panel, tidak ada lipat-buka.** Balon per kata sudah membawa bacaan dan artinya, jadi panel yang mengulanginya adalah tempat kedua untuk membaca hal yang sama | `app.js` |
 | V4 | Kata bersifat atomik (`display:inline-block`), warna dan garis bawah unik, dipakai bersama baris kanji dan romaji | `app.js` |
-| V5 | Hanya satu panel terbuka; klik di luar atau Escape menutupnya | `app.js` |
 | V6 | Tautan langsung membuka satu narasi: `#/read/<lang>/<tgt>/<key>` | `app.js` |
 | V7 | Romaji bisa dinyalakan dan **mati secara bawaan** | `app.js` |
 | V8 | Daftar judul dimuat bertahap saat digulir | `app.js` |
@@ -358,6 +369,7 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V17 | Tombol kembali browser menelusuri ketiga halaman dalam urutan yang dipilih pembaca | `app.js` |
 | V14 | Daftar di halaman ketiga berisi **judul**, bukan kalimat; pencarian menemukan kata di dalam narasi dan menawarkan tombol membaca judul itu penuh | `app.js` |
 | V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama | `app.js` |
+| V18 | Setiap jenis punya bentuk yang berbeda, sehingga percakapan bisa dibedakan dari kronologi sebelum satu kata dibaca | `app.js` + CSS |
 
 ---
 

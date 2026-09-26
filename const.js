@@ -142,6 +142,25 @@ window.CONST = {
     countWord:   { id: 'narasi', en: 'narratives' },
     scrollHint:  { id: 'gulir untuk memuat lagi', en: 'scroll for more' },
     partOf:      { id: 'Bagian', en: 'Part' }
+  },
+
+  /* How each kind is drawn. One table, applied as an inline left border on the paragraph, so
+   * twelve kinds are twelve rows here instead of twelve CSS rules in index.html that can drift
+   * apart from the list above. The border carries the kind; nothing else about the text changes,
+   * because the text is what the reader came for. Colours come from the palette already in use. */
+  jenisVisual: {
+    percakapan:  { left: '#38bdf8', style: 'solid',  width: '4px' },
+    cerita:      { left: '#7ec699', style: 'solid',  width: '3px' },
+    kronologi:   { left: '#7ab8e8', style: 'dashed', width: '3px' },
+    curhatan:    { left: '#f5d0a9', style: 'dotted', width: '4px' },
+    keluhan:     { left: '#f08a6a', style: 'solid',  width: '3px' },
+    penjelasan:  { left: '#c79ae0', style: 'double', width: '3px' },
+    laporan:     { left: '#6fd0d0', style: 'solid',  width: '3px' },
+    rencana:     { left: '#e0c46a', style: 'double', width: '4px' },
+    nasihat:     { left: '#9ad07a', style: 'dashed', width: '3px' },
+    permintaan:  { left: '#f08aab', style: 'solid',  width: '3px' },
+    pengalaman:  { left: '#a99ae0', style: 'dotted', width: '3px' },
+    pengumuman:  { left: '#d0a06a', style: 'solid',  width: '6px' }
   }
 };
 

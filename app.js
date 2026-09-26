@@ -52,16 +52,18 @@
 
   var ROWS = assemble();
 
-  /* Resolve one line's surfaces into full tokens [kanji, romaji, glossID, glossEN]. */
+  /* A block is one paragraph, held as the flat list of its surfaces. Where the sentences inside
+   * it begin and end is read from the punctuation, not stored: `。`, `！` and `？` end a sentence,
+   * and that is what the reader sees anyway. A paragraph of one sentence is then simply a
+   * paragraph whose token list contains one such mark, so the same shape covers both.
+   *
+   * ponytail: punctuation is the only sentence boundary. If a sentence ever needs to break
+   * without ending, that needs a marker in the data; no narrative needs it today. */
   function tokensOfBlock(block) {
     if (block._t) { return block._t; }
     var out = [];
     for (var i = 0; i < block.t.length; i++) {
       var surface = block.t[i];
-      if (Object.prototype.toString.call(surface) === '[object Array]') {
-        out.push(surface);                       // written out in full, as the kept one is
-        continue;
-      }
       var e = lexEntry(surface);
       if (!e && bare(surface) !== '') { missingWords[surface] = 1; }
       out.push(e ? [surface, e[0], e[1], e[2]] : [surface, '', '', '']);
@@ -172,10 +174,6 @@
     }
     return out.join(', ');
   }
-  function whoColour(s) {
-    var keys = whoKeys(s);
-    return keys.length ? relColour(keys[0]) : C.accent;
-  }
   /* A conversation names each speaker, so the block label is the speaker's relationship. */
   function speakerKey(s, sp) {
     return (s.speakers && s.speakers[sp]) || null;
@@ -250,104 +248,55 @@
     return LEX[surface] || LEX[b];
   }
 
-  /* The word-by-word table, one gloss column now that the language is one. */
-  function glossRows(tokens) {
-    var rows = [];
-    for (var i = 0; i < tokens.length; i++) {
-      var t = tokens[i];
-      if (bare(t[0]) === '') { continue; }
-      var colour = colourOf(i);
-      var edge = 'border-bottom:1px solid ' + C.edgeSoft + ';vertical-align:top;padding:4px 8px;';
-      var gloss = langOf() === 'en' ? t[3] : t[2];
-      rows.push('<tr>' +
-        '<td class="gk" style="' + edge + 'color:' + colour +
-          ' !important;font-weight:700;white-space:nowrap;">' + esc(bare(t[0])) + '</td>' +
-        '<td class="gr" style="' + edge + 'color:' + C.textDim +
-          ' !important;font-style:italic;white-space:nowrap;">' + esc(bare(t[1])) + '</td>' +
-        '<td class="gi" style="' + edge + 'color:' + C.text + ' !important;">' + esc(gloss) + '</td>' +
-        '</tr>');
-    }
-    return rows.join('');
-  }
-
-  /* The panel behind the ? on a narrative: what it is, who it is for, what it says, and its words.
-   *
-   * The chip row is one chip, not two. The relationship used to sit beside the register, but the
-   * relationship is already written out in the line below it, in the reader's own language, so
-   * repeating it as a chip said nothing new. What is left is the language style, which is the one
-   * thing about the piece that is not otherwise visible. */
-  function qpanel(s) {
-    var tokens = allTokens(s);
-    var colour = whoColour(s);
-    var styleName = C.style[styleOf(s)];
-    var styleText = styleName ? (styleName[langOf()] || styleName.id) : styleOf(s);
-    var who = whoLabel(s);
-    return '<div class="qpanel" style="box-sizing:border-box;background:' + C.bgPanel +
-      ' !important;color:' + C.text + ' !important;border:1px solid ' + C.bgPanelEdge +
-      ' !important;border-top:3px solid ' + C.accent + ' !important;border-radius:12px;' +
-      'padding:14px 16px;margin-top:14px;box-shadow:0 10px 26px rgba(0,0,0,.45);' +
-      'text-align:left;font-size:14px;line-height:1.55;">' +
-      '<div style="margin:0 0 10px;padding-bottom:9px;border-bottom:1px solid ' + C.edge + ';">' +
-      '<span class="stylechip" data-style="' + styleOf(s) + '" style="display:inline-block;border:1px solid ' +
-        colour + ';color:' + colour + ' !important;border-radius:20px;padding:0 9px;' +
-        'font-size:12.5px;white-space:nowrap;">' + esc(styleText) + '</span>' +
-      '<span style="display:inline-block;margin-left:8px;font-size:12.5px;color:' + C.textDim +
-        ' !important;">' + esc(jenisLabel(s)) + '</span>' +
-      '<div style="margin-top:7px;font-size:12.5px;color:' + C.textDim + ' !important;">' +
-      (who ? '<p style="margin:0 0 3px;" class="wholine">' + esc(who) + '</p>' : '') +
-      '<p style="margin:0;">' + esc(tr(s, 'sit')) + '</p></div></div>' +
-      '<p style="margin:0 0 6px;font-size:16px;color:' + C.bright + ' !important;">' +
-      '<b style="color:' + C.accent + ';">' + (langOf() === 'en' ? 'EN' : 'ID') + '</b> ' +
-      esc(tr(s, 'id')) + '</p>' +
-      '<table class="gloss" style="border-collapse:collapse;width:100%;font-size:13.5px;">' +
-      glossRows(tokens) + '</table>' +
-      '<div style="margin-top:12px;padding-top:10px;border-top:1px dashed ' + C.edgeSoft +
-      ';font-size:13px;color:' + C.textDim + ' !important;">' +
-      '<p style="margin:0;"><b style="color:' + C.accent + ' !important;">' +
-        (langOf() === 'en' ? 'EN' : 'ID') + '</b> ' + esc(tr(s, 'note')) + '</p></div></div>';
-  }
-
-  /* One line of the narrative: the speaker chip when there is one, then the kanji, romaji, and
-   * its own ? panel. A block is the unit of speech, so a conversation reads as turns. */
-  function blockHTML(s, block, index, marks) {
+  /* One paragraph of the narrative. No ? panel and no expander: the bubble on each word already
+   * carries the reading and the meaning, so a panel duplicating it was a second place to read the
+   * same thing and a second thing to keep in step. A conversation paragraph carries a speaker
+   * label, and each sentence inside the paragraph is its own kanji + romaji pair. */
+  function blockHTML(s, block, index) {
     var tokens = tokensOfBlock(block);
     var sp = speakerKey(s, block.sp);
     var spText = sp ? relLabel(sp) : '';
     var spColour = sp ? relColour(sp) : '';
-    /* `jp-sent` is not decoration: every rule for the word bubble and the panel is written as
-     * `.jp-sent .tk > .tip` and `.jp-sent .qdet`. Without it the bubble fell back to
-     * `position: static` and was simply always visible, which a reader would see as three lines
-     * of text hanging under every word. The block carries the class so the rules apply. */
-    return '<div class="block jp-sent"' + (block.sp ? ' data-sp="' + esc(block.sp) + '"' : '') + '>' +
+    var sentences = sentencesOf(tokens);
+    var out = [];
+    for (var k = 0; k < sentences.length; k++) {
+      var line = sentences[k];
+      out.push('<div class="sentence">' +
+        '<div class="kanji">' + tokenSpans(line, 0) + '</div>' +
+        '<div class="romaji">' + tokenSpans(line, 1) + '</div>' +
+        '</div>');
+    }
+    /* `jp-sent` is not decoration: every rule for the word bubble is written as
+     * `.jp-sent .tk > .tip`. Without it the bubble fell back to `position: static` and was simply
+     * always visible, which a reader would see as three lines of text under every word. */
+    var v = C.jenisVisual[s.jenis] || { left: C.edge, style: 'solid', width: '3px' };
+    return '<div class="block jp-sent" data-jenis="' + esc(s.jenis) + '"' +
+      (block.sp ? ' data-sp="' + esc(block.sp) + '"' : '') +
+      ' style="border-left:' + v.width + ' ' + v.style + ' ' + v.left + ' !important;' +
+      'padding-left:12px;">' +
       (spText ? '<span class="speaker" style="background:' + spColour + ';">' +
-        esc(spText) + '</span>' : '') +
-      '<div class="kanji">' + tokenSpans(tokens, 0) + '</div>' +
-      '<div class="romaji">' + tokenSpans(tokens, 1) + '</div>' +
-      '<details class="qdet">' +
-      '<summary title="' + esc(str('partOf')) + ' ' + (index + 1) + '" ' +
-      'aria-label="' + esc(str('partOf')) + ' ' + (index + 1) + '">?</summary>' +
-      '<div class="qpanel" style="box-sizing:border-box;background:' + C.bgPanel +
-      ' !important;color:' + C.text + ' !important;border:1px solid ' + C.bgPanelEdge +
-      ' !important;border-top:3px solid ' + C.accent + ' !important;border-radius:12px;' +
-      'padding:14px 16px;margin-top:14px;text-align:left;font-size:14px;line-height:1.55;">' +
-      '<p style="margin:0;font-size:16px;color:' + C.bright + ' !important;">' +
-      esc(tr(s, 'id')) + '</p>' +
-      '<table class="gloss" style="border-collapse:collapse;width:100%;font-size:13.5px;margin-top:10px;">' +
-      glossRows(tokens) + '</table></div></details></div>';
+        esc(spText) + '</span>' : '') + out.join('') + '</div>';
   }
 
-  /* The whole narrative. The ? on the title opens the details of the piece itself; each line has
-   * its own ? for its words, so a reader can go line by line without leaving the piece. */
-  function narrativeHTML(s, marks) {
+  /* The sentences of a paragraph, cut where the punctuation says, so a paragraph renders as
+   * prose instead of one long line. The mark stays on the token it belongs to (K7), which is why
+   * the test is "ends with" and not "equals". */
+  function sentencesOf(tokens) {
+    var out = [], cur = [];
+    for (var i = 0; i < tokens.length; i++) {
+      cur.push(tokens[i]);
+      if (/[。！？]$/.test(tokens[i][0])) { out.push(cur); cur = []; }
+    }
+    if (cur.length) { out.push(cur); }   // a paragraph may end without a mark
+    return out;
+  }
+
+  /* The whole narrative: its paragraphs, nothing else. The title is already the page heading. */
+  function narrativeHTML(s) {
     var bs = blocksOf(s);
     var out = [];
-    for (var i = 0; i < bs.length; i++) { out.push(blockHTML(s, bs[i], i, marks)); }
-    return '<div class="narr-head-card jp-sent" style="margin-bottom:18px;">' +
-      '<details class="qdet">' +
-      '<summary title="' + esc(str('partOf')) + '">?</summary>' +
-      qpanel(s) + '</details>' +
-      '<div style="font-size:12.5px;color:' + C.textDim + ';">' + esc(jenisLabel(s)) + '</div>' +
-      '</div>' + out.join('');
+    for (var i = 0; i < bs.length; i++) { out.push(blockHTML(s, bs[i], i)); }
+    return out.join('');
   }
 
   /* --------------------------------------------------------------- matching */
@@ -546,22 +495,6 @@
     }
     resetScroll();
   }
-
-  /* ------------------------------------------------------ one panel at a time */
-  function closeAll(except) {
-    var open = document.querySelectorAll('details.qdet[open]');
-    for (var i = 0; i < open.length; i++) { if (open[i] !== except) { open[i].open = false; } }
-  }
-  document.addEventListener('toggle', function (e) {
-    var d = e.target;
-    if (d && d.tagName === 'DETAILS' && d.open) { closeAll(d); }
-  }, true);
-  document.addEventListener('click', function (e) {
-    if (!e.target.closest('details.qdet')) { closeAll(null); }
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' || e.key === 'Esc') { closeAll(null); }
-  });
 
   /* A bubble belongs to its word, so the word is the containing block and the bubble is placed by
    * CSS alone. The one thing CSS cannot know is where the screen ends, so this nudges the drawn
@@ -834,14 +767,6 @@
   }
   window.addEventListener('scroll', maybeLoad, { passive: true });
 
-  var loadTimer = null;
-  function ensureLoader() {
-    if (loadTimer !== null) { return; }
-    loadTimer = setInterval(function () {
-      if (state.rendered >= total()) { clearInterval(loadTimer); loadTimer = null; return; }
-      maybeLoad();
-    }, 200);
-  }
 
   window.addEventListener('hashchange', function () {
     var terms = pendingTerms;

@@ -149,60 +149,29 @@
     border-left: 5px solid #38bdf8; border-radius: 12px; margin: 16px 0;
     padding: 16px 18px; max-width: 100%; box-sizing: border-box; overflow: visible;
   }
-  .jp-sent .qdet { display: block; }
-  .jp-sent .qdet > summary {
-    position: absolute; right: 10px; top: 10px;
-    display: block; list-style: none; cursor: pointer; width: 34px; height: 34px;
-    line-height: 30px; text-align: center; border-radius: 50%;
-    background: #334155; color: #f8fafc; font-weight: 700; font-size: 17px;
-    border: 2px solid #38bdf8; box-shadow: 0 2px 8px rgba(0,0,0,.5); user-select: none;
-    transition: transform .12s ease, border-color .12s ease;
-  }
-  .jp-sent .qdet > summary::-webkit-details-marker { display: none; }
-  .jp-sent .qdet > summary::marker { content: ""; }
-  .jp-sent .qdet:hover > summary { transform: scale(1.08); border-color: #f8fafc; }
-  .jp-sent .qdet[open] > summary { border-color: #f59e0b; }
 
-  .jp-sent .qpanel { width: 100%; overflow-wrap: anywhere; }
-  .jp-sent .qpanel .gloss { table-layout: fixed; }
-  .jp-sent .qpanel .gloss td { overflow-wrap: anywhere; }
-
-  /* One line of the narrative. A conversation line carries a speaker label, and the label
-     is what turns a wall of text into a dialogue. */
-  .block { margin: 0 0 14px; }
+  /* One paragraph of the narrative. The left border says which kind it is, and its colour and
+     style come from CONST.jenisVisual, so the twelve kinds are one table in const.js rather than
+     twelve rules here. A conversation paragraph also carries a speaker label, which is what turns
+     a wall of text into a dialogue. */
+  .block { margin: 0 0 24px; }
   .block:last-child { margin-bottom: 0; }
   .block .speaker {
     display: inline-block; border-radius: 20px; padding: 0 10px; margin-bottom: 6px;
     font-size: 12px; font-weight: 700; color: #0b1220;
   }
+  /* One sentence inside the paragraph: kanji then romaji, with room after it. A paragraph of
+     several sentences reads as a block of prose, which is the point of storing paragraphs. */
+  .sentence { margin: 0 0 10px; }
+  .sentence:last-child { margin-bottom: 0; }
   .kanji { font-size: 23px; line-height: 2.0; font-weight: 500; color: #f8fafc;
            white-space: normal; overflow-wrap: anywhere; padding-right: 6px; }
   .romaji { font-size: 15px; line-height: 1.85; font-style: italic; color: #94a3b8;
             margin-top: 3px; white-space: normal; overflow-wrap: anywhere; }
 
-  @media (max-width: 520px) {
-    .jp-sent .qpanel {
-      border-radius: 10px !important;
-      padding: 12px 12px !important;
-      font-size: 13.5px !important;
-    }
-    /* Four nowrap columns need ~370px and do not fit in a phone-width card, so on
-       small screens each word becomes a stacked block: kanji + romaji on one
-       line, the gloss underneath. Nothing can push the card outwards. */
-    .jp-sent .qpanel .gloss,
-    .jp-sent .qpanel .gloss tbody,
-    .jp-sent .qpanel .gloss tr,
-    .jp-sent .qpanel .gloss td {
-      display: block; width: auto !important;
-    }
-    .jp-sent .qpanel .gloss td { border-bottom: 0 !important; padding: 0 !important; }
-    .jp-sent .qpanel .gloss tr {
-      padding: 7px 0; border-bottom: 1px solid #334155;
-    }
-    .jp-sent .qpanel .gloss tr:last-child { border-bottom: 0; }
-    .jp-sent .qpanel .gloss td.gk { display: inline-block; font-size: 15px !important; }
-    .jp-sent .qpanel .gloss td.gr { display: inline-block; margin-left: 8px; }
-  }
+  /* Each kind looks like what it is, so a reader can tell a conversation from a chronology before
+     reading a word. The colour and font stay the page's; only the shape changes. */
+
 
   .jp-sent .tk { border-radius: 3px; position: relative; }
   .jp-sent .tk:hover { background: rgba(56, 189, 248, .18); }
