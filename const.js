@@ -132,15 +132,10 @@ window.CONST = {
     back:        { id: 'Kembali', en: 'Back' },
     readFull:    { id: 'Baca judul', en: 'Read title' },
     readFullTail: { id: 'penuh', en: 'in full' },
-    readShort:   { id: 'Baca', en: 'Read' },
-    readShortTail: { id: 'penuh', en: 'in full' },
     noMatch:     { id: 'Tidak ada narasi yang cocok.', en: 'No narratives match.' },
     backToTitles: { id: 'Kembali ke daftar judul', en: 'Back to the title list' },
-    toStart:     { id: 'Ganti bahasa', en: 'Change language' },
     countWord:   { id: 'narasi', en: 'narratives' },
     scrollHint:  { id: 'gulir untuk memuat lagi', en: 'scroll for more' },
-    keyWords:    { id: 'Kata kunci', en: 'Keywords' },
-    lineOf:      { id: 'Baris', en: 'Line' },
     partOf:      { id: 'Bagian', en: 'Part' }
   }
 };
