@@ -30,13 +30,13 @@ window.BANK = (window.BANK || []).concat([
     note: 'Basa-basi cuaca berguna karena selalu ada lanjutannya, dan itu yang membuatnya dipakai orang setiap hari.',
     noteEn: 'Weather small talk works because there is always a follow-up, which is why people use it daily.',
     blocks: [
-      { sp: 'B', id: ['Selamat pagi.', 'Pagi ini dingin, ya.'], t: ['おはよう', 'ございます', '。', '今朝', 'は', '冷え', 'ます', 'ね', '。'] },
-      { sp: 'A', id: ['Selamat pagi.', 'Betul, sampai perlu sarung tangan.'], t: ['おはよう', 'ございます', '。', '本当に', '、', '手袋', 'が', '要る', 'くらい', 'です', 'ね', '。'] },
-      { sp: 'A', id: 'Katanya ramalan cuaca menyebutkan mulai siang akan hujan, lho.', t: ['天気予報', 'で', 'は', '、', '午後', 'から', '雨', 'だ', 'そう', 'です', 'よ', '。'] },
-      { sp: 'B', id: ['Begitu, ya.', 'Saya tadi tidak membawa payung.'], t: ['そう', 'です', 'か', '。', '傘', 'を', '持って', 'き', 'て', 'い', 'ません', 'でした', '。'] },
-      { sp: 'A', id: 'Di kantor ada payung cadangan, saya pinjamkan saja.', t: ['会社', 'に', '置き傘', 'が', 'あります', 'から', '、', '貸します', 'よ', '。'] },
-      { sp: 'B', id: ['Terima kasih.', 'Sabtu juga turun hujan, ya?'], t: ['ありがとう', 'ございます', '。', '土曜', 'も', '降る', 'の', 'でしょう', 'か', '。'] },
-      { sp: 'A', id: ['Katanya akhir pekan cerah.', 'Ada rencana, ya?'], t: ['週末', 'は', '晴れる', 'と', '言って', 'いました', '。', '予定', 'が', 'ある', 'の', 'ですか', '。'] },
+      { sp: 'B', id: ['Selamat pagi.', 'Pagi ini dingin, ya.'], en: ['Good morning.', 'It\'s cold this morning, isn\'t it.'], t: ['おはよう', 'ございます', '。', '今朝', 'は', '冷え', 'ます', 'ね', '。'] },
+      { sp: 'A', id: ['Selamat pagi.', 'Betul, sampai perlu sarung tangan.'], en: ['Good morning.', 'It really is, cold enough for gloves.'], t: ['おはよう', 'ございます', '。', '本当に', '、', '手袋', 'が', '要る', 'くらい', 'です', 'ね', '。'] },
+      { sp: 'A', id: 'Katanya ramalan cuaca menyebutkan mulai siang akan hujan, lho.', en: 'The forecast says it\'ll rain from the afternoon.', t: ['天気予報', 'で', 'は', '、', '午後', 'から', '雨', 'だ', 'そう', 'です', 'よ', '。'] },
+      { sp: 'B', id: ['Begitu, ya.', 'Saya tadi tidak membawa payung.'], en: ['Is that so.', 'I didn\'t bring an umbrella.'], t: ['そう', 'です', 'か', '。', '傘', 'を', '持って', 'き', 'て', 'い', 'ません', 'でした', '。'] },
+      { sp: 'A', id: 'Di kantor ada payung cadangan, saya pinjamkan saja.', en: 'There\'s a spare umbrella at the office, I\'ll lend you one.', t: ['会社', 'に', '置き傘', 'が', 'あります', 'から', '、', '貸します', 'よ', '。'] },
+      { sp: 'B', id: ['Terima kasih.', 'Sabtu juga turun hujan, ya?'], en: ['Thank you.', 'Will it rain on Saturday too?'], t: ['ありがとう', 'ございます', '。', '土曜', 'も', '降る', 'の', 'でしょう', 'か', '。'] },
+      { sp: 'A', id: ['Katanya akhir pekan cerah.', 'Ada rencana, ya?'], en: ['They said the weekend will be fine.', 'Do you have plans?'], t: ['週末', 'は', '晴れる', 'と', '言って', 'いました', '。', '予定', 'が', 'ある', 'の', 'ですか', '。'] },
     ]
   },
   {
@@ -50,11 +50,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Cerita cuaca berguna karena menunjukkan apa yang dicuci dan apa yang diganti, bukan hanya bahwa hujan turun.',
     noteEn: 'A weather story works because it shows what got brought in and what was swapped, not merely that it rained.',
     blocks: [
-      { id: 'Sekitar jam tiga, langit tiba-tiba gelap, dan di kejauhan terdengar guntur.', t: ['三時', 'ごろ', '、', '空', 'が', '急に', '暗く', 'なって', '、', '遠く', 'で', '雷', 'が', '鳴り', 'ました', '。'] },
-      { id: 'Belum sampai sepuluh menit, hujannya mulai turun dengan deras.', t: ['十分', 'も', 'たた', 'ない', 'うち', 'に', '、', '雨', 'が', '強く', '降り', '始め', 'ました', '。'] },
-      { id: 'Pertama-tama, saya memasukkan semua jemuran yang ada di luar.', t: ['まず', '、', '外', 'に', '干して', 'いた', '物', 'を', '全部', '中', 'に', '入れ', 'ました', '。'] },
-      { id: 'Sebenarnya mau pergi belanja, tetapi saya batalkan dan memutuskan tinggal di rumah.', t: ['買い物', 'に', '行く', 'つもり', 'でした', 'が', '、', 'やめ', 'て', '家', 'に', 'いる', 'こと', 'に', 'しました', '。'] },
-      { id: 'Sebagai gantinya, kami memasak bersama dengan bahan yang ada di kulkas.', t: ['代わり', 'に', '、', '冷蔵庫', 'に', 'あった', '物', 'で', '一緒', 'に', '作り', 'ました', '。'] },
+      { id: 'Sekitar jam tiga, langit tiba-tiba gelap, dan di kejauhan terdengar guntur.', en: 'Around three o\'clock the sky suddenly darkened, and thunder rumbled in the distance.', t: ['三時', 'ごろ', '、', '空', 'が', '急に', '暗く', 'なって', '、', '遠く', 'で', '雷', 'が', '鳴り', 'ました', '。'] },
+      { id: 'Belum sampai sepuluh menit, hujannya mulai turun dengan deras.', en: 'Within ten minutes the rain started coming down hard.', t: ['十分', 'も', 'たた', 'ない', 'うち', 'に', '、', '雨', 'が', '強く', '降り', '始め', 'ました', '。'] },
+      { id: 'Pertama-tama, saya memasukkan semua jemuran yang ada di luar.', en: 'First of all, I brought in everything I had drying outside.', t: ['まず', '、', '外', 'に', '干して', 'いた', '物', 'を', '全部', '中', 'に', '入れ', 'ました', '。'] },
+      { id: 'Sebenarnya mau pergi belanja, tetapi saya batalkan dan memutuskan tinggal di rumah.', en: 'I\'d meant to go shopping, but I gave up and decided to stay home.', t: ['買い物', 'に', '行く', 'つもり', 'でした', 'が', '、', 'やめ', 'て', '家', 'に', 'いる', 'こと', 'に', 'しました', '。'] },
+      { id: 'Sebagai gantinya, kami memasak bersama dengan bahan yang ada di kulkas.', en: 'Instead, we cooked together with what was in the fridge.', t: ['代わり', 'に', '、', '冷蔵庫', 'に', 'あった', '物', 'で', '一緒', 'に', '作り', 'ました', '。'] },
     ]
   },
   {
@@ -68,11 +68,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Urutannya diikat たら dan ので, jadi setiap baris menjelaskan baris sebelumnya.',
     noteEn: 'The order is bound by たら and ので, so each line explains the one before it.',
     blocks: [
-      { id: 'Pagi cuacanya sangat cerah, jadi saya menjemur cucian di luar.', t: ['朝', 'は', 'よく', '晴れて', 'いて', '、', '洗濯', 'を', '外', 'に', '出しました', '。'] },
-      { id: 'Begitu masuk siang, awan muncul, dan langit menjadi putih.', t: ['昼', 'に', 'なったら', '、', '雲', 'が', '出て', 'きて', '、', '空', 'が', '白く', 'なりました', '。'] },
-      { id: 'Sekitar jam tiga hujan turun sekali, jadi saya bergegas mengangkat cuciannya.', t: ['三時', 'ごろ', 'に', '一度', 'だけ', '降った', 'ので', '、', '洗濯', 'を', '急いで', '取り込み', 'ました', '。'] },
-      { id: 'Sore kembali cerah, tetapi suhunya turun.', t: ['夕方', 'は', 'また', '晴れた', 'けど', '、', '気温', 'が', '下がり', 'ました', '。'] },
-      { id: 'Malam menjadi dingin, jadi semua jendela yang terbuka saya tutup.', t: ['夜', 'に', 'なって', '冷えた', 'ので', '、', '開けて', 'いた', '窓', 'を', '全部', '閉め', 'ました', '。'] },
+      { id: 'Pagi cuacanya sangat cerah, jadi saya menjemur cucian di luar.', en: 'The morning was beautifully clear, so I put the laundry out.', t: ['朝', 'は', 'よく', '晴れて', 'いて', '、', '洗濯', 'を', '外', 'に', '出しました', '。'] },
+      { id: 'Begitu masuk siang, awan muncul, dan langit menjadi putih.', en: 'By midday clouds appeared and the sky turned white.', t: ['昼', 'に', 'なったら', '、', '雲', 'が', '出て', 'きて', '、', '空', 'が', '白く', 'なりました', '。'] },
+      { id: 'Sekitar jam tiga hujan turun sekali, jadi saya bergegas mengangkat cuciannya.', en: 'It rained once around three, so I hurriedly brought the laundry in.', t: ['三時', 'ごろ', 'に', '一度', 'だけ', '降った', 'ので', '、', '洗濯', 'を', '急いで', '取り込み', 'ました', '。'] },
+      { id: 'Sore kembali cerah, tetapi suhunya turun.', en: 'The evening was clear again, but the temperature dropped.', t: ['夕方', 'は', 'また', '晴れた', 'けど', '、', '気温', 'が', '下がり', 'ました', '。'] },
+      { id: 'Malam menjadi dingin, jadi semua jendela yang terbuka saya tutup.', en: 'It got cold at night, so I closed all the windows I\'d had open.', t: ['夜', 'に', 'なって', '冷えた', 'ので', '、', '開けて', 'いた', '窓', 'を', '全部', '閉め', 'ました', '。'] },
     ]
   },
   {
@@ -86,11 +86,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan seperti ini diarahkan ke keadaannya, bukan ke orang, dan tidak menyimpulkan apa pun.',
     noteEn: 'A complaint like this aims at the situation, not a person, and draws no conclusion.',
     blocks: [
-      { id: 'Panas ini sudah tidak tertahankan lagi.', t: ['この', '暑さ', 'は', '、', 'もう', '体', 'に', 'こたえる', 'よ', '。'] },
-      { id: 'Malam pun suhunya tidak turun, jadi saya terbangun berkali-kali.', t: ['夜', 'も', '気温', 'が', '下がら', 'ない', 'から', '、', '何度', 'も', '目', 'が', '覚めて', 'しまう', '。'] },
-      { id: 'Siang kepala saya tidak jalan, jadi ada kalanya pekerjaan yang sama saya kerjakan dua kali.', t: ['昼', 'は', '頭', 'が', '回ら', 'ない', 'から', '、', '同じ', 'こと', 'を', '二度', 'やる', 'こと', 'も', 'ある', '。'] },
-      { id: 'Karena pendinginnya dibiarkan menyala terus, tagihan listriknya dua kali bulan lalu.', t: ['エアコン', 'を', 'つけ', 'っ放し', 'に', 'して', 'いる', 'から', '、', '電気', 'の', '請求', 'が', '先月', 'の', '倍', 'だ', '。'] },
-      { id: 'Bukannya ingin tahu cara supaya sejuk, saya hanya ingin mengeluh saja.', t: ['涼しく', 'なる', '方法', 'を', '聞きたい', 'わけ', 'じゃ', 'なくて', '、', 'ただ', '愚痴', 'を', '言いたい', 'だけ', '。'] },
+      { id: 'Panas ini sudah tidak tertahankan lagi.', en: 'This heat is really getting to me now.', t: ['この', '暑さ', 'は', '、', 'もう', '体', 'に', 'こたえる', 'よ', '。'] },
+      { id: 'Malam pun suhunya tidak turun, jadi saya terbangun berkali-kali.', en: 'The temperature doesn\'t drop at night either, so I keep waking up.', t: ['夜', 'も', '気温', 'が', '下がら', 'ない', 'から', '、', '何度', 'も', '目', 'が', '覚めて', 'しまう', '。'] },
+      { id: 'Siang kepala saya tidak jalan, jadi ada kalanya pekerjaan yang sama saya kerjakan dua kali.', en: 'My head doesn\'t work in the daytime, so sometimes I do the same thing twice.', t: ['昼', 'は', '頭', 'が', '回ら', 'ない', 'から', '、', '同じ', 'こと', 'を', '二度', 'やる', 'こと', 'も', 'ある', '。'] },
+      { id: 'Karena pendinginnya dibiarkan menyala terus, tagihan listriknya dua kali bulan lalu.', en: 'The air conditioning is on the whole time, so the electricity bill is double last month\'s.', t: ['エアコン', 'を', 'つけ', 'っ放し', 'に', 'して', 'いる', 'から', '、', '電気', 'の', '請求', 'が', '先月', 'の', '倍', 'だ', '。'] },
+      { id: 'Bukannya ingin tahu cara supaya sejuk, saya hanya ingin mengeluh saja.', en: 'It\'s not that I want to know how to cool down, I just want to complain.', t: ['涼しく', 'なる', '方法', 'を', '聞きたい', 'わけ', 'じゃ', 'なくて', '、', 'ただ', '愚痴', 'を', '言いたい', 'だけ', '。'] },
     ]
   },
   {
@@ -104,11 +104,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan seperti ini mengakui pembatalannya masuk akal, dan hanya menuntut waktunya, sehingga tidak terbaca sebagai pembelaan diri.',
     noteEn: 'A complaint like this grants the cancellation was sensible and only challenges the timing, so it does not read as self-defence.',
     blocks: [
-      { id: 'Soal kemarin, ada sedikit yang ingin saya sampaikan.', t: ['昨日', 'の', '件', 'で', '、', '少し', 'だけ', 'お伝え', 'したい', 'こと', 'が', 'あります', '。'] },
-      { id: 'Dibatalkan karena hujan itu sendiri saya rasa tidak bisa dihindari.', t: ['雨', 'で', '中止', 'に', 'なった', 'こと', '自体', 'は', '、', '仕方', 'ない', 'と', '思って', 'います', '。'] },
-      { id: 'Hanya saja, kabarnya datang sepuluh menit sebelum berangkat.', t: ['ただ', '、', '連絡', 'が', '来た', 'の', 'は', '出発', 'の', '十分', '前', 'でした', '。'] },
-      { id: 'Saya sudah dalam perjalanan ke stasiun, dan pulangnya perlu satu jam.', t: ['私', 'は', 'もう', '駅', 'に', '向かって', 'いて', '、', '戻る', 'の', 'に', '一', '時間', 'かかり', 'ました', '。'] },
-      { id: 'Waktu memutuskan, akan sangat membantu kalau diberi tahu sejak malam sebelumnya.', t: ['決める', 'とき', 'は', '、', '前日', 'の', '夜', 'まで', 'に', '教えて', 'いただける', 'と', '助かり', 'ます', '。'] },
+      { id: 'Soal kemarin, ada sedikit yang ingin saya sampaikan.', en: 'About yesterday, there\'s something I\'d like to say.', t: ['昨日', 'の', '件', 'で', '、', '少し', 'だけ', 'お伝え', 'したい', 'こと', 'が', 'あります', '。'] },
+      { id: 'Dibatalkan karena hujan itu sendiri saya rasa tidak bisa dihindari.', en: 'The cancellation itself because of the rain I accept as unavoidable.', t: ['雨', 'で', '中止', 'に', 'なった', 'こと', '自体', 'は', '、', '仕方', 'ない', 'と', '思って', 'います', '。'] },
+      { id: 'Hanya saja, kabarnya datang sepuluh menit sebelum berangkat.', en: 'It\'s just that the message came ten minutes before departure.', t: ['ただ', '、', '連絡', 'が', '来た', 'の', 'は', '出発', 'の', '十分', '前', 'でした', '。'] },
+      { id: 'Saya sudah dalam perjalanan ke stasiun, dan pulangnya perlu satu jam.', en: 'I was already heading for the station, and getting back took an hour.', t: ['私', 'は', 'もう', '駅', 'に', '向かって', 'いて', '、', '戻る', 'の', 'に', '一', '時間', 'かかり', 'ました', '。'] },
+      { id: 'Waktu memutuskan, akan sangat membantu kalau diberi tahu sejak malam sebelumnya.', en: 'When you decide, it would help if you could let me know by the night before.', t: ['決める', 'とき', 'は', '、', '前日', 'の', '夜', 'まで', 'に', '教えて', 'いただける', 'と', '助かり', 'ます', '。'] },
     ]
   },
   {
@@ -122,11 +122,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Penjelasan yang berguna menyebut kesalahpahaman yang paling sering, yaitu hari yang dianggap minggu depan.',
     noteEn: 'A useful explanation names the most frequent misunderstanding, the day heard as next week.',
     blocks: [
-      { id: ['Kalau dikatakan Jumat, biasanya yang dimaksud Jumat minggu ini.', 'Kalau minggu depan, dikatakan Jumat minggu depan.'], t: ['「', '金曜', '」', 'と', '言う', 'と', '、', '普通', 'は', '今週', 'の', '金曜', 'を', '指し', 'ます', '。', '来週', 'なら', '「', '来週', 'の', '金曜', '」', 'です', '。'] },
-      { id: 'Kalau tanggalnya belum pasti, mengatakan minggu ini kapan saja mengurangi salah paham.', t: ['日にち', 'が', '決まって', 'いない', 'とき', 'は', '、', '「', '今週', 'の', 'どこ', 'か', '」', 'と', '言う', 'と', '誤解', 'が', '減り', 'ます', '。'] },
-      { id: 'Untuk jam, memberi rentang seperti sekitar jam tiga membuat orang lebih jarang menunggu.', t: ['時間', 'は', '、', '「', '三時', 'ごろ', '」', 'の', 'よう', 'に', '幅', 'を', '持たせた', '方', 'が', '、', '待たせる', 'こと', 'が', '少なく', 'なります', '。'] },
-      { id: 'Kalau hanya siang, rentangnya terlalu lebar, jadi lebih pasti kalau dibatasi dari jam satu sampai jam tiga.', t: ['「', '午後', '」', 'だけ', 'で', 'は', '幅', 'が', '広すぎ', 'る', 'ので', '、', '「', '一時', 'から', '三時', '」', 'と', '区切る', 'と', '確か', 'です', '。'] },
-      { id: 'Kalau lawan bicaranya sedang buru-buru, menyebut tanggalnya lebih dulu lebih tersampaikan.', t: ['相手', 'が', '急いで', 'いる', 'とき', 'は', '、', '日付', 'から', '言う', 'と', '伝わり', 'ます', '。'] },
+      { id: ['Kalau dikatakan Jumat, biasanya yang dimaksud Jumat minggu ini.', 'Kalau minggu depan, dikatakan Jumat minggu depan.'], en: ['If you say Friday, it usually means this Friday.', 'For next week, it\'s Friday next week.'], t: ['「', '金曜', '」', 'と', '言う', 'と', '、', '普通', 'は', '今週', 'の', '金曜', 'を', '指し', 'ます', '。', '来週', 'なら', '「', '来週', 'の', '金曜', '」', 'です', '。'] },
+      { id: 'Kalau tanggalnya belum pasti, mengatakan minggu ini kapan saja mengurangi salah paham.', en: 'When the date isn\'t fixed, saying sometime this week reduces misunderstandings.', t: ['日にち', 'が', '決まって', 'いない', 'とき', 'は', '、', '「', '今週', 'の', 'どこ', 'か', '」', 'と', '言う', 'と', '誤解', 'が', '減り', 'ます', '。'] },
+      { id: 'Untuk jam, memberi rentang seperti sekitar jam tiga membuat orang lebih jarang menunggu.', en: 'For times, giving a range such as around three keeps people from waiting.', t: ['時間', 'は', '、', '「', '三時', 'ごろ', '」', 'の', 'よう', 'に', '幅', 'を', '持たせた', '方', 'が', '、', '待たせる', 'こと', 'が', '少なく', 'なります', '。'] },
+      { id: 'Kalau hanya siang, rentangnya terlalu lebar, jadi lebih pasti kalau dibatasi dari jam satu sampai jam tiga.', en: 'If you only say afternoon, the range is too wide, so from one until three is more reliable.', t: ['「', '午後', '」', 'だけ', 'で', 'は', '幅', 'が', '広すぎ', 'る', 'ので', '、', '「', '一時', 'から', '三時', '」', 'と', '区切る', 'と', '確か', 'です', '。'] },
+      { id: 'Kalau lawan bicaranya sedang buru-buru, menyebut tanggalnya lebih dulu lebih tersampaikan.', en: 'When the other person is in a hurry, starting with the date gets through better.', t: ['相手', 'が', '急いで', 'いる', 'とき', 'は', '、', '日付', 'から', '言う', 'と', '伝わり', 'ます', '。'] },
     ]
   },
   {
@@ -140,11 +140,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Laporan yang berguna menyebut tiga hal sekaligus: yang batal, penggantinya, dan yang tidak berubah, karena yang terakhir itu yang paling sering ditanyakan.',
     noteEn: 'A useful report gives three things at once: what is off, what replaces it, and what is unchanged, because the last is what people ask about most.',
     blocks: [
-      { id: 'Soal hujan, saya menghubungi tentang rencana siang ini.', t: ['雨', 'の', '件', 'で、', '午後', 'の', '予定', 'について', 'ご連絡', 'します。'] },
-      { id: 'Rencana berkeliling di luar dibatalkan karena hujan ini.', t: ['外', 'を', '回る', '予定', 'は、', 'この', '雨', 'で', '中止', 'に', 'します。'] },
-      { id: 'Sebagai gantinya, pada jam yang sama kami laksanakan di ruang rapat depan stasiun.', t: ['代わり', 'に、', '同じ', '時間', 'に、', '駅前', 'の', '会議室', 'で', '行い', 'ます。'] },
-      { id: ['Jam kumpul dan jumlah orangnya tidak berubah.', 'Yang berubah hanya tempatnya.'], t: ['集まる', '時間', 'と', '人数', 'は', '変わり', 'ません。', '変わる', 'の', 'は', '場所', 'だけ', 'です。'] },
-      { id: 'Karena jalannya licin, akan sangat membantu kalau berangkat sedikit lebih awal.', t: ['足元', 'が', '悪い', 'ので、', '少し', '早め', 'に', '出て', 'いただける', 'と', '助かり', 'ます。'] },
+      { id: 'Soal hujan, saya menghubungi tentang rencana siang ini.', en: 'About the rain, I\'m getting in touch regarding this afternoon\'s plan.', t: ['雨', 'の', '件', 'で、', '午後', 'の', '予定', 'について', 'ご連絡', 'します。'] },
+      { id: 'Rencana berkeliling di luar dibatalkan karena hujan ini.', en: 'The plan to go around outside is cancelled because of this rain.', t: ['外', 'を', '回る', '予定', 'は、', 'この', '雨', 'で', '中止', 'に', 'します。'] },
+      { id: 'Sebagai gantinya, pada jam yang sama kami laksanakan di ruang rapat depan stasiun.', en: 'Instead, we\'ll hold it at the same time in the meeting room in front of the station.', t: ['代わり', 'に、', '同じ', '時間', 'に、', '駅前', 'の', '会議室', 'で', '行い', 'ます。'] },
+      { id: ['Jam kumpul dan jumlah orangnya tidak berubah.', 'Yang berubah hanya tempatnya.'], en: ['The meeting time and the number of people are unchanged.', 'Only the place changes.'], t: ['集まる', '時間', 'と', '人数', 'は', '変わり', 'ません。', '変わる', 'の', 'は', '場所', 'だけ', 'です。'] },
+      { id: 'Karena jalannya licin, akan sangat membantu kalau berangkat sedikit lebih awal.', en: 'The ground is slippery, so it would help if you set out a little earlier.', t: ['足元', 'が', '悪い', 'ので、', '少し', '早め', 'に', '出て', 'いただける', 'と', '助かり', 'ます。'] },
     ]
   },
   {
@@ -158,11 +158,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Rencana seperti ini menyebut jam keputusannya, supaya tidak ada yang menunggu kabar.',
     noteEn: 'A plan like this gives the hour of the decision, so nobody is left waiting for word.',
     blocks: [
-      { id: 'Untuk besok, mari siapkan dua pilihan: rencana ke luar dan rencana di rumah.', t: ['明日', 'は', '、', '外', 'に', '行く', '案', 'と', '家', 'に', 'いる', '案', 'を', '両方', '用意', 'しよう', '。'] },
-      { id: 'Pukul tujuh pagi, kita putuskan dengan melihat peluang hujannya.', t: ['朝', '七時', 'の', '時点', 'で', '、', '降水', '確率', 'を', '見て', '決める', '。'] },
-      { id: 'Kalau cerah, sampai siang di luar, lalu pulang jam tiga.', t: ['晴れ', 'て', 'いれ', 'ば', '、', '昼', 'まで', '外', 'に', 'いて', '、', '三時', 'に', '帰る', '。'] },
-      { id: 'Kalau hujan, selesaikan di dekat stasiun, dan siangnya beristirahat di rumah.', t: ['雨', 'なら', '、', '駅', 'の', '近く', 'で', '済ませて', '、', '午後', 'は', '家', 'で', '休む', '。'] },
-      { id: 'Saya yang memeriksa jam tujuh, dan langsung mengirim pilihan yang diambil.', t: ['私', 'が', '七時', 'に', '調べて', '、', 'どちら', 'に', 'する', 'か', 'を', 'すぐ', 'に', '送る', 'ね', '。'] },
+      { id: 'Untuk besok, mari siapkan dua pilihan: rencana ke luar dan rencana di rumah.', en: 'For tomorrow, let\'s prepare two options: a plan to go out and a plan to stay home.', t: ['明日', 'は', '、', '外', 'に', '行く', '案', 'と', '家', 'に', 'いる', '案', 'を', '両方', '用意', 'しよう', '。'] },
+      { id: 'Pukul tujuh pagi, kita putuskan dengan melihat peluang hujannya.', en: 'At seven in the morning, we\'ll decide by looking at the chance of rain.', t: ['朝', '七時', 'の', '時点', 'で', '、', '降水', '確率', 'を', '見て', '決める', '。'] },
+      { id: 'Kalau cerah, sampai siang di luar, lalu pulang jam tiga.', en: 'If it\'s clear, stay out until midday, then come back at three.', t: ['晴れ', 'て', 'いれ', 'ば', '、', '昼', 'まで', '外', 'に', 'いて', '、', '三時', 'に', '帰る', '。'] },
+      { id: 'Kalau hujan, selesaikan di dekat stasiun, dan siangnya beristirahat di rumah.', en: 'If it rains, finish up near the station and rest at home in the afternoon.', t: ['雨', 'なら', '、', '駅', 'の', '近く', 'で', '済ませて', '、', '午後', 'は', '家', 'で', '休む', '。'] },
+      { id: 'Saya yang memeriksa jam tujuh, dan langsung mengirim pilihan yang diambil.', en: 'I\'ll check at seven and send you which one straight away.', t: ['私', 'が', '七時', 'に', '調べて', '、', 'どちら', 'に', 'する', 'か', 'を', 'すぐ', 'に', '送る', 'ね', '。'] },
     ]
   },
   {
@@ -176,11 +176,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Nasihat yang berguna menyebut cara yang bisa dilakukan, bukan hanya menyuruh berhati-hati.',
     noteEn: 'Useful advice gives something to do, not merely telling them to be careful.',
     blocks: [
-      { id: 'Ramalan cuaca itu sayang kalau hanya dipandang sambil lalu.', t: ['天気予報', 'は', '、', '軽く', '見る', 'だけ', 'で', 'は', 'もったいない', 'よ', '。'] },
-      { id: 'Walau paginya cerah, hujan sore sering kali sudah ada di ramalannya.', t: ['朝', 'が', '晴れて', 'いて', 'も', '、', '午後', 'の', '雨', 'が', '予報', 'に', '出て', 'いる', 'こと', 'が', '多い', '。'] },
-      { id: 'Kalau malam sebelumnya payung lipat dimasukkan ke tas, lebih tenang.', t: ['前', 'の', '夜', 'に', '、', 'かばん', 'に', '折りたたみ', 'の', '傘', 'を', '入れて', 'おく', 'と', '安心', 'だ', 'よ', '。'] },
-      { id: 'Karena hari hujan jalannya padat, waktu berangkat pun dimajukan lima belas menit.', t: ['雨', 'の', '日', 'は', '道', 'が', '混む', 'から', '、', '家', 'を', '出る', '時間', 'も', '十五', '分', '早め', 'に', 'する', '。'] },
-      { id: 'Hanya dengan memutuskan ini, Anda tidak akan berlari dengan badan basah kuyup lagi.', t: ['これを', '決めて', 'おく', 'だけで', '、', 'びしょ濡れ', 'で', '走る', 'こと', 'が', 'なく', 'なります', '。'] },
+      { id: 'Ramalan cuaca itu sayang kalau hanya dipandang sambil lalu.', en: 'It\'s a waste to treat the forecast as something to glance at.', t: ['天気予報', 'は', '、', '軽く', '見る', 'だけ', 'で', 'は', 'もったいない', 'よ', '。'] },
+      { id: 'Walau paginya cerah, hujan sore sering kali sudah ada di ramalannya.', en: 'Even if the morning is clear, afternoon rain is often already in the forecast.', t: ['朝', 'が', '晴れて', 'いて', 'も', '、', '午後', 'の', '雨', 'が', '予報', 'に', '出て', 'いる', 'こと', 'が', '多い', '。'] },
+      { id: 'Kalau malam sebelumnya payung lipat dimasukkan ke tas, lebih tenang.', en: 'If you put a folding umbrella in your bag the night before, you\'re safer.', t: ['前', 'の', '夜', 'に', '、', 'かばん', 'に', '折りたたみ', 'の', '傘', 'を', '入れて', 'おく', 'と', '安心', 'だ', 'よ', '。'] },
+      { id: 'Karena hari hujan jalannya padat, waktu berangkat pun dimajukan lima belas menit.', en: 'Roads get busy on rainy days, so set out fifteen minutes earlier too.', t: ['雨', 'の', '日', 'は', '道', 'が', '混む', 'から', '、', '家', 'を', '出る', '時間', 'も', '十五', '分', '早め', 'に', 'する', '。'] },
+      { id: 'Hanya dengan memutuskan ini, Anda tidak akan berlari dengan badan basah kuyup lagi.', en: 'Just deciding this means you won\'t be running around soaked again.', t: ['これを', '決めて', 'おく', 'だけで', '、', 'びしょ濡れ', 'で', '走る', 'こと', 'が', 'なく', 'なります', '。'] },
     ]
   },
   {
@@ -194,11 +194,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Permintaan penggeseran diterima karena hari penggantinya disebut sekaligus, bukan hanya alasan hujan.',
     noteEn: 'A request to move is granted because the replacement days come with it, not only the reason.',
     blocks: [
-      { id: 'Soal hari Sabtu, boleh digeser sehari?', t: ['土曜', 'の', 'こと', 'な', 'ん', 'だけど', '、', '一日', 'ずらし', 'て', 'も', 'いい', 'かな', '。'] },
-      { id: 'Di ramalannya, mulai pagi akan hujan deras.', t: ['予報', 'で', 'は', '、', '午前', 'から', '強い', '雨', 'に', 'なる', 'と', '出て', 'いる', 'んだ', '。'] },
-      { id: 'Rencananya berjalan di luar, jadi saya ingin menghindari basah kuyup.', t: ['外', 'を', '歩く', '予定', 'だった', 'から', '、', 'びしょ濡れ', 'に', 'なる', 'のは', '避け', 'たい', '。'] },
-      { id: 'Kalau hari Minggu atau Sabtu berikutnya, untuk sekarang ramalannya cerah.', t: ['日曜', 'か', '次の', '土曜', 'なら', '、', '今', 'の', 'ところ', '晴れ', 'の', '予報', 'です', '。'] },
-      { id: 'Kalau dua-duanya tidak bisa, bisa juga diubah menjadi rencana di dalam ruangan.', t: ['もし', 'どちら', 'も', '無理', 'なら', '、', '屋内', 'の', '予定', 'に', '変える', 'こと', 'も', 'できます', '。'] },
+      { id: 'Soal hari Sabtu, boleh digeser sehari?', en: 'About Saturday, could we push it back by a day?', t: ['土曜', 'の', 'こと', 'な', 'ん', 'だけど', '、', '一日', 'ずらし', 'て', 'も', 'いい', 'かな', '。'] },
+      { id: 'Di ramalannya, mulai pagi akan hujan deras.', en: 'The forecast says it\'ll rain heavily from the morning.', t: ['予報', 'で', 'は', '、', '午前', 'から', '強い', '雨', 'に', 'なる', 'と', '出て', 'いる', 'んだ', '。'] },
+      { id: 'Rencananya berjalan di luar, jadi saya ingin menghindari basah kuyup.', en: 'The plan was to walk outside, so I\'d like to avoid getting soaked.', t: ['外', 'を', '歩く', '予定', 'だった', 'から', '、', 'びしょ濡れ', 'に', 'なる', 'のは', '避け', 'たい', '。'] },
+      { id: 'Kalau hari Minggu atau Sabtu berikutnya, untuk sekarang ramalannya cerah.', en: 'If it\'s Sunday or the following Saturday, the forecast is clear for now.', t: ['日曜', 'か', '次の', '土曜', 'なら', '、', '今', 'の', 'ところ', '晴れ', 'の', '予報', 'です', '。'] },
+      { id: 'Kalau dua-duanya tidak bisa, bisa juga diubah menjadi rencana di dalam ruangan.', en: 'If neither works, we could also change to something indoors.', t: ['もし', 'どちら', 'も', '無理', 'なら', '、', '屋内', 'の', '予定', 'に', '変える', 'こと', 'も', 'できます', '。'] },
     ]
   },
   {
@@ -212,11 +212,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengalaman yang enak didengar punya tiga bagian: persiapannya, apa yang terjadi, dan keadaan setelahnya.',
     noteEn: 'A good story has three parts: the preparation, what happened, and the aftermath.',
     blocks: [
-      { id: 'Ini kejadian saat taifun besar datang, musim gugur dua tahun lalu.', t: ['一昨年', 'の', '秋', '、', '大きい', '台風', 'が', '来た', 'とき', 'のこと', 'です', '。'] },
-      { id: 'Sehari sebelumnya saya sudah membeli air, senter, dan baterai.', t: ['前', 'の', '日', 'に', '、', '水', 'と', '懐中電灯', 'と', '電池', 'を', '買って', 'おきました', '。'] },
-      { id: 'Malamnya angin menjadi kencang, dan listrik mati sekitar dua jam.', t: ['夜', 'に', 'なって', '風', 'が', '強く', 'なり', '、', '二', '時間', 'ほど', '電気', 'が', '止まり', 'ました', '。'] },
-      { id: 'Karena jendela tidak bisa dibuka, ruangan jadi pengap, tetapi kami bertahan dengan lilin.', t: ['窓', 'を', '開け', 'られ', 'ない', 'ので', '、', '部屋', 'が', '蒸し', 'ました', 'が', '、', 'ろうそく', 'で', 'しのぎ', 'ました', '。'] },
-      { id: 'Keesokan harinya, banyak dahan pohon berserakan di jalan.', t: ['次の', '日', 'は', '、', '道', 'に', '木', 'の', '枝', 'が', 'たくさん', '落ちて', 'いました', '。'] },
+      { id: 'Ini kejadian saat taifun besar datang, musim gugur dua tahun lalu.', en: 'This was when a big typhoon came, in the autumn two years ago.', t: ['一昨年', 'の', '秋', '、', '大きい', '台風', 'が', '来た', 'とき', 'のこと', 'です', '。'] },
+      { id: 'Sehari sebelumnya saya sudah membeli air, senter, dan baterai.', en: 'The day before, I\'d bought water, a torch, and batteries.', t: ['前', 'の', '日', 'に', '、', '水', 'と', '懐中電灯', 'と', '電池', 'を', '買って', 'おきました', '。'] },
+      { id: 'Malamnya angin menjadi kencang, dan listrik mati sekitar dua jam.', en: 'At night the wind got stronger, and the power was out for about two hours.', t: ['夜', 'に', 'なって', '風', 'が', '強く', 'なり', '、', '二', '時間', 'ほど', '電気', 'が', '止まり', 'ました', '。'] },
+      { id: 'Karena jendela tidak bisa dibuka, ruangan jadi pengap, tetapi kami bertahan dengan lilin.', en: 'We couldn\'t open the windows so the room got stuffy, but we managed with candles.', t: ['窓', 'を', '開け', 'られ', 'ない', 'ので', '、', '部屋', 'が', '蒸し', 'ました', 'が', '、', 'ろうそく', 'で', 'しのぎ', 'ました', '。'] },
+      { id: 'Keesokan harinya, banyak dahan pohon berserakan di jalan.', en: 'The next day, plenty of branches were lying on the road.', t: ['次の', '日', 'は', '、', '道', 'に', '木', 'の', '枝', 'が', 'たくさん', '落ちて', 'いました', '。'] },
     ]
   },
   {
@@ -230,11 +230,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengumuman seperti ini menyebut jam keputusannya, karena itu yang ditunggu orang sebelum berangkat.',
     noteEn: 'An announcement like this gives the hour of the decision, because that is what people wait for before leaving.',
     blocks: [
-      { id: ['Pengumuman untuk seluruh perusahaan.', 'Sehubungan dengan mendekatnya taifun, jam kerja besok diubah.'], t: ['全社', 'のお知らせ', 'です', '。', '台風', 'の', '接近', 'に', 'ともない', '、', '明日', 'の', '勤務', 'を', '変更', 'します', '。'] },
-      { id: 'Jam masuknya dimajukan satu jam menjadi jam delapan, dan jam pulangnya jam tiga.', t: ['始業', 'を', '一時間', '早めて', '八時', 'とし', '、', '終業', 'は', '三時', 'とします', '。'] },
-      { id: 'Bagian yang memungkinkan, silakan beralih bekerja dari rumah.', t: ['可能', 'な', '部署', 'は', '、', '在宅', '勤務', 'に', '切り替えて', 'ください', '。'] },
-      { id: 'Keputusan akhirnya akan diberitahukan di papan pengumuman ini besok pagi jam lima.', t: ['最終', 'の', '判断', 'は', '、', '明日', 'の', '朝', '五時', 'に', 'この', '掲示板', 'で', 'お知らせ', 'します', '。'] },
-      { id: 'Kalau transportasinya berhenti, jangan memaksa masuk kantor, dan hubungi atasan Anda.', t: ['交通機関', 'が', '止まった', '場合', 'は', '、', '無理', 'に', '出社', 'せず', '、', '上長', 'に', '連絡', 'してください', '。'] },
+      { id: ['Pengumuman untuk seluruh perusahaan.', 'Sehubungan dengan mendekatnya taifun, jam kerja besok diubah.'], en: ['An announcement for the whole company.', 'With the typhoon approaching, tomorrow\'s working hours are changed.'], t: ['全社', 'のお知らせ', 'です', '。', '台風', 'の', '接近', 'に', 'ともない', '、', '明日', 'の', '勤務', 'を', '変更', 'します', '。'] },
+      { id: 'Jam masuknya dimajukan satu jam menjadi jam delapan, dan jam pulangnya jam tiga.', en: 'The start is brought forward by an hour to eight, and the finish is three.', t: ['始業', 'を', '一時間', '早めて', '八時', 'とし', '、', '終業', 'は', '三時', 'とします', '。'] },
+      { id: 'Bagian yang memungkinkan, silakan beralih bekerja dari rumah.', en: 'Departments that can, please switch to working from home.', t: ['可能', 'な', '部署', 'は', '、', '在宅', '勤務', 'に', '切り替えて', 'ください', '。'] },
+      { id: 'Keputusan akhirnya akan diberitahukan di papan pengumuman ini besok pagi jam lima.', en: 'The final decision will be announced on this board at five tomorrow morning.', t: ['最終', 'の', '判断', 'は', '、', '明日', 'の', '朝', '五時', 'に', 'この', '掲示板', 'で', 'お知らせ', 'します', '。'] },
+      { id: 'Kalau transportasinya berhenti, jangan memaksa masuk kantor, dan hubungi atasan Anda.', en: 'If transport stops, don\'t force yourself to come in, and contact your manager.', t: ['交通機関', 'が', '止まった', '場合', 'は', '、', '無理', 'に', '出社', 'せず', '、', '上長', 'に', '連絡', 'してください', '。'] },
     ]
   },
 ]);

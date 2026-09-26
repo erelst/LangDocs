@@ -22,10 +22,12 @@
  *
  * A block:
  *   sp   optional speaker, one of the keys in `speakers`. Absent means the narrative's one voice.
- *   id   the translation of this paragraph, one entry per Japanese sentence. A one-sentence
- *        paragraph is written as a plain string. This is what the Translation switch shows under
- *        the paragraph; `id` at the narrative level is a one-line summary and is a different
- *        thing, so it is never used as the translation.
+ *   id   the translation of this paragraph for an Indonesian reader, one entry per Japanese
+ *   en   sentence, and the same for an English reader. A one-sentence paragraph is a plain string.
+ *        The page shows whichever the reader chose, so BOTH are required: storing one and falling
+ *        back is how English mode ended up showing Indonesian. The Translation switch shows this
+ *        under the paragraph. Note that `id` at the narrative level is a one-line SUMMARY of the
+ *        whole piece and is a different thing, never used as a paragraph translation.
  *   t    the tokens of that line, as surfaces:
  *          ["日本語", "gloss (ID)", "gloss (EN)"]  for a word written out in full, or
  *          "日本語"                                  for a word data/lexicon.js already knows

@@ -108,7 +108,8 @@ ruang lingkup, dan dua sakelar yang keduanya **mati secara bawaan**:
 * **Romaji** menampilkan baris romaji di bawah baris kanji.
 * **Terjemahan** menampilkan terjemahan **di bawah setiap paragraf**, satu baris per kalimat
   Jepang, ditambah arti judul dan ringkasan narasi. Terjemahan per paragraf itu disimpan di
-  `id` pada tiap blok, bukan diambil dari ringkasan narasi.
+  `id` **dan** `en` pada tiap blok, bukan diambil dari ringkasan narasi. Keduanya wajib, karena
+  halaman hanya menampilkan bahasa yang dipilih pembaca.
 
 Tidak ada tombol `?` dan tidak ada panel: balon per kata sudah membawa bacaan dan artinya. Daftar
 judul dimuat bertahap saat digulir.

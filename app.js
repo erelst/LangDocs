@@ -219,6 +219,11 @@
     return out;
   }
   function titleOf(s) { return langOf() === 'en' ? (s.judulEn || s.judul) : (s.judul || s.judulEn); }
+  /* The narrative's one-line summary. It is read straight from `en`/`id` rather than through
+   * tr(s, ...): that helper expects a field pair like `sit`/`sitEn`, so asking it for `id` made it
+   * look for `idEn`, which does not exist, and it fell back to the Indonesian `id` in English mode.
+   * The reader picked English and was handed Indonesian, which is the defect V15 exists to stop. */
+  function summaryOf(s) { return langOf() === 'en' ? (s.en || s.id) : (s.id || s.en); }
   /* The title in the language being learned, rendered through the same token renderer as the
    * paragraphs: same per-word colours, same underlines, same bubble on hover. A title is a
    * sentence, so it gets a sentence's treatment; the chosen-language title stays underneath as
@@ -243,11 +248,14 @@
     if (!text) { return ''; }
     return '<div class="' + cls + ' tt">' + esc(text) + '</div>';
   }
-  /* The translation of one paragraph. `block.id` holds one line per Japanese sentence, so the
-   * reader can put each next to the sentence it belongs to; a block written with a single string
-   * is shown as it is. */
+  /* The translation of one paragraph, in the language the reader chose: `block.id` and
+   * `block.en` hold one line per Japanese sentence, so each line sits next to the sentence it
+   * belongs to. A block whose translation is one sentence is stored as a plain string.
+   *
+   * Both languages are stored because the page shows exactly one of them (V15). Falling back to
+   * Indonesian in English mode was a real defect: the reader picks English and gets Indonesian. */
   function blockTrHTML(block) {
-    var v = block.id;
+    var v = block[langOf() === 'en' ? 'en' : 'id'];
     if (!v) { return ''; }
     var lines = Object.prototype.toString.call(v) === '[object Array]' ? v : [v];
     var out = [];
@@ -369,7 +377,7 @@
    * body holds only the piece itself. */
   function narrativeHTML(s) {
     var bs = blocksOf(s);
-    var out = [trLine(tr(s, 'id'), 'sum')];
+    var out = [trLine(summaryOf(s), 'sum')];
     for (var i = 0; i < bs.length; i++) { out.push(blockHTML(s, bs[i], i)); }
     return out.join('');
   }

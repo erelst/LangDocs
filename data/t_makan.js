@@ -41,11 +41,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Yang penting di sini bukan tata bahasanya, melainkan bahwa yang memilih menyebut alasan orang lain lebih dulu daripada seleranya sendiri.',
     noteEn: 'What matters is not the grammar but that the chooser gives the other person\'s reason before their own preference.',
     blocks: [
-      { sp: 'A', id: ['Mau pesan apa?', 'Aku lebih suka yang ikan, kayaknya.'], t: ['何', 'にする', '？', '私', 'は', '魚', 'の', '方', 'が', 'いい', 'かな', '。'] },
-      { sp: 'B', id: 'Aku tidak makan daging, jadi kalau ada ikan, enak.', t: ['私', 'は', '肉', 'は', '食べ', 'ない', 'から', '、', '魚', 'が', 'ある', 'なら', '助かる', '。'] },
-      { sp: 'A', id: ['Kalau begitu, kita ambil set menu ikan bakar ini, ya?', 'Dua-duanya sama, boleh?'], t: ['じゃあ', '、', 'この', '焼き魚', 'の', '定食', 'に', 'しよう', 'か', '。', '二つ', 'とも', '同じ', 'で', 'いい', '？'] },
-      { sp: 'B', id: ['Ya, boleh.', 'Tapi, nasinya minta yang sedikit, ya?'], t: ['うん', '、', 'それ', 'で', 'いい', 'よ', '。', 'ただ', '、', 'ご飯', 'は', '少なめ', 'で', 'お願い', 'して', 'くれる', '？'] },
-      { sp: 'A', id: ['Baik.', 'Aku bilang ke pelayannya.'], t: ['わかった', '。', '店', 'の', '人', 'に', '言って', 'くる', 'ね', '。'] },
+      { sp: 'A', id: ['Mau pesan apa?', 'Aku lebih suka yang ikan, kayaknya.'], en: ['What are you having?', 'I think I\'d rather have the fish.'], t: ['何', 'にする', '？', '私', 'は', '魚', 'の', '方', 'が', 'いい', 'かな', '。'] },
+      { sp: 'B', id: 'Aku tidak makan daging, jadi kalau ada ikan, enak.', en: 'I don\'t eat meat, so if there\'s fish, that works for me.', t: ['私', 'は', '肉', 'は', '食べ', 'ない', 'から', '、', '魚', 'が', 'ある', 'なら', '助かる', '。'] },
+      { sp: 'A', id: ['Kalau begitu, kita ambil set menu ikan bakar ini, ya?', 'Dua-duanya sama, boleh?'], en: ['Then let\'s get this grilled fish set meal, shall we?', 'Are we both getting the same?'], t: ['じゃあ', '、', 'この', '焼き魚', 'の', '定食', 'に', 'しよう', 'か', '。', '二つ', 'とも', '同じ', 'で', 'いい', '？'] },
+      { sp: 'B', id: ['Ya, boleh.', 'Tapi, nasinya minta yang sedikit, ya?'], en: ['Yeah, that\'s fine.', 'But could you ask for a small portion of rice?'], t: ['うん', '、', 'それ', 'で', 'いい', 'よ', '。', 'ただ', '、', 'ご飯', 'は', '少なめ', 'で', 'お願い', 'して', 'くれる', '？'] },
+      { sp: 'A', id: ['Baik.', 'Aku bilang ke pelayannya.'], en: ['Got it.', 'I\'ll go tell the staff.'], t: ['わかった', '。', '店', 'の', '人', 'に', '言って', 'くる', 'ね', '。'] },
     ]
   },
   {
@@ -59,11 +59,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Urutannya diikat ので dan たら, jadi tiap baris menjelaskan baris sebelumnya, bukan hanya menomori.',
     noteEn: 'The order is bound by ので and たら, so each line explains the previous one rather than just numbering it.',
     blocks: [
-      { id: 'Sesampai di depan restoran, ada lima orang yang menunggu, jadi saya tulis nama lalu menunggu di luar.', t: ['店', 'の', '前', 'に', '着いたら', '、', '待って', 'いる', '人', 'が', '五人', 'いた', 'ので', '、', '名前', 'を', '書いて', '外', 'で', '待ちました', '。'] },
-      { id: 'Sekitar sepuluh menit kemudian kami diantar ke meja, dan pertama-tama saya memesan minuman.', t: ['十分', 'ほど', 'で', '席', 'に', '案内', 'されて', '、', 'まず', '飲み物', 'を', '頼みました', '。'] },
-      { id: 'Makanannya datang lebih cepat dari dugaan, sampai waktu bicara terasa kurang.', t: ['料理', 'は', '思った', 'より', '早く', '来た', 'ので', '、', '話す', '時間', 'が', '少なかった', 'くらい', 'です', '。'] },
-      { id: 'Waktu terakhir saya minta bonnya, saya diberi tahu bahwa di sini hanya bisa bayar tunai.', t: ['最後', 'に', '会計', 'を', 'お願い', 'したら', '、', '現金', 'しか', '使えない', 'と', '言われました', '。'] },
-      { id: 'Kami berdua hanya punya satu lembar uang seribu yen, jadi kami putuskan membayar setengah-setengah.', t: ['二人', 'とも', '千円札', 'が', '一枚', 'しか', 'なかった', 'ので', '、', '半分', 'ずつ', '払う', 'こと', 'に', 'しました', '。'] },
+      { id: 'Sesampai di depan restoran, ada lima orang yang menunggu, jadi saya tulis nama lalu menunggu di luar.', en: 'When we got to the front of the restaurant, five people were waiting, so I wrote down my name and waited outside.', t: ['店', 'の', '前', 'に', '着いたら', '、', '待って', 'いる', '人', 'が', '五人', 'いた', 'ので', '、', '名前', 'を', '書いて', '外', 'で', '待ちました', '。'] },
+      { id: 'Sekitar sepuluh menit kemudian kami diantar ke meja, dan pertama-tama saya memesan minuman.', en: 'We were shown to a table after about ten minutes, and first of all I ordered a drink.', t: ['十分', 'ほど', 'で', '席', 'に', '案内', 'されて', '、', 'まず', '飲み物', 'を', '頼みました', '。'] },
+      { id: 'Makanannya datang lebih cepat dari dugaan, sampai waktu bicara terasa kurang.', en: 'The food came faster than I expected, so much so that we barely had time to talk.', t: ['料理', 'は', '思った', 'より', '早く', '来た', 'ので', '、', '話す', '時間', 'が', '少なかった', 'くらい', 'です', '。'] },
+      { id: 'Waktu terakhir saya minta bonnya, saya diberi tahu bahwa di sini hanya bisa bayar tunai.', en: 'When I finally asked for the bill, I was told they only took cash.', t: ['最後', 'に', '会計', 'を', 'お願い', 'したら', '、', '現金', 'しか', '使えない', 'と', '言われました', '。'] },
+      { id: 'Kami berdua hanya punya satu lembar uang seribu yen, jadi kami putuskan membayar setengah-setengah.', en: 'We each had only one thousand-yen note, so we decided to split the payment in half.', t: ['二人', 'とも', '千円札', 'が', '一枚', 'しか', 'なかった', 'ので', '、', '半分', 'ずつ', '払う', 'こと', 'に', 'しました', '。'] },
     ]
   },
   {
@@ -77,11 +77,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Bentuk biasa dan tanpa permintaan solusi; itu yang membedakan curhatan dari keluhan resmi.',
     noteEn: 'Plain style with no request for a solution: that is what separates venting from a formal complaint.',
     blocks: [
-      { id: 'Pagi saya tidak makan, siang pun saya lewati dengan ringan, tetapi begitu malam saya sudah tidak tahan.', t: ['朝', 'は', '食べ', 'ない', 'で', '、', '昼', 'も', '軽く', '済ませて', 'いる', 'ん', 'だけど', '、', '夜', 'に', 'なる', 'と', 'もう', '無理', 'なん', 'だ', 'よ', '。'] },
-      { id: 'Karena terlalu lapar, kadang saya makan sambil berdiri di depan kulkas.', t: ['お腹', 'が', '空きすぎて', '、', '冷蔵庫', 'の', '前', 'で', '立った', 'まま', '食べて', 'しまう', 'こと', 'も', 'ある', '。'] },
-      { id: 'Besoknya saya menyesal, tetapi hal yang sama saya ulangi lagi.', t: ['次の日', 'は', '後悔', 'する', 'ん', 'だけど', '、', 'また', '同じ', 'こと', 'を', '繰り返す', 'ん', 'だ', '。'] },
-      { id: 'Keinginan untuk kurus itu sungguh ada, tetapi badan tidak mau menurut.', t: ['痩せたい', '気持ち', 'は', '本当に', 'ある', 'のに', '、', '体', 'が', '言う', 'こと', 'を', '聞か', 'ない', '。'] },
-      { id: 'Bukannya minta caranya, saya hanya ingin didengarkan seseorang.', t: ['別に', '方法', 'を', '教えて', 'ほしい', 'わけ', 'じゃ', 'なくて', '、', 'ただ', '誰か', 'に', '聞いて', 'ほしい', 'だけ', '。'] },
+      { id: 'Pagi saya tidak makan, siang pun saya lewati dengan ringan, tetapi begitu malam saya sudah tidak tahan.', en: 'I skip breakfast and keep lunch light, but once it gets to evening I just can\'t hold out.', t: ['朝', 'は', '食べ', 'ない', 'で', '、', '昼', 'も', '軽く', '済ませて', 'いる', 'ん', 'だけど', '、', '夜', 'に', 'なる', 'と', 'もう', '無理', 'なん', 'だ', 'よ', '。'] },
+      { id: 'Karena terlalu lapar, kadang saya makan sambil berdiri di depan kulkas.', en: 'I get so hungry that sometimes I eat standing in front of the fridge.', t: ['お腹', 'が', '空きすぎて', '、', '冷蔵庫', 'の', '前', 'で', '立った', 'まま', '食べて', 'しまう', 'こと', 'も', 'ある', '。'] },
+      { id: 'Besoknya saya menyesal, tetapi hal yang sama saya ulangi lagi.', en: 'The next day I regret it, and then I do the same thing all over again.', t: ['次の日', 'は', '後悔', 'する', 'ん', 'だけど', '、', 'また', '同じ', 'こと', 'を', '繰り返す', 'ん', 'だ', '。'] },
+      { id: 'Keinginan untuk kurus itu sungguh ada, tetapi badan tidak mau menurut.', en: 'I really do want to lose weight, but my body won\'t listen to me.', t: ['痩せたい', '気持ち', 'は', '本当に', 'ある', 'のに', '、', '体', 'が', '言う', 'こと', 'を', '聞か', 'ない', '。'] },
+      { id: 'Bukannya minta caranya, saya hanya ingin didengarkan seseorang.', en: 'It\'s not that I want you to tell me how, I just want someone to hear me out.', t: ['別に', '方法', 'を', '教えて', 'ほしい', 'わけ', 'じゃ', 'なくて', '、', 'ただ', '誰か', 'に', '聞いて', 'ほしい', 'だけ', '。'] },
     ]
   },
   {
@@ -95,11 +95,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan yang bisa ditindaklanjuti menyebut pesanan, kejadian, lalu permintaannya, dalam urutan itu, tanpa menyerang orangnya.',
     noteEn: 'An actionable complaint states the order, what happened, then the request, in that order, without attacking the person.',
     blocks: [
-      { id: 'Maaf, ada sedikit yang ingin saya sampaikan.', t: ['すみません', '、', '少し', 'お願い', 'が', 'ある', 'の', 'です', 'が', '。'] },
-      { id: 'Waktu memesan, saya sudah bilang supaya bawang bombainya dihilangkan, tetapi yang ini sepertinya ada.', t: ['注文', 'の', 'とき', 'に', '、', '玉ねぎ', 'を', '抜いて', 'もらう', 'ように', 'お伝え', 'した', 'の', 'です', 'が', '、', 'こちら', 'に', 'は', '入って', 'いる', 'よう', 'です', '。'] },
-      { id: 'Karena bukan alergi, tidak apa-apa, tetapi kalau begini saya tidak bisa makan.', t: ['アレルギー', 'で', 'は', 'ない', 'ので', '大丈夫', 'です', 'が', '、', 'この', 'まま', 'だ', 'と', '食べられ', 'ません', '。'] },
-      { id: 'Bisa ditukar dengan yang sama, tanpa bawang bombai?', t: ['同じ', 'もの', 'で', '、', '玉ねぎ', 'なし', 'の', 'もの', 'に', '替えて', 'いただけ', 'ます', 'か', '。'] },
-      { id: 'Kalau perlu waktu lama, diganti dengan yang lain pun tidak apa-apa.', t: ['時間', 'が', 'かかる', 'なら', '、', '別', 'の', 'もの', 'に', '変えて', 'もらって', 'も', 'いい', 'です', '。'] },
+      { id: 'Maaf, ada sedikit yang ingin saya sampaikan.', en: 'Excuse me, there\'s something I\'d like to ask about.', t: ['すみません', '、', '少し', 'お願い', 'が', 'ある', 'の', 'です', 'が', '。'] },
+      { id: 'Waktu memesan, saya sudah bilang supaya bawang bombainya dihilangkan, tetapi yang ini sepertinya ada.', en: 'When I ordered, I asked for the onion to be left out, but this one seems to have it.', t: ['注文', 'の', 'とき', 'に', '、', '玉ねぎ', 'を', '抜いて', 'もらう', 'ように', 'お伝え', 'した', 'の', 'です', 'が', '、', 'こちら', 'に', 'は', '入って', 'いる', 'よう', 'です', '。'] },
+      { id: 'Karena bukan alergi, tidak apa-apa, tetapi kalau begini saya tidak bisa makan.', en: 'It\'s not an allergy so it\'s not dangerous, but like this I can\'t eat it.', t: ['アレルギー', 'で', 'は', 'ない', 'ので', '大丈夫', 'です', 'が', '、', 'この', 'まま', 'だ', 'と', '食べられ', 'ません', '。'] },
+      { id: 'Bisa ditukar dengan yang sama, tanpa bawang bombai?', en: 'Could you swap it for the same dish without the onion?', t: ['同じ', 'もの', 'で', '、', '玉ねぎ', 'なし', 'の', 'もの', 'に', '替えて', 'いただけ', 'ます', 'か', '。'] },
+      { id: 'Kalau perlu waktu lama, diganti dengan yang lain pun tidak apa-apa.', en: 'If that takes a long time, I don\'t mind changing to something else.', t: ['時間', 'が', 'かかる', 'なら', '、', '別', 'の', 'もの', 'に', '変えて', 'もらって', 'も', 'いい', 'です', '。'] },
     ]
   },
   {
@@ -113,11 +113,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Penjelasan yang berguna menjawab keraguan pembacanya lebih dulu, baru menyebut caranya.',
     noteEn: 'A useful explanation answers the listener\'s doubt first, then gives the method.',
     blocks: [
-      { id: 'Pertama, mie ini tidak apa-apa dimakan sambil bersuara.', t: ['まず', '、', 'この', '麺', 'は', '音', 'を', '立てて', '食べて', 'も', '大丈夫', 'です', '。'] },
-      { id: 'Di Jepang, bersuara bukan berarti tidak sopan, karena itu tanda bahwa makanannya enak.', t: ['日本', 'で', 'は', '、', '音', 'を', '立てる', 'の', 'は', '失礼', 'で', 'は', 'なく', '、', 'おいしい', 'という', '合図', 'だ', 'から', 'です', '。'] },
-      { id: 'Setelah isinya habis, kuahnya boleh diminum langsung dari mangkuknya.', t: ['具', 'を', '食べ終わったら', '、', '丼', 'を', '持って', 'スープ', 'を', '直接', '飲んで', 'も', 'かまいません', '。'] },
-      { id: 'Hanya saja, biasanya mangkuknya dipegang dengan dua tangan, dan kalau diangkat dengan satu tangan terlihat tidak stabil.', t: ['ただし', '、', '両手', 'で', '持つ', 'の', 'が', '普通', 'で', '、', '片手', 'で', '持ち上げる', 'と', '不安定', 'に', '見え', 'ます', '。'] },
-      { id: 'Kalau tetap sulit dimakan, minta sendok sup, nanti pelayannya membawakan.', t: ['どうしても', '食べにくけれ', 'ば', '、', 'レンゲ', 'を', '頼めば', '店', 'の', '人', 'が', '持って', 'きて', 'くれます', '。'] },
+      { id: 'Pertama, mie ini tidak apa-apa dimakan sambil bersuara.', en: 'First, it\'s perfectly fine to eat these noodles while making slurping sounds.', t: ['まず', '、', 'この', '麺', 'は', '音', 'を', '立てて', '食べて', 'も', '大丈夫', 'です', '。'] },
+      { id: 'Di Jepang, bersuara bukan berarti tidak sopan, karena itu tanda bahwa makanannya enak.', en: 'In Japan, slurping isn\'t rude, because it\'s a sign that the food is good.', t: ['日本', 'で', 'は', '、', '音', 'を', '立てる', 'の', 'は', '失礼', 'で', 'は', 'なく', '、', 'おいしい', 'という', '合図', 'だ', 'から', 'です', '。'] },
+      { id: 'Setelah isinya habis, kuahnya boleh diminum langsung dari mangkuknya.', en: 'Once you\'ve finished the toppings, you can hold the bowl and drink the soup straight from it.', t: ['具', 'を', '食べ終わったら', '、', '丼', 'を', '持って', 'スープ', 'を', '直接', '飲んで', 'も', 'かまいません', '。'] },
+      { id: 'Hanya saja, biasanya mangkuknya dipegang dengan dua tangan, dan kalau diangkat dengan satu tangan terlihat tidak stabil.', en: 'However, it\'s usual to hold it with both hands, and lifting it with one hand looks unsteady.', t: ['ただし', '、', '両手', 'で', '持つ', 'の', 'が', '普通', 'で', '、', '片手', 'で', '持ち上げる', 'と', '不安定', 'に', '見え', 'ます', '。'] },
+      { id: 'Kalau tetap sulit dimakan, minta sendok sup, nanti pelayannya membawakan.', en: 'If you really find it hard to eat, ask for a spoon and the staff will bring you one.', t: ['どうしても', '食べにくけれ', 'ば', '、', 'レンゲ', 'を', '頼めば', '店', 'の', '人', 'が', '持って', 'きて', 'くれます', '。'] },
     ]
   },
   {
@@ -131,11 +131,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Laporan di rumah menyebut apa yang sudah, apa yang belum, dan apa yang perlu dilakukan orang lain.',
     noteEn: 'A report at home states what is done, what is not, and what others need to do.',
     blocks: [
-      { id: ['Makanannya sudah jadi.', 'Sekarang semuanya masih panas, jadi makan dulu saja.'], t: ['ご飯', 'できた', 'よ', '。', '今', '、', '全部', '温かい', 'から', '、', '先に', '食べて', 'て', '。'] },
-      { id: 'Ayah belum pulang, tetapi tadi ada kabar, katanya sekitar jam delapan.', t: ['お父さん', 'は', 'まだ', '帰って', 'ない', 'けど', '、', '連絡', 'が', 'あって', '八時', 'ごろ', 'に', 'なる', 'って', '。'] },
-      { id: 'Bagian ayah sudah saya sisihkan, jadi tidak perlu khawatir.', t: ['お父さん', 'の', '分', 'は', '別に', '取って', 'ある', 'から', '、', '心配', 'しなくて', 'いい', '。'] },
-      { id: 'Supnya berubah rasa kalau sudah dingin, jadi ini minum dulu saja.', t: ['スープ', 'は', '冷める', 'と', '味', 'が', '変わる', 'から', '、', 'これ', 'は', '先に', '飲んで', 'しまって', '。'] },
-      { id: 'Kalau sudah selesai makan, taruh saja piringnya di wastafel.', t: ['食べ終わったら', '、', '皿', 'は', '流し', 'に', '置いて', 'おいて', 'くれれば', 'いい', 'から', 'ね', '。'] },
+      { id: ['Makanannya sudah jadi.', 'Sekarang semuanya masih panas, jadi makan dulu saja.'], en: ['Dinner\'s ready.', 'Everything\'s still hot right now, so go ahead and start eating.'], t: ['ご飯', 'できた', 'よ', '。', '今', '、', '全部', '温かい', 'から', '、', '先に', '食べて', 'て', '。'] },
+      { id: 'Ayah belum pulang, tetapi tadi ada kabar, katanya sekitar jam delapan.', en: 'Dad isn\'t home yet, but he got in touch and said it\'ll be around eight.', t: ['お父さん', 'は', 'まだ', '帰って', 'ない', 'けど', '、', '連絡', 'が', 'あって', '八時', 'ごろ', 'に', 'なる', 'って', '。'] },
+      { id: 'Bagian ayah sudah saya sisihkan, jadi tidak perlu khawatir.', en: 'I\'ve set Dad\'s portion aside, so you don\'t need to worry.', t: ['お父さん', 'の', '分', 'は', '別に', '取って', 'ある', 'から', '、', '心配', 'しなくて', 'いい', '。'] },
+      { id: 'Supnya berubah rasa kalau sudah dingin, jadi ini minum dulu saja.', en: 'The soup changes taste once it cools, so drink that first.', t: ['スープ', 'は', '冷める', 'と', '味', 'が', '変わる', 'から', '、', 'これ', 'は', '先に', '飲んで', 'しまって', '。'] },
+      { id: 'Kalau sudah selesai makan, taruh saja piringnya di wastafel.', en: 'When you\'re done eating, just leave the plates in the sink.', t: ['食べ終わったら', '、', '皿', 'は', '流し', 'に', '置いて', 'おいて', 'くれれば', 'いい', 'から', 'ね', '。'] },
     ]
   },
   {
@@ -149,11 +149,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Rencana yang berguna menyebut jam, jumlah orang, dan siapa yang mengurus pemesanan.',
     noteEn: 'A useful plan states the time, the number of people, and who is making the booking.',
     blocks: [
-      { id: 'Kalau Jumat malam makan berenam, sebaiknya restorannya diputuskan minggu ini.', t: ['金曜', 'の', '夜', 'に', '六人', 'で', '食事', 'に', '行く', 'なら', '、', '今週中', 'に', '店', 'を', '決めた', '方', 'が', 'いい', 'と', '思う', '。'] },
-      { id: 'Restoran dekat stasiun memang murah, tetapi Jumat ramai, jadi tanpa reservasi bisa jadi tidak dapat tempat.', t: ['駅', 'の', '近く', 'の', '店', 'は', '安い', 'けど', '、', '金曜', 'は', '混む', 'から', '、', '予約', 'なし', 'だ', 'と', '入れ', 'ない', 'かもしれない', '。'] },
-      { id: 'Agak jalan sedikit ada satu lagi, ini lebih mahal tetapi tenang.', t: ['少し', '歩いた', 'ところ', 'に', 'もう', '一軒', 'あって', '、', 'こちら', 'は', '少し', '高い', 'けど', '静か', 'だ', 'よ', '。'] },
-      { id: 'Kalau mau bicara banyak, pilih yang tenang; kalau mau murah, pilih yang di depan stasiun.', t: ['話したい', 'なら', '静か', 'な', '方', '、', '安さ', 'を', '取る', 'なら', '駅前', 'だ', 'ね', '。'] },
-      { id: 'Saya yang menelepon besok siang, menanyakan bisa atau tidak untuk enam orang mulai jam delapan.', t: ['私', 'が', '明日', 'の', '昼', 'に', '電話', 'して', '、', '六人', 'で', '八時', 'から', 'で', '取れる', 'か', '聞いて', 'みる', 'よ', '。'] },
+      { id: 'Kalau Jumat malam makan berenam, sebaiknya restorannya diputuskan minggu ini.', en: 'If the six of us are going out to eat on Friday night, we should decide on a place this week.', t: ['金曜', 'の', '夜', 'に', '六人', 'で', '食事', 'に', '行く', 'なら', '、', '今週中', 'に', '店', 'を', '決めた', '方', 'が', 'いい', 'と', '思う', '。'] },
+      { id: 'Restoran dekat stasiun memang murah, tetapi Jumat ramai, jadi tanpa reservasi bisa jadi tidak dapat tempat.', en: 'The places near the station are cheap, but Friday gets busy, so without a reservation we might not get in.', t: ['駅', 'の', '近く', 'の', '店', 'は', '安い', 'けど', '、', '金曜', 'は', '混む', 'から', '、', '予約', 'なし', 'だ', 'と', '入れ', 'ない', 'かもしれない', '。'] },
+      { id: 'Agak jalan sedikit ada satu lagi, ini lebih mahal tetapi tenang.', en: 'There\'s another one a short walk away, and that one\'s a bit pricier but quiet.', t: ['少し', '歩いた', 'ところ', 'に', 'もう', '一軒', 'あって', '、', 'こちら', 'は', '少し', '高い', 'けど', '静か', 'だ', 'よ', '。'] },
+      { id: 'Kalau mau bicara banyak, pilih yang tenang; kalau mau murah, pilih yang di depan stasiun.', en: 'If we want to talk, the quiet one; if we want cheap, the one by the station.', t: ['話したい', 'なら', '静か', 'な', '方', '、', '安さ', 'を', '取る', 'なら', '駅前', 'だ', 'ね', '。'] },
+      { id: 'Saya yang menelepon besok siang, menanyakan bisa atau tidak untuk enam orang mulai jam delapan.', en: 'I\'ll call tomorrow at noon and ask whether they can take six people from eight o\'clock.', t: ['私', 'が', '明日', 'の', '昼', 'に', '電話', 'して', '、', '六人', 'で', '八時', 'から', 'で', '取れる', 'か', '聞いて', 'みる', 'よ', '。'] },
     ]
   },
   {
@@ -167,11 +167,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Nasihat yang berguna menyebut akibat nyata dari kelalaian, bukan hanya perintah.',
     noteEn: 'Useful advice names the real consequence of the mistake, not just the instruction.',
     blocks: [
-      { id: 'Sebelum memesan, sebaiknya selalu sampaikan soal alerginya.', t: ['注文', 'する', '前', 'に', '、', '必ず', 'アレルギー', 'の', 'こと', 'を', '伝えた', '方', 'が', 'いい', 'よ', '。'] },
-      { id: 'Kalau baru bilang setelah makanannya datang, yang memasak harus membuat ulang, dan dua-duanya jadi tidak enak.', t: ['料理', 'が', '来て', 'から', '言う', 'と', '、', '作った', '人', 'が', '別', 'の', '料理', 'を', '作り直す', 'こと', 'に', 'なる', 'から', '、', 'お互い', 'に', '嫌', 'な', '思い', 'を', 'する', '。'] },
-      { id: 'Kalau sulit mengatakannya, lebih pasti kalau ditulis di kertas apa yang tidak bisa dimakan.', t: ['口', 'で', '言いにくけれ', 'ば', '、', '何', 'が', '食べられ', 'ない', 'か', 'を', '紙', 'に', '書いて', '見せた', '方', 'が', '確か', 'だ', 'よ', '。'] },
-      { id: 'Saus dan pelengkapnya pun kadang memakainya, jadi sebaiknya ditanyakan sampai ke situ.', t: ['ソース', 'や', '付け合わせ', 'に', 'も', '入って', 'いる', 'こと', 'が', 'ある', 'ので', '、', 'そこ', 'まで', '聞いた', '方', 'が', 'いい', '。'] },
-      { id: 'Kalau khawatir, memilih masakan yang bahannya sedikit dari awal juga salah satu cara.', t: ['心配', 'なら', '、', 'はじめから', '材料', 'が', '少ない', '料理', 'を', '選ぶ', 'の', 'も', '一つ', 'の', '方法', 'だ', 'よ', '。'] },
+      { id: 'Sebelum memesan, sebaiknya selalu sampaikan soal alerginya.', en: 'Before you order, you should always tell them about your allergy.', t: ['注文', 'する', '前', 'に', '、', '必ず', 'アレルギー', 'の', 'こと', 'を', '伝えた', '方', 'が', 'いい', 'よ', '。'] },
+      { id: 'Kalau baru bilang setelah makanannya datang, yang memasak harus membuat ulang, dan dua-duanya jadi tidak enak.', en: 'If you mention it after the food arrives, the person who cooked it has to make it again, and it leaves both sides feeling bad.', t: ['料理', 'が', '来て', 'から', '言う', 'と', '、', '作った', '人', 'が', '別', 'の', '料理', 'を', '作り直す', 'こと', 'に', 'なる', 'から', '、', 'お互い', 'に', '嫌', 'な', '思い', 'を', 'する', '。'] },
+      { id: 'Kalau sulit mengatakannya, lebih pasti kalau ditulis di kertas apa yang tidak bisa dimakan.', en: 'If it\'s hard to say out loud, writing down what you can\'t eat and showing them is more reliable.', t: ['口', 'で', '言いにくけれ', 'ば', '、', '何', 'が', '食べられ', 'ない', 'か', 'を', '紙', 'に', '書いて', '見せた', '方', 'が', '確か', 'だ', 'よ', '。'] },
+      { id: 'Saus dan pelengkapnya pun kadang memakainya, jadi sebaiknya ditanyakan sampai ke situ.', en: 'Sauces and side dishes sometimes contain it too, so you should ask about that as well.', t: ['ソース', 'や', '付け合わせ', 'に', 'も', '入って', 'いる', 'こと', 'が', 'ある', 'ので', '、', 'そこ', 'まで', '聞いた', '方', 'が', 'いい', '。'] },
+      { id: 'Kalau khawatir, memilih masakan yang bahannya sedikit dari awal juga salah satu cara.', en: 'If you\'re worried, choosing a dish with few ingredients from the start is one option.', t: ['心配', 'なら', '、', 'はじめから', '材料', 'が', '少ない', '料理', 'を', '選ぶ', 'の', 'も', '一つ', 'の', '方法', 'だ', 'よ', '。'] },
     ]
   },
   {
@@ -185,11 +185,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Permintaan seperti ini diterima karena alasannya disebut lebih dulu, bukan karena kalimatnya panjang.',
     noteEn: 'A request like this is granted because the reason comes first, not because the sentence is long.',
     blocks: [
-      { id: 'Maaf, boleh saya minta satu hal?', t: ['すみません', '、', '一つ', 'お願い', 'して', 'も', 'いい', 'です', 'か', '。'] },
-      { id: 'Tadi sangat enak, tetapi agak terlalu banyak sampai tidak habis.', t: ['とても', 'おいしかった', 'の', 'です', 'が', '、', '少し', '多すぎて', '食べきれ', 'ません', 'でした', '。'] },
-      { id: 'Sayang kalau dibuang, jadi saya ingin membawa pulang sisanya.', t: ['捨てて', 'しまう', 'の', 'は', 'もったいない', 'ので', '、', '残り', 'を', '持ち帰り', 'たい', 'の', 'です', '。'] },
-      { id: 'Kalau diberi wadahnya, saya akan mengemasnya sendiri.', t: ['入れ物', 'を', 'いただけれ', 'ば', '、', '自分', 'で', '詰め', 'ます', '。'] },
-      { id: 'Kalau memang ada aturan tidak boleh dibawa pulang, tidak apa-apa.', t: ['もし', '持ち帰り', 'が', 'でき', 'ない', '決まり', 'なら', '、', 'それ', 'で', '大丈夫', 'です', '。'] },
+      { id: 'Maaf, boleh saya minta satu hal?', en: 'Excuse me, could I ask you one thing?', t: ['すみません', '、', '一つ', 'お願い', 'して', 'も', 'いい', 'です', 'か', '。'] },
+      { id: 'Tadi sangat enak, tetapi agak terlalu banyak sampai tidak habis.', en: 'It was really good, but there was a bit too much and I couldn\'t finish it.', t: ['とても', 'おいしかった', 'の', 'です', 'が', '、', '少し', '多すぎて', '食べきれ', 'ません', 'でした', '。'] },
+      { id: 'Sayang kalau dibuang, jadi saya ingin membawa pulang sisanya.', en: 'It seems a waste to throw away, so I\'d like to take the rest home.', t: ['捨てて', 'しまう', 'の', 'は', 'もったいない', 'ので', '、', '残り', 'を', '持ち帰り', 'たい', 'の', 'です', '。'] },
+      { id: 'Kalau diberi wadahnya, saya akan mengemasnya sendiri.', en: 'If you can give me a container, I\'ll pack it myself.', t: ['入れ物', 'を', 'いただけれ', 'ば', '、', '自分', 'で', '詰め', 'ます', '。'] },
+      { id: 'Kalau memang ada aturan tidak boleh dibawa pulang, tidak apa-apa.', en: 'If the rule is that you can\'t do takeaway, that\'s quite all right.', t: ['もし', '持ち帰り', 'が', 'でき', 'ない', '決まり', 'なら', '、', 'それ', 'で', '大丈夫', 'です', '。'] },
     ]
   },
   {
@@ -203,11 +203,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengalaman yang enak didengar punya tiga bagian: yang tidak diketahui, kejutan, dan apa yang berubah setelahnya.',
     noteEn: 'A good story has three parts: what was unknown, the surprise, and what changed afterwards.',
     blocks: [
-      { id: 'Waktu pertama kali datang ke Jepang, saya pernah memesan hanya dari foto di menunya.', t: ['初めて', '日本', 'に', '来た', 'とき', '、', 'メニュー', 'の', '写真', 'だけ', 'で', '注文', 'した', 'こと', 'が', 'あります', '。'] },
-      { id: 'Karena tidak bisa membaca namanya dan harganya murah, saya putuskan ambil yang ini.', t: ['名前', 'が', '読め', 'なくて', '、', '値段', 'が', '安かった', 'から', '、', 'これ', 'に', 'しよう', 'と', '決めた', 'ん', 'です', '。'] },
-      { id: 'Waktu yang diantar datang, warnanya sama sekali berbeda dari bayangan saya, jadi saya agak kaget.', t: ['運ばれて', 'きた', 'もの', 'を', '見て', '、', '思って', 'いた', 'の', 'と', '全然', '違う', '色', 'だった', 'ので', '、', '少し', '驚き', 'ました', '。'] },
-      { id: 'Waktu saya cicipi dengan hati-hati, ternyata itu masakan paling enak di restoran itu.', t: ['恐る恐る', '食べて', 'みたら', '、', 'それ', 'が', 'その', '店', 'で', '一番', 'おいしい', '料理', 'でした', '。'] },
-      { id: 'Sejak itu, masakan yang tidak bisa saya baca pun saya coba pesan sekali.', t: ['あれ', 'から', '、', '読め', 'ない', '料理', 'で', 'も', '一度', 'は', '頼んで', 'みる', 'ように', 'して', 'います', '。'] },
+      { id: 'Waktu pertama kali datang ke Jepang, saya pernah memesan hanya dari foto di menunya.', en: 'When I first came to Japan, I once ordered using only the photos on the menu.', t: ['初めて', '日本', 'に', '来た', 'とき', '、', 'メニュー', 'の', '写真', 'だけ', 'で', '注文', 'した', 'こと', 'が', 'あります', '。'] },
+      { id: 'Karena tidak bisa membaca namanya dan harganya murah, saya putuskan ambil yang ini.', en: 'I couldn\'t read the name, and it was cheap, so I decided to go with that one.', t: ['名前', 'が', '読め', 'なくて', '、', '値段', 'が', '安かった', 'から', '、', 'これ', 'に', 'しよう', 'と', '決めた', 'ん', 'です', '。'] },
+      { id: 'Waktu yang diantar datang, warnanya sama sekali berbeda dari bayangan saya, jadi saya agak kaget.', en: 'When what I\'d ordered arrived, the colour was completely different from what I\'d imagined, so I was a little startled.', t: ['運ばれて', 'きた', 'もの', 'を', '見て', '、', '思って', 'いた', 'の', 'と', '全然', '違う', '色', 'だった', 'ので', '、', '少し', '驚き', 'ました', '。'] },
+      { id: 'Waktu saya cicipi dengan hati-hati, ternyata itu masakan paling enak di restoran itu.', en: 'When I timidly tried it, it turned out to be the best dish in that restaurant.', t: ['恐る恐る', '食べて', 'みたら', '、', 'それ', 'が', 'その', '店', 'で', '一番', 'おいしい', '料理', 'でした', '。'] },
+      { id: 'Sejak itu, masakan yang tidak bisa saya baca pun saya coba pesan sekali.', en: 'Since then, I make a point of ordering even a dish I can\'t read, at least once.', t: ['あれ', 'から', '、', '読め', 'ない', '料理', 'で', 'も', '一度', 'は', '頼んで', 'みる', 'ように', 'して', 'います', '。'] },
     ]
   },
   {
@@ -221,11 +221,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengumuman menyebut akibatnya lebih dulu, baru apa yang diminta, karena pendengar memutuskan dalam dua detik apakah ini urusannya.',
     noteEn: 'An announcement states the consequence first and the request second, because the listener decides in two seconds whether it concerns them.',
     blocks: [
-      { id: 'Kepada para pengguna, ada pengumuman.', t: ['ご利用', 'の', '皆様', 'に', 'お知らせ', 'いたし', 'ます', '。'] },
-      { id: 'Menu harian hari ini sudah habis porsi yang kami siapkan, jadi kami tutup mulai saat ini.', t: ['本日', 'の', '日替わり', 'は', '、', '用意', 'した', '分', 'が', 'なくなり', 'ました', 'ので', '、', 'ただ今', 'を', 'もちまして', '終了', 'です', '。'] },
-      { id: 'Masakan lainnya masih tersedia, jadi yang berminat mohon segera.', t: ['その他', 'の', 'お料理', 'は', 'まだ', 'ございます', 'ので', '、', 'ご希望', 'の', '方', 'は', 'お早めに', 'どうぞ', '。'] },
-      { id: 'Hari ini, karena urusan penutupan, kami tutup pada jam tujuh.', t: ['本日', 'は', '、', '片付け', 'の', '都合', 'により', '、', '七時', 'で', '閉め', 'させて', 'いただき', 'ます', '。'] },
-      { id: 'Wadah untuk dibawa pulang jumlahnya terbatas, jadi akan membantu kalau Anda membawa sendiri.', t: ['お持ち帰り', '用', 'の', '入れ物', 'は', '、', '数', 'に', '限り', 'が', 'ございます', 'ので', '、', 'ご持参', 'いただける', 'と', '助かり', 'ます', '。'] },
+      { id: 'Kepada para pengguna, ada pengumuman.', en: 'An announcement for everyone using the canteen.', t: ['ご利用', 'の', '皆様', 'に', 'お知らせ', 'いたし', 'ます', '。'] },
+      { id: 'Menu harian hari ini sudah habis porsi yang kami siapkan, jadi kami tutup mulai saat ini.', en: 'Today\'s daily special has sold out of the portions we prepared, so it ends as of now.', t: ['本日', 'の', '日替わり', 'は', '、', '用意', 'した', '分', 'が', 'なくなり', 'ました', 'ので', '、', 'ただ今', 'を', 'もちまして', '終了', 'です', '。'] },
+      { id: 'Masakan lainnya masih tersedia, jadi yang berminat mohon segera.', en: 'We still have other dishes, so if you\'d like one, please come soon.', t: ['その他', 'の', 'お料理', 'は', 'まだ', 'ございます', 'ので', '、', 'ご希望', 'の', '方', 'は', 'お早めに', 'どうぞ', '。'] },
+      { id: 'Hari ini, karena urusan penutupan, kami tutup pada jam tujuh.', en: 'Today, because of the cleanup, we will close at seven.', t: ['本日', 'は', '、', '片付け', 'の', '都合', 'により', '、', '七時', 'で', '閉め', 'させて', 'いただき', 'ます', '。'] },
+      { id: 'Wadah untuk dibawa pulang jumlahnya terbatas, jadi akan membantu kalau Anda membawa sendiri.', en: 'Takeaway containers are limited in number, so it would help if you brought your own.', t: ['お持ち帰り', '用', 'の', '入れ物', 'は', '、', '数', 'に', '限り', 'が', 'ございます', 'ので', '、', 'ご持参', 'いただける', 'と', '助かり', 'ます', '。'] },
     ]
   },
 ]);

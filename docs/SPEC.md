@@ -215,8 +215,15 @@ kalimat, dan tidak ada satu pun permukaan label yang ditulis terpisah dari lexic
 
 ### K12. Setiap paragraf punya terjemahannya sendiri
 
-Setiap blok narasi menyimpan `id`: terjemahan paragraf itu dalam bahasa yang dipilih pembaca, satu
-baris per kalimat Jepang. Inilah yang ditampilkan sakelar **Terjemahan** di bawah paragrafnya.
+Setiap blok narasi menyimpan terjemahan paragrafnya dalam **kedua** bahasa: `id` dan `en`, satu
+baris per kalimat Jepang. Halaman menampilkan yang sesuai pilihan pembaca (V15). Inilah yang
+ditampilkan sakelar **Terjemahan** di bawah paragrafnya.
+
+**Dua bahasa wajib, bukan satu.** Halaman hanya menampilkan satu bahasa, jadi menyimpan satu bahasa
+saja berarti pembaca yang memilih bahasa lain mendapat bahasa yang bukan pilihannya. Itu pernah
+terjadi: blok hanya menyimpan `id`, dan mode Inggris menampilkan bahasa Indonesia. Pemeriksaannya
+sekarang menghitung jumlah baris untuk `id` **dan** `en` terhadap jumlah kalimat, dan memastikan
+keduanya ada di setiap blok.
 
 **Alasan.** `id` dan `en` di tingkat narasi adalah **ringkasan satu baris**, bukan terjemahan.
 Yang dibutuhkan pembaca adalah arti kalimat yang sedang dibacanya, dan ringkasan menjawab
@@ -401,7 +408,7 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V16 | Alamat yang salah ketik tidak boleh menghasilkan halaman kosong: rute, bahasa, dan bahasa sasaran yang tidak dikenal dinormalkan, dan kunci narasi yang tidak ada kembali ke daftar judul | `app.js` |
 | V17 | Tombol kembali browser menelusuri ketiga halaman dalam urutan yang dipilih pembaca | `app.js` |
 | V14 | Daftar di halaman ketiga berisi **judul**, bukan kalimat; pencarian menemukan kata di dalam narasi dan menawarkan tombol membaca judul itu penuh | `app.js` |
-| V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama | `app.js` |
+| V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama. Termasuk terjemahan per paragraf (K12) dan ringkasan narasi; ringkasan itu dibaca langsung dari `id`/`en`, bukan lewat `tr()`, karena `tr()` mencari pasangan seperti `sit`/`sitEn` dan akan jatuh ke `id` di mode Inggris | `app.js` |
 | V18 | Setiap jenis punya bentuk yang berbeda, sehingga percakapan bisa dibedakan dari kronologi sebelum satu kata dibaca | `app.js` + CSS |
 | V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan. Judul **tidak** memakai kelas kartu `jp-sent`, karena judul sudah berada di dalam kartu dan memakainya menggambar kartu di dalam kartu | `app.js` + CSS |
 | V20 | Setiap label yang menerangkan teks ditulis dalam **bahasa sasaran** dan **bisa di-hover** untuk melihat romaji dan artinya: jenis, gaya bahasa, lawan bicara, dan label penutur. Warnanya tetap dari tabel yang sama (`jenisVisual`, `who`), jadi makna warnanya tidak berubah | `app.js` + `const.js` |
