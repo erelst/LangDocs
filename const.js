@@ -148,10 +148,19 @@ window.CONST = {
    * `のは`, `のか` and `のが` are also gone. They are nominalisers, not register: a subordinate
    * clause takes the plain form inside a perfectly polite sentence ("安く買えたのはよかったので
    * す"), so counting them made 45 polite narratives read as mixed. 23 of the 53 `campuran`
-   * verdicts came from `のは` alone. */
+   * verdicts came from `のは` alone.
+   *
+   * `いいよ` was missing, and it is the one marker whose absence changed a verdict rather than just
+   * thinning the evidence. It ends a plain clause in advice given to someone close ("一度やめた方が
+   * いいよ"), so seven `nasihat` narratives that advise a friend, a partner or a colleague in plain
+   * speech were reported as 丁寧, or as 混在, purely because the sentence still contained one
+   * leftover ます further down. Adding it makes those seven read 普通 or 混在 according to what is
+   * actually on the page. It is safe to match at a clause end because いいよ is never subordinate:
+   * every one of the 16 occurrences in the deck is followed by 。 and none sits inside a polite
+   * clause. */
   PLAIN_MARK: ['だよ', 'だね', 'だろ', 'じゃん', 'かな', 'だぜ',
                'してる', 'してた', 'あるよ', 'ないよ', 'だよな', 'よな', 'だって',
-               'だろう', 'やつ'],
+               'だろう', 'やつ', 'いいよ'],
   style: {
     sopan:    { id: 'sopan',    en: 'polite', jp: '丁寧' },
     biasa:    { id: 'biasa',    en: 'casual', jp: '普通' },
