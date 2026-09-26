@@ -22,6 +22,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'transportasi_percakapan_salah_peron', topic: 'transportasi',
+    judulT: ['この', 'ホーム', 'で', '合っています', 'か'],
     jenis: 'percakapan',
     judul: 'Salah peron di stasiun besar', judulEn: 'The wrong platform at a big station',
     speakers: {'A':'orang_asing','B':'penumpang'},
@@ -42,6 +43,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_cerita_tertidur_lewat', topic: 'transportasi',
+    judulT: ['寝', '過ご', 'して', '三つ', '先', 'の', '駅'],
     jenis: 'cerita',
     judul: 'Tertidur dan terlewat tiga stasiun', judulEn: 'Fell asleep and missed three stations',
     rel: 'rekan',
@@ -58,6 +60,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_kronologi_kereta_terakhir', topic: 'transportasi',
+    judulT: ['終電', 'を', '追い', 'かけた', '話'],
     jenis: 'kronologi',
     judul: 'Kereta terakhir yang saya kejar', judulEn: 'The last train I ran for',
     rel: 'teman',
@@ -75,6 +78,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_curhatan_macet_tiap_hari', topic: 'transportasi',
+    judulT: ['毎朝', '同じ', '渋滞'],
     jenis: 'curhatan',
     judul: 'Macet yang sama setiap pagi', judulEn: 'The same traffic every morning',
     rel: 'teman_dekat',
@@ -92,6 +96,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_keluhan_delay_tanpa_kabar', topic: 'transportasi',
+    judulT: ['何も', '案内', 'が', 'ありません', 'でした'],
     jenis: 'keluhan',
     judul: 'Keterlambatan yang tidak diumumkan', judulEn: 'A delay nobody announced',
     rel: 'petugas_stasiun',
@@ -109,6 +114,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_penjelasan_cara_beli_tiket', topic: 'transportasi',
+    judulT: ['切符', 'の', '買い方'],
     jenis: 'penjelasan',
     judul: 'Cara membeli tiket di mesin', judulEn: 'How to buy a ticket from the machine',
     rel: 'orang_asing',
@@ -126,6 +132,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_laporan_terlambat_dari_kendaraan', topic: 'transportasi',
+    judulT: ['経路', 'を', '変えます'],
     jenis: 'laporan',
     judul: 'Mengabarkan pindah jalur dari dalam bus', judulEn: 'Reporting a change of route from inside the bus',
     rel: 'atasan',
@@ -143,6 +150,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_rencana_perjalanan_akhir_pekan', topic: 'transportasi',
+    judulT: ['週末', 'の', '移動', 'を', 'どう', 'する', 'か'],
     jenis: 'rencana',
     judul: 'Rencana perjalanan akhir pekan', judulEn: 'Planning a weekend trip',
     rel: 'pasangan',
@@ -160,6 +168,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_nasihat_kartu_isi_ulang', topic: 'transportasi',
+    judulT: ['先に', 'チャージ', 'して', 'おく', 'こと'],
     jenis: 'nasihat',
     judul: 'Saran sebelum kartu isi ulangnya habis', judulEn: 'Advice before your travel card runs out',
     rel: 'teman',
@@ -177,6 +186,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_permintaan_ganti_kursi', topic: 'transportasi',
+    judulT: ['席', 'を', '替えて', 'いただけますか'],
     jenis: 'permintaan',
     judul: 'Meminta tukar kursi di kereta', judulEn: 'Asking to swap seats on the train',
     rel: 'orang_asing',
@@ -194,6 +204,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_pengalaman_salah_naik_shinkansen', topic: 'transportasi',
+    judulT: ['新幹線', 'を', '間違えた', '話'],
     jenis: 'pengalaman',
     judul: 'Pernah naik shinkansen yang salah arah', judulEn: 'The time I took the shinkansen the wrong way',
     rel: 'klien',
@@ -211,6 +222,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'transportasi_pengumuman_di_dalam_kereta', topic: 'transportasi',
+    judulT: ['車', '内で', 'のお知らせ'],
     jenis: 'pengumuman',
     judul: 'Pengumuman di dalam kereta', judulEn: 'An announcement inside the train',
     rel: 'penumpang',

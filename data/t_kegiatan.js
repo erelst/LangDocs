@@ -24,6 +24,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'kegiatan_percakapan_tanya_bawaan', topic: 'kegiatan', jenis: 'percakapan',
+    judulT: ['何', 'を', '持って', '行けば', 'いいですか'],
     judul: 'Menanyakan apa yang perlu dibawa', judulEn: 'Asking what to bring',
     speakers: {'A':'tetangga','B':'tetangga_baru'},
     sit: 'Dua orang membicarakan perlengkapan kerja bakti', sitEn: 'Two people discussing what to bring to a community work day',
@@ -43,6 +44,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_cerita_rapat_rt_yang_panjang', topic: 'kegiatan', jenis: 'cerita',
+    judulT: ['三時間', 'かかった', '集まり'],
     judul: 'Rapat RT yang berlangsung tiga jam', judulEn: 'A residents\' meeting that ran three hours',
     rel: 'tetangga',
     sit: 'Menceritakan rapat lingkungan yang terlalu lama karena satu hal', sitEn: 'Recounting a neighbourhood meeting that dragged because of one item',
@@ -60,6 +62,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_kronologi_kerja_bakti', topic: 'kegiatan', jenis: 'kronologi',
+    judulT: ['朝', 'の', '掃除', 'の', '順番'],
     judul: 'Urutan kerja bakti pagi', judulEn: 'The order of a morning work day',
     rel: 'tetangga',
     sit: 'Menceritakan urutan kerja bakti dari berkumpul sampai selesai', sitEn: 'Recounting a community work day from gathering to finishing',
@@ -77,6 +80,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_curhatan_tugas_yang_selalu_ke_saya', topic: 'kegiatan', jenis: 'curhatan',
+    judulT: ['いつも', '私', 'に', '回って', 'くる'],
     judul: 'Tugas yang selalu jatuh ke saya', judulEn: 'The jobs that always land on me',
     rel: 'tetangga',
     sit: 'Mengeluh soal pembagian tugas lingkungan yang selalu sama, tanpa minta saran', sitEn: 'Venting about neighbourhood duties that always fall the same way, without asking for advice',
@@ -94,6 +98,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_keluhan_janji_tidak_ditepati', topic: 'kegiatan', jenis: 'keluhan',
+    judulT: ['来る', 'と', '言った', '人が', '来', 'なかった'],
     judul: 'Bantuan yang dijanjikan tidak datang', judulEn: 'The help that was promised never came',
     rel: 'tetangga',
     sit: 'Menyampaikan ke tetangga bahwa bantuan yang dijanjikan tidak datang', sitEn: 'Raising with a neighbour that the promised help did not come',
@@ -111,6 +116,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_penjelasan_cara_ikut_kegiatan', topic: 'kegiatan', jenis: 'penjelasan',
+    judulT: ['初めて', 'の', '人が', '参加', 'する', 'に', 'は'],
     judul: 'Cara ikut kegiatan lingkungan bagi pendatang baru', judulEn: 'How a newcomer joins a community activity',
     rel: 'tetangga_baru',
     sit: 'Menerangkan cara ikut kegiatan lingkungan kepada tetangga yang baru pindah', sitEn: 'Explaining how to join in to a neighbour who has just moved in',
@@ -128,6 +134,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_laporan_hasil_kerja_bakti', topic: 'kegiatan', jenis: 'laporan',
+    judulT: ['掃除', 'の', '結果', 'の', '報告'],
     judul: 'Melaporkan hasil kerja bakti', judulEn: 'Reporting the outcome of the work day',
     rel: 'tetangga',
     sit: 'Melaporkan hasil kerja bakti kepada yang tidak hadir', sitEn: 'Reporting the work day\'s results to those who could not attend',
@@ -145,6 +152,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_rencana_rapat_rt', topic: 'kegiatan', jenis: 'rencana',
+    judulT: ['来月', 'の', '集まり', 'の', '進め方'],
     judul: 'Rencana rapat RT bulan depan', judulEn: 'Planning next month\'s residents\' meeting',
     rel: 'tetangga',
     sit: 'Menyusun rencana rapat lingkungan dengan agenda dan batas waktunya', sitEn: 'Planning a neighbourhood meeting with an agenda and a time limit',
@@ -162,6 +170,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_nasihat_jangan_terlalu_banyak_mengambil', topic: 'kegiatan', jenis: 'nasihat',
+    judulT: ['引き', '受け', 'すぎ', 'ない', 'こと'],
     judul: 'Jangan mengambil terlalu banyak tugas', judulEn: 'Do not take on too many jobs',
     rel: 'tetangga',
     sit: 'Menasihati tetangga supaya tidak mengambil terlalu banyak tugas lingkungan', sitEn: 'Advising a neighbour not to take on too many community jobs',
@@ -179,6 +188,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_permintaan_ganti_jadwal_piket', topic: 'kegiatan', jenis: 'permintaan',
+    judulT: ['当番', 'の', '日', 'を', '替えて', 'もらう'],
     judul: 'Meminta tukar jadwal piket', judulEn: 'Asking to swap a duty rota',
     rel: 'tetangga',
     sit: 'Meminta tukar jadwal piket lingkungan karena ada urusan', sitEn: 'Asking to swap a neighbourhood duty because of a clash',
@@ -196,6 +206,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_pengalaman_pertama_masuk_kepanitiaan', topic: 'kegiatan', jenis: 'pengalaman',
+    judulT: ['初めて', '役', 'を', '頼まれ', 'た', 'とき'],
     judul: 'Pertama kali masuk kepanitiaan', judulEn: 'The first time I joined the organising committee',
     rel: 'tetangga',
     sit: 'Menceritakan pengalaman pertama masuk kepanitiaan lingkungan', sitEn: 'Recounting the first time joining a neighbourhood committee',
@@ -213,6 +224,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kegiatan_pengumuman_kerja_bakti', topic: 'kegiatan', jenis: 'pengumuman',
+    judulT: ['土曜', 'の', '掃除', 'のお知らせ'],
     judul: 'Pengumuman kerja bakti akhir pekan', judulEn: 'An announcement about the weekend work day',
     rel: 'tetangga',
     sit: 'Mengumumkan kerja bakti kepada seluruh warga', sitEn: 'Announcing a work day to all residents',

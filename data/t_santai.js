@@ -26,6 +26,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'santai_percakapan_pilih_tempat', topic: 'santai', jenis: 'percakapan',
+    judulT: ['どこ', 'にする'],
     judul: 'Memilih tempat untuk makan malam bersama', judulEn: 'Choosing where to go out together',
     speakers: {'A':'teman','B':'teman_dekat'},
     sit: 'Dua teman membandingkan dua tempat sebelum berangkat', sitEn: 'Two friends comparing two places before setting out',
@@ -45,6 +46,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_cerita_rencana_yang_berubah', topic: 'santai', jenis: 'cerita',
+    judulT: ['雨', 'で', '変わった', '予定'],
     judul: 'Rencana jalan yang berubah di tengah', judulEn: 'An outing that changed halfway',
     rel: 'teman',
     sit: 'Menceritakan acara jalan yang berubah karena hujan', sitEn: 'Recounting an outing that changed course because of rain',
@@ -62,6 +64,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_kronologi_dari_kumpul_sampai_pulang', topic: 'santai', jenis: 'kronologi',
+    judulT: ['集まって', 'から', '別れ', 'る', 'まで'],
     judul: 'Dari berkumpul sampai pulang', judulEn: 'From meeting up to going home',
     rel: 'teman',
     sit: 'Menceritakan urutan acara jalan bersama, dari titik temu sampai pulang', sitEn: 'Recounting the order of an outing, from the meeting point to going home',
@@ -79,6 +82,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_curhatan_teman_yang_selalu_telat', topic: 'santai', jenis: 'curhatan',
+    judulT: ['いつも', '遅れて', 'くる', '人'],
     judul: 'Teman yang selalu datang terlambat', judulEn: 'The friend who is always late',
     rel: 'teman_dekat',
     sit: 'Mengeluh soal teman yang selalu terlambat, tanpa minta saran', sitEn: 'Venting about a friend who is always late, without asking for advice',
@@ -96,6 +100,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_keluhan_tempat_dipesan_orang_lain', topic: 'santai', jenis: 'keluhan',
+    judulT: ['予約', 'した', '席', 'が', 'ありません'],
     judul: 'Tempat yang sudah dipesan ternyata diberikan', judulEn: 'The table we booked went to someone else',
     rel: 'pelayan',
     sit: 'Menyampaikan keluhan ke pelayan bahwa pesanannya tidak tercatat', sitEn: 'Complaining to waiting staff that the booking was not recorded',
@@ -113,6 +118,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_penjelasan_cara_ikut_kelas', topic: 'santai', jenis: 'penjelasan',
+    judulT: ['初めて', 'の', '教室', 'の', '入り', '方'],
     judul: 'Cara ikut kelas hobi untuk pertama kali', judulEn: 'How to join a hobby class for the first time',
     rel: 'petugas',
     sit: 'Menerangkan cara mendaftar kelas hobi kepada orang yang baru pertama', sitEn: 'Explaining how to sign up for a hobby class to a first-timer',
@@ -130,6 +136,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_laporan_bagaimana_acaranya', topic: 'santai', jenis: 'laporan',
+    judulT: ['集まり', 'は', 'どう', 'だった', 'か'],
     judul: 'Melaporkan bagaimana acaranya berjalan', judulEn: 'Reporting how the outing went',
     rel: 'pasangan',
     sit: 'Melapor ke pasangan tentang acara yang baru dihadiri', sitEn: 'Reporting to a partner about an event just attended',
@@ -147,6 +154,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_rencana_akhir_pekan_dengan_pilihan', topic: 'santai', jenis: 'rencana',
+    judulT: ['晴れ', 'と', '雨', 'の', '二つ', 'の', '案'],
     judul: 'Rencana akhir pekan dengan dua pilihan', judulEn: 'A weekend plan with two options',
     rel: 'teman',
     sit: 'Menyusun rencana akhir pekan dengan dua pilihan dan syaratnya', sitEn: 'Making a weekend plan with two options and the conditions for each',
@@ -164,6 +172,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_nasihat_mengajak_orang_baru', topic: 'santai', jenis: 'nasihat',
+    judulT: ['初めて', 'の', '人', 'を', '誘う', 'とき'],
     judul: 'Mengajak orang yang belum akrab tanpa memaksa', judulEn: 'Inviting someone new without pressing them',
     rel: 'teman',
     sit: 'Menasihati teman soal cara mengajak orang yang belum akrab', sitEn: 'Advising a friend on how to invite someone they do not know well',
@@ -181,6 +190,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_permintaan_ubah_jam_bertemu', topic: 'santai', jenis: 'permintaan',
+    judulT: ['待ち合わせ', 'の', '時間', 'を', 'ずらし', 'たい'],
     judul: 'Meminta jam bertemu digeser', judulEn: 'Asking to move the meeting time',
     rel: 'teman',
     sit: 'Meminta jam bertemu diubah karena ada urusan yang muncul', sitEn: 'Asking to change the meeting time because something has come up',
@@ -198,6 +208,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_pengalaman_pertama_ikut_klub', topic: 'santai', jenis: 'pengalaman',
+    judulT: ['知り合い', 'の', 'いない', '会', 'に', '入った', '話'],
     judul: 'Pertama kali ikut klub dan tidak mengenal siapa pun', judulEn: 'Joining a club knowing nobody',
     rel: 'teman',
     sit: 'Menceritakan pengalaman pertama masuk klub tanpa kenal siapa pun', sitEn: 'Recounting the first time joining a club knowing nobody',
@@ -215,6 +226,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'santai_pengumuman_acara_klub', topic: 'santai', jenis: 'pengumuman',
+    judulT: ['今月', 'の', '集まり', 'のお知らせ'],
     judul: 'Pengumuman acara klub bulan ini', judulEn: 'An announcement about this month\'s club event',
     rel: 'teman',
     sit: 'Mengumumkan acara klub kepada para anggotanya', sitEn: 'Announcing a club event to its members',

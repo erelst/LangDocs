@@ -26,6 +26,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'rumah_santai_percakapan_ajak_istirahat', topic: 'rumah_santai', jenis: 'percakapan',
+    judulT: ['少し', '休んだ', 'ら', 'どう', 'ですか'],
     judul: 'Mengajak istirahat setelah hari panjang', judulEn: 'Suggesting a rest after a long day',
     speakers: {'A':'pasangan','B':'pasangan'},
     sit: 'Dua orang di rumah saling menawarkan istirahat setelah hari yang berat', sitEn: 'Two people at home offering each other a rest after a hard day',
@@ -45,6 +46,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_cerita_malam_yang_tenang', topic: 'rumah_santai', jenis: 'cerita',
+    judulT: ['何も', 'しない', '夜', 'の', '話'],
     judul: 'Malam ketika tidak ada yang dikerjakan', judulEn: 'An evening with nothing to do',
     rel: 'pasangan',
     sit: 'Menceritakan malam yang sengaja dibiarkan kosong', sitEn: 'Recounting an evening deliberately left empty',
@@ -62,6 +64,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_kronologi_malam_sampai_tidur', topic: 'rumah_santai', jenis: 'kronologi',
+    judulT: ['風呂', 'から', '布団', 'まで'],
     judul: 'Urutan malam sampai tidur', judulEn: 'The order of an evening until sleep',
     rel: 'pasangan',
     sit: 'Menceritakan urutan kegiatan malam di rumah sampai tidur', sitEn: 'Recounting the order of an evening at home until sleep',
@@ -79,6 +82,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_curhatan_lelah_tanpa_alasan', topic: 'rumah_santai', jenis: 'curhatan',
+    judulT: ['理由', 'も', 'なく', '疲れて', 'いる'],
     judul: 'Lelah yang tidak jelas sebabnya', judulEn: 'Tired without a clear reason',
     rel: 'pasangan',
     sit: 'Mengeluh lelah yang tidak jelas sebabnya, tanpa minta saran', sitEn: 'Venting about tiredness with no clear cause, without asking for advice',
@@ -96,6 +100,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_keluhan_televisi_berisik', topic: 'rumah_santai', jenis: 'keluhan',
+    judulT: ['テレビ', 'の', '音', 'を', '小さく', 'して'],
     judul: 'Suara televisi yang terlalu keras', judulEn: 'The television turned up too loud',
     rel: 'keluarga',
     sit: 'Menyampaikan keluhan soal suara televisi di rumah, dengan permintaan yang jelas', sitEn: 'Raising television volume at home, with a clear request',
@@ -113,6 +118,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_penjelasan_cara_rumah_tenang', topic: 'rumah_santai', jenis: 'penjelasan',
+    judulT: ['家', 'が', '落ち着く', '三つ', 'のこと'],
     judul: 'Cara membuat rumah terasa tenang', judulEn: 'How to make a home feel calm',
     rel: 'teman',
     sit: 'Menerangkan kebiasaan yang membuat rumah terasa tenang', sitEn: 'Explaining the habits that make a home feel calm',
@@ -130,6 +136,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_laporan_hari_yang_baru_lewat', topic: 'rumah_santai', jenis: 'laporan',
+    judulT: ['今日', 'は', 'こんな', '一日', 'でした'],
     judul: 'Melaporkan hari yang baru lewat', judulEn: 'Reporting the day that just ended',
     rel: 'pasangan',
     sit: 'Melaporkan isi hari yang baru lewat, bukan hanya mengatakan lelah', sitEn: 'Reporting what the day contained, rather than only saying it was tiring',
@@ -147,6 +154,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_rencana_akhir_pekan_di_rumah', topic: 'rumah_santai', jenis: 'rencana',
+    judulT: ['出', 'かけ', 'ない', '週末', 'の', '計画'],
     judul: 'Rencana akhir pekan diam di rumah', judulEn: 'Planning a weekend spent at home',
     rel: 'pasangan',
     sit: 'Menyusun rencana akhir pekan yang sengaja dihabiskan di rumah', sitEn: 'Planning a weekend deliberately spent at home',
@@ -164,6 +172,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_nasihat_jangan_membawa_kerja_ke_rumah', topic: 'rumah_santai', jenis: 'nasihat',
+    judulT: ['仕事', 'の', '場所', 'を', '決める', 'こと'],
     judul: 'Jangan biarkan kerja masuk ke ruang duduk', judulEn: 'Do not let work into the living room',
     rel: 'teman',
     sit: 'Menasihati teman supaya memisahkan tempat kerja dari tempat istirahat', sitEn: 'Advising a friend to separate where they work from where they rest',
@@ -181,6 +190,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_permintaan_minta_waktu_sendiri', topic: 'rumah_santai', jenis: 'permintaan',
+    judulT: ['三十分', 'だけ', '一人', 'に', 'してください'],
     judul: 'Meminta waktu sendiri sebentar', judulEn: 'Asking for a little time alone',
     rel: 'pasangan',
     sit: 'Meminta waktu sendiri, dengan jangka waktu dan alasannya', sitEn: 'Asking for time alone, with a length and a reason',
@@ -198,6 +208,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_pengalaman_pindah_rumah', topic: 'rumah_santai', jenis: 'pengalaman',
+    judulT: ['狭い', '部屋', 'に', '引っ越し', 'た', '話'],
     judul: 'Pengalaman pindah ke rumah yang lebih kecil', judulEn: 'Moving into a smaller home',
     rel: 'teman',
     sit: 'Menceritakan pengalaman pindah ke tempat yang lebih kecil dan pelajarannya', sitEn: 'Recounting moving somewhere smaller and what it taught',
@@ -215,6 +226,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_santai_pengumuman_listrik_mati', topic: 'rumah_santai', jenis: 'pengumuman',
+    judulT: ['明日', 'の', '午後、', '電気', 'が', '止まります'],
     judul: 'Pengumuman listrik mati sementara', judulEn: 'An announcement about a short power cut',
     rel: 'keluarga',
     sit: 'Mengumumkan ke keluarga bahwa listrik akan mati sebentar', sitEn: 'Announcing to the family that the power will go off briefly',

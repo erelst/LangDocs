@@ -24,6 +24,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'klinik_percakapan_dokter_tanya_gejala', topic: 'klinik', jenis: 'percakapan',
+    judulT: ['いつからですか、', 'どこ', 'が', '痛いです', 'か'],
     judul: 'Menjawab pertanyaan dokter tentang gejala', judulEn: 'Answering the doctor\'s questions about symptoms',
     speakers: {'A':'dokter','B':'orang_asing'},
     sit: 'Dokter menanyakan gejala dan pasien menjawab satu per satu', sitEn: 'The doctor asks about symptoms and the patient answers one by one',
@@ -43,6 +44,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_cerita_hasil_pemeriksaan', topic: 'klinik', jenis: 'cerita',
+    judulT: ['検査', 'の', '結果', 'は', '問題', 'なし', 'でした'],
     judul: 'Hasil pemeriksaan yang ternyata ringan', judulEn: 'Test results that turned out to be nothing serious',
     rel: 'dokter',
     sit: 'Menceritakan pemeriksaan yang membuat khawatir tetapi hasilnya ringan', sitEn: 'Recounting a worrying test that turned out to be nothing serious',
@@ -60,6 +62,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_kronologi_dari_datang_sampai_pulang', topic: 'klinik', jenis: 'kronologi',
+    judulT: ['受付', 'から', '会計', 'までの', '流れ'],
     judul: 'Dari datang sampai pulang', judulEn: 'From arriving to leaving',
     rel: 'dokter',
     sit: 'Menceritakan urutan kunjungan ke klinik, dari mendaftar sampai menerima obat', sitEn: 'Recounting a clinic visit in order, from registering to receiving medicine',
@@ -77,6 +80,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_curhatan_masuk_angin_terus', topic: 'klinik', jenis: 'curhatan',
+    judulT: ['薬', 'を', '飲んでも', '戻って', 'くる'],
     judul: 'Kambuh terus walau sudah minum obat', judulEn: 'It keeps coming back even with the medicine',
     rel: 'teman',
     sit: 'Mengeluh sakit yang kambuh walau sudah berobat, tanpa minta saran', sitEn: 'Venting about an illness that keeps returning despite treatment, without asking for advice',
@@ -94,6 +98,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_keluhan_tunggu_terlalu_lama', topic: 'klinik', jenis: 'keluhan',
+    judulT: ['予約', 'した', 'のに', '二時間', '待った'],
     judul: 'Menunggu dua jam tanpa penjelasan', judulEn: 'Waiting two hours with no explanation',
     rel: 'petugas',
     sit: 'Menyampaikan keluhan soal waktu tunggu di klinik', sitEn: 'Complaining about the waiting time at a clinic',
@@ -111,6 +116,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_penjelasan_cara_minum_obat', topic: 'klinik', jenis: 'penjelasan',
+    judulT: ['この薬', 'の', '飲み方'],
     judul: 'Cara minum obat yang diresepkan', judulEn: 'How to take the prescribed medicine',
     rel: 'apoteker',
     sit: 'Apoteker menerangkan cara minum obat kepada pasien', sitEn: 'The pharmacist explains to the patient how to take the medicine',
@@ -128,6 +134,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_laporan_demam_anak', topic: 'klinik', jenis: 'laporan',
+    judulT: ['子供', 'の', '熱', 'の', '報告'],
     judul: 'Melaporkan keadaan demam anak', judulEn: 'Reporting a child\'s fever',
     rel: 'dokter',
     sit: 'Melaporkan keadaan demam anak kepada dokter, dengan angka dan waktu', sitEn: 'Reporting a child\'s fever to the doctor, with numbers and times',
@@ -145,6 +152,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_rencana_pemeriksaan_berkala', topic: 'klinik', jenis: 'rencana',
+    judulT: ['年', 'に', '一度', 'の', '健康診断'],
     judul: 'Rencana pemeriksaan berkala', judulEn: 'Planning a routine check-up',
     rel: 'rekan',
     sit: 'Menyusun rencana pemeriksaan berkala, dengan waktu dan persiapannya', sitEn: 'Planning a routine check-up, with the timing and preparation',
@@ -162,6 +170,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_nasihat_jangan_tunda_ke_dokter', topic: 'klinik', jenis: 'nasihat',
+    judulT: ['我慢', 'しないで', '早く', '行く', 'こと'],
     judul: 'Jangan menunda pergi ke dokter', judulEn: 'Do not put off going to the doctor',
     rel: 'teman',
     sit: 'Menasihati teman supaya tidak menunda berobat', sitEn: 'Advising a friend not to put off seeing a doctor',
@@ -179,6 +188,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_permintaan_surat_keterangan', topic: 'klinik', jenis: 'permintaan',
+    judulT: ['診断書', 'を', 'お願いします'],
     judul: 'Meminta surat keterangan sakit', judulEn: 'Asking for a medical certificate',
     rel: 'dokter',
     sit: 'Meminta surat keterangan sakit untuk kantor', sitEn: 'Asking for a sick note for work',
@@ -196,6 +206,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_pengalaman_masuk_rumah_sakit', topic: 'klinik', jenis: 'pengalaman',
+    judulT: ['初めて', '入院', 'した', 'とき'],
     judul: 'Pengalaman menginap di rumah sakit', judulEn: 'The time I stayed in hospital',
     rel: 'teman',
     sit: 'Menceritakan pengalaman pertama menginap di rumah sakit', sitEn: 'Recounting a first stay in hospital',
@@ -213,6 +224,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'klinik_pengumuman_jam_praktik', topic: 'klinik', jenis: 'pengumuman',
+    judulT: ['診察', 'の', '時間', 'が', '変わります'],
     judul: 'Pengumuman perubahan jam praktik', judulEn: 'An announcement about changed clinic hours',
     rel: 'pasien',
     sit: 'Pengumuman ke pasien bahwa jam praktik berubah untuk sementara', sitEn: 'Announcing to patients that clinic hours change temporarily',

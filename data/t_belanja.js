@@ -30,6 +30,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'belanja_percakapan_tanya_barang', topic: 'belanja', jenis: 'percakapan',
+    judulT: ['別の', 'サイズ', 'は', 'あります', 'か'],
     judul: 'Menanyakan barang yang tidak terlihat', judulEn: 'Asking for something not on the shelf',
     speakers: {'A':'petugas_toko','B':'orang_asing'},
     sit: 'Menanyakan barang yang tidak ada di rak, dan ditawari pilihan lain', sitEn: 'Asking for an item that is not on the shelf and being offered another',
@@ -49,6 +50,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_cerita_kembali_ke_toko', topic: 'belanja', jenis: 'cerita',
+    judulT: ['サイズ', 'が', '合わ', 'なくて', '店', 'に', '戻った', '話'],
     judul: 'Kembali ke toko karena ukurannya salah', judulEn: 'Going back to the shop because the size was wrong',
     rel: 'petugas_toko',
     sit: 'Menceritakan pengembalian barang yang ternyata kekecilan', sitEn: 'Recounting returning an item that turned out too small',
@@ -66,6 +68,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_kronologi_pagi_potongan', topic: 'belanja', jenis: 'kronologi',
+    judulT: ['朝', 'の', '割引', 'を', '目', '指し', 'た', '日'],
     judul: 'Mengejar potongan pagi', judulEn: 'Chasing the morning discount',
     rel: 'teman',
     sit: 'Menceritakan urutan belanja pagi demi potongan, dari sebelum buka sampai membayar', sitEn: 'Recounting a morning trip for a discount, from before opening to paying',
@@ -83,6 +86,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_curhatan_harga_naik', topic: 'belanja', jenis: 'curhatan',
+    judulT: ['上', 'が', 'り', '続ける', '値段'],
     judul: 'Harga yang naik terus', judulEn: 'Prices that keep going up',
     rel: 'teman_dekat',
     sit: 'Mengeluh soal harga kebutuhan yang naik, tanpa minta saran', sitEn: 'Venting about rising prices, without asking for advice',
@@ -100,6 +104,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_keluhan_kasir_lambat', topic: 'belanja', jenis: 'keluhan',
+    judulT: ['レジ', 'が', '一つ', 'しか', '開', 'かな', 'い'],
     judul: 'Antrean yang tidak dibuka meski panjang', judulEn: 'A queue nobody opens another till for',
     rel: 'petugas_toko',
     sit: 'Menyampaikan keluhan soal antrean sore ke petugas toko', sitEn: 'Complaining to shop staff about the evening queue',
@@ -117,6 +122,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_penjelasan_garansi', topic: 'belanja', jenis: 'penjelasan',
+    judulT: ['保証', 'と', '返品', 'の', '仕組み'],
     judul: 'Cara kerja garansi dan pengembalian', judulEn: 'How the warranty and returns work',
     rel: 'petugas_toko',
     sit: 'Menerangkan syarat pengembalian barang yang rusak kepada pembeli', sitEn: 'Explaining the conditions for returning a broken item to a buyer',
@@ -134,6 +140,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_laporan_stok_habis', topic: 'belanja', jenis: 'laporan',
+    judulT: ['在庫', 'が', '切れた', 'こと', 'の', '報告'],
     judul: 'Melaporkan persediaan yang habis', judulEn: 'Reporting that stock has run out',
     rel: 'rekan',
     sit: 'Melaporkan ke rekan kerja bahwa satu barang habis dan yang sudah dipesan belum datang', sitEn: 'Reporting to a colleague that one item is out and the order has not arrived',
@@ -151,6 +158,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_rencana_belanja_bulanan', topic: 'belanja', jenis: 'rencana',
+    judulT: ['一', 'か月', 'の', '買い物', 'の', '計画'],
     judul: 'Rencana belanja bulanan', judulEn: 'Planning the monthly shop',
     rel: 'pasangan',
     sit: 'Menyusun rencana belanja bulanan berdua, dengan urutan prioritas', sitEn: 'Planning the monthly shop together, setting an order of priority',
@@ -168,6 +176,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_nasihat_jangan_beli_karena_obral', topic: 'belanja', jenis: 'nasihat',
+    judulT: ['安い', 'だけで', '買わ', 'ない', 'こと'],
     judul: 'Jangan beli hanya karena obral', judulEn: 'Do not buy just because it is on sale',
     rel: 'teman',
     sit: 'Menasihati teman supaya tidak membeli karena potongan saja', sitEn: 'Advising a friend not to buy merely because of a discount',
@@ -185,6 +194,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_permintaan_tukar_ukuran', topic: 'belanja', jenis: 'permintaan',
+    judulT: ['レシート', 'が', 'なくて', 'も', '替え', 'たい'],
     judul: 'Meminta tukar ukuran tanpa struk', judulEn: 'Asking to exchange a size without a receipt',
     rel: 'petugas_toko',
     sit: 'Meminta tukar ukuran, dan menjelaskan bahwa struknya hilang', sitEn: 'Asking to exchange for another size, explaining the receipt is lost',
@@ -202,6 +212,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_pengalaman_salah_baca_label', topic: 'belanja', jenis: 'pengalaman',
+    judulT: ['同じ', '物', 'を', '二つ', '買って', 'しまった', '話'],
     judul: 'Salah membaca label dan membeli barang yang sama', judulEn: 'Misread the label and bought the same thing twice',
     rel: 'teman',
     sit: 'Menceritakan kesalahan membeli karena labelnya mirip', sitEn: 'Recounting a buying mistake caused by two similar labels',
@@ -219,6 +230,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'belanja_pengumuman_potongan_akhir_pekan', topic: 'belanja', jenis: 'pengumuman',
+    judulT: ['週末', 'の', '割引', 'のお知らせ'],
     judul: 'Pengumuman potongan akhir pekan', judulEn: 'An announcement about the weekend sale',
     rel: 'petugas_toko',
     sit: 'Pengumuman di toko tentang potongan yang berlaku beberapa hari saja', sitEn: 'An in-store announcement about a discount running for a few days only',

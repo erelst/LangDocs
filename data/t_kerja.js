@@ -38,6 +38,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'kerja_percakapan_minta_tenggat', topic: 'kerja', jenis: 'percakapan',
+    judulT: ['締め切り', 'を', '延ばして', 'いただけますか'],
     judul: 'Meminta perpanjangan tenggat', judulEn: 'Asking for more time on a deadline',
     speakers: {'A':'rekan','B':'atasan'},
     sit: 'Meminta perpanjangan tenggat kepada atasan, dengan alasan yang bisa diperiksa', sitEn: 'Asking a superior for more time, with a reason that can be checked',
@@ -58,6 +59,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_cerita_kesalahan_yang_ditemukan', topic: 'kerja', jenis: 'cerita',
+    judulT: ['自分で', '見つけ', 'た', '間違い'],
     judul: 'Kesalahan yang saya temukan sendiri', judulEn: 'The mistake I found myself',
     rel: 'atasan',
     sit: 'Menceritakan kesalahan kerja yang ketahuan sendiri dan bagaimana diperbaiki', sitEn: 'Recounting a work mistake found by oneself and how it was fixed',
@@ -75,6 +77,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_kronologi_hari_rapat_besar', topic: 'kerja', jenis: 'kronologi',
+    judulT: ['大きい', '会議', 'の', 'あった', '日'],
     judul: 'Hari rapat besar', judulEn: 'The day of the big meeting',
     rel: 'rekan',
     sit: 'Menceritakan urutan hari rapat besar, dari persiapan sampai selesai', sitEn: 'Recounting the day of a big meeting, from preparation to finish',
@@ -92,6 +95,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_curhatan_lembur_terus', topic: 'kerja', jenis: 'curhatan',
+    judulT: ['終わらない', '残業'],
     judul: 'Lembur yang tidak ada habisnya', judulEn: 'Overtime that never ends',
     rel: 'teman_kerja',
     sit: 'Mengeluh soal lembur ke rekan, tanpa minta saran', sitEn: 'Venting about overtime to a colleague, without asking for advice',
@@ -109,6 +113,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_keluhan_tugas_tidak_jelas', topic: 'kerja', jenis: 'keluhan',
+    judulT: ['何', 'を', 'すれば', 'いい', 'の', 'か', '分からない'],
     judul: 'Tugas yang datang tanpa kejelasan', judulEn: 'Work handed over without the details',
     rel: 'atasan',
     sit: 'Menyampaikan bahwa tugas yang diberikan belum jelas, dan meminta kejelasan', sitEn: 'Saying the assignment is unclear and asking for the missing details',
@@ -126,6 +131,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_penjelasan_cara_melapor_masalah', topic: 'kerja', jenis: 'penjelasan',
+    judulT: ['問題', 'は', '早く', '報告', 'する', 'こと'],
     judul: 'Cara melaporkan masalah lebih awal', judulEn: 'How to report a problem early',
     rel: 'rekan',
     sit: 'Menerangkan cara melaporkan masalah kepada rekan yang baru bergabung', sitEn: 'Explaining how to report a problem to a colleague who has just joined',
@@ -143,6 +149,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_laporan_hasil_rapat', topic: 'kerja', jenis: 'laporan',
+    judulT: ['打ち合わせ', 'の', '報告'],
     judul: 'Melaporkan hasil rapat', judulEn: 'Reporting the outcome of a meeting',
     rel: 'atasan',
     sit: 'Melaporkan hasil rapat kepada atasan yang tidak ikut hadir', sitEn: 'Reporting a meeting\'s outcome to a superior who was absent',
@@ -160,6 +167,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_rencana_pulang_lebih_awal', topic: 'kerja', jenis: 'rencana',
+    judulT: ['早く', '上がらせて', 'いただく', '相談'],
     judul: 'Rencana pulang lebih awal', judulEn: 'Planning to leave early',
     rel: 'atasan',
     sit: 'Menyusun rencana pulang lebih awal, dengan pengganti pekerjaannya', sitEn: 'Planning to leave early, with cover for the work',
@@ -177,6 +185,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_nasihat_jangan_bawa_pulang', topic: 'kerja', jenis: 'nasihat',
+    judulT: ['仕事', 'を', '持ち', '帰らない', 'こと'],
     judul: 'Jangan bawa pulang pekerjaan tiap hari', judulEn: 'Do not take work home every day',
     rel: 'teman_kerja',
     sit: 'Menasihati rekan yang selalu membawa pulang pekerjaan', sitEn: 'Advising a colleague who always takes work home',
@@ -194,6 +203,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_permintaan_izin_cuti', topic: 'kerja', jenis: 'permintaan',
+    judulT: ['休み', 'を', 'いただきたい', 'ので', 'すが'],
     judul: 'Meminta izin cuti', judulEn: 'Asking for leave',
     rel: 'atasan',
     sit: 'Mengajukan cuti beberapa hari, dengan pengalihan pekerjaan', sitEn: 'Applying for a few days off, with the work handed over',
@@ -211,6 +221,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_pengalaman_gagal_presentasi', topic: 'kerja', jenis: 'pengalaman',
+    judulT: ['初めて', 'の', '説明', 'で', '失敗', 'した', '話'],
     judul: 'Presentasi pertama yang gagal', judulEn: 'The first presentation that failed',
     rel: 'rekan',
     sit: 'Menceritakan presentasi pertama yang kacau dan pelajarannya', sitEn: 'Recounting a first presentation that went badly and what it taught',
@@ -228,6 +239,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'kerja_pengumuman_perubahan_jam', topic: 'kerja', jenis: 'pengumuman',
+    judulT: ['勤務', '時間', 'が', '変わります'],
     judul: 'Pengumuman perubahan jam kerja', judulEn: 'An announcement about changed working hours',
     rel: 'rekan',
     sit: 'Pengumuman ke seluruh tim tentang perubahan jam kerja', sitEn: 'Announcing changed working hours to the whole team',

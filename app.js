@@ -61,14 +61,20 @@
    * without ending, that needs a marker in the data; no narrative needs it today. */
   function tokensOfBlock(block) {
     if (block._t) { return block._t; }
+    block._t = resolve(block.t);
+    return block._t;
+  }
+
+  /* Surfaces in, tokens out. Shared by the paragraphs and by the title, because a title is a
+   * sentence too and there is no reason for it to look up its words any differently. */
+  function resolve(surfaces) {
     var out = [];
-    for (var i = 0; i < block.t.length; i++) {
-      var surface = block.t[i];
+    for (var i = 0; i < surfaces.length; i++) {
+      var surface = surfaces[i];
       var e = lexEntry(surface);
       if (!e && bare(surface) !== '') { missingWords[surface] = 1; }
       out.push(e ? [surface, e[0], e[1], e[2]] : [surface, '', '', '']);
     }
-    block._t = out;
     return out;
   }
 
@@ -183,6 +189,15 @@
     return v ? (v[langOf()] || v.id) : (s.jenis || '');
   }
   function titleOf(s) { return langOf() === 'en' ? (s.judulEn || s.judul) : (s.judul || s.judulEn); }
+
+  /* The title in the language being learned, rendered through the same token renderer as the
+   * paragraphs: same per-word colours, same underlines, same bubble on hover. A title is a
+   * sentence, so it gets a sentence's treatment; the chosen-language title stays underneath as
+   * the one line that says what it means. */
+  function titleSpans(s) {
+    if (!s.judulT || !s.judulT.length) { return ''; }
+    return '<div class="title-jp jp-sent">' + tokenSpans(resolve(s.judulT), 0) + '</div>';
+  }
 
   /* ---------------------------------------------------------------- card pieces */
   function esc(t) {
@@ -340,8 +355,10 @@
       }
       // The title, the situation and the note are searchable too: a reader looking for a topic
       // rather than a word is asking a real question.
-      var meta = [titleOf(s), s.judul, s.judulEn, tr(s, 'sit'), tr(s, 'note'), whoLabel(s),
-                  jenisLabel(s)];
+      /* judulT is in here because it is now the title the reader sees first. Leaving it out
+       * meant the one line a reader is most likely to copy could not be found by searching. */
+      var meta = [titleOf(s), s.judul, s.judulEn, (s.judulT || []).join(''),
+                  tr(s, 'sit'), tr(s, 'note'), whoLabel(s), jenisLabel(s)];
       everything = everything.concat(meta);
 
       var jpParts = norm(japanese.join(' '));
@@ -445,6 +462,7 @@
         '</div>';
     }
     return '<div class="titem" data-row="' + rowIndex + '" role="button" tabindex="0">' +
+      titleSpans(s) +
       '<div class="tname">' + esc(titleOf(s)) + '</div>' +
       '<div class="meta">' +
         '<span class="badge">' + esc(jenisLabel(s)) + '</span>' +
@@ -643,7 +661,8 @@
     show('narrative');
     paintStaticStrings();
     var s = ROWS[rowIndex].s;
-    narrTitleEl.textContent = titleOf(s);
+    narrTitleEl.innerHTML = titleSpans(s) +
+      '<div class="tname">' + esc(titleOf(s)) + '</div>';
     narrEl.innerHTML = narrativeHTML(s);
     backBt.setAttribute('data-back', String(rowIndex));
     if (terms && terms.length) { highlight(terms); }

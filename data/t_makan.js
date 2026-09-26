@@ -32,6 +32,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'makan_percakapan_pesan_berdua', topic: 'makan', jenis: 'percakapan',
+    judulT: ['何', 'に', 'しよう', 'か'],
     judul: 'Memutuskan pesanan berdua', judulEn: 'Deciding what to order together',
     speakers: {'A':'teman','B':'teman_dekat'},
     sit: 'Dua orang di restoran membaca menu dan memutuskan pesanan', sitEn: 'Two people at a restaurant reading the menu and deciding',
@@ -49,6 +50,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_kronologi_dari_masuk_sampai_bayar', topic: 'makan', jenis: 'kronologi',
+    judulT: ['店', 'に', '入って', 'から', '払う', 'まで'],
     judul: 'Dari masuk restoran sampai bayar', judulEn: 'From walking in to paying',
     rel: 'teman',
     sit: 'Menceritakan urutan makan malam di restoran, dari awal sampai akhir', sitEn: 'Recounting a dinner out from start to finish',
@@ -66,6 +68,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_curhatan_diet_yang_gagal', topic: 'makan', jenis: 'curhatan',
+    judulT: ['夜', 'に', 'なると', '止まらない'],
     judul: 'Diet yang selalu gagal malam hari', judulEn: 'The diet that fails every night',
     rel: 'teman_dekat',
     sit: 'Mengeluh soal diet yang selalu gagal, tanpa minta saran', sitEn: 'Venting about a diet that keeps failing, without asking for advice',
@@ -83,6 +86,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_keluhan_pesanan_salah', topic: 'makan', jenis: 'keluhan',
+    judulT: ['頼', 'んだ', '物', 'と', '違います'],
     judul: 'Pesanan yang datang tidak sesuai', judulEn: 'The dish that came out wrong',
     rel: 'pelayan',
     sit: 'Memberi tahu pelayan bahwa pesanannya tidak sesuai, dengan permintaan yang jelas', sitEn: 'Telling waiting staff the order is wrong, with a clear request',
@@ -100,6 +104,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_penjelasan_cara_makan', topic: 'makan', jenis: 'penjelasan',
+    judulT: ['この', '料理', 'の', '食べ', '方'],
     judul: 'Cara makan hidangan yang belum dikenal', judulEn: 'How to eat a dish you have never seen',
     rel: 'orang_asing',
     sit: 'Menjelaskan cara makan sebuah hidangan kepada orang asing yang baru tiba', sitEn: 'Explaining how to eat a dish to a stranger who has just arrived',
@@ -117,6 +122,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_laporan_makan_malam_siap', topic: 'makan', jenis: 'laporan',
+    judulT: ['ご飯', 'が', 'できた', 'よ'],
     judul: 'Memberi tahu makan malam sudah siap', judulEn: 'Telling everyone dinner is ready',
     rel: 'ibu',
     sit: 'Melapor ke keluarga di rumah bahwa makan malam sudah siap', sitEn: 'Reporting at home that dinner is ready',
@@ -134,6 +140,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_rencana_makan_malam_bersama', topic: 'makan', jenis: 'rencana',
+    judulT: ['金曜', 'の', '夜', 'の', '店', 'を', '決める'],
     judul: 'Menyusun rencana makan malam bersama', judulEn: 'Organising a dinner together',
     rel: 'teman',
     sit: 'Merencanakan makan malam bersama sekelompok teman', sitEn: 'Planning dinner with a group of friends',
@@ -151,6 +158,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_nasihat_alergi_di_restoran', topic: 'makan', jenis: 'nasihat',
+    judulT: ['注文', 'の', '前に', '伝える', 'こと'],
     judul: 'Saran supaya alergi benar-benar tersampaikan', judulEn: 'Making sure an allergy gets through',
     rel: 'teman',
     sit: 'Menasihati teman yang punya alergi makanan soal cara memesan', sitEn: 'Advising a friend with a food allergy on how to order',
@@ -168,6 +176,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_permintaan_bungkus_sisa', topic: 'makan', jenis: 'permintaan',
+    judulT: ['残り', 'を', '持ち帰り', 'たい'],
     judul: 'Meminta sisa makanan dibungkus', judulEn: 'Asking for the leftovers to be packed',
     rel: 'pelayan',
     sit: 'Meminta sisa makanan dibungkus supaya tidak terbuang', sitEn: 'Asking for the leftovers to be packed so they are not wasted',
@@ -185,6 +194,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_pengalaman_pertama_kali', topic: 'makan', jenis: 'pengalaman',
+    judulT: ['読め', 'ない', '料理', 'を', '頼んで', 'みた', '話'],
     judul: 'Pertama kali makan sesuatu yang tidak dikenal', judulEn: 'The first time I ate something I did not recognise',
     rel: 'teman',
     sit: 'Menceritakan pengalaman pertama makan makanan yang tidak dikenal', sitEn: 'Recounting the first time eating food you could not recognise',
@@ -202,6 +212,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'makan_pengumuman_di_kantin', topic: 'makan', jenis: 'pengumuman',
+    judulT: ['食堂', 'から', 'のお知らせ'],
     judul: 'Pengumuman di kantin sekolah', judulEn: 'An announcement in the school canteen',
     rel: 'petugas',
     sit: 'Pengumuman kepada seluruh pengunjung kantin', sitEn: 'An announcement to everyone using the canteen',

@@ -20,6 +20,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'jalan_percakapan_tanya_arah_toko', topic: 'jalan', jenis: 'percakapan',
+    judulT: ['郵便局', 'は', 'どこ', 'ですか'],
     judul: 'Menanyakan arah ke kantor pos', judulEn: 'Asking the way to the post office',
     speakers: {'A':'orang_asing','B':'tetangga'},
     sit: 'Menanyakan arah ke orang yang lewat, dan diberi arah', sitEn: 'Asking a passer-by for directions and being given them',
@@ -39,6 +40,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_cerita_tersesat_di_perumahan', topic: 'jalan', jenis: 'cerita',
+    judulT: ['夜', 'の', '住宅街', 'で', '道', 'に', '迷った', '話'],
     judul: 'Tersesat di perumahan waktu malam', judulEn: 'Lost in a residential area at night',
     rel: 'teman',
     sit: 'Menceritakan kejadian waktu mencari rumah teman', sitEn: 'Recounting what happened while looking for a friend\'s house',
@@ -56,6 +58,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_kronologi_dari_stasiun_ke_rumah', topic: 'jalan', jenis: 'kronologi',
+    judulT: ['駅', 'から', '家', 'まで', '歩いた', '道', 'の', 'り'],
     judul: 'Berjalan dari stasiun ke rumah', judulEn: 'Walking from the station to the house',
     rel: 'teman',
     sit: 'Menceritakan urutan perjalanan jalan kaki, dengan pilihan di tengah jalan', sitEn: 'Recounting a walk in order, with a choice made along the way',
@@ -73,6 +76,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_curhatan_kehujanan_di_jalan', topic: 'jalan', jenis: 'curhatan',
+    judulT: ['途中', 'で', '降られて', 'しまった', '話'],
     judul: 'Kehujanan di tengah jalan', judulEn: 'Caught in the rain on the way',
     rel: 'teman_dekat',
     sit: 'Mengeluh kehujanan, tanpa minta saran', sitEn: 'Venting about getting soaked, without asking for advice',
@@ -90,6 +94,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_keluhan_trotoar_tertutup', topic: 'jalan', jenis: 'keluhan',
+    judulT: ['工事', 'で', '歩道', 'が', 'ふさが', 'って', 'いる'],
     judul: 'Trotoar yang tertutup proyek', judulEn: 'A pavement closed off by building work',
     rel: 'petugas',
     sit: 'Menyampaikan keluhan ke petugas proyek, dengan permintaan yang jelas', sitEn: 'Complaining to a site worker, with a clear request',
@@ -107,6 +112,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_penjelasan_cara_baca_alamat', topic: 'jalan', jenis: 'penjelasan',
+    judulT: ['日本', 'の', '住所', 'の', '読み', '方'],
     judul: 'Cara membaca alamat di Jepang', judulEn: 'How Japanese addresses work',
     rel: 'orang_asing',
     sit: 'Menjelaskan cara membaca alamat kepada orang yang baru tiba', sitEn: 'Explaining how addresses work to someone who has just arrived',
@@ -124,6 +130,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_laporan_sudah_sampai', topic: 'jalan', jenis: 'laporan',
+    judulT: ['待ち合わせ', '場所', 'に', '着いた', '連絡'],
     judul: 'Mengabarkan sudah sampai di titik temu', judulEn: 'Reporting that I have arrived at the meeting point',
     rel: 'teman',
     sit: 'Menelepon untuk memberi tahu sudah sampai dan sedang menunggu', sitEn: 'Calling to say I have arrived and am waiting',
@@ -141,6 +148,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_rencana_pilih_jalur_kaki', topic: 'jalan', jenis: 'rencana',
+    judulT: ['歩いて', '帰る', '道', 'の', '選び', '方'],
     judul: 'Memilih jalur jalan kaki', judulEn: 'Choosing which way to walk',
     rel: 'pasangan',
     sit: 'Memutuskan jalur mana yang dipakai, dengan alasan yang dibandingkan', sitEn: 'Deciding which route to take, comparing the reasons',
@@ -158,6 +166,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_nasihat_jangan_lewat_taman', topic: 'jalan', jenis: 'nasihat',
+    judulT: ['夜', 'は', '公園', 'を', '通ら', 'ない', 'こと'],
     judul: 'Jangan lewat taman kalau malam', judulEn: 'Do not cut through the park at night',
     rel: 'teman',
     sit: 'Menasihati teman soal jalan pulang setelah gelap', sitEn: 'Advising a friend about the way home after dark',
@@ -175,6 +184,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_permintaan_minta_foto', topic: 'jalan', jenis: 'permintaan',
+    judulT: ['写真', 'を', '撮', 'って', 'もらう'],
     judul: 'Meminta tolong difoto', judulEn: 'Asking a stranger to take a photo',
     rel: 'orang_asing',
     sit: 'Meminta orang yang lewat memotret berdua di depan sebuah monumen', sitEn: 'Asking a passer-by to photograph the two of you in front of a monument',
@@ -192,6 +202,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_pengalaman_berpapasan_tetangga_lama', topic: 'jalan', jenis: 'pengalaman',
+    judulT: ['祖父', 'を', '知る人に', '会った', '話'],
     judul: 'Berpapasan dengan orang yang mengenal kakek saya', judulEn: 'Meeting someone who knew my grandfather',
     rel: 'tetangga_lama',
     sit: 'Menceritakan pertemuan tak terduga di jalan, dan apa yang berubah setelahnya', sitEn: 'Recounting an unexpected meeting in the street and what changed afterwards',
@@ -209,6 +220,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'jalan_pengumuman_jalan_ditutup', topic: 'jalan', jenis: 'pengumuman',
+    judulT: ['祭り', 'の', 'ため', '道', 'が', '通れ', 'ません'],
     judul: 'Pengumuman jalan ditutup untuk festival', judulEn: 'An announcement that the street is closed for a festival',
     rel: 'petugas',
     sit: 'Pengumuman kepada pejalan kaki bahwa jalannya ditutup', sitEn: 'An announcement to people on foot that a street is closed',

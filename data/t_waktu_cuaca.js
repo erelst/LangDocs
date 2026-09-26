@@ -21,6 +21,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'waktu_cuaca_percakapan_pagi_di_kantor', topic: 'waktu_cuaca', jenis: 'percakapan',
+    judulT: ['今朝', 'は', '冷えます', 'ね'],
     judul: 'Basa-basi pagi tentang cuaca', judulEn: 'Morning small talk about the weather',
     speakers: {'A':'rekan','B':'atasan'},
     sit: 'Percakapan pagi di kantor, dimulai dari cuaca', sitEn: 'A morning conversation at the office, starting from the weather',
@@ -40,6 +41,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_cerita_hujan_deras_di_rumah', topic: 'waktu_cuaca', jenis: 'cerita',
+    judulT: ['午後', 'の', '雨', 'で', '変わった', 'こと'],
     judul: 'Hujan deras yang mengubah sore', judulEn: 'Heavy rain that changed the afternoon',
     rel: 'keluarga',
     sit: 'Menceritakan hujan deras yang mengubah rencana sore', sitEn: 'Recounting heavy rain that changed the afternoon\'s plan',
@@ -57,6 +59,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_kronologi_pagi_sampai_malam', topic: 'waktu_cuaca', jenis: 'kronologi',
+    judulT: ['朝', 'から', '夜', 'までの', '空'],
     judul: 'Cuaca dari pagi sampai malam', judulEn: 'The weather from morning to night',
     rel: 'teman',
     sit: 'Menceritakan urutan perubahan cuaca sehari, dan bagaimana masing-masing mengubah rencana', sitEn: 'Recounting how the weather changed through a day and what each change altered',
@@ -74,6 +77,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_curhatan_panas_yang_tak_tertahankan', topic: 'waktu_cuaca', jenis: 'curhatan',
+    judulT: ['この', '暑さ', 'は', 'こたえる'],
     judul: 'Panas yang tidak bisa ditahan', judulEn: 'Heat that cannot be endured',
     rel: 'teman_dekat',
     sit: 'Mengeluh soal panas, tanpa minta saran', sitEn: 'Venting about the heat, without asking for advice',
@@ -91,6 +95,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_keluhan_janji_dibatalkan_akibat_cuaca', topic: 'waktu_cuaca', jenis: 'keluhan',
+    judulT: ['中止', 'の', '連絡', 'が', '遅すぎた'],
     judul: 'Janji dibatalkan karena cuaca', judulEn: 'A meeting cancelled because of the weather',
     rel: 'rekan',
     sit: 'Menyampaikan keluhan karena pertemuan dibatalkan sepihak gara-gara hujan', sitEn: 'Raising a complaint because a meeting was cancelled unilaterally over rain',
@@ -108,6 +113,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_penjelasan_menyebut_waktu', topic: 'waktu_cuaca', jenis: 'penjelasan',
+    judulT: ['日付', 'と', '時間', 'の', '伝え', '方'],
     judul: 'Cara menyebut waktu dalam percakapan', judulEn: 'How to refer to time in conversation',
     rel: 'teman',
     sit: 'Menerangkan cara menyebut hari dan jam supaya tidak membingungkan', sitEn: 'Explaining how to refer to days and hours so they are not confusing',
@@ -125,6 +131,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_laporan_keterlambatan_karena_cuaca', topic: 'waktu_cuaca', jenis: 'laporan',
+    judulT: ['雨', 'で', '中止', 'に', 'なりました'],
     judul: 'Laporan pembatalan karena hujan', judulEn: 'Reporting a cancellation because of rain',
     rel: 'atasan',
     sit: 'Melaporkan bahwa hujan memaksa acara luar dibatalkan, dan apa penggantinya', sitEn: 'Reporting that rain has forced an outdoor event to be cancelled, and what replaces it',
@@ -142,6 +149,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_rencana_menyesuaikan_cuaca', topic: 'waktu_cuaca', jenis: 'rencana',
+    judulT: ['天気', 'で', '決める', '計画'],
     judul: 'Menyesuaikan rencana dengan cuaca', judulEn: 'Adjusting plans to the weather',
     rel: 'pasangan',
     sit: 'Menyusun rencana yang berubah menurut cuaca', sitEn: 'Making a plan that changes with the weather',
@@ -159,6 +167,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_nasihat_jangan_meremehkan_cuaca', topic: 'waktu_cuaca', jenis: 'nasihat',
+    judulT: ['予報', 'を', '軽く', '見', 'ない', 'こと'],
     judul: 'Jangan meremehkan prakiraan cuaca', judulEn: 'Do not dismiss the weather forecast',
     rel: 'teman',
     sit: 'Menasihati teman supaya menyiapkan diri menurut prakiraan', sitEn: 'Advising a friend to prepare according to the forecast',
@@ -176,6 +185,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_permintaan_ubah_jadwal_karena_hujan', topic: 'waktu_cuaca', jenis: 'permintaan',
+    judulT: ['一日', 'ずらして', 'も', 'いいですか'],
     judul: 'Meminta jadwal digeser karena hujan', judulEn: 'Asking to move a plan because of rain',
     rel: 'teman',
     sit: 'Meminta jadwal diubah karena prakiraan hujan, dengan alternatif', sitEn: 'Asking to move a plan because of rain, with an alternative',
@@ -193,6 +203,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_pengalaman_taifu', topic: 'waktu_cuaca', jenis: 'pengalaman',
+    judulT: ['台風', 'が', '来た', 'とき', 'の', '話'],
     judul: 'Pengalaman melewati topan', judulEn: 'The time I sat through a typhoon',
     rel: 'teman',
     sit: 'Menceritakan pengalaman melewati topan di rumah', sitEn: 'Recounting sitting through a typhoon at home',
@@ -210,6 +221,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'waktu_cuaca_pengumuman_taifu', topic: 'waktu_cuaca', jenis: 'pengumuman',
+    judulT: ['台風', '接近', 'に', 'とも', 'な', 'う', '勤務', 'の', '変更'],
     judul: 'Pengumuman perusahaan saat topan mendekat', judulEn: 'A company announcement as a typhoon approaches',
     rel: 'rekan',
     sit: 'Pengumuman ke seluruh karyawan bahwa kerja berubah karena topan', sitEn: 'Announcing to all staff that work changes because of an approaching typhoon',

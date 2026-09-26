@@ -27,6 +27,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'telepon_percakapan_menelepon_kantor', topic: 'telepon', jenis: 'percakapan',
+    judulT: ['お電話', 'ありがとうございます'],
     judul: 'Menelepon kantor dan bukan orang yang dituju yang mengangkat', judulEn: 'Calling an office and reaching someone else',
     speakers: {'A':'petugas','B':'klien'},
     sit: 'Percakapan telepon ke kantor, diangkat resepsionis', sitEn: 'A phone call to an office, answered by reception',
@@ -46,6 +47,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_cerita_salah_sambung', topic: 'telepon', jenis: 'cerita',
+    judulT: ['番号', 'を', '間違えた', '話'],
     judul: 'Salah sambung ke nomor yang mirip', judulEn: 'The call that went to a similar number',
     rel: 'orang_asing',
     sit: 'Menceritakan salah sambung dan bagaimana ditutup dengan baik', sitEn: 'Recounting a wrong number and how it was closed politely',
@@ -63,6 +65,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_kronologi_menunggu_di_telepon', topic: 'telepon', jenis: 'kronologi',
+    judulT: ['つ', 'な', 'が', 'る', 'までの', '待ち時間'],
     judul: 'Menunggu di telepon sampai disambungkan', judulEn: 'Waiting on the line to be put through',
     rel: 'petugas',
     sit: 'Menceritakan urutan menelepon dan menunggu sampai bicara dengan orang yang dituju', sitEn: 'Recounting a call and the wait until reaching the right person',
@@ -80,6 +83,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_curhatan_telepon_mendesak', topic: 'telepon', jenis: 'curhatan',
+    judulT: ['忙しい', 'とき', 'に', '限って', '鳴る'],
     judul: 'Telepon yang selalu datang di waktu sibuk', judulEn: 'Calls that always arrive at the worst time',
     rel: 'rekan',
     sit: 'Mengeluh soal telepon yang datang di waktu paling sibuk, tanpa minta saran', sitEn: 'Venting about calls arriving at the busiest time, without asking for advice',
@@ -97,6 +101,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_keluhan_operator_tidak_menyambung', topic: 'telepon', jenis: 'keluhan',
+    judulT: ['三回', 'とも', '途中', 'で', '切れ', 'ました'],
     judul: 'Sudah tiga kali disambungkan tetapi tidak pernah tersambung', judulEn: 'Put through three times and never connected',
     rel: 'petugas',
     sit: 'Menyampaikan keluhan ke operator bahwa sambungannya selalu terputus', sitEn: 'Complaining to an operator that the connection keeps dropping',
@@ -114,6 +119,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_penjelasan_cara_meninggalkan_pesan', topic: 'telepon', jenis: 'penjelasan',
+    judulT: ['伝言', 'の', '残し方'],
     judul: 'Cara meninggalkan pesan yang berguna', judulEn: 'How to leave a message that works',
     rel: 'rekan',
     sit: 'Menerangkan cara meninggalkan pesan kepada rekan yang baru bergabung', sitEn: 'Explaining how to leave a useful message to a new colleague',
@@ -131,6 +137,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_laporan_akan_terlambat', topic: 'telepon', jenis: 'laporan',
+    judulT: ['電車', 'の', '中', 'から', '連絡します'],
     judul: 'Menelepon dari kereta yang berisik', judulEn: 'Calling from a noisy train',
     rel: 'klien',
     sit: 'Menelepon dari dalam kereta, dan suaranya sulit didengar', sitEn: 'Calling from inside a train where the line is hard to hear',
@@ -148,6 +155,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_rencana_menelepon_ulang', topic: 'telepon', jenis: 'rencana',
+    judulT: ['かけ', '直す', '段', '取り'],
     judul: 'Rencana menelepon ulang', judulEn: 'Planning to call back',
     rel: 'rekan',
     sit: 'Menyusun rencana menelepon ulang, dengan waktu dan cara', sitEn: 'Planning a call back, with a time and a way',
@@ -165,6 +173,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_nasihat_jangan_telepon_malam', topic: 'telepon', jenis: 'nasihat',
+    judulT: ['夜', 'に', '電話', 'しない', 'こと'],
     judul: 'Jangan menelepon kantor pada malam hari', judulEn: 'Do not call an office late at night',
     rel: 'rekan',
     sit: 'Menasihati rekan soal waktu yang tepat untuk menelepon', sitEn: 'Advising a colleague on when to call',
@@ -182,6 +191,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_permintaan_minta_ditelepon_kembali', topic: 'telepon', jenis: 'permintaan',
+    judulT: ['かけ', '直して', 'いただけますか'],
     judul: 'Meminta ditelepon kembali', judulEn: 'Asking to be called back',
     rel: 'petugas',
     sit: 'Meminta ditelepon kembali karena sedang tidak bisa bicara', sitEn: 'Asking to be called back because now is not a good time',
@@ -199,6 +209,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_pengalaman_telepon_penting_terlewat', topic: 'telepon', jenis: 'pengalaman',
+    judulT: ['大事', 'な', '電話', 'を', '逃', 'した', '話'],
     judul: 'Telepon penting yang terlewat', judulEn: 'The important call I missed',
     rel: 'rekan',
     sit: 'Menceritakan telepon penting yang terlewat dan pelajarannya', sitEn: 'Recounting a missed important call and what it taught',
@@ -216,6 +227,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'telepon_pengumuman_telepon_masuk', topic: 'telepon', jenis: 'pengumuman',
+    judulT: ['お電話', 'です、', '内線', '十二番'],
     judul: 'Pengumuman di dalam gedung saat ada telepon masuk', judulEn: 'A building announcement for an incoming call',
     rel: 'petugas',
     sit: 'Pengumuman lewat pengeras suara bahwa ada telepon masuk untuk seseorang', sitEn: 'A public address announcement that someone has a call',

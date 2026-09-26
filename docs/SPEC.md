@@ -66,6 +66,11 @@ ditulis adalah satu baris, dan itu bukan narasi.
 **Alasan.** Percakapan sehari-hari yang berguna bukan daftar sapaan. Yang sulit dan paling sering
 dibutuhkan adalah yang membawa isi.
 
+**Judul ditulis dalam bahasa sasaran, dan itu bagian dari bentuk narasi, bukan hiasan.** Setiap
+narasi membawa `judul` (bahasa yang dipilih pembaca) dan `judulT` (bahasa sasaran). Keduanya
+wajib ada: yang pertama adalah baris arti, yang kedua adalah judul sebenarnya, dan keduanya
+disimpan sebagai daftar permukaan kata supaya aturan K7 berlaku pada judul juga.
+
 **Satu blok adalah satu paragraf, bukan satu kalimat.** Sebuah paragraf boleh memuat beberapa
 kalimat, dan memang itu yang diharapkan: satu paragraf yang isinya satu kalimat hanya wajar bila
 kalimat itu memang berdiri sendiri, misalnya satu ucapan dalam percakapan. Di luar itu, paragraf
@@ -193,6 +198,11 @@ satu-satunya ketentuan yang mencegah dua narasi menulis kata yang sama dengan du
 konsol browser yang menyebut setiap permukaan kata yang tidak ditemukan di lexicon. Peringatan itu
 tidak menggagalkan apa pun, tapi ia terlihat, dan cara memakainya adalah membuka konsol setelah
 menulis narasi baru.
+
+**Judul juga tunduk pada aturan ini.** Judul ditulis dalam **bahasa sasaran** (`judulT`), dan
+kata-katanya memakai `data/lexicon.js` yang sama seperti paragraf, sehingga romaji dan glosanya
+tidak bisa berbeda dari kata yang sama di dalam narasinya. Judul yang memakai kata di luar lexicon
+akan muncul sebagai peringatan di konsol, sama seperti kalimat biasa.
 
 **Gejala pelanggaran.** Sel glosa kosong di panel, atau romaji berbeda untuk kata yang sama.
 Daftar kata baru ditambahkan lewat `node lexadd.js new-words.js`.
@@ -370,6 +380,7 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V14 | Daftar di halaman ketiga berisi **judul**, bukan kalimat; pencarian menemukan kata di dalam narasi dan menawarkan tombol membaca judul itu penuh | `app.js` |
 | V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama | `app.js` |
 | V18 | Setiap jenis punya bentuk yang berbeda, sehingga percakapan bisa dibedakan dari kronologi sebelum satu kata dibaca | `app.js` + CSS |
+| V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan. Judul dalam bahasa yang dipilih tetap tercetak tepat di bawahnya sebagai baris arti | `app.js` + `const.js` |
 
 ---
 

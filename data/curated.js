@@ -13,6 +13,7 @@
 window.CURATED = [
   {
     key: 'kurasi06',
+    judulT: ['駅', 'の', '近く', 'の', '安い', 'レストラン', 'で', '食べた', '話'],
     topic: 'makan',
     jenis: 'cerita',
     judul: 'Makan di restoran dekat stasiun',

@@ -29,6 +29,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'sopan_percakapan_tidak_paham', topic: 'sopan', jenis: 'percakapan',
+    judulT: ['途中', 'から', '分かりません', 'でした'],
     judul: 'Mengaku belum paham dan meminta diulang', judulEn: 'Admitting I did not follow and asking again',
     speakers: {'A':'rekan','B':'atasan'},
     sit: 'Percakapan di mana yang mendengar mengaku belum paham', sitEn: 'A conversation where the listener admits they did not follow',
@@ -48,6 +49,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_cerita_menahan_diri_tidak_menyela', topic: 'sopan', jenis: 'cerita',
+    judulT: ['口', 'を', '出', 'さずに', '待った', '話'],
     judul: 'Menahan diri untuk tidak menyela', judulEn: 'Holding back from cutting in',
     rel: 'rekan',
     sit: 'Menceritakan saat menahan diri tidak menyela pembicaraan', sitEn: 'Recounting a time of holding back from interrupting',
@@ -65,6 +67,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_kronologi_menolak_dengan_halus', topic: 'sopan', jenis: 'kronologi',
+    judulT: ['断り方', 'の', '順番'],
     judul: 'Urutan menolak tanpa menyinggung', judulEn: 'The order of refusing without offence',
     rel: 'atasan',
     sit: 'Menceritakan urutan cara menolak permintaan, dari menerima keinginannya sampai memberi alternatif', sitEn: 'Recounting the order of refusing, from accepting the wish to offering an alternative',
@@ -82,6 +85,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_curhatan_sulit_mengatakan_tidak', topic: 'sopan', jenis: 'curhatan',
+    judulT: ['「', '大丈夫です」', 'と', '言って', 'しまう'],
     judul: 'Sulit sekali mengatakan tidak', judulEn: 'How hard it is to say no',
     rel: 'teman_dekat',
     sit: 'Mengeluh soal sulitnya menolak, tanpa minta saran', sitEn: 'Venting about how hard it is to refuse, without asking for advice',
@@ -99,6 +103,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_keluhan_ditolak_tegas', topic: 'sopan', jenis: 'keluhan',
+    judulT: ['断り方', 'で', '傷つ', 'いた', '話'],
     judul: 'Ditolak dengan cara yang menyakitkan', judulEn: 'Refused in a way that stung',
     rel: 'rekan',
     sit: 'Menyampaikan bahwa penolakan yang diterima terasa kasar', sitEn: 'Saying that the refusal received felt harsh',
@@ -116,6 +121,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_penjelasan_menerima_pujian', topic: 'sopan', jenis: 'penjelasan',
+    judulT: ['褒め', 'られた', 'とき', 'の', '答え方'],
     judul: 'Cara menerima pujian tanpa terdengar sombong', judulEn: 'How to take a compliment without sounding smug',
     rel: 'rekan',
     sit: 'Menerangkan cara menanggapi pujian di tempat kerja', sitEn: 'Explaining how to respond to praise at work',
@@ -133,6 +139,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_laporan_menyampaikan_ketidaknyamanan', topic: 'sopan', jenis: 'laporan',
+    judulT: ['少しだけ', '共有', 'して', 'おきたい', 'こと'],
     judul: 'Melaporkan ketidaknyamanan tanpa menyalahkan', judulEn: 'Reporting discomfort without blaming',
     rel: 'rekan',
     sit: 'Melaporkan bahwa sesuatu membuat tidak nyaman, tanpa menuduh siapa pun', sitEn: 'Reporting that something is uncomfortable, without accusing anyone',
@@ -150,6 +157,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_rencana_menutup_pembicaraan', topic: 'sopan', jenis: 'rencana',
+    judulT: ['話', 'を', '切らずに', '終わらせる'],
     judul: 'Rencana menutup pembicaraan tanpa memutusnya', judulEn: 'Planning to close a conversation without cutting it off',
     rel: 'atasan',
     sit: 'Menyusun cara menutup pembicaraan yang panjang tanpa terkesan memutus', sitEn: 'Planning how to close a long conversation without it feeling cut off',
@@ -167,6 +175,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_nasihat_jangan_terlalu_sering_minta_maaf', topic: 'sopan', jenis: 'nasihat',
+    judulT: ['謝り', 'すぎ', 'ない', 'こと'],
     judul: 'Jangan meminta maaf untuk hal yang bukan salahmu', judulEn: 'Do not apologise for what is not your fault',
     rel: 'rekan',
     sit: 'Menasihati rekan yang terlalu sering meminta maaf', sitEn: 'Advising a colleague who apologises too often',
@@ -184,6 +193,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_permintaan_waktu_untuk_berpikir', topic: 'sopan', jenis: 'permintaan',
+    judulT: ['明日', 'まで', '考えさせて', 'ください'],
     judul: 'Meminta waktu untuk berpikir sebelum menjawab', judulEn: 'Asking for time to think before answering',
     rel: 'atasan',
     sit: 'Meminta waktu sebelum menjawab keputusan penting', sitEn: 'Asking for time before answering an important decision',
@@ -201,6 +211,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_pengalaman_menyela_lalu_menyesal', topic: 'sopan', jenis: 'pengalaman',
+    judulT: ['口', 'を', '挟んで', '後悔', 'した', '話'],
     judul: 'Menyela pembicaraan lalu menyesal', judulEn: 'Cutting in and regretting it',
     rel: 'rekan',
     sit: 'Menceritakan saat menyela pembicaraan dan menyesalinya', sitEn: 'Recounting a time of interrupting and regretting it',
@@ -218,6 +229,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'sopan_pengumuman_aturan_bicara', topic: 'sopan', jenis: 'pengumuman',
+    judulT: ['会議', 'で', 'の', '三つ', 'の', 'お願い'],
     judul: 'Pengumuman aturan bicara di rapat', judulEn: 'An announcement about how to speak in meetings',
     rel: 'rekan',
     sit: 'Pengumuman ke seluruh tim tentang aturan berbicara di rapat', sitEn: 'Announcing to the whole team the rules for speaking in meetings',

@@ -27,6 +27,7 @@
 window.BANK = (window.BANK || []).concat([
   {
     key: 'rumah_tugas_percakapan_bagi_kerja', topic: 'rumah_tugas', jenis: 'percakapan',
+    judulT: ['今朝', 'の', '家', '事の', '分担'],
     judul: 'Membagi pekerjaan rumah pagi ini', judulEn: 'Dividing the chores this morning',
     speakers: {'A':'pasangan','B':'pasangan'},
     sit: 'Dua orang di rumah membagi pekerjaan sebelum berangkat', sitEn: 'Two people at home dividing the work before leaving',
@@ -46,6 +47,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_cerita_hari_sibuk', topic: 'rumah_tugas', jenis: 'cerita',
+    judulT: ['一度', 'に', '来て', 'しまった', '日'],
     judul: 'Hari ketika semuanya harus selesai sekaligus', judulEn: 'The day everything had to be done at once',
     rel: 'pasangan',
     sit: 'Menceritakan hari ketika pekerjaan rumah menumpuk bersamaan', sitEn: 'Recounting a day when the housework all piled up at once',
@@ -63,6 +65,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_kronologi_pagi_sebelum_berangkat', topic: 'rumah_tugas', jenis: 'kronologi',
+    judulT: ['出かける', '前の', '朝'],
     judul: 'Pagi sebelum berangkat kerja', judulEn: 'The morning before leaving for work',
     rel: 'pasangan',
     sit: 'Menceritakan urutan pekerjaan rumah sebelum berangkat', sitEn: 'Recounting the order of the chores before leaving',
@@ -80,6 +83,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_curhatan_kerjaan_tidak_habis', topic: 'rumah_tugas', jenis: 'curhatan',
+    judulT: ['終わらない', '家', '事'],
     judul: 'Pekerjaan rumah yang tidak pernah habis', judulEn: 'Housework that never ends',
     rel: 'pasangan',
     sit: 'Mengeluh soal pekerjaan rumah yang selalu muncul lagi, tanpa minta saran', sitEn: 'Venting about housework that keeps coming back, without asking for advice',
@@ -97,6 +101,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_keluhan_tetangga_berisik', topic: 'rumah_tugas', jenis: 'keluhan',
+    judulT: ['上の', '部屋', 'の', '音'],
     judul: 'Kebisingan dari tetangga di atas', judulEn: 'Noise from the neighbour upstairs',
     rel: 'tetangga',
     sit: 'Menyampaikan keluhan soal suara ke tetangga, dengan permintaan yang jelas', sitEn: 'Raising noise with a neighbour, with a clear request',
@@ -114,6 +119,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_penjelasan_memilah_sampah', topic: 'rumah_tugas', jenis: 'penjelasan',
+    judulT: ['ごみ', 'の', '分け', '方'],
     judul: 'Cara memilah sampah di daerah ini', judulEn: 'How to sort rubbish in this area',
     rel: 'tetangga_baru',
     sit: 'Menerangkan cara memilah sampah kepada tetangga yang baru pindah', sitEn: 'Explaining how to sort rubbish to a neighbour who has just moved in',
@@ -131,6 +137,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_laporan_tagihan_sudah_dibayar', topic: 'rumah_tugas', jenis: 'laporan',
+    judulT: ['支払い', 'が', '済', 'んだ', 'こと', 'の', '報告'],
     judul: 'Melaporkan tagihan sudah dibayar', judulEn: 'Reporting that the bills are paid',
     rel: 'pasangan',
     sit: 'Melaporkan bahwa tagihan sudah dibayar dan apa yang masih tersisa', sitEn: 'Reporting that the bills are paid and what is still left',
@@ -148,6 +155,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_rencana_bersih_besar', topic: 'rumah_tugas', jenis: 'rencana',
+    judulT: ['大', '掃除', 'の', '段', '取り'],
     judul: 'Rencana bersih-bersih besar', judulEn: 'Planning a big clean',
     rel: 'pasangan',
     sit: 'Menyusun rencana bersih-bersih besar, dengan urutan dan pembagian', sitEn: 'Planning a big clean, with an order and a division of work',
@@ -165,6 +173,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_nasihat_jangan_menunda', topic: 'rumah_tugas', jenis: 'nasihat',
+    judulT: ['後回し', 'に', 'しない', 'こと'],
     judul: 'Jangan menunda pekerjaan kecil', judulEn: 'Do not put off the small jobs',
     rel: 'pasangan',
     sit: 'Menasihati pasangan supaya mengerjakan yang kecil lebih dulu', sitEn: 'Advising a partner to do the small jobs first',
@@ -182,6 +191,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_permintaan_minta_tolong_sekarang', topic: 'rumah_tugas', jenis: 'permintaan',
+    judulT: ['今', 'すぐ', '手', 'を', '貸して', 'ほしい'],
     judul: 'Minta tolong saat ini juga', judulEn: 'Asking for help right now',
     rel: 'pasangan',
     sit: 'Meminta tolong segera, dengan alasan yang jelas kenapa harus sekarang', sitEn: 'Asking for help now, with a clear reason why it has to be now',
@@ -199,6 +209,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_pengalaman_pertama_tinggal_sendiri', topic: 'rumah_tugas', jenis: 'pengalaman',
+    judulT: ['初めて', '一人で', '住んだ', 'とき'],
     judul: 'Pertama kali tinggal sendiri', judulEn: 'The first time living alone',
     rel: 'teman',
     sit: 'Menceritakan pengalaman pertama tinggal sendiri dan apa yang dipelajari', sitEn: 'Recounting the first time living alone and what it taught',
@@ -216,6 +227,7 @@ window.BANK = (window.BANK || []).concat([
   },
   {
     key: 'rumah_tugas_pengumuman_air_mati', topic: 'rumah_tugas', jenis: 'pengumuman',
+    judulT: ['水道', 'が', '止まる', 'お知らせ'],
     judul: 'Pengumuman air mati untuk perbaikan', judulEn: 'An announcement that the water is off for repairs',
     rel: 'tetangga',
     sit: 'Pengumuman ke penghuni gedung bahwa air akan dimatikan', sitEn: 'Announcing to the residents that the water will be cut off',
