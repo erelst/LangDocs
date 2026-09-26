@@ -408,6 +408,18 @@ angkanya tidak hilang bersama skripnya.
 | K11 | topik yang belum memakai 12 jenis | **0** (13 topik, 12 jenis masing-masing) |
 | T4 | berkas topik yang belum terdaftar di `index.html` | **0** (13 dari 13 terdaftar) |
 
+**Alur tiga halaman juga diuji di lebar ponsel (360 px),** karena tiga halaman itu ditambahkan
+setelah versi lama dan CSS-nya punya breakpoint sendiri. Yang diperiksa dan hasilnya:
+
+| Yang diukur di 360 px | Hasil |
+|---|---|
+| Gulir mendatar di halaman 1, 2, 3, dan layar narasi | **tidak ada** di keempatnya |
+| Tombol pilihan bahasa muat di layar | ya (10-350 px dari 360) |
+| Kartu judul muat, tidak meluber | ya (10-350 px) |
+| Baris kanji dan tabel glosa muat setelah panel dibuka | ya (29-297 px dan 42-284 px) |
+| Pencarian menyaring dan tombol `Baca judul ... penuh` muat | ya (tepi kanan 333 px) |
+| Kesalahan konsol | **0** |
+
 **Yang tidak bisa diukur dan karena itu tidak ada di tabel ini:** apakah bahasa Jepangnya benar,
 apakah nadanya pantas untuk keadaan itu, dan apakah dua narasi benar-benar membahas hal yang
 berbeda. Ketiganya dipegang oleh pembacaan penulis dan `docs/JUDUL.md`, dan itulah bentuk penjaga
