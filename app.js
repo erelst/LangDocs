@@ -214,9 +214,14 @@
   }
 
   /* A surface carries its sentence punctuation, because the punctuation rides on the word so a
-   * line break can never separate them. The lexicon is keyed on the word alone. */
+   * line break can never separate them. The lexicon is keyed on the word alone.
+   *
+   * The quotation marks are in here for a reason found by reading the console: a line with a
+   * quoted announcement produced the surfaces `が「` and `ます」`, and both were reported as words
+   * missing from the lexicon. They are not words. Stripping them from the lookup and keeping them
+   * on the displayed surface is what the punctuation rule already does for 。 and 、. */
   function bare(surface) {
-    return String(surface).replace(/[、。！？…]+$/, '');
+    return String(surface).replace(/[、。！？…「」]+$/, '').replace(/^[「]+/, '');
   }
   function lexEntry(surface) {
     var b = bare(surface);

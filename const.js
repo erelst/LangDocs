@@ -70,7 +70,11 @@ window.CONST = {
     adik:            { id: 'adik', en: 'younger sibling', close: true },
     teman_kerja:     { id: 'rekan kerja', en: 'colleague', close: true },
     petugas:         { id: 'petugas', en: 'staff member', close: false },
-    tetangga_lama:   { id: 'tetangga lama', en: 'a neighbour of long standing', close: true }
+    tetangga_lama:   { id: 'tetangga lama', en: 'a neighbour of long standing', close: true },
+
+    /* Two speakers that only appear inside a conversation or an announcement. A general
+     * announcement is addressed to the passenger, so it is named the same way as a person. */
+    penumpang:       { id: 'penumpang', en: 'passenger', close: true },
   },
 
   /* Kind: what shape the narrative takes. This is the axis a topic is required to move along,
