@@ -70,6 +70,14 @@ dibutuhkan adalah yang membawa isi.
 sedikitnya **4 giliran bicara** yang dimiliki lebih dari satu pembicara. Angka itu lantai, bukan
 target: narasi yang butuh delapan baris ditulis delapan baris.
 
+**Satu pengecualian, dan hanya satu: `kurasi06`.** Narasi yang tersimpan dari versi pertama deck
+ini berisi **satu blok**, jadi ia tidak memenuhi lantai tiga blok di atas. Pemilik proyek meminta
+narasi itu dipertahankan apa adanya, dan karena itu pengecualiannya **ditulis di sini**, bukan
+dibiarkan terlihat seperti kelalaian. Alasan mempertahankannya ada di `data/curated.js`: ia satu-
+satunya narasi yang sudah dibaca dan disetujui pembaca, dan ia masih dipakai sebagai patokan mutu
+yang harus dilewati setiap narasi baru. Sesudahnya, lantai tiga blok berlaku penuh: **155 dari
+156 narasi** memenuhinya, dan tidak ada narasi kedua yang dikecualikan.
+
 **Dijaga oleh.** Pembacaan penulis. Tidak ada pemeriksa otomatis, jadi ini disebut sebagai syarat
 penulisan, bukan sebagai pemeriksaan.
 
@@ -89,7 +97,22 @@ menyatakan hubungan sebab, dan itu yang membuat satu kalimat berarti satu hal. A
 berlaku di dalam narasi, justru karena narasi panjang memberi lebih banyak kesempatan untuk
 melanggarnya.
 
-**Dijaga oleh.** Pembacaan penulis.
+**Dijaga oleh.** Pembacaan penulis, dan **satu bagiannya pernah diuji mesin** supaya
+ketentuannya tidak tinggal klaim. Yang bisa diukur: penanda urutan (`それから`, `そして`,
+`そのあと`, `次に`, `その後`, `まず`) yang muncul **di tengah** sebuah baris, yaitu tempat ia
+menyambung dua klausa. Diuji pada seluruh 156 narasi dengan pemeriksaan sekali pakai:
+
+| Yang diukur | Hasil |
+|---|---|
+| Penanda urutan menyambung klausa **tanpa** penanda relasi apa pun di baris itu | **0** |
+| Penanda urutan di **awal** baris, yaitu mengurutkan baris | 11 baris, dan itu tidak dilarang K3 |
+| Narasi yang tidak punya penanda relasi sama sekali | **0** |
+
+Jadi setiap penanda urutan yang muncul di tengah baris selalu berbarengan dengan penanda relasi
+yang mengikat klausanya (`たら`, `ので`, `から`, `とき`), dan itulah bentuk yang K3 izinkan.
+Pemeriksaannya dilakukan sekali dan tidak di-commit, karena yang diminta pemilik proyek adalah
+deck tanpa berkas pengujian; angka di tabel ini karena itu berlaku untuk keadaan pada 2026-09-26,
+bukan penjaga yang berjalan sendiri.
 
 **Gejala pelanggaran.** Narasi yang setiap barisnya terasa seperti kalimat terpisah yang
 ditempelkan, bukan alur yang mengalir.
