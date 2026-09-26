@@ -424,6 +424,7 @@ window.LEX = {
   "サラダ": ["sarada", "salad", "salad"],
   "され": ["sare", "bentuk pasif (sambung)", "passive (stem)"],
   "されて": ["sarete", "melakukan (hormat, bentuk -te)", "do (honorific te-form)"],
+  "されます": ["saremasu", "dikenai (pasif sopan)", "is done (polite passive)"],
   "される": ["sareru", "dikenai (pasif)", "be done to (passive)"],
   "さん": ["san", "Pak/Bu (sebutan sopan)", "Mr/Ms (polite suffix)"],
   "し": ["shi", "dan, serta (penghubung klausa)", "and (clause connector)"],
