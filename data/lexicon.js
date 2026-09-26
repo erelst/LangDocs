@@ -2866,6 +2866,7 @@ window.LEX = {
   "経理": ["keiri", "bagian akuntansi", "accounting"],
   "経費": ["keihi", "biaya (kantor)", "expenses"],
   "経路": ["keiro", "rute, jalur", "route"],
+  "敬語": ["keigo", "bahasa hormat", "honorific language"],
   "経験": ["keiken", "pengalaman", "experience"],
   "結婚": ["kekkon", "pernikahan", "marriage, wedding"],
   "結婚しています": ["kekkon shite imasu", "sudah menikah", "is married"],
