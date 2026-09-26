@@ -1,7 +1,14 @@
 # Berapa banyak "kalimat" dalam bahasa Jepang sehari-hari?
 
 Estimasi kombinatorial dan empiris, berbasis korpus NINJAL (CEJC 2022).
-Disusun: 2026-09-23. Data mentah dan skrip ada di `data/` dan `scripts/`.
+Disusun: 2026-09-23. Data mentah ada di `data/`.
+
+**Catatan tentang rujukan skrip di bawah, ditambahkan 2026-09-26.** Seluruh direktori
+`scripts/` sudah tidak ada, jadi setiap rujukan ke `scripts/*.py` dalam dokumen ini adalah
+**riwayat cara angkanya dihitung**, bukan berkas yang bisa dijalankan. Angkanya sendiri tetap
+berlaku: 15-20% pertanyaan, 4,19 kata per ucapan, dan cakupan 10.000 tipe kata, semuanya dikutip
+di `docs/SPEC.md` dan `docs/README.md`. Skripnya dihapus bersama generator kalimat, karena deck
+ini sekarang berisi narasi yang ditulis, bukan kalimat yang dihasilkan mesin.
 
 ---
 
