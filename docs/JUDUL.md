@@ -43,6 +43,17 @@ dikenali.
 | 11 | Meminta tukar kursi di kereta | Asking to swap seats on the train | permintaan | `transportasi` | Meminta tukar kursi karena anak-anak ingin duduk bersebelahan, dengan menyebut kursinya sendiri di sisi jendela dan menawarkan bahwa menolak pun tidak apa-apa. | 席を替えていただけないでしょうか、窓側、お手数はかけません、断っていただいて大丈夫 | orang asing di jalan |
 | 12 | Pernah naik shinkansen yang salah arah | The time I took the shinkansen the wrong way | pengalaman | `transportasi` | Cerita perjalanan dinas: naik shinkansen arah berlawanan, baru sadar dua puluh menit kemudian karena pemandangannya terbalik, dibantu kondektur, dan sejak itu selalu melihat papan informasi dua kali. | 新幹線を間違えた、景色が逆、車掌さん、電光掲示板を二度見る癖 | klien |
 | 13 | Pengumuman di dalam kereta | An announcement inside the train | pengumuman | `transportasi` | Pengumuman kepada seluruh penumpang bahwa kereta berhenti lima menit lebih lama di stasiun berikutnya karena pemeriksaan gerbong, dengan permintaan menyiapkan barang dan menunggu dekat pintu. | ご乗車のお客様、車両の点検、五分ほど長く止まります、お荷物を持って、扉の近く | penumpang |
+| 14 | Memutuskan pesanan berdua | Deciding what to order together | percakapan | `makan` | Dua orang membandingkan dua hidangan; yang satu tidak makan daging, dan akhirnya memilih hidangan yang bisa dimakan berdua. | 何にする、肉は食べない、焼き魚の定食、ご飯は少なめ | teman + teman dekat |
+| 15 | Dari masuk restoran sampai bayar | From walking in to paying | kronologi | `makan` | Urutan makan malam: menunggu lima belas menit dengan menulis nama, dipesan, disajikan lebih cepat dari dugaan, lalu tagihan dibagi karena hanya ada uang tunai terbatas. | 名前を書いて外で待ちました、まず飲み物、現金しか使えない、半分ずつ払う | teman |
+| 16 | Diet yang selalu gagal malam hari | The diet that fails every night | curhatan | `makan` | Mengeluh bahwa menahan makan sejak pagi selalu berakhir makan berlebihan malam, termasuk berdiri di depan kulkas. Ditutup bahwa yang diinginkan hanya didengar. | 夜になるともう無理、冷蔵庫の前で立ったまま、体が言うことを聞かない、誰かに聞いてほしい | teman dekat |
+| 17 | Pesanan yang datang tidak sesuai | The dish that came out wrong | keluhan | `makan` | Memberi tahu pelayan bahwa pesanan tanpa bawang justru datang penuh bawang, menyebut itu bukan alergi, lalu meminta diganti atau ditukar hidangan. | 玉ねぎを抜いて、食べられません、替えていただけますか、別のものに変えて | pelayan |
+| 18 | Cara makan hidangan yang belum dikenal | How to eat a dish you have never seen | penjelasan | `makan` | Menerangkan bahwa menyeruput mi tidak dianggap kasar, bahwa kuah boleh diminum langsung dari mangkuk dengan dua tangan, dan bahwa sendok bisa diminta. | 音を立てて食べて、失礼ではなく、丼を持って直接、両手で持つ | orang asing di jalan |
+| 19 | Memberi tahu makan malam sudah siap | Telling everyone dinner is ready | laporan | `makan` | Melapor di rumah bahwa makan malam siap, bahwa ayah belum pulang dan bagiannya disisihkan, dan bahwa sup harus diminum lebih dulu. | ご飯できたよ、別に取ってある、スープは冷めると、皿は流しに置いて | ibu |
+| 20 | Menyusun rencana makan malam bersama | Organising a dinner together | rencana | `makan` | Membandingkan dua tempat untuk enam orang pada Jumat malam, menimbang ramai melawan tenang, lalu menetapkan siapa yang menelepon untuk memesan. | 金曜の夜に六人で、予約なしだと、静かな方、私が明日の昼に電話 | teman |
+| 21 | Saran supaya alergi benar-benar tersampaikan | Making sure an allergy gets through | nasihat | `makan` | Menyarankan menyebut alergi sebelum memesan, memakai kartu tertulis kalau sulit diucapkan, dan menanyakan sampai ke saus serta lauk pendamping. | 必ずアレルギーのことを、紙に書いて見せた、ソースや付け合わせ、材料が少ない料理 | teman |
+| 22 | Meminta sisa makanan dibungkus | Asking for the leftovers to be packed | permintaan | `makan` | Meminta sisa dibungkus dengan menyebut alasannya lebih dulu: makanannya enak tetapi terlalu banyak, dan membuangnya sayang. Menawarkan memasukkan sendiri. | 一つお願いしてもいいですか、食べきれませんでした、もったいない、自分で詰めます | pelayan |
+| 23 | Pertama kali makan sesuatu yang tidak dikenal | The first time I ate something I did not recognise | pengalaman | `makan` | Memesan hanya dari foto karena namanya tidak terbaca, terkejut melihat warnanya, dan ternyata itu hidangan terenak di meja. Sejak itu selalu mencoba sekali. | メニューの写真だけで、思っていたのと違う色、恐る恐る食べてみたら、一度は頼んでみる | teman |
+| 24 | Pengumuman di kantin sekolah | An announcement in the school canteen | pengumuman | `makan` | Mengumumkan bahwa hidangan harian habis, bahwa kantin tutup lebih awal karena beres-beres, dan bahwa wadah bawa pulang harus dibawa sendiri. | 日替わりは、終了です、七時で閉めさせて、ご持参いただける | petugas |
 
 ## Judul yang sudah dipakai, dikelompokkan
 
@@ -57,7 +68,7 @@ Lihat daftar ini dulu sebelum menulis, karena judul baru harus berbeda dari semu
 | `kegiatan` | — | belum ada |
 | `kerja` | — | belum ada |
 | `klinik` | — | belum ada |
-| `makan` | cerita | Makan di restoran dekat stasiun |
+| `makan` | cerita, percakapan, kronologi, curhatan, keluhan, penjelasan, laporan, rencana, nasihat, permintaan, pengalaman, pengumuman | Makan di restoran dekat stasiun; Memutuskan pesanan berdua; Dari masuk restoran sampai bayar; Diet yang selalu gagal malam hari; Pesanan yang datang tidak sesuai; Cara makan hidangan yang belum dikenal; Memberi tahu makan malam sudah siap; Menyusun rencana makan malam bersama; Saran supaya alergi benar-benar tersampaikan; Meminta sisa makanan dibungkus; Pertama kali makan sesuatu yang tidak dikenal; Pengumuman di kantin sekolah |
 | `rumah_santai` | — | belum ada |
 | `rumah_tugas` | — | belum ada |
 | `santai` | — | belum ada |
