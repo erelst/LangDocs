@@ -1,8 +1,13 @@
-/* The page's single source of truth for colour and for the two register labels.
+/* The page's single source of truth for colour, for the language-style labels, and for every
+ * string the interface itself says.
  *
- * Everything here is used by app.js; nothing is duplicated in index.html. The palette and
- * the underline styles are shared between the kanji line and the romaji line, so token i
- * has the same colour on both and the reader can follow a word across the two lines.
+ * Everything here is used by app.js; nothing is duplicated in index.html. The palette and the
+ * underline styles are shared between the kanji line and the romaji line, so token i has the
+ * same colour on both and the reader can follow a word across the two lines.
+ *
+ * `rel` is shared with the reader's data files. A narrative names the person it is aimed at,
+ * and a conversation names one per speaker, so the label and the register colour follow from
+ * the same table and no narrative repeats them.
  */
 window.CONST = {
   /* Surfaces. The panel is deliberately darker than the card, and because the two are so
@@ -29,16 +34,12 @@ window.CONST = {
   ],
   underlines: ['solid', 'dashed', 'dotted', 'double', 'wavy'],
 
-  /* Register: green for someone close, yellow for someone distant. Used only inside the
-   * opened panel, so every card looks identical until it is opened. */
-  who: { dekat: '#86efac', asing: '#fcd34d' },
-
-  /* Who the sentence is said to. A sentence names its relationship ("tetangga") and both
-   * the label and the register colour follow from here, so no sentence repeats them and
-   * the same relationship is worded identically wherever it appears.
+  /* The person a narrative is aimed at, and the colour the two-language line uses for it.
+   * A narrative names its relationship ("tetangga") instead of its register, so the same
+   * relationship is worded identically wherever it appears.
    *
-   * close: true -> green chip (someone you know), false -> yellow chip (someone you do
-   * not). That split is the one thing the card shows before it is opened. */
+   * close: true -> green (someone you know), false -> yellow (someone you do not). */
+  who: { dekat: '#86efac', asing: '#fcd34d' },
   rel: {
     tetangga:        { id: 'tetangga', en: 'neighbour', close: true },
     teman:           { id: 'teman', en: 'friend', close: true },
@@ -58,41 +59,92 @@ window.CONST = {
     apoteker:        { id: 'apoteker', en: 'pharmacist', close: false },
     dokter:          { id: 'dokter', en: 'doctor', close: false },
     kurir:           { id: 'kurir pengantar', en: 'delivery courier', close: false },
-    tetangga_baru:   { id: 'tetangga yang baru dikenal', en: 'a neighbour you just met', close: false }
+    tetangga_baru:   { id: 'tetangga yang baru dikenal', en: 'a neighbour you just met', close: false },
+
+    /* Speakers only, for the conversations in `percakapan`. Kept in the same table so a
+     * speaker label is worded and coloured by exactly the same rule as a whole narrative. */
+    ibu:             { id: 'ibu', en: 'mother', close: true },
+    ayah:            { id: 'ayah', en: 'father', close: true },
+    anak:            { id: 'anak', en: 'child', close: true },
+    kakak:           { id: 'kakak', en: 'older sibling', close: true },
+    adik:            { id: 'adik', en: 'younger sibling', close: true },
+    teman_kerja:     { id: 'rekan kerja', en: 'colleague', close: true },
+    petugas:         { id: 'petugas', en: 'staff member', close: false },
+    tetangga_lama:   { id: 'tetangga lama', en: 'a neighbour of long standing', close: true }
   },
 
-  countWord: 'kalimat / sentences',
-  scrollHint: 'gulir untuk memuat lagi / scroll for more'
-};
+  /* Kind: what shape the narrative takes. This is the axis a topic is required to move along,
+   * so that one topic never becomes the same piece written many times. Open-ended on purpose:
+   * a new kind is added here when a narrative genuinely takes a new shape. */
+  jenis: {
+    percakapan:  { id: 'percakapan',  en: 'conversation' },
+    cerita:      { id: 'cerita',      en: 'story' },
+    kronologi:   { id: 'kronologi',   en: 'chronology' },
+    curhatan:    { id: 'curhatan',    en: 'venting' },
+    keluhan:     { id: 'keluhan',     en: 'complaint' },
+    penjelasan:  { id: 'penjelasan',  en: 'explanation' },
+    laporan:     { id: 'laporan',     en: 'report' },
+    rencana:     { id: 'rencana',     en: 'plan' },
+    nasihat:     { id: 'nasihat',     en: 'advice' },
+    permintaan:  { id: 'permintaan',  en: 'request' },
+    pengalaman:  { id: 'pengalaman',  en: 'recollection' },
+    pengumuman:  { id: 'pengumuman',  en: 'announcement' }
+  },
 
-/* The measured partner distribution, and which `rel` keys make up each group. The groups are the
- * survey's own grouping, so the deck's spread can be read against it directly.
- *
- * It lives here rather than in check.js because two files depend on it now: check.js prints the
- * spread with it, and test.js checks that the documented table still matches the data with it.
- * `measured` is a percentage of the 10.708 partner slots in data/survey.zip. */
-window.CONST.surveyWho = {
-  groups: {
-    'close family': ['keluarga', 'pasangan'],
-    'work and study': ['rekan', 'atasan', 'klien'],
-    'friends and neighbours': ['teman', 'teman_dekat', 'tetangga', 'tetangga_baru', 'sekamar', 'teman_sekolah'],
-    'public and service': ['petugas_toko', 'pelayan', 'petugas_stasiun', 'apoteker', 'dokter', 'kurir'],
-    'teacher and pupil': ['guru'],
-    'stranger': ['orang_asing']
+  /* Language style, read OFF the narrative's own text rather than written by hand.
+   *
+   * It is a property of what was actually written, so it cannot drift away from the writing
+   * the way a hand-set flag does. A conversation that mixes a polite customer with a casual
+   * friend is `campuran`, and saying so is more truthful than picking one.
+   *
+   * The markers are matched against the whole narrative, punctuation included, because that
+   * is what the reader hears. `ますか` and `ので` are deliberately absent: they are relation
+   * and question markers, not register, and counting them here reported polite sentences as
+   * plain, which is a mistake this file used to make. */
+  POLITE_MARK: ['です', 'ます', 'ました', 'ません', 'ましょう', 'でしょう', 'ください',
+                'ございます', 'でした', 'お願いします', 'いただけます', 'いらっしゃいませ'],
+  PLAIN_MARK: ['だよ', 'だね', 'だろ', 'じゃん', 'かな', 'だし', 'んだ', 'だぜ', 'だい',
+               'してる', 'してた', 'あるよ', 'ないよ', 'だよな', 'よな', 'のか', 'だって',
+               'だろう', 'おい', 'やつ', 'のは', 'のが'],
+  style: {
+    sopan:    { id: 'sopan',    en: 'polite' },
+    biasa:    { id: 'biasa',    en: 'casual' },
+    campuran: { id: 'campuran', en: 'mixed' }
   },
-  /* Keyed by the label used in docs/README.md, which is also the key of `groups`. */
-  measured: {
-    'close family': 36.8,
-    'work and study': 22.7,
-    'friends and neighbours': 17.2,
-    'public and service': 10.8,
-    'teacher and pupil': 3.1,
-    'stranger': 2.4
-  },
-  /* The two groups the deck deliberately does not write, each with its reason, so a thin group is
-   * reported as a decision rather than left looking like an oversight. */
-  notWritten: {
-    'teacher and pupil': 'classroom-only wording, deliberately not a topic',
-    'relative': 'a distant relative is a rarer case of family, which has its own sentences'
+
+  /* Every word the interface says, in both languages, since the reader picks the language on
+   * the first screen and the whole page then speaks it. Nothing here is written in Indonesian
+   * only or English only. */
+  STR: {
+    title:       { id: 'Kalimat Jepang Sehari-hari', en: 'Everyday Japanese Sentences' },
+    chooseUi:    { id: 'Pilih bahasa Anda', en: 'Choose your Language' },
+    chooseUiSub: { id: 'Bahasa yang dipakai halaman ini.', en: 'The language this page speaks.' },
+    chooseTgt:   { id: 'Pilih bahasa sasaran', en: 'Choose target language' },
+    chooseTgtSub: { id: 'Bahasa kalimat yang ingin Anda pelajari.', en: 'The language of the sentences you want to learn.' },
+    langId:      { id: 'Bahasa Indonesia', en: 'Indonesian' },
+    langEn:      { id: 'English', en: 'English' },
+    langJp:      { id: 'Bahasa Jepang', en: 'Japanese' },
+    search:      { id: 'Cari: Kanji / Romaji / arti', en: 'Search: Kanji / Romaji / meaning' },
+    searchClear: { id: 'Hapus pencarian', en: 'Clear search' },
+    scopeAll:    { id: 'Semua', en: 'All' },
+    scopeJp:     { id: 'Jepang', en: 'Japanese' },
+    romaji:      { id: 'Romaji', en: 'Romaji' },
+    back:        { id: 'Kembali', en: 'Back' },
+    readFull:    { id: 'Baca judul', en: 'Read title' },
+    readFullTail: { id: 'penuh', en: 'in full' },
+    readShort:   { id: 'Baca', en: 'Read' },
+    readShortTail: { id: 'penuh', en: 'in full' },
+    noMatch:     { id: 'Tidak ada narasi yang cocok.', en: 'No narratives match.' },
+    backToTitles: { id: 'Kembali ke daftar judul', en: 'Back to the title list' },
+    toStart:     { id: 'Ganti bahasa', en: 'Change language' },
+    countWord:   { id: 'narasi', en: 'narratives' },
+    scrollHint:  { id: 'gulir untuk memuat lagi', en: 'scroll for more' },
+    keyWords:    { id: 'Kata kunci', en: 'Keywords' },
+    lineOf:      { id: 'Baris', en: 'Line' },
+    partOf:      { id: 'Bagian', en: 'Part' }
   }
 };
+
+/* Nama jenis dan bahasa, supaya tidak ada berkas yang menulisnya sendiri-sendiri. */
+window.CONST.jenisList = Object.keys(window.CONST.jenis);
+window.CONST.langCode = { id: 'id', en: 'en' };
