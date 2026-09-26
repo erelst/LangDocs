@@ -9,6 +9,13 @@ sudah dibuat ada di `JUDUL.md`.
 dokumen yang basi. Pemeriksa itu sudah dihapus atas permintaan pemilik proyek, jadi angka di bawah
 sekarang **tidak dijaga apa pun**: ia dibaca saat menulis, dan ketentuannya ada di `SPEC.md` T1.
 
+**Keadaan deck saat halaman ini ditulis, supaya angkanya tidak dibaca sebagai rencana.** Seluruh
+13 topik sudah terisi, masing-masing **12 narasi**, seluruh **12 jenis** terpakai di setiap topik,
+seluruhnya **156 narasi** dan **801 baris**. Jadi tabel di bawah bukan lagi daftar pekerjaan yang
+tersisa, melainkan dasar yang menjelaskan **kenapa** topik yang satu mendapat porsi bahasan lebih
+besar daripada yang lain. Daftar judulnya ada di `JUDUL.md`, dan keadaan itu mudah diperiksa
+ulang: jumlah judul di berkas itu harus sama dengan jumlah narasi di `data/`.
+
 ---
 
 ## 1. Dari mana angkanya
