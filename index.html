@@ -6,7 +6,7 @@
        #/read/<lang>/<tgt>/<key>  one narrative, opened in full
      hide-romaji is on at load because the Romaji box starts unchecked; the change listener
      toggles the same class, so the two cannot disagree. -->
-<html lang="id" class="hide-romaji">
+<html lang="id" class="hide-romaji hide-tr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -98,6 +98,10 @@
   /* The romaji line is a sibling of the kanji line; hiding it must not leave a gap,
      so the whole line is removed from layout rather than made transparent. */
   .hide-romaji .romaji { display: none !important; }
+  /* The translation switch, exactly like the romaji one. What it hides: the meaning line under
+     a title, and the narrative's summary line. It is off at load for the same reason romaji is,
+     so the reader starts with the language they came to read. */
+  .hide-tr .tt { display: none !important; }
   #sentinel { height: 1px; }
   .hint .examples { color: #64748b; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -123,6 +127,9 @@
     padding: 0 9px; font-size: 11.5px; color: #cbd5e1;
   }
   .titem .badge.style { border-color: #38bdf8; color: #7ab8e8; }
+  /* The narrative's own line about itself, in the reader's language. One line for the whole
+     piece, which is why it sits above the paragraphs and not next to any of them. */
+  .sum { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: #cbd5e1; }
   .titem .snippet {
     margin-top: 8px; font-size: 13.5px; color: #cbd5e1; line-height: 1.5;
     overflow-wrap: anywhere;
@@ -164,7 +171,7 @@
   .block:last-child { margin-bottom: 0; }
   .block .speaker {
     display: inline-block; border-radius: 20px; padding: 0 10px; margin-bottom: 6px;
-    font-size: 12px; font-weight: 700; color: #0b1220;
+    font-size: 12px; font-weight: 700; color: #0b1220; position: relative;
   }
   /* One sentence inside the paragraph: kanji then romaji, with room after it. A paragraph of
      several sentences reads as a block of prose, which is the point of storing paragraphs. */
@@ -292,27 +299,32 @@
     <div class="choices" id="target-choices"></div>
   </section>
 
-  <!-- ------------------------------------------------ screen 3: search + title list -->
+  <!-- The reading bar. It sits outside the screens so that opening a narrative does not take
+       search, scope, and the two checkboxes away: a reader looking up a word and then reading
+       the piece it lives in should not have to come back to change a checkbox. -->
+  <header class="bar" id="bar" hidden>
+    <h1 id="page-title"></h1>
+    <div class="searchrow">
+      <input id="q" type="search" autocomplete="off" autocapitalize="off"
+             spellcheck="false" enterkeyhint="search">
+      <button id="clear" type="button" hidden>&#215;</button>
+    </div>
+    <div class="opts">
+      <div class="scopes" role="radiogroup">
+        <label><input type="radio" name="scope" value="all" checked> <span data-str="scopeAll"></span></label>
+        <label><input type="radio" name="scope" value="jp"> <span data-str="scopeJp"></span></label>
+      </div>
+      <label class="toggle"><input type="checkbox" id="rtoggle"> <span data-str="romaji"></span></label>
+      <label class="toggle"><input type="checkbox" id="ttoggle"> <span data-str="translation"></span></label>
+    </div>
+    <div class="hint">
+      <span id="count"></span>
+      <span class="examples" id="examples"></span>
+    </div>
+  </header>
+
+  <!-- ------------------------------------------------ screen 3: title list -->
   <section class="screen" id="s-list" hidden>
-    <header class="bar">
-      <h1 id="page-title"></h1>
-      <div class="searchrow">
-        <input id="q" type="search" autocomplete="off" autocapitalize="off"
-               spellcheck="false" enterkeyhint="search">
-        <button id="clear" type="button" hidden>&#215;</button>
-      </div>
-      <div class="opts">
-        <div class="scopes" role="radiogroup">
-          <label><input type="radio" name="scope" value="all" checked> <span data-str="scopeAll"></span></label>
-          <label><input type="radio" name="scope" value="jp"> <span data-str="scopeJp"></span></label>
-        </div>
-        <label class="toggle"><input type="checkbox" id="rtoggle"> <span data-str="romaji"></span></label>
-      </div>
-      <div class="hint">
-        <span id="count"></span>
-        <span class="examples" id="examples"></span>
-      </div>
-    </header>
     <main id="list" class="titles"></main>
     <p id="empty" hidden></p>
     <div id="sentinel" aria-hidden="true"></div>

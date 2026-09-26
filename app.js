@@ -198,6 +198,11 @@
     if (!s.judulT || !s.judulT.length) { return ''; }
     return '<div class="title-jp jp-sent">' + tokenSpans(resolve(s.judulT), 0) + '</div>';
   }
+  /* A line in the reader's own language. Marked so the Translation switch can hide it. */
+  function trLine(text, cls) {
+    if (!text) { return ''; }
+    return '<div class="' + cls + ' tt">' + esc(text) + '</div>';
+  }
 
   /* ---------------------------------------------------------------- card pieces */
   function esc(t) {
@@ -306,10 +311,12 @@
     return out;
   }
 
-  /* The whole narrative: its paragraphs, nothing else. The title is already the page heading. */
+  /* The whole narrative: its summary line, then its paragraphs. The summary is what the
+   * Translation switch reveals: it is one line about the whole piece, and the narratives keep no
+   * sentence-by-sentence translation. */
   function narrativeHTML(s) {
     var bs = blocksOf(s);
-    var out = [];
+    var out = [trLine(tr(s, 'id'), 'sum')];
     for (var i = 0; i < bs.length; i++) { out.push(blockHTML(s, bs[i], i)); }
     return out.join('');
   }
@@ -386,6 +393,8 @@
   var narrEl = document.getElementById('narr');
   var narrTitleEl = document.getElementById('narr-title');
   var backBt = document.getElementById('back');
+  var barEl = document.getElementById('bar');
+  var trToggle = document.getElementById('ttoggle');
   var screens = {
     lang: document.getElementById('s-lang'),
     target: document.getElementById('s-target'),
@@ -463,7 +472,7 @@
     }
     return '<div class="titem" data-row="' + rowIndex + '" role="button" tabindex="0">' +
       titleSpans(s) +
-      '<div class="tname">' + esc(titleOf(s)) + '</div>' +
+      trLine(titleOf(s), 'tname') +
       '<div class="meta">' +
         '<span class="badge">' + esc(jenisLabel(s)) + '</span>' +
         '<span class="badge style">' + esc(styleLabel(s)) + '</span>' +
@@ -522,22 +531,43 @@
     if (!tip) { return; }
     tip.classList.remove('below');
     tip.style.transform = '';
+    var vw = document.documentElement.clientWidth;
+    var vh = document.documentElement.clientHeight;
     var slack = 8;
+    /* A hidden box measures as all zeros, so the bubble has to be laid out to be measured. It is
+     * laid out at the left edge and taken out of the flow first, and both are handed back to CSS
+     * below. Measuring it where it will finally sit does not work: an absolutely positioned box
+     * overhanging the right edge widens the document, and `documentElement.scrollWidth` does not
+     * report the bubble's position, so there is no way to see the overhang back from the page. */
+    var restore = tip.style.cssText;
+    tip.style.position = 'fixed';
+    tip.style.left = '0px';
+    tip.style.top = '0px';
+    tip.style.transform = 'none';
+    tip.style.display = 'flex';
     var box = tip.getBoundingClientRect();
     var word = tk.getBoundingClientRect();
+    tip.style.cssText = restore;
+    if (!box.width) { return; }               // nothing to place
+
     var dx = 0, dy = 0;
-    if (box.right > window.innerWidth - slack) { dx = window.innerWidth - slack - box.right; }
-    if (box.left + dx < slack) { dx = slack - box.left; }
-    if (box.top < slack) {
-      var roomBelow = window.innerHeight - slack - word.bottom;
+    /* The bubble is drawn from the word it belongs to, so where it would land is the word's top
+     * and left minus its own size plus the gap. */
+    var gap = 6;
+    var wantTop = word.top - gap - box.height;
+    var wantLeft = word.left;
+    if (wantLeft + box.width > vw - slack) { dx = vw - slack - wantLeft - box.width; }
+    if (wantLeft + dx < slack) { dx = slack - wantLeft; }
+    if (wantTop < slack) {
+      var roomBelow = vh - slack - word.bottom;
       if (roomBelow >= box.height) {
-        dy = word.bottom + 6 - box.top;
+        dy = word.bottom + gap - wantTop;
         tip.classList.add('below');
       } else {
-        dy = slack - box.top;
+        dy = slack - wantTop;
       }
     }
-    var overflow = (box.bottom + dy) - (window.innerHeight - slack);
+    var overflow = (wantTop + dy + box.height) - (vh - slack);
     if (overflow > 0) { dy -= overflow; }
     if (dx || dy) {
       tip.style.transform = 'translate(' + Math.round(dx) + 'px, ' + Math.round(dy) + 'px)';
@@ -557,6 +587,10 @@
     for (var k in screens) {
       if (screens[k]) { screens[k].hidden = (k !== name); }
     }
+    /* The reading bar is not part of a screen, so it is shown or hidden by name here. The two
+     * choosers own the page: a search box on the screen that asks which language to use would be
+     * asking a question the reader has already answered. */
+    if (barEl) { barEl.hidden = (name !== 'list' && name !== 'narrative'); }
   }
 
   function route() {
@@ -662,7 +696,7 @@
     paintStaticStrings();
     var s = ROWS[rowIndex].s;
     narrTitleEl.innerHTML = titleSpans(s) +
-      '<div class="tname">' + esc(titleOf(s)) + '</div>';
+      trLine(titleOf(s), 'tname');
     narrEl.innerHTML = narrativeHTML(s);
     backBt.setAttribute('data-back', String(rowIndex));
     if (terms && terms.length) { highlight(terms); }
@@ -760,14 +794,30 @@
   });
 
   /* ---------------------------------------------------------------- controls */
-  if (input) { input.addEventListener('input', refresh); }
-  if (clearBt) {
-    clearBt.addEventListener('click', function () { input.value = ''; refresh(); input.focus(); });
+  /* The bar is always on screen, so typing in it always means something. From the title list a
+   * search filters the list in place; from a narrative there is no list to filter, so the same
+   * keystroke opens the titles that match and lets the reader pick. One input, one meaning. */
+  function onSearchInput() {
+    if (state.openKey && screens.narrative && !screens.narrative.hidden) {
+      location.hash = '#/read/' + langOf() + '/' + state.target;
+    }
+    refresh();
   }
-  for (var s2 = 0; s2 < scopeInputs.length; s2++) { scopeInputs[s2].addEventListener('change', refresh); }
+  if (input) { input.addEventListener('input', onSearchInput); }
+  if (clearBt) {
+    clearBt.addEventListener('click', function () { input.value = ''; onSearchInput(); input.focus(); });
+  }
+  for (var s2 = 0; s2 < scopeInputs.length; s2++) { scopeInputs[s2].addEventListener('change', onSearchInput); }
   if (romajiToggle) {
     romajiToggle.addEventListener('change', function () {
       document.documentElement.classList.toggle('hide-romaji', !romajiToggle.checked);
+    });
+  }
+  /* The translation switch. Same shape as the romaji one: the class on <html> is the only state,
+   * and `<html class="hide-tr">` carries the same default, so the two cannot disagree. */
+  if (trToggle) {
+    trToggle.addEventListener('change', function () {
+      document.documentElement.classList.toggle('hide-tr', !trToggle.checked);
     });
   }
 

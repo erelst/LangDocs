@@ -134,6 +134,7 @@ window.CONST = {
     scopeAll:    { id: 'Semua', en: 'All' },
     scopeJp:     { id: 'Jepang', en: 'Japanese' },
     romaji:      { id: 'Romaji', en: 'Romaji' },
+    translation: { id: 'Terjemahan', en: 'Translation' },
     back:        { id: 'Kembali', en: 'Back' },
     readFull:    { id: 'Baca judul', en: 'Read title' },
     readFullTail: { id: 'penuh', en: 'in full' },

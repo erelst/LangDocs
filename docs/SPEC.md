@@ -152,8 +152,8 @@ akan terlihat langsung sebagai chip itu, dan yang salah adalah teksnya, bukan ch
 
 ### K5. Gaya bahasa dibaca dari teks, bukan ditulis sebagai label
 
-Chip gaya bahasa di panel (`sopan`, `biasa`, `campuran`) dihitung dari teks narasinya setiap kali
-halaman dirender, bukan disimpan sebagai field yang diisi tangan.
+Chip gaya bahasa (**丁寧**, **普通**, **混在**) dihitung dari teks narasinya setiap kali halaman
+dirender, bukan disimpan sebagai field yang diisi tangan.
 
 **Alasan.** Field yang diisi tangan tertinggal begitu teksnya diedit: dulu ada `polite: 1` yang
 tidak lagi benar setelah satu klausa diubah, dan itu tidak terlihat siapa pun. Teks tidak bisa
@@ -204,8 +204,9 @@ kata-katanya memakai `data/lexicon.js` yang sama seperti paragraf, sehingga roma
 tidak bisa berbeda dari kata yang sama di dalam narasinya. Judul yang memakai kata di luar lexicon
 akan muncul sebagai peringatan di konsol, sama seperti kalimat biasa.
 
-**Gejala pelanggaran.** Sel glosa kosong di panel, atau romaji berbeda untuk kata yang sama.
-Daftar kata baru ditambahkan lewat `node lexadd.js new-words.js`.
+**Gejala pelanggaran.** Peringatan konsol tentang permukaan yang tidak ditemukan, balon yang kosong
+saat disorot, atau romaji berbeda untuk kata yang sama. Daftar kata baru ditambahkan lewat
+`node lexadd.js new-words.js`.
 
 ### K8. Setiap topik harus memuat narasi balasan, bukan hanya yang membuka
 
@@ -365,7 +366,7 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 |---|---|---|
 | V1 | Mode gelap saja | tidak dijaga |
 | V2 | Setiap kata bisa disorot dan punya balon berisi romaji dan glosa dalam satu bahasa | `app.js` |
-| V3 | **Tidak ada tombol `?`, tidak ada panel, tidak ada lipat-buka.** Balon per kata sudah membawa bacaan dan artinya, jadi panel yang mengulanginya adalah tempat kedua untuk membaca hal yang sama | `app.js` |
+| V3 | **Tidak ada tombol `?`, tidak ada panel, tidak ada lipat-buka, di judul maupun di paragraf.** Balon per kata sudah membawa bacaan dan artinya, jadi panel yang mengulanginya adalah tempat kedua untuk membaca hal yang sama | `app.js` |
 | V4 | Kata bersifat atomik (`display:inline-block`), warna dan garis bawah unik, dipakai bersama baris kanji dan romaji | `app.js` |
 | V6 | Tautan langsung membuka satu narasi: `#/read/<lang>/<tgt>/<key>` | `app.js` |
 | V7 | Romaji bisa dinyalakan dan **mati secara bawaan** | `app.js` |
@@ -380,7 +381,9 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V14 | Daftar di halaman ketiga berisi **judul**, bukan kalimat; pencarian menemukan kata di dalam narasi dan menawarkan tombol membaca judul itu penuh | `app.js` |
 | V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama | `app.js` |
 | V18 | Setiap jenis punya bentuk yang berbeda, sehingga percakapan bisa dibedakan dari kronologi sebelum satu kata dibaca | `app.js` + CSS |
-| V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan. Judul dalam bahasa yang dipilih tetap tercetak tepat di bawahnya sebagai baris arti | `app.js` + `const.js` |
+| V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan | `app.js` + `const.js` |
+| V21 | Ada sakelar **Terjemahan**, bentuknya sama seperti sakelar Romaji dan **mati secara bawaan**: mematikannya menyembunyikan arti judul dan ringkasan narasi, tanpa menyembunyikan judul, chip, label, atau balon | `app.js` + `index.html` |
+| V22 | Kolom pencarian, pilihan ruang lingkup, dan kedua sakelar **tetap ada saat sebuah judul dibuka**: pembaca yang mencari satu kata lalu membaca narasinya tidak perlu kembali hanya untuk mengubah sakelar. Bar bacaan disembunyikan di dua halaman pemilih, karena di sana pertanyaannya belum dijawab | `app.js` + `index.html` |
 
 ---
 
@@ -399,7 +402,7 @@ tersentuh saat menulis narasi:
 ### Satu cacat tampilan yang ditemukan sesudah narasi ditulis, dan itu mengajarkan satu hal
 
 Waktu blok narasi mulai dipakai, kelas `jp-sent` **tidak ikut** dipasang pada pembungkus tiap
-baris. Akibatnya bukan hiasan yang hilang: seluruh aturan balon dan panel ditulis sebagai
+baris. Akibatnya bukan hiasan yang hilang: seluruh aturan balon saat itu ditulis sebagai
 `.jp-sent .tk > .tip`, jadi balon per kata jatuh ke `position: static` dan **selalu terlihat**.
 Yang dibaca pembaca adalah tiga baris teks menggantung di bawah setiap kata, bukan balon yang
 muncul saat disorot.
@@ -484,7 +487,8 @@ setelah versi lama dan CSS-nya punya breakpoint sendiri. Yang diperiksa dan hasi
 | Gulir mendatar di halaman 1, 2, 3, dan layar narasi | **tidak ada** di keempatnya |
 | Tombol pilihan bahasa muat di layar | ya (10-350 px dari 360) |
 | Kartu judul muat, tidak meluber | ya (10-350 px) |
-| Baris kanji dan tabel glosa muat setelah panel dibuka | ya (29-297 px dan 42-284 px) |
+| Baris kanji dan paragraf muat di dalam kartu | ya (25-297 px) |
+| Bar bacaan tetap muat, kotak cari dan kedua sakelar | ya, tidak ada gulir mendatar (360 px dari 360 px) |
 | Pencarian menyaring dan tombol `Baca judul ... penuh` muat | ya (tepi kanan 333 px) |
 | Kesalahan konsol | **0** |
 

@@ -93,8 +93,16 @@ cakupan topiknya di komentar kepala berkasnya.
 
 ## Tampilan
 
-Mode gelap saja. Setiap baris narasi berisi baris kanji, baris romaji, dan tombol `?` untuk arti
-per katanya. Mengarahkan kursor ke satu kata memunculkan balon yang menunjuk ke kata itu, berisi
-romaji dan artinya dalam bahasa yang dipilih. Panel atas sebuah narasi memuat satu chip: **gaya
-bahasanya** (`sopan`, `biasa`, `campuran`), yang dihitung dari teksnya, bukan ditulis sebagai
-label. Daftar judul dimuat bertahap saat digulir.
+Mode gelap saja, tiga halaman: pilih bahasa antarmuka, pilih bahasa sasaran, lalu daftar judul.
+
+Judul dan setiap paragraf ditulis dalam **bahasa sasaran**. Mengarahkan kursor ke satu kata
+memunculkan balon yang menunjuk ke kata itu, berisi romaji dan artinya dalam bahasa yang dipilih.
+
+Di atas ada **bar bacaan** yang tetap terlihat saat sebuah judul dibuka: kotak pencarian, pilihan
+ruang lingkup, dan dua sakelar yang keduanya **mati secara bawaan**:
+
+* **Romaji** menampilkan baris romaji di bawah baris kanji.
+* **Terjemahan** menampilkan arti judul dan ringkasan narasi dalam bahasa yang dipilih.
+
+Tidak ada tombol `?` dan tidak ada panel: balon per kata sudah membawa bacaan dan artinya. Daftar
+judul dimuat bertahap saat digulir.
