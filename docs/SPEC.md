@@ -504,6 +504,20 @@ Rute yang berbasis hash dipilih sejak awal, dan uji ini membuktikan alasannya be
 `pushState` dan tidak ada `location.pathname` di `app.js`, sehingga satu-satunya berkas yang perlu
 ada di server adalah berkas yang memang ada di repo.
 
+**Keadaan branch saat diserahkan, supaya siapa pun bisa memeriksa ulang sebelum merge.** Pada
+2026-09-26, `refactor/narrative-deck` berdiri **47 commit di depan `main`** dan **0 commit di
+belakangnya** (`git rev-list --count HEAD..main` = 0), jadi `git merge --ff-only` berhasil tanpa
+konflik. Diff-nya 45 berkas, +5.845 / -13.732 baris: yang hilang lebih banyak daripada yang
+ditambah, karena gunung kalimat diganti narasi.
+
+**Catatan tentang cara saya memeriksa itu sendiri.** Pemeriksaan pertama saya menulis
+`git merge-base --is-ancestor main HEAD && echo ff-ok || echo ff-gagal` tercampur dengan
+`rev-parse` lain pada satu baris, dan hasilnya melaporkan **"ff-only akan gagal"**, padahal
+`main` memang leluhur `HEAD`. Yang salah adalah perintahnya, bukan branchnya. Diperiksa ulang
+dengan satu perintah bersih, dan hasilnya seperti tertulis di atas. Ini dicatat karena bentuk
+kesalahan ini pernah terjadi berkali-kali di pekerjaan ini: **kesimpulan dari perintah yang
+dicampur lebih berbahaya daripada kesimpulan dari perintah yang sederhana.**
+
 **Yang tidak bisa diukur dan karena itu tidak ada di tabel ini:** apakah bahasa Jepangnya benar,
 apakah nadanya pantas untuk keadaan itu, dan apakah dua narasi benar-benar membahas hal yang
 berbeda. Ketiganya dipegang oleh pembacaan penulis dan `docs/JUDUL.md`, dan itulah bentuk penjaga
