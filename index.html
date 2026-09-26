@@ -128,7 +128,9 @@
      about the same piece, so they are one set of rules rather than two that can drift apart. */
   .badge {
     display: inline-block; border: 1px solid #4a5a72; border-radius: 20px;
-    padding: 0 9px; font-size: 11.5px; color: #cbd5e1;
+    /* A label is Japanese, and a dense character like 隣 or 顧 is unreadable at the size an
+       interface tag usually gets. These hold kanji, so they are sized like text, not like chrome. */
+    padding: 2px 11px; font-size: 15px; line-height: 1.5; color: #cbd5e1;
     position: relative;
   }
   .badge.style { border-color: #38bdf8; }
@@ -139,6 +141,13 @@
   /* The narrative's own line about itself, in the reader's language. One line for the whole
      piece, which is why it sits above the paragraphs and not next to any of them. */
   .sum { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: #cbd5e1; }
+  /* The translation of one paragraph, under the paragraph it belongs to. It is set apart by a
+     rule and a smaller size rather than by colour alone, so it reads as an annotation of the
+     Japanese above it and not as more of the narrative. */
+  .btr {
+    margin-top: 10px; padding-top: 9px; border-top: 1px dashed #334155;
+    font-size: 14px; line-height: 1.55; color: #94a3b8;
+  }
   .titem .snippet {
     margin-top: 8px; font-size: 13.5px; color: #cbd5e1; line-height: 1.5;
     overflow-wrap: anywhere;
@@ -180,8 +189,8 @@
   .block { margin: 0 0 24px; }
   .block:last-child { margin-bottom: 0; }
   .block .speaker {
-    display: inline-block; border-radius: 20px; padding: 0 10px; margin-bottom: 6px;
-    font-size: 12px; font-weight: 700; color: #0b1220; position: relative;
+    display: inline-block; border-radius: 20px; margin-bottom: 6px;
+    padding: 2px 12px; font-size: 15px; font-weight: 700; color: #0b1220; position: relative;
   }
   /* One sentence inside the paragraph: kanji then romaji, with room after it. A paragraph of
      several sentences reads as a block of prose, which is the point of storing paragraphs. */
