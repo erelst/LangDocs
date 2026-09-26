@@ -87,13 +87,15 @@ isinya satu paragraf satu kalimat tidak memuat apa pun yang butuh beberapa baris
 keadaan yang K2 larang. `kurasi06` pernah berada di keadaan itu, dan sudah diperluas menjadi empat
 paragraf.
 
-**Satu pengecualian, dan hanya satu: `kurasi06`.** Narasi yang tersimpan dari versi pertama deck
-ini berisi **satu blok**, jadi ia tidak memenuhi lantai tiga blok di atas. Pemilik proyek meminta
-narasi itu dipertahankan apa adanya, dan karena itu pengecualiannya **ditulis di sini**, bukan
-dibiarkan terlihat seperti kelalaian. Alasan mempertahankannya ada di `data/curated.js`: ia satu-
-satunya narasi yang sudah dibaca dan disetujui pembaca, dan ia masih dipakai sebagai patokan mutu
-yang harus dilewati setiap narasi baru. Sesudahnya, lantai tiga blok berlaku penuh: **155 dari
-156 narasi** memenuhinya, dan tidak ada narasi kedua yang dikecualikan.
+**Pengecualian yang dulu ada, dan sekarang tidak lagi diperlukan.** `kurasi06`, narasi yang tersimpan
+dari versi pertama deck ini, dulunya berisi **satu blok** dan karena itu dulu dikecualikan dari lantai
+tiga blok. Narasi itu sudah diperluas menjadi **empat blok**, jadi **tidak ada lagi pengecualian**:
+sejak 2026-09-26 lantai tiga blok berlaku penuh, dan **159 dari 159 narasi** memenuhinya. Angka ini
+disebut dengan tanggalnya karena ia berubah; kalau narasi ditambahkan atau diperluas lagi, angkanya
+harus dihitung ulang dan bukan disalin dari sini.
+
+Catatan lama yang berbunyi "satu pengecualian, dan hanya satu: `kurasi06`" karena itu **sudah tidak
+berlaku**, dan dibiarkan tertulis di sini hanya supaya pembaca dokumen lama tahu apa yang berubah.
 
 **Dijaga oleh.** Pembacaan penulis. Tidak ada pemeriksa otomatis, jadi ini disebut sebagai syarat
 penulisan, bukan sebagai pemeriksaan.
@@ -117,16 +119,25 @@ melanggarnya.
 **Dijaga oleh.** Pembacaan penulis, dan **satu bagiannya pernah diuji mesin** supaya
 ketentuannya tidak tinggal klaim. Yang bisa diukur: penanda urutan (`それから`, `そして`,
 `そのあと`, `次に`, `その後`, `まず`) yang muncul **di tengah** sebuah baris, yaitu tempat ia
-menyambung dua klausa. Diuji pada seluruh 156 narasi dengan pemeriksaan sekali pakai:
+menyambung dua klausa. Diuji pada seluruh 159 narasi dengan pemeriksaan sekali pakai:
 
 | Yang diukur | Hasil |
 |---|---|
 | Penanda urutan menyambung klausa **tanpa** penanda relasi apa pun di baris itu | **0** |
-| Penanda urutan di **awal** baris, yaitu mengurutkan baris | 11 baris, dan itu tidak dilarang K3 |
+| Penanda urutan di **awal** baris (token pertama sebuah blok), yaitu mengurutkan baris | **10 blok**, dan itu tidak dilarang K3 |
+| Penanda urutan di **tengah** baris (bukan token pertama) | **9 kemunculan di 8 baris**, dan seluruhnya sah: 8 di antaranya berbarengan dengan penanda relasi (`たら`, `し`, `が`), 1 sisanya mengurutkan kata benda, bukan klausa |
 | Narasi yang tidak punya penanda relasi sama sekali | **0** |
 
-Jadi setiap penanda urutan yang muncul di tengah baris selalu berbarengan dengan penanda relasi
-yang mengikat klausanya (`たら`, `ので`, `から`, `とき`), dan itulah bentuk yang K3 izinkan.
+**Kasing yang tetap dicatat meski tidak melanggar.** Satu-satunya penanda urutan di tengah baris yang
+**tidak** disertai penanda relasi ada di `jalan_penjelasan_cara_baca_alamat`: 「日本の住所は、まず町
+の名前、次に何丁目、その次に番地の順に書かれています。」 Di situ `まず` dan `次に` mengurutkan
+**kata benda** (町の名前, 何丁目, 番地), bukan dua klausa, jadi tidak ada klausa yang disambung tanpa
+relasi dan K3 tidak tersentuh. Ini disebut karena pemeriksa sederhana akan menghitungnya sebagai
+pelanggaran: yang membedakan adalah **apa yang diurutkan**, dan itu hanya bisa dinilai dengan
+membaca, bukan dengan mencari penanda.
+
+Jadi setiap penanda urutan yang menyambung **klausa** selalu berbarengan dengan penanda relasi yang
+mengikatnya (`たら`, `ので`, `から`, `とき`), dan itulah bentuk yang K3 izinkan.
 Pemeriksaannya dilakukan sekali dan tidak di-commit, karena yang diminta pemilik proyek adalah
 deck tanpa berkas pengujian; angka di tabel ini karena itu berlaku untuk keadaan pada 2026-09-26,
 bukan penjaga yang berjalan sendiri.
@@ -150,17 +161,28 @@ akan terlihat langsung sebagai chip itu, dan yang salah adalah teksnya, bukan ch
 
 **Gejala pelanggaran.** Percakapan dengan atasan yang memakai `だよ` dan `じゃん`.
 
-**Yang sudah diukur sesudah 敬語 ada (2026-09-26).** 丁寧 dan 普通 memang mengikuti keakraban, dan
-itu terbukti di deck ini: dari **54** narasi yang diucapkan kepada orang jauh (atasan, klien,
-petugas, orang asing), **14 敬語** dan **40 santun**, dan **nol** yang biasa. Tidak ada `だよ` yang
-ditujukan kepada atasan.
+**Yang sudah diukur sesudah 敬語 ada (2026-09-26, 159 narasi).** 丁寧 dan 普通 memang mengikuti
+keakraban, dan itu terbukti di deck ini: dari **47** narasi yang diucapkan kepada orang jauh
+(atasan, klien, petugas, orang asing), **8 敬語** dan **39 santun**, dan **nol** yang biasa. Tidak ada
+`だよ` yang ditujukan kepada atasan.
 
-Kepada orang dekat, angkanya tidak sesederhana itu: dari **67** narasi, 35 biasa, **28 santun**,
-dan 4 campuran. Yang 28 itu sebagian besar teman (`teman` 32 narasi) dan seluruhnya pasangan
-(`pasangan` 18 narasi: 9 biasa, 9 santun). Formulir pertanyaan KBBI dan KBJT memang santun kepada
-siapa saja (`Kemarin saya makan di restoran murah dekat stasiun`), jadi bentuk itu **tidak**
-melanggar K4; yang melanggar adalah bentuk biasa yang diucapkan kepada orang jauh, dan itu tidak
-ada.
+**Yang benar-benar mengikat, dan berlaku 159 dari 159: nol bentuk biasa kepada orang jauh.** Ini satu
+kalimat yang bisa diperiksa ulang kapan saja, dan cara mengukurnya ditulis di sini supaya tidak
+bergantung pada ingatan: setiap narasi dikelompokkan dari `speakers` kalau ada, kalau tidak dari
+`rel`; `rel` yang jauh adalah `atasan`, `klien`, `petugas`, `orang_asing`, `petugas_toko`,
+`petugas_stasiun`, `pelayan`, `apoteker`, `dokter`, `kurir`, `pasien`, `tetangga_baru`. Sesudah
+dikelompokkan begitu, tidak ada satu pun narasi kelompok jauh yang chip gaya bahasanya 普通.
+
+Kepada orang dekat, angkanya tidak sesederhana itu: dari **106** narasi, 44 biasa, **53 santun**, 6
+campuran, dan 3 敬語. Yang 53 itu sebagian besar teman dan seluruhnya pasangan (`pasangan`: sebagian
+biasa, sebagian santun). Formulir pertanyaan KBBI dan KBJT memang santun kepada siapa saja
+(`Kemarin saya makan di restoran murah dekat stasiun`), jadi bentuk itu **tidak** melanggar K4; yang
+melanggar adalah bentuk biasa yang diucapkan kepada orang jauh, dan itu tidak ada.
+
+**Anak kecil bukan pengecualian K4.** Ketiga narasi yang ditujukan kepada anak kecil (K5) semuanya
+berbentuk **biasa**, dan itu benar: anak kecil adalah orang dekat. Yang berubah pada ucapan kepada
+anak adalah bentuk **permintaannya**, bukan tingkat kesopanannya, dan karena itu K4 tidak dilanggar
+dan tidak perlu dilonggarkan.
 
 **Dua aturan praktis karena itu:**
 
@@ -207,10 +229,23 @@ yang sudah terjadi dan sudah diukur:
 3. **Bentuk sopan setingkat tidak masuk 敬語.** `いただけます`, `くださいます`, dan `お願いします`
    adalah bentuk santun biasa. Memasukkannya membuat 9 narasi yang diucapkan kepada kawan terbaca
    敬語. Yang dihitung hanya bentuk hormat dan rendah hati yang tulen.
+4. **Penanda yang hilang membuat vonis jatuh, bukan pindah.** `いいよ` tidak ada di daftar, dan itu
+   satu-satunya penanda yang ketiadaannya **mengubah** vonis, bukan sekadar menipiskan bukti. Tujuh
+   narasi `nasihat` yang menasihati kawan, pasangan, atau rekan dalam bentuk biasa terbaca 丁寧 atau
+   混在 hanya karena satu `ます` tertinggal di paragraf lain. Sesudah `いいよ` ditambahkan, ketujuhnya
+   terbaca sesuai isinya: **5 kembali 普通, 2 menjadi 混在** (yang memang memuat dua register).
+   Hasilnya `普` naik 41 -> 44 dan `混在` 4 -> 6, sedangkan **tidak satu pun** narasi sopan berubah
+   menjadi biasa. `いいよ` aman dicocokkan di akhir klausa karena ia tidak pernah menjadi anak
+   kalimat: ke-16 kemunculannya di deck ini semuanya diikuti `。`.
+
+**Perubahan angka sesudah aturan 4 (2026-09-26, 159 narasi):** 敬語 **16**, 丁寧 **93**, 普通 **44**,
+混在 **6**. Sebelum `いいよ` ditambahkan: 16 / 95 / 41 / 4. Perubahan ini seluruhnya perbaikan pada
+narasi yang menasihati orang dekat; tidak ada narasi jauh yang tersentuh.
 
 **Gaya lain yang ditolak, dan angkanya.** Register yang diminta "sebanyak-banyaknya sampai mentok"
-tidak bisa ditambah hanya karena ada namanya. Deck ini 155 narasi, sekitar 124.000 karakter, dengan
-2.086 permukaan kata unik, dan tiap calon tingkat diukur dulu:
+tidak bisa ditambah hanya karena ada namanya. Deck ini **159 narasi, 824 blok, 12.832 token dengan
+2.125 permukaan kata unik, dan 23.415 karakter Jepang** (ditambah 124.509 karakter terjemahan
+Indonesia dan Inggris), dan tiap calon tingkat diukur dulu:
 
 | Calon tingkat | Isi deck | Keputusan |
 | — | — | — |
@@ -221,6 +256,35 @@ tidak bisa ditambah hanya karena ada namanya. Deck ini 155 narasi, sekitar 124.0
 | Dialek (関西 dst.) | `やで` 0, `あかん` 0, `せや` 0, `へん` 0, `やん` 0 | ditolak: kosong |
 | Bahasa pria/wanita (人称) | `俺` 0, `僕` 0, `あたし` 0, `わたくし` 0 | ditolak: kosong |
 | Tingkat 敬語 dinaikkan ke **setiap** kata rendah hati | `〜ていただ` muncul di 22 permukaan, tersebar ke kawan, kolega, tetangga, dan sesama penumpang | ditolak: lihat di bawah |
+| **Ucapan kepada anak kecil** sebagai tingkat kelima | 3 narasi baru (2026-09-26), penandanya beda jenis: memperkecil permintaan, bukan mengubah kesopanan | ditolak sebagai **tingkat**, dipakai sebagai **lawan bicara**: lihat di bawah |
+
+**Kenapa "ucapan kepada anak kecil" bukan tingkat kelima, melainkan lawan bicara.** Ucapan kepada
+anak memang berbeda, dan itu nyata: permintaannya diperkecil (`一口だけ`, bukan `全部食べなさい`),
+alasannya disebut sebagai benda yang bisa dilihat anak (`車が多いから`, bukan `危ないから`), dan
+bentuk biasa yang membawa kelembutannya. Tetapi **tidak satu pun** dari itu menyatakan tingkat
+kesopanan. Yang berubah adalah **siapa yang diajak bicara**, dan itu tepat pertanyaan yang dijawab
+`rel` (K9), bukan `CONST.style`.
+
+Empat tingkat itu menjawab: 丁寧/普通 "seberapa akrab kita", 敬語 "siapa pihak yang lebih rendah".
+Menambahkan tingkat kelima di sumbu yang sama akan membuat satu chip menampung dua pertanyaan
+sekaligus: sebuah kalimat kepada anak kecil bisa sopan atau biasa, jadi "tingkat anak" dan 普通
+akan berebut tempat yang sama. Yang benar adalah chip 普通 tetap berkata 普通, dan chip lawan bicara
+berkata 小さな子. Karena itu barisnya ada di `CONST.rel` (`anak_kecil`, label `小さな 子`) dan bukan
+di `CONST.style`.
+
+**Apa yang benar-benar berubah, dan bisa diperiksa.** Bukan kosakata khusus anak (deck ini tidak
+memakai `ねんね`, `だっこ`, `おいで`, atau `〜なさい`: keempatnya nol), melainkan tiga hal yang
+terukur di ketiga narasi itu: permintaan yang lebih kecil dari yang sebenarnya diinginkan, alasan
+yang bisa dilihat anak, dan tidak ada satu pun bentuk biasa kepada orang jauh (K4 tetap berlaku).
+`rel: anak_kecil` adalah baris **baru**, dan ketiga narasi itu memakainya.
+
+**Satu koreksi yang perlu disebut, karena mudah diklaim salah.** Baris `anak` (label `子供`) sudah
+ada di `const.js` sejak sebelum ini, di bagian yang khusus penutur percakapan, dan **masih belum
+dipakai satu narasi pun** sesudah perubahan ini: yang dipakai adalah `anak_kecil`, bukan `anak`.
+Jadi jangan tulis bahwa "keduanya sekarang hidup". Keadaan sebenarnya: **30 baris `rel` terdaftar,
+22 dipakai, 8 belum** (`sekamar`, `teman_sekolah`, `guru`, `kurir`, `ayah`, `anak`, `kakak`, `adik`),
+dan baris yang belum dipakai itu dibiarkan ada karena menghapusnya bukan urusan perubahan ini.
+Angka ini dihitung ulang, bukan disalin.
 
 **Kenapa "rendah hati" bukan tingkat tersendiri di deck ini.** `〜ていただけますか` (kepada orang
 asing) dan `開けてもらえますか` (kepada kawan) **sama-sama 丁寧**. Yang membedakan bukan tingkatnya,
@@ -297,6 +361,61 @@ Dua hal yang menutupnya:
    penutur, pada `ui=id` dan `ui=en`. Memeriksa keberadaan chip saja tidak akan pernah menangkap
    kasus ini.
 
+### K13. Jumlah chip bukan gelar gaya bahasa, dan tidak pernah berarti "baku"
+
+Pertanyaan yang wajar muncul begitu seseorang melihat daftar judul: sebagian kartu punya tiga chip
+dan sebagian punya empat, jadi apakah yang tiga itu bergaya "baku" dan yang empat bukan? Jawabannya
+**tidak**, dan alasannya aritmetika, bukan selera.
+
+Susunan chip di layar judul mengikat, dan jumlahnya keluar dari susunan itu:
+
+| Chip | Dari mana | Selalu ada? |
+|---|---|---|
+| 1. jenis | `s.jenis` | ya, satu |
+| 2. gaya bahasa | `styleOf(s)` | ya, satu |
+| 3. lawan bicara | satu chip per orang unik di `s.rel`, atau di `s.speakers` | selalu ada, tapi **bisa lebih dari satu** |
+
+Jadi **tiga chip adalah lantai, bukan nilai**. Yang membedakan kartu tiga chip dari kartu empat
+chip hanyalah **berapa banyak orang** yang diajak bicara: sebuah narasi satu suara menyebut satu
+lawan bicara, sedangkan percakapan dua penutur menyebut dua orang, dan tiap orang mendapat chipnya
+sendiri supaya dua orang tidak terbaca sebagai satu orang. Diukur pada deck ini (159 narasi,
+2026-09-26): **147 kartu 3 chip, 12 kartu 4 chip**, dan ke-12 kartu 4 chip itu tepat percakapan
+dua penutur. Tidak ada kartu dengan 2 chip dan tidak ada yang dengan 5.
+
+**Chip kedua tidak pernah hilang.** Inilah yang membuat "3 chip = baku" tidak masuk akal:
+pertanyaan tentang gaya bahasa **selalu** dijawab, dan jawabannya selalu salah satu dari empat yang
+sudah ada. Yang berbeda di kartu ber-chip-tiga bukan ada tidaknya jawaban, melainkan **berapa
+orang** yang disebut setelahnya.
+
+**Kalau yang dimaksud bukan jumlah chip melainkan isi chip**, dan yang dibaca adalah 普通: itu
+memang **bentuk biasa**, bukan "baku". Empat tingkat itu 敬語 (hormat: kepada pelanggan atau
+atasan), 丁寧 (sopan: kepada orang yang tidak akrab), 普通 (biasa: kepada orang akrab), 混在
+(campuran: percakapan yang memuat dua register sekaligus). "Baku" bukan tingkat di antara keempatnya
+dan tidak pernah ditampilkan; yang ada adalah 丁寧, dan itu ditulis apa adanya.
+
+**Satu hal yang harus diakui soal 普通.** Labelnya dibaca dari penanda, dan penanda yang tidak ada
+di daftar membuat vonis jatuh ke 普通 **karena tidak ada bukti lain**, bukan karena bukti
+menunjuk ke sana. Dua hal berbeda yang kebetulan menghasilkan chip yang sama:
+
+| Keadaan | Yang terbaca | Benar? |
+|---|---|---|
+| ada penanda biasa di akhir klausa (`だよ`, `いいよ`, `しよう`) | 普通 | ya, ada buktinya |
+| tidak ada penanda santun **dan** tidak ada penanda biasa | 普通 (jatuh ke sini) | **belum tentu** |
+
+Pada 2026-09-26 keadaan kedua berjumlah 16 narasi, dan seluruhnya diperiksa dengan mata: ke-16-nya
+memang bentuk biasa kepada orang akrab atau keluarga, jadi chipnya benar. Yang tidak boleh
+disimpulkan adalah bahwa 普通 selalu punya bukti; sampai penanda yang hilang ditambahkan, sebagian
+vonis 普通 adalah **ketiadaan bukti santun**, dan itu kelemahan yang disebut di sini alih-alih
+disembunyikan.
+
+**Dijaga oleh.** `app.js` `whoKeysUnique()` dan `whoChips()` (jumlah chip lawan bicara),
+`styleOf()` (chip gaya bahasa, selalu ada), dan `chipaudit.js` yang mengukur tinggi baris romaji
+serta arti di setiap chip pada `ui=id` dan `ui=en`.
+
+**Harus dipatuhi.** Jumlah chip **tidak boleh** dipakai sebagai tanda gaya bahasa oleh apa pun,
+termasuk oleh pemeriksa. Kalau sebuah pemeriksa ingin tahu gaya bahasanya, ia membaca chip kedua,
+bukan menghitung chip.
+
 ### K12. Setiap paragraf punya terjemahannya sendiri
 
 Setiap blok narasi menyimpan terjemahan paragrafnya dalam **kedua** bahasa: `id` dan `en`, satu
@@ -317,7 +436,7 @@ paragraf, dan itu bukan terjemahan.
 **Jumlah baris harus sama dengan jumlah kalimat.** Kalimat Jepang dihitung dari tanda baca (`。`,
 `！`, `？`), dan jumlah baris `id` harus sama dengan itu. Kalau tidak sama, pembaca tidak bisa
 memasangkan baris mana dengan kalimat mana. Diperiksa dengan membandingkan jumlah baris terhadap
-jumlah tanda baca untuk seluruh 804 blok; sekarang 804 dari 804 terisi dan 0 tidak cocok.
+jumlah tanda baca untuk seluruh 824 blok; sekarang 824 dari 824 terisi dan 0 tidak cocok.
 
 **Dijaga oleh.** `app.js` `blockTrHTML()`, ditambah pemeriksaan jumlah baris terhadap tanda baca.
 
@@ -559,7 +678,7 @@ sekaligus, dikelompokkan per jenis**, karena pengulangan paling mudah terlihat d
 yang bentuknya sama. Pemeriksaan itu karena itu dilakukan sekali lagi secara menyeluruh, bukan per
 topik, dan itulah yang tertulis di tabel berikut.
 
-### Hasil pemeriksaan sekali pakai atas seluruh 156 narasi (2026-09-26)
+### Hasil pemeriksaan sekali pakai atas seluruh 159 narasi (2026-09-26)
 
 Sebelum deck ini diserahkan untuk di-merge, seluruh narasi diperiksa sekali dengan skrip
 sekali-pakai terhadap bagian ketentuan yang **bisa** diukur mesin. Skripnya tidak di-commit,
@@ -568,22 +687,25 @@ angkanya tidak hilang bersama skripnya.
 
 | Ketentuan | Yang diukur | Hasil |
 |---|---|---|
-| K2 | narasi dengan sedikitnya 3 blok | **155 dari 156**; satu pengecualian, `kurasi06`, sudah ditulis di K2 |
-| K2 | `percakapan` dengan sedikitnya 4 giliran | **13 dari 13** |
-| K2 | `percakapan` yang benar-benar punya dua pembicara | **13 dari 13** |
+| K2 | narasi dengan sedikitnya 3 blok | **159 dari 159**; tidak ada pengecualian lagi (`kurasi06` sudah 4 blok) |
+| K2 | `percakapan` dengan sedikitnya 4 giliran | **14 dari 14** |
+| K2 | `percakapan` yang benar-benar punya dua pembicara | **14 dari 14** (slot `speakers` dan blok yang benar-benar memakai dua `sp`) |
 | K3 | penanda urutan menyambung klausa tanpa penanda relasi | **0** |
 | K3 | narasi tanpa penanda relasi sama sekali | **0** |
 | K7 | permukaan kata tanpa entri lexicon | **0** |
 | K7 | entri lexicon dengan romaji atau glosa kosong | **0** |
 | K9 | `rel` dan `speakers` yang menunjuk nama tidak dikenal | **0** |
 | K9 | blok `percakapan` tanpa penanda pembicara | **0** |
-| K10 | judul ganda | **0** (156 judul, 156 unik) |
+| K10 | judul ganda | **0** (159 judul, 159 unik) |
 | K10 | kunci ganda | **0** |
-| K11 | topik yang belum memakai 12 jenis | **0** (13 topik, 12 jenis masing-masing) |
+| K11 | topik yang belum memakai 12 jenis | **0** (13 topik, 12 jenis masing-masing; 10 topik x 12 narasi + 3 topik x 13 narasi = 159) |
 | T4 | berkas topik yang belum terdaftar di `index.html` | **0** (13 dari 13 terdaftar) |
 | V9 | berkas yang diminta browser ketika halaman disajikan dari subpath | **18**, semuanya 200, tidak ada 404 |
-| K10 | pasangan narasi dengan >=40% kata isi sama | **0** dari 12.090 pasangan |
-| K10 | pasangan narasi dengan >=55% bigram aksara sama | **0** dari 12.090 pasangan |
+| K10 | pasangan narasi dengan >=40% kata isi sama | **0** dari 12.561 pasangan (tertinggi 23,7%, antara dua `keluhan` tentang janji yang tidak ditepati di topik berbeda) |
+| K10 | pasangan narasi dengan >=55% bigram aksara sama | **0** dari 12.561 pasangan (tertinggi 24,6%, pasangan yang sama) |
+| K10 | ketiga narasi anak vs seluruh deck | tertinggi **11,3%**, jauh di bawah ambang mana pun |
+| K12 | blok dengan jumlah baris terjemahan sama dengan jumlah kalimat | **824 dari 824**, tidak cocok **0** |
+| K13 | sebaran jumlah chip di layar judul | **147 kartu 3 chip, 12 kartu 4 chip**; tidak ada yang 2 atau 5 |
 
 **Cara dua baris K10 itu diukur, karena ukuran yang salah sempat menyesatkan.** Percobaan pertama
 memakai "kerangka kalimat", yaitu setiap kata isi diganti satu huruf `W`. Ukuran itu **tidak
@@ -592,7 +714,7 @@ yang sama sekali tidak berhubungan terlihat "berkerangka identik". Yang akhirnya
 ukuran yang tidak bisa dibohongi begitu: **irisan kata isi** (kata sepanjang dua aksara atau lebih)
 dan **irisan bigram aksara**, yaitu tiap pasangan dua aksara berurutan, sehingga frasa yang sama
 tetap terdeteksi walau kata-katanya dipecah berbeda. Pada ambang 40% dan 55%, **tidak ada satu pun
-dari 12.090 pasangan** yang melewatinya.
+dari 12.561 pasangan** yang melewatinya.
 
 Ukuran yang salah itu tetap dicatat di sini supaya tidak dicoba lagi. Yang menemukan tiga narasi
 berulang di K10 adalah **membaca seluruh judul dikelompokkan per jenis**, bukan ukuran apa pun.
