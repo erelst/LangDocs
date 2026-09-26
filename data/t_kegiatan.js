@@ -33,13 +33,13 @@ window.BANK = (window.BANK || []).concat([
     note: 'Jawaban yang berguna menyebut waktu dan barang sekaligus, karena keduanya menentukan persiapan orang.',
     noteEn: 'A useful answer gives the time and the item together, because both decide what the other person prepares.',
     blocks: [
-      { sp: 'B', t: ['明日', 'の', '掃除', '、', '何', 'を', '持って', '行け', 'ば', 'いい', 'です', 'か', '。'] },
-      { sp: 'A', t: ['軍手', 'と', '、', 'あれ', 'ば', 'ごみ袋', 'を', 'お願い', 'します', '。'] },
-      { sp: 'B', t: ['ほうき', 'は', '要り', 'ません', 'か', '。'] },
-      { sp: 'A', t: ['道具', 'は', '自治会', 'の', '物', 'が', 'あります', 'ので', '、', '人数', '分', 'は', '足ります', '。'] },
-      { sp: 'B', t: ['何時', 'に', '集まれ', 'ば', 'いい', 'です', 'か', '。'] },
-      { sp: 'A', t: ['八時', 'と', '書いて', 'あります', 'が', '、', '実際', 'は', '八時半', 'に', '始まり', 'ます', '。'] },
-      { sp: 'B', t: ['では', '、', '八時', 'に', '行って', '、', '先', 'に', '場所', 'を', '取って', 'おきます', '。'] },
+      { sp: 'B', id: 'Untuk kerja bakti besok, sebaiknya saya bawa apa?', t: ['明日', 'の', '掃除', '、', '何', 'を', '持って', '行け', 'ば', 'いい', 'です', 'か', '。'] },
+      { sp: 'A', id: 'Sarung tangan, dan kalau ada kantong sampah, tolong dibawa.', t: ['軍手', 'と', '、', 'あれ', 'ば', 'ごみ袋', 'を', 'お願い', 'します', '。'] },
+      { sp: 'B', id: 'Sapu tidak perlu?', t: ['ほうき', 'は', '要り', 'ません', 'か', '。'] },
+      { sp: 'A', id: 'Alatnya ada punya rukun warga, jadi cukup untuk sejumlah orangnya.', t: ['道具', 'は', '自治会', 'の', '物', 'が', 'あります', 'ので', '、', '人数', '分', 'は', '足ります', '。'] },
+      { sp: 'B', id: 'Sebaiknya kumpul jam berapa?', t: ['何時', 'に', '集まれ', 'ば', 'いい', 'です', 'か', '。'] },
+      { sp: 'A', id: 'Yang tertulis jam delapan, tetapi sebenarnya mulai jam delapan setengah.', t: ['八時', 'と', '書いて', 'あります', 'が', '、', '実際', 'は', '八時半', 'に', '始まり', 'ます', '。'] },
+      { sp: 'B', id: 'Kalau begitu, saya datang jam delapan dan memesan tempat dulu.', t: ['では', '、', '八時', 'に', '行って', '、', '先', 'に', '場所', 'を', '取って', 'おきます', '。'] },
     ]
   },
   {
@@ -53,11 +53,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Cerita seperti ini punya tiga bagian: yang lancar, yang macet, dan jalan keluarnya.',
     noteEn: 'A story like this has three parts: what went quickly, what stalled, and the way out.',
     blocks: [
-      { t: ['土曜', 'の', '夜', 'に', '、', '自治会', 'の', '集まり', 'が', 'あり', 'ました', '。'] },
-      { t: ['最初', 'の', '一時間', 'は', '、', '予定', 'どおり', 'に', '進んで', '、', '三つ', 'の', '議題', 'が', 'すぐ', 'に', '終わり', 'ました', '。'] },
-      { t: ['ところが', '、', 'ごみ', '置き場', 'の', '場所', 'を', '変える', '案', 'で', '、', '意見', 'が', '二つ', 'に', '分かれ', 'ました', '。'] },
-      { t: ['結局', '、', 'その', '一件', 'だけで', '二時間', 'かかり', '、', '最後', 'まで', '決まり', 'ません', 'でした', '。'] },
-      { t: ['残り', 'の', '議題', 'は', '、', 'あと', 'で', '紙', 'を', '回して', '決める', 'こと', 'に', 'なり', 'ました', '。'] },
+      { id: 'Sabtu malam ada pertemuan rukun tetangga.', t: ['土曜', 'の', '夜', 'に', '、', '自治会', 'の', '集まり', 'が', 'あり', 'ました', '。'] },
+      { id: 'Satu jam pertama berjalan sesuai rencana, dan tiga pokok bahasan selesai dengan cepat.', t: ['最初', 'の', '一時間', 'は', '、', '予定', 'どおり', 'に', '進んで', '、', '三つ', 'の', '議題', 'が', 'すぐ', 'に', '終わり', 'ました', '。'] },
+      { id: 'Akan tetapi, pada usulan memindahkan tempat pembuangan sampah, pendapatnya terbelah dua.', t: ['ところが', '、', 'ごみ', '置き場', 'の', '場所', 'を', '変える', '案', 'で', '、', '意見', 'が', '二つ', 'に', '分かれ', 'ました', '。'] },
+      { id: 'Akhirnya, hanya karena satu hal itu rapat memakan dua jam, dan tetap tidak selesai.', t: ['結局', '、', 'その', '一件', 'だけで', '二時間', 'かかり', '、', '最後', 'まで', '決まり', 'ません', 'でした', '。'] },
+      { id: 'Pokok bahasan sisanya diputuskan dengan mengedarkan kertas setelahnya.', t: ['残り', 'の', '議題', 'は', '、', 'あと', 'で', '紙', 'を', '回して', '決める', 'こと', 'に', 'なり', 'ました', '。'] },
     ]
   },
   {
@@ -71,11 +71,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Urutannya diikat たら dan ので, jadi setiap baris menjelaskan baris sebelumnya.',
     noteEn: 'The order is bound by たら and ので, so each line explains the one before it.',
     blocks: [
-      { t: ['八時', 'に', '公園', 'に', '着いた', 'ら', '、', 'もう', '十人', 'ほど', '集まって', 'いました', '。'] },
-      { t: ['班', 'が', '三つ', 'に', '分かれ', 'て', '、', '私', 'は', '川', '側', 'の', '草', 'を', '担当', 'する', 'こと', 'に', 'なり', 'ました', '。'] },
-      { t: ['草', 'が', '思った', 'より', '多く', 'て', '、', '一', '時間', 'で', '袋', 'が', '五つ', 'に', 'なり', 'ました', '。'] },
-      { t: ['十時', 'に', '一度', '休んで', '、', '持って', 'きた', 'お茶', 'を', '飲み', 'ました', '。'] },
-      { t: ['十一時', 'に', '全部', '終わった', 'ので', '、', 'その', 'あと', 'は', '簡単', 'に', '食事', 'を', 'して', '解散', 'しました', '。'] },
+      { id: 'Waktu saya tiba di taman jam delapan, sudah sekitar sepuluh orang berkumpul.', t: ['八時', 'に', '公園', 'に', '着いた', 'ら', '、', 'もう', '十人', 'ほど', '集まって', 'いました', '。'] },
+      { id: 'Kami dibagi menjadi tiga kelompok, dan saya mendapat bagian rumput di sisi sungai.', t: ['班', 'が', '三つ', 'に', '分かれ', 'て', '、', '私', 'は', '川', '側', 'の', '草', 'を', '担当', 'する', 'こと', 'に', 'なり', 'ました', '。'] },
+      { id: 'Rumputnya lebih banyak dari dugaan, dan dalam satu jam sudah menjadi lima kantong.', t: ['草', 'が', '思った', 'より', '多く', 'て', '、', '一', '時間', 'で', '袋', 'が', '五つ', 'に', 'なり', 'ました', '。'] },
+      { id: 'Jam sepuluh kami berhenti sekali dan meminum teh yang kami bawa.', t: ['十時', 'に', '一度', '休んで', '、', '持って', 'きた', 'お茶', 'を', '飲み', 'ました', '。'] },
+      { id: 'Jam sebelas semuanya selesai, jadi setelah itu kami makan ringan lalu bubar.', t: ['十一時', 'に', '全部', '終わった', 'ので', '、', 'その', 'あと', 'は', '簡単', 'に', '食事', 'を', 'して', '解散', 'しました', '。'] },
     ]
   },
   {
@@ -89,11 +89,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan seperti ini diarahkan ke kebiasaannya, bukan ke orang tertentu, dan tidak menuntut perubahan.',
     noteEn: 'A complaint like this aims at the habit, not at a named person, and does not demand a change.',
     blocks: [
-      { t: ['自治会', 'の', '仕事', 'で', '、', '頼まれる', 'の', 'が', 'いつも', '私', 'な', 'ん', 'だ', 'よ', '。'] },
-      { t: ['回覧板', 'も', '、', '掃除', 'の', '割り振り', 'も', '、', 'まず', '私', 'に', '電話', 'が', '来る', '。'] },
-      { t: ['一度', '断った', 'こと', 'も', 'ある', 'ん', 'だけど', '、', 'その', 'とき', 'は', '他の', '人', 'が', '見つから', 'なくて', '、', '結局', '引き受けた', '。'] },
-      { t: ['気が付い', 'たら', '、', '今年', 'の', '当番', 'が', '三つ', 'に', 'なって', 'いた', '。'] },
-      { t: ['断る', '方法', 'を', '聞きたい', 'わけ', 'じゃ', 'なくて', '、', '毎回', '同じ', '人', 'に', '来る', 'の', 'が', '変', 'だ', 'と', '思う', 'だけ', '。'] },
+      { id: 'Untuk pekerjaan rukun tetangga, yang selalu dimintai tolong itu saya.', t: ['自治会', 'の', '仕事', 'で', '、', '頼まれる', 'の', 'が', 'いつも', '私', 'な', 'ん', 'だ', 'よ', '。'] },
+      { id: 'Papan edaran, pembagian jadwal bersih-bersih, pertama-tama saya yang ditelepon.', t: ['回覧板', 'も', '、', '掃除', 'の', '割り振り', 'も', '、', 'まず', '私', 'に', '電話', 'が', '来る', '。'] },
+      { id: 'Saya pernah menolak sekali, tetapi waktu itu tidak ada orang lain, dan akhirnya saya menerimanya juga.', t: ['一度', '断った', 'こと', 'も', 'ある', 'ん', 'だけど', '、', 'その', 'とき', 'は', '他の', '人', 'が', '見つから', 'なくて', '、', '結局', '引き受けた', '。'] },
+      { id: 'Begitu saya sadar, jadwal giliran saya tahun ini sudah menjadi tiga.', t: ['気が付い', 'たら', '、', '今年', 'の', '当番', 'が', '三つ', 'に', 'なって', 'いた', '。'] },
+      { id: 'Bukannya ingin tahu cara menolak, saya hanya merasa aneh kalau setiap kali yang dihubungi orang yang sama.', t: ['断る', '方法', 'を', '聞きたい', 'わけ', 'じゃ', 'なくて', '、', '毎回', '同じ', '人', 'に', '来る', 'の', 'が', '変', 'だ', 'と', '思う', 'だけ', '。'] },
     ]
   },
   {
@@ -107,11 +107,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan seperti ini disampaikan dengan menyebut janji dan waktunya, bukan dengan menyebut sifat orangnya.',
     noteEn: 'A complaint like this gives the promise and the time, not the person\'s character.',
     blocks: [
-      { t: ['先週', 'の', '土曜', 'の', 'こと', 'で', '、', '少し', 'だけ', 'お話', 'し', 'たい', 'の', 'です', 'が', '。'] },
-      { t: ['あの', '日', 'は', '、', '九時', 'に', '手伝って', 'いただける', 'と', '伺って', 'いました', '。'] },
-      { t: ['こちら', 'は', '二人', 'で', '待って', 'いて', '、', '十一時', 'まで', '連絡', 'が', 'あり', 'ません', 'でした', '。'] },
-      { t: ['お忙しかった', 'の', 'か', 'も', 'しれ', 'ません', 'が', '、', '来られ', 'ない', 'とき', 'は', '一言', 'ある', 'と', '助かり', 'ます', '。'] },
-      { t: ['次', 'の', '作業', 'を', '決める', '前', 'に', '、', 'ご都合', 'を', '教えて', 'いただけ', 'ます', 'か', '。'] },
+      { id: 'Soal Sabtu lalu, ada sedikit yang ingin saya sampaikan.', t: ['先週', 'の', '土曜', 'の', 'こと', 'で', '、', '少し', 'だけ', 'お話', 'し', 'たい', 'の', 'です', 'が', '。'] },
+      { id: 'Hari itu saya diberi tahu bahwa Anda bisa membantu mulai jam sembilan.', t: ['あの', '日', 'は', '、', '九時', 'に', '手伝って', 'いただける', 'と', '伺って', 'いました', '。'] },
+      { id: 'Kami berdua sudah menunggu, dan sampai jam sebelas tidak ada kabar.', t: ['こちら', 'は', '二人', 'で', '待って', 'いて', '、', '十一時', 'まで', '連絡', 'が', 'あり', 'ません', 'でした', '。'] },
+      { id: 'Mungkin Anda sedang sibuk, tetapi akan membantu kalau ada satu kalimat saat tidak bisa datang.', t: ['お忙しかった', 'の', 'か', 'も', 'しれ', 'ません', 'が', '、', '来られ', 'ない', 'とき', 'は', '一言', 'ある', 'と', '助かり', 'ます', '。'] },
+      { id: 'Sebelum menentukan pekerjaan berikutnya, bisa diberi tahu waktu luang Anda?', t: ['次', 'の', '作業', 'を', '決める', '前', 'に', '、', 'ご都合', 'を', '教えて', 'いただけ', 'ます', 'か', '。'] },
     ]
   },
   {
@@ -125,11 +125,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Penjelasan untuk pendatang baru menyebut apa yang tidak diwajibkan lebih dulu, karena itu yang paling sering ditakuti orang.',
     noteEn: 'An explanation for newcomers rules out the obligations first, because that is what people fear most.',
     blocks: [
-      { t: ['まず', '、', '毎回', '出', 'なければ', 'ならない', 'わけ', 'で', 'は', 'あり', 'ません', '。', '出られる', 'とき', 'だけ', 'で', '大丈夫', 'です', '。'] },
-      { t: ['会費', 'も', '、', '払って', 'いない', 'から', 'と', '言って', '参加', 'できない', 'こと', 'は', 'あり', 'ません', '。'] },
-      { t: ['出られ', 'ない', 'とき', 'は', '、', '前', 'の', '日', 'まで', 'に', '一言', '言って', 'いただける', 'と', '助かり', 'ます', '。'] },
-      { t: ['道具', 'は', '、', '初めて', 'の', '方', 'に', 'は', 'こちら', 'で', '用意', 'します', '。', '手ぶら', 'で', '来て', 'ください', '。'] },
-      { t: ['知って', 'いる', '人', 'が', 'いなくて', 'も', '、', '班', 'を', '分ける', 'とき', 'に', '隣', 'の', '人', 'を', '紹介', 'します', '。'] },
+      { id: ['Pertama, tidak berarti harus hadir setiap kali.', 'Cukup hadir saat Anda bisa.'], t: ['まず', '、', '毎回', '出', 'なければ', 'ならない', 'わけ', 'で', 'は', 'あり', 'ません', '。', '出られる', 'とき', 'だけ', 'で', '大丈夫', 'です', '。'] },
+      { id: 'Soal iuran pun, bukan berarti tidak boleh ikut hanya karena belum membayar.', t: ['会費', 'も', '、', '払って', 'いない', 'から', 'と', '言って', '参加', 'できない', 'こと', 'は', 'あり', 'ません', '。'] },
+      { id: 'Kalau tidak bisa hadir, akan membantu kalau ada kabar setidaknya sehari sebelumnya.', t: ['出られ', 'ない', 'とき', 'は', '、', '前', 'の', '日', 'まで', 'に', '一言', '言って', 'いただける', 'と', '助かり', 'ます', '。'] },
+      { id: ['Alatnya kami siapkan untuk yang baru pertama ikut.', 'Datang saja dengan tangan kosong.'], t: ['道具', 'は', '、', '初めて', 'の', '方', 'に', 'は', 'こちら', 'で', '用意', 'します', '。', '手ぶら', 'で', '来て', 'ください', '。'] },
+      { id: 'Kalau tidak ada yang Anda kenal, waktu pembagian kelompok kami perkenalkan dengan orang di sebelah.', t: ['知って', 'いる', '人', 'が', 'いなくて', 'も', '、', '班', 'を', '分ける', 'とき', 'に', '隣', 'の', '人', 'を', '紹介', 'します', '。'] },
     ]
   },
   {
@@ -143,11 +143,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Laporan seperti ini menyebut yang belum selesai juga, supaya bulan depan tidak dianggap pekerjaannya sudah beres.',
     noteEn: 'A report like this names what is unfinished too, so next month does not start from a false assumption.',
     blocks: [
-      { t: ['昨日', 'の', '作業', 'の', 'ご報告', 'です', '。', '全部', 'で', '十四人', '集まり', 'ました', '。'] },
-      { t: ['川', '側', 'の', '草', 'と', '、', '公園', 'の', '落ち葉', 'は', '、', '予定', 'どおり', 'に', '終わり', 'ました', '。'] },
-      { t: ['ごみ', '置き場', 'の', '後ろ', 'は', '、', '時間', 'が', '足り', 'なくて', '手', 'が', '付き', 'ません', 'でした', '。'] },
-      { t: ['道具', 'は', '全部', '倉庫', 'に', '戻して', 'あり', 'ます', '。', '数', 'も', '確認', 'ずみ', 'です', '。'] },
-      { t: ['残った', '分', 'は', '、', '来月', 'の', '二週目', 'に', 'もう', '一度', '集まる', 'こと', 'に', 'しました', '。'] },
+      { id: ['Ini laporan pekerjaan kemarin.', 'Seluruhnya terkumpul empat belas orang.'], t: ['昨日', 'の', '作業', 'の', 'ご報告', 'です', '。', '全部', 'で', '十四人', '集まり', 'ました', '。'] },
+      { id: 'Rumput di sisi sungai dan daun kering di taman selesai sesuai rencana.', t: ['川', '側', 'の', '草', 'と', '、', '公園', 'の', '落ち葉', 'は', '、', '予定', 'どおり', 'に', '終わり', 'ました', '。'] },
+      { id: 'Bagian belakang tempat pembuangan sampah tidak tersentuh karena waktunya tidak cukup.', t: ['ごみ', '置き場', 'の', '後ろ', 'は', '、', '時間', 'が', '足り', 'なくて', '手', 'が', '付き', 'ません', 'でした', '。'] },
+      { id: ['Alatnya sudah dikembalikan semua ke gudang.', 'Jumlahnya juga sudah diperiksa.'], t: ['道具', 'は', '全部', '倉庫', 'に', '戻して', 'あり', 'ます', '。', '数', 'も', '確認', 'ずみ', 'です', '。'] },
+      { id: 'Sisanya kami putuskan untuk dikerjakan sekali lagi pada minggu kedua bulan depan.', t: ['残った', '分', 'は', '、', '来月', 'の', '二週目', 'に', 'もう', '一度', '集まる', 'こと', 'に', 'しました', '。'] },
     ]
   },
   {
@@ -161,11 +161,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Rencana rapat berguna karena membatasi agendanya, bukan hanya menetapkan waktunya.',
     noteEn: 'A meeting plan is useful because it limits the agenda, not merely fixes the time.',
     blocks: [
-      { t: ['次', 'の', '集まり', 'は', '、', '議題', 'を', '三つ', 'だけ', 'に', '絞ろう', '。'] },
-      { t: ['前回', 'は', '、', '話', 'が', 'それて', '三時間', 'かかった', 'から', 'ね', '。'] },
-      { t: ['時間', 'は', '二時間', 'まで', 'と', '決めて', '、', '八時', 'に', '必ず', '終わる', 'こと', 'に', 'する', '。'] },
-      { t: ['決まら', 'なかった', '物', 'は', '、', 'その場', 'で', '続け', 'ない', 'で', '、', '紙', 'を', '回して', '集める', '。'] },
-      { t: ['会場', 'の', '準備', 'は', '、', '早く', '来た', '人', 'で', 'やる', 'こと', 'に', 'しよう', '。'] },
+      { id: 'Untuk pertemuan berikutnya, mari kita batasi pokok bahasannya hanya tiga.', t: ['次', 'の', '集まり', 'は', '、', '議題', 'を', '三つ', 'だけ', 'に', '絞ろう', '。'] },
+      { id: 'Soalnya pertemuan sebelumnya melenceng dan memakan tiga jam.', t: ['前回', 'は', '、', '話', 'が', 'それて', '三時間', 'かかった', 'から', 'ね', '。'] },
+      { id: 'Waktunya diputuskan sampai dua jam saja, dan harus selesai tepat jam delapan.', t: ['時間', 'は', '二時間', 'まで', 'と', '決めて', '、', '八時', 'に', '必ず', '終わる', 'こと', 'に', 'する', '。'] },
+      { id: 'Yang belum selesai jangan dilanjutkan di tempat, tetapi dikumpulkan dengan mengedarkan kertas.', t: ['決まら', 'なかった', '物', 'は', '、', 'その場', 'で', '続け', 'ない', 'で', '、', '紙', 'を', '回して', '集める', '。'] },
+      { id: 'Persiapan tempatnya mari kita kerjakan bersama oleh yang datang lebih awal.', t: ['会場', 'の', '準備', 'は', '、', '早く', '来た', '人', 'で', 'やる', 'こと', 'に', 'しよう', '。'] },
     ]
   },
   {
@@ -179,11 +179,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Nasihat yang berguna menyebut akibat jangka panjangnya, bukan hanya menyuruh berhemat tenaga.',
     noteEn: 'Useful advice names the long-term consequence, not just telling them to pace themselves.',
     blocks: [
-      { t: ['最初', 'から', '三つ', 'も', '引き受ける', 'の', 'は', '、', 'やめた', '方', 'が', 'いい', 'よ', '。'] },
-      { t: ['一つ', 'だけ', 'に', 'して', 'おけ', 'ば', '、', '全部', 'に', '手', 'が', '届く', 'から', '、', '結局', 'その', '方', 'が', '役に立つ', '。'] },
-      { t: ['抱え', 'すぎる', 'と', '、', 'どの', '仕事', 'も', '中途半端', 'に', 'なって', '、', '頼まれ', 'にくく', 'なる', '。'] },
-      { t: ['それ', 'に', '、', '忙しく', 'なって', '顔', 'を', '出せ', 'なく', 'なると', '、', 'こちら', 'も', '声', 'を', 'かけにくく', 'なる', '。'] },
-      { t: ['長く', '続ける', 'こと', 'を', '考えたら', '、', '一年', 'に', '一つ', 'ずつ', 'で', '十分', 'だ', 'よ', '。'] },
+      { id: 'Menerima tiga pekerjaan sekaligus sejak awal sebaiknya jangan.', t: ['最初', 'から', '三つ', 'も', '引き受ける', 'の', 'は', '、', 'やめた', '方', 'が', 'いい', 'よ', '。'] },
+      { id: 'Kalau diambil satu saja, semuanya bisa terjangkau, dan pada akhirnya itu lebih berguna.', t: ['一つ', 'だけ', 'に', 'して', 'おけ', 'ば', '、', '全部', 'に', '手', 'が', '届く', 'から', '、', '結局', 'その', '方', 'が', '役に立つ', '。'] },
+      { id: 'Kalau terlalu banyak dipikul, semua pekerjaan jadi setengah jadi, dan orang jadi enggan meminta tolong.', t: ['抱え', 'すぎる', 'と', '、', 'どの', '仕事', 'も', '中途半端', 'に', 'なって', '、', '頼まれ', 'にくく', 'なる', '。'] },
+      { id: 'Selain itu, kalau sibuk sampai tidak bisa muncul, orang juga jadi sungkan menegur.', t: ['それ', 'に', '、', '忙しく', 'なって', '顔', 'を', '出せ', 'なく', 'なると', '、', 'こちら', 'も', '声', 'を', 'かけにくく', 'なる', '。'] },
+      { id: 'Kalau dipikirkan untuk bertahan lama, satu pekerjaan per tahun sudah cukup.', t: ['長く', '続ける', 'こと', 'を', '考えたら', '、', '一年', 'に', '一つ', 'ずつ', 'で', '十分', 'だ', 'よ', '。'] },
     ]
   },
   {
@@ -197,11 +197,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Permintaan tukar jadwal diterima karena tanggal penggantinya ditawarkan lebih dulu, bukan hanya diminta.',
     noteEn: 'A swap request is granted because the replacement date is offered first, rather than merely asked for.',
     blocks: [
-      { t: ['お願い', 'が', 'ある', 'の', 'です', 'が', '、', '当番', 'の', '日', 'を', '替えて', 'いただけ', 'ません', 'か', '。'] },
-      { t: ['私', 'の', '順番', 'は', '、', '来週', 'の', '水曜日', 'です', '。'] },
-      { t: ['その', '日', 'だけ', '、', 'どうしても', '外せ', 'ない', '用事', 'が', '入って', 'しまいました', '。'] },
-      { t: ['代わり', 'に', '、', '金曜', 'か', '土曜', 'なら', '、', 'いつ', 'で', 'も', '入り', 'ます', '。'] },
-      { t: ['もし', 'どちら', 'も', '難しけれ', 'ば', '、', '別', 'の', '週', 'と', '交換', 'でも', '構い', 'ません', '。'] },
+      { id: 'Ada yang ingin saya minta, bisakah hari giliran saya ditukar?', t: ['お願い', 'が', 'ある', 'の', 'です', 'が', '、', '当番', 'の', '日', 'を', '替えて', 'いただけ', 'ません', 'か', '。'] },
+      { id: 'Giliran saya hari Rabu minggu depan.', t: ['私', 'の', '順番', 'は', '、', '来週', 'の', '水曜日', 'です', '。'] },
+      { id: 'Hanya hari itu ada urusan yang benar-benar tidak bisa saya tinggalkan.', t: ['その', '日', 'だけ', '、', 'どうしても', '外せ', 'ない', '用事', 'が', '入って', 'しまいました', '。'] },
+      { id: 'Sebagai gantinya, kalau hari Jumat atau Sabtu, saya bisa kapan saja.', t: ['代わり', 'に', '、', '金曜', 'か', '土曜', 'なら', '、', 'いつ', 'で', 'も', '入り', 'ます', '。'] },
+      { id: 'Kalau dua-duanya sulit, ditukar dengan minggu lain pun tidak apa-apa.', t: ['もし', 'どちら', 'も', '難しけれ', 'ば', '、', '別', 'の', '週', 'と', '交換', 'でも', '構い', 'ません', '。'] },
     ]
   },
   {
@@ -215,11 +215,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengalaman yang enak didengar punya tiga bagian: keadaannya, yang sulit, dan apa yang berubah setelahnya.',
     noteEn: 'A good story has three parts: the situation, what was hard, and what changed afterwards.',
     blocks: [
-      { t: ['三年前', 'に', '、', '初めて', '自治会', 'の', '役', 'を', '頼まれ', 'ました', '。'] },
-      { t: ['最初', 'の', '仕事', 'は', '議事録', 'で、', '何', 'を', '書け', 'ば', 'いい', 'の', 'か', '分かり', 'ません', 'でした', '。'] },
-      { t: ['話', 'は', 'あちこち', 'に', 'それる', 'ので', '、', '最初', 'は', '全部', '書いて', '、', 'あと', 'で', '読んで', 'も', '分から', 'なく', 'なりました', '。'] },
-      { t: ['先輩', 'に', '、', '決まった', 'こと', 'だけ', '書け', 'ば', 'いい', 'と', '教えて', 'もらい', 'ました', '。'] },
-      { t: ['それ', 'から', 'は', '、', '決まった', 'こと', 'と', '意見', 'を', '分けて', '書く', 'ように', 'して', 'います', '。'] },
+      { id: 'Tiga tahun lalu, saya pertama kali dimintai tugas di rukun tetangga.', t: ['三年前', 'に', '、', '初めて', '自治会', 'の', '役', 'を', '頼まれ', 'ました', '。'] },
+      { id: 'Pekerjaan pertama saya adalah mencatat risalah rapat, dan saya tidak tahu harus menulis apa.', t: ['最初', 'の', '仕事', 'は', '議事録', 'で、', '何', 'を', '書け', 'ば', 'いい', 'の', 'か', '分かり', 'ません', 'でした', '。'] },
+      { id: 'Karena pembicaraannya melenceng ke sana kemari, awalnya saya catat semuanya, dan nanti membacanya pun saya tidak paham.', t: ['話', 'は', 'あちこち', 'に', 'それる', 'ので', '、', '最初', 'は', '全部', '書いて', '、', 'あと', 'で', '読んで', 'も', '分から', 'なく', 'なりました', '。'] },
+      { id: 'Saya diajari oleh orang yang lebih dulu ikut, bahwa cukup menulis yang sudah diputuskan.', t: ['先輩', 'に', '、', '決まった', 'こと', 'だけ', '書け', 'ば', 'いい', 'と', '教えて', 'もらい', 'ました', '。'] },
+      { id: 'Sejak itu, saya menuliskan hal yang sudah diputuskan dan pendapat secara terpisah.', t: ['それ', 'から', 'は', '、', '決まった', 'こと', 'と', '意見', 'を', '分けて', '書く', 'ように', 'して', 'います', '。'] },
     ]
   },
   {
@@ -233,11 +233,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengumuman menyebut waktu, bawaan, dan siapa yang dihubungi kalau tidak bisa, dalam urutan itu.',
     noteEn: 'An announcement gives the time, what to bring, and who to contact if you cannot come, in that order.',
     blocks: [
-      { t: ['自治会', 'から', 'お知らせ', 'です', '。'] },
-      { t: ['今週', 'の', '土曜', '、', '朝', '八時', 'から', '十一時', 'まで', '、', '公園', '周り', 'の', '掃除', 'を', '行います', '。'] },
-      { t: ['軍手', 'と', '、', 'あれ', 'ば', 'ごみ袋', 'を', 'ご持参', 'ください', '。', '道具', 'は', '用意', 'して', 'あります', '。'] },
-      { t: ['出られ', 'ない', '方', 'は', '、', '前', 'の', '日', 'まで', 'に', '班長', 'まで', 'ご連絡', 'ください', '。'] },
-      { t: ['小雨', 'なら', '行います', '。', '大雨', 'の', '場合', 'は', '、', '朝', '六時', 'に', '回覧', 'で', 'お知らせ', 'します', '。'] },
+      { id: 'Ada pengumuman dari rukun tetangga.', t: ['自治会', 'から', 'お知らせ', 'です', '。'] },
+      { id: 'Sabtu minggu ini, dari jam delapan pagi sampai jam sebelas, akan diadakan bersih-bersih di sekitar taman.', t: ['今週', 'の', '土曜', '、', '朝', '八時', 'から', '十一時', 'まで', '、', '公園', '周り', 'の', '掃除', 'を', '行います', '。'] },
+      { id: ['Silakan membawa sarung tangan, dan kantong sampah kalau ada.', 'Alatnya sudah kami siapkan.'], t: ['軍手', 'と', '、', 'あれ', 'ば', 'ごみ袋', 'を', 'ご持参', 'ください', '。', '道具', 'は', '用意', 'して', 'あります', '。'] },
+      { id: 'Yang tidak bisa ikut, silakan menghubungi ketua kelompok setidaknya sehari sebelumnya.', t: ['出られ', 'ない', '方', 'は', '、', '前', 'の', '日', 'まで', 'に', '班長', 'まで', 'ご連絡', 'ください', '。'] },
+      { id: ['Kalau gerimis, tetap dilaksanakan.', 'Kalau hujan deras, akan diberitahukan lewat papan edaran jam enam pagi.'], t: ['小雨', 'なら', '行います', '。', '大雨', 'の', '場合', 'は', '、', '朝', '六時', 'に', '回覧', 'で', 'お知らせ', 'します', '。'] },
     ]
   },
 ]);

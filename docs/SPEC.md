@@ -213,6 +213,23 @@ bicara, penutur) ditulis dalam bahasa sasaran dengan permukaannya di `const.js` 
 glosanya di lexicon yang sama, jadi sebuah label bisa di-hover persis seperti kata di dalam
 kalimat, dan tidak ada satu pun permukaan label yang ditulis terpisah dari lexicon.
 
+### K12. Setiap paragraf punya terjemahannya sendiri
+
+Setiap blok narasi menyimpan `id`: terjemahan paragraf itu dalam bahasa yang dipilih pembaca, satu
+baris per kalimat Jepang. Inilah yang ditampilkan sakelar **Terjemahan** di bawah paragrafnya.
+
+**Alasan.** `id` dan `en` di tingkat narasi adalah **ringkasan satu baris**, bukan terjemahan.
+Yang dibutuhkan pembaca adalah arti kalimat yang sedang dibacanya, dan ringkasan menjawab
+pertanyaan yang berbeda. Memakai ringkasan di situ akan menampilkan hal yang sama di bawah empat
+paragraf, dan itu bukan terjemahan.
+
+**Jumlah baris harus sama dengan jumlah kalimat.** Kalimat Jepang dihitung dari tanda baca (`。`,
+`！`, `？`), dan jumlah baris `id` harus sama dengan itu. Kalau tidak sama, pembaca tidak bisa
+memasangkan baris mana dengan kalimat mana. Diperiksa dengan membandingkan jumlah baris terhadap
+jumlah tanda baca untuk seluruh 804 blok; sekarang 804 dari 804 terisi dan 0 tidak cocok.
+
+**Dijaga oleh.** `app.js` `blockTrHTML()`, ditambah pemeriksaan jumlah baris terhadap tanda baca.
+
 ### K8. Setiap topik harus memuat narasi balasan, bukan hanya yang membuka
 
 Bukan hanya narasi yang memulai sesuatu. Harus ada juga yang **menjawab**: menjawab pertanyaan,
@@ -388,7 +405,7 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V18 | Setiap jenis punya bentuk yang berbeda, sehingga percakapan bisa dibedakan dari kronologi sebelum satu kata dibaca | `app.js` + CSS |
 | V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan. Judul **tidak** memakai kelas kartu `jp-sent`, karena judul sudah berada di dalam kartu dan memakainya menggambar kartu di dalam kartu | `app.js` + CSS |
 | V20 | Setiap label yang menerangkan teks ditulis dalam **bahasa sasaran** dan **bisa di-hover** untuk melihat romaji dan artinya: jenis, gaya bahasa, lawan bicara, dan label penutur. Warnanya tetap dari tabel yang sama (`jenisVisual`, `who`), jadi makna warnanya tidak berubah | `app.js` + `const.js` |
-| V21 | Ada sakelar **Terjemahan**, bentuknya sama seperti sakelar Romaji dan **mati secara bawaan**: mematikannya menyembunyikan arti judul dan ringkasan narasi, tanpa menyembunyikan judul, chip, label, atau balon | `app.js` + `index.html` |
+| V21 | Ada sakelar **Terjemahan**, bentuknya sama seperti sakelar Romaji dan **mati secara bawaan**. Saat dinyalakan, terjemahan muncul **di bawah setiap paragraf**, satu baris per kalimat Jepang, ditambah arti judul dan ringkasan narasi. Mematikannya tidak menyembunyikan judul, chip, label, maupun balon | `app.js` + `index.html` + `data/*.js` |
 | V22 | Kolom pencarian, pilihan ruang lingkup, dan kedua sakelar **tetap ada saat sebuah judul dibuka**: pembaca yang mencari satu kata lalu membaca narasinya tidak perlu kembali hanya untuk mengubah sakelar. Bar bacaan disembunyikan di dua halaman pemilih, karena di sana pertanyaannya belum dijawab | `app.js` + `index.html` |
 
 ---

@@ -36,13 +36,13 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pembuka telepon yang berguna menyebut nama dan keperluan sekaligus, karena yang mengangkat bukan orang yang dituju.',
     noteEn: 'A useful call opening gives name and purpose together, because the person answering is not the one wanted.',
     blocks: [
-      { sp: 'B', t: ['お忙しい', 'ところ', '失礼', 'します', '。', '田中', 'の', '紹介', 'で', 'お電話', 'しました', '。', '山田', 'と', '申し', 'ます', '。'] },
-      { sp: 'A', t: ['お世話に', 'なって', 'おります', '。', 'どの', 'よう', 'な', 'ご用件', 'でしょうか', '。'] },
-      { sp: 'B', t: ['納品', 'の', '日程', 'について', '、', 'ご相談', 'したい', 'こと', 'が', 'あり', 'ます', '。'] },
-      { sp: 'A', t: ['かしこまり', 'ました', '。', '担当', 'の', '者', 'に', 'おつなぎ', 'します', 'ので', '、', '少々', 'お待ち', 'ください', '。'] },
-      { sp: 'B', t: ['お願い', 'します', '。'] },
-      { sp: 'A', t: ['お待たせ', 'しました', '。', 'ただ今', '、', '担当', 'に', 'つなぎ', 'ます', '。'] },
-      { sp: 'B', t: ['ありがとう', 'ございます', '。'] },
+      { sp: 'B', id: ['Maaf mengganggu waktu Anda.', 'Saya menelepon atas perkenalan Tanaka.', 'Nama saya Yamada.'], t: ['お忙しい', 'ところ', '失礼', 'します', '。', '田中', 'の', '紹介', 'で', 'お電話', 'しました', '。', '山田', 'と', '申し', 'ます', '。'] },
+      { sp: 'A', id: ['Terima kasih atas kerja samanya.', 'Ada keperluan apa, ya?'], t: ['お世話に', 'なって', 'おります', '。', 'どの', 'よう', 'な', 'ご用件', 'でしょうか', '。'] },
+      { sp: 'B', id: 'Saya ingin berkonsultasi soal jadwal pengiriman barang.', t: ['納品', 'の', '日程', 'について', '、', 'ご相談', 'したい', 'こと', 'が', 'あり', 'ます', '。'] },
+      { sp: 'A', id: ['Baik, saya mengerti.', 'Saya sambungkan ke penanggung jawabnya, mohon tunggu sebentar.'], t: ['かしこまり', 'ました', '。', '担当', 'の', '者', 'に', 'おつなぎ', 'します', 'ので', '、', '少々', 'お待ち', 'ください', '。'] },
+      { sp: 'B', id: 'Ya, tolong.', t: ['お願い', 'します', '。'] },
+      { sp: 'A', id: ['Terima kasih sudah menunggu.', 'Sekarang saya sambungkan ke penanggung jawabnya.'], t: ['お待たせ', 'しました', '。', 'ただ今', '、', '担当', 'に', 'つなぎ', 'ます', '。'] },
+      { sp: 'B', id: 'Terima kasih.', t: ['ありがとう', 'ございます', '。'] },
     ]
   },
   {
@@ -56,11 +56,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Cerita seperti ini punya tiga bagian: kesalahannya, saat ketahuan, dan bagaimana ditutup.',
     noteEn: 'A story like this has three parts: the mistake, when it surfaced, and how it was closed.',
     blocks: [
-      { t: ['先週', '、', '業者', 'さん', 'に', '電話', 'する', 'つもり', 'が', '、', '番号', 'を', '一', 'つ', '間違え', 'ました', '。'] },
-      { t: ['相手', 'は', '同じ', 'よう', 'な', '仕事', 'の', '人', 'だった', 'ので', '、', '話', 'が', 'かみ合って', 'いる', 'と', '思って', 'いました', '。'] },
-      { t: ['二', '分', 'ほど', '話して', 'から', '、', '会社', 'の', '名前', 'が', '違う', 'の', 'に', '気が付き', 'ました', '。'] },
-      { t: ['すぐ', 'に', '謝って', '、', 'なぜ', '間違え', 'た', 'の', 'か', 'を', '説明', 'しました', '。'] },
-      { t: ['相手', 'は', '笑って', '、', '「', 'よく', 'ある', 'こと', 'です', '」', 'と', '言って', 'くれ', 'ました', '。'] },
+      { id: 'Minggu lalu, niat saya menelepon rekanan, tetapi saya salah satu angka di nomornya.', t: ['先週', '、', '業者', 'さん', 'に', '電話', 'する', 'つもり', 'が', '、', '番号', 'を', '一', 'つ', '間違え', 'ました', '。'] },
+      { id: 'Karena lawan bicaranya bekerja di bidang yang mirip, saya mengira pembicaraannya nyambung.', t: ['相手', 'は', '同じ', 'よう', 'な', '仕事', 'の', '人', 'だった', 'ので', '、', '話', 'が', 'かみ合って', 'いる', 'と', '思って', 'いました', '。'] },
+      { id: 'Setelah berbicara sekitar dua menit, barulah saya sadar bahwa nama perusahaannya berbeda.', t: ['二', '分', 'ほど', '話して', 'から', '、', '会社', 'の', '名前', 'が', '違う', 'の', 'に', '気が付き', 'ました', '。'] },
+      { id: 'Saya langsung minta maaf, dan menjelaskan kenapa saya salah sambung.', t: ['すぐ', 'に', '謝って', '、', 'なぜ', '間違え', 'た', 'の', 'か', 'を', '説明', 'しました', '。'] },
+      { id: 'Orang itu tertawa, dan mengatakan bahwa hal itu sering terjadi.', t: ['相手', 'は', '笑って', '、', '「', 'よく', 'ある', 'こと', 'です', '」', 'と', '言って', 'くれ', 'ました', '。'] },
     ]
   },
   {
@@ -74,11 +74,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Urutannya diikat たら dan ので, jadi setiap baris menjelaskan baris sebelumnya.',
     noteEn: 'The order is bound by たら and ので, so each line explains the one before it.',
     blocks: [
-      { t: ['番号', 'を', '押した', 'ら', '、', 'すぐ', 'に', '自動', 'の', '案内', 'が', '流れ', 'ました', '。'] },
-      { t: ['「', '一', '番', 'を', '押して', 'ください', '」', 'と', '言われ', 'た', 'ので', '、', 'その', 'とおり', 'に', 'しました', '。'] },
-      { t: ['八分', 'ほど', '待った', 'あと', 'で', '、', '人', 'が', '出', 'ました', '。'] },
-      { t: ['名前', 'と', '用件', 'を', '伝えた', 'ら', '、', '担当', 'の', '人', 'に', '変わり', 'ました', '。'] },
-      { t: ['話し', '始める', 'まで', 'に', '十分', 'かかった', 'ので', '、', '時間', 'に', '余裕', 'を', '持つ', 'ように', 'して', 'います', '。'] },
+      { id: 'Begitu saya tekan nomornya, langsung terdengar panduan otomatis.', t: ['番号', 'を', '押した', 'ら', '、', 'すぐ', 'に', '自動', 'の', '案内', 'が', '流れ', 'ました', '。'] },
+      { id: 'Karena dikatakan tekan satu, saya lakukan persis seperti itu.', t: ['「', '一', '番', 'を', '押して', 'ください', '」', 'と', '言われ', 'た', 'ので', '、', 'その', 'とおり', 'に', 'しました', '。'] },
+      { id: 'Setelah menunggu sekitar delapan menit, barulah ada orang yang menjawab.', t: ['八分', 'ほど', '待った', 'あと', 'で', '、', '人', 'が', '出', 'ました', '。'] },
+      { id: 'Setelah saya menyebutkan nama dan keperluan saya, sambungannya dialihkan ke penanggung jawabnya.', t: ['名前', 'と', '用件', 'を', '伝えた', 'ら', '、', '担当', 'の', '人', 'に', '変わり', 'ました', '。'] },
+      { id: 'Karena butuh sepuluh menit sampai mulai bicara, sekarang saya menyiapkan waktu lebih.', t: ['話し', '始める', 'まで', 'に', '十分', 'かかった', 'ので', '、', '時間', 'に', '余裕', 'を', '持つ', 'ように', 'して', 'います', '。'] },
     ]
   },
   {
@@ -92,11 +92,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan seperti ini diarahkan ke waktunya, bukan ke orang yang menelepon, dan tidak menuntut aturan baru.',
     noteEn: 'A complaint like this aims at the timing, not the caller, and does not demand a new rule.',
     blocks: [
-      { t: ['電話', 'が', '鳴る', 'の', 'って', '、', 'なぜ', 'か', '説明', 'して', 'いる', 'とき', 'な', 'ん', 'だ', 'よ', '。'] },
-      { t: ['出', 'なければ', 'ならない', 'から', '話', 'を', '止めて', '、', '戻った', 'ら', 'どこ', 'まで', '話した', 'か', '分から', 'なく', 'なる', '。'] },
-      { t: ['しかも', '、', '出て', 'みる', 'と', '、', 'あと', 'で', 'も', 'いい', 'こと', 'の', '方', 'が', '多い', '。'] },
-      { t: ['今日', 'も', '、', '三十分', 'の', 'うち', 'に', '四', '回', '鳴った', 'んだ', '。'] },
-      { t: ['電話', 'を', '減らせ', 'と', '言いたい', 'わけ', 'じゃ', 'なくて', '、', '時間', 'を', '選んで', 'ほしい', 'だけ', 'な', 'ん', 'だ', 'けど', 'ね', '。'] },
+      { id: 'Telepon itu, entah kenapa selalu berdering waktu saya sedang menjelaskan sesuatu.', t: ['電話', 'が', '鳴る', 'の', 'って', '、', 'なぜ', 'か', '説明', 'して', 'いる', 'とき', 'な', 'ん', 'だ', 'よ', '。'] },
+      { id: 'Karena harus diangkat, saya hentikan pembicaraannya, dan begitu kembali saya sudah lupa sampai mana.', t: ['出', 'なければ', 'ならない', 'から', '話', 'を', '止めて', '、', '戻った', 'ら', 'どこ', 'まで', '話した', 'か', '分から', 'なく', 'なる', '。'] },
+      { id: 'Bahkan, setelah diangkat, lebih banyak yang sebenarnya bisa dibicarakan nanti.', t: ['しかも', '、', '出て', 'みる', 'と', '、', 'あと', 'で', 'も', 'いい', 'こと', 'の', '方', 'が', '多い', '。'] },
+      { id: 'Hari ini pun, dalam tiga puluh menit berdering empat kali.', t: ['今日', 'も', '、', '三十分', 'の', 'うち', 'に', '四', '回', '鳴った', 'んだ', '。'] },
+      { id: 'Bukannya ingin bilang kurangi teleponnya, saya hanya ingin waktunya dipilih.', t: ['電話', 'を', '減らせ', 'と', '言いたい', 'わけ', 'じゃ', 'なくて', '、', '時間', 'を', '選んで', 'ほしい', 'だけ', 'な', 'ん', 'だ', 'けど', 'ね', '。'] },
     ]
   },
   {
@@ -110,11 +110,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Keluhan ke operator berhasil karena yang diminta adalah pencatatan, bukan penjelasan sebabnya.',
     noteEn: 'A complaint to an operator works because what is asked is a record, not an explanation of the cause.',
     blocks: [
-      { t: ['お手数', 'を', 'おかけ', 'します', 'が', '、', '少し', 'お伝え', 'したい', 'こと', 'が', 'あり', 'ます', '。'] },
-      { t: ['ただ今', 'まで', 'に', '三', '回', '、', '担当', 'の', '方', 'に', 'つないで', 'いただいた', 'の', 'です', 'が', '、'] },
-      { t: ['いずれ', 'も', '話', 'の', '途中', 'で', '切れて', 'しまい', '、', '最後', 'まで', '話せ', 'ません', 'でした', '。'] },
-      { t: ['もう', '一度', 'つないで', 'いただく', 'の', 'は', '構い', 'ません', 'が', '、', '切れた', 'こと', 'を', '記録', 'に', '残して', 'ください', '。'] },
-      { t: ['私', 'の', '番号', 'は', '、', 'この', '電話', 'です', '。', 'かけ', '直して', 'いただける', 'と', '助かり', 'ます', '。'] },
+      { id: 'Maaf merepotkan, ada sedikit yang ingin saya sampaikan.', t: ['お手数', 'を', 'おかけ', 'します', 'が', '、', '少し', 'お伝え', 'したい', 'こと', 'が', 'あり', 'ます', '。'] },
+      { id: 'Sampai sekarang saya sudah tiga kali disambungkan ke penanggung jawabnya,', t: ['ただ今', 'まで', 'に', '三', '回', '、', '担当', 'の', '方', 'に', 'つないで', 'いただいた', 'の', 'です', 'が', '、'] },
+      { id: 'tetapi semuanya terputus di tengah pembicaraan, dan saya tidak pernah bisa bicara sampai selesai.', t: ['いずれ', 'も', '話', 'の', '途中', 'で', '切れて', 'しまい', '、', '最後', 'まで', '話せ', 'ません', 'でした', '。'] },
+      { id: 'Saya tidak keberatan disambungkan lagi, tetapi tolong catat bahwa sambungannya terputus.', t: ['もう', '一度', 'つないで', 'いただく', 'の', 'は', '構い', 'ません', 'が', '、', '切れた', 'こと', 'を', '記録', 'に', '残して', 'ください', '。'] },
+      { id: ['Nomor saya nomor telepon ini.', 'Akan sangat membantu kalau Anda menelepon balik.'], t: ['私', 'の', '番号', 'は', '、', 'この', '電話', 'です', '。', 'かけ', '直して', 'いただける', 'と', '助かり', 'ます', '。'] },
     ]
   },
   {
@@ -128,11 +128,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Penjelasan yang berguna menyebut urutannya, karena pesan yang salah urutan membuat yang mendengar harus memutar ulang.',
     noteEn: 'A useful explanation gives the order, because a message out of order makes the listener replay it.',
     blocks: [
-      { t: ['伝言', 'を', 'お願い', 'する', 'とき', 'は、', '順番', 'が', '大事', 'です', '。', '最初', 'に', '名前', 'を', '言って', 'ください', '。'] },
-      { t: ['次', 'に', '、', '何', 'の', '件', 'か', 'を', '一言', 'で', '言います', '。', '「', '見積', 'の', '件', '」', 'で', '十分', 'です', '。'] },
-      { t: ['その', 'あと', 'で', '、', 'いつ', 'まで', 'に', '必要', 'か', 'を', '伝えます', '。', '期限', 'が', 'ある', 'と', '、', '相手', 'が', '優先', 'できます', '。'] },
-      { t: ['最後', 'に', '、', 'かけ', '直して', 'ほしい', '番号', 'を', 'ゆっくり', '言って', 'ください', '。', '一度', 'で', '伝わる', 'と', '助かり', 'ます', '。'] },
-      { t: ['長く', '話す', 'より', '、', 'この', '四つ', 'を', '短く', '言う', '方', 'が', '、', '伝わり', 'ます', '。'] },
+      { id: ['Waktu menitipkan pesan, urutannya penting.', 'Sebutkan nama Anda lebih dulu.'], t: ['伝言', 'を', 'お願い', 'する', 'とき', 'は、', '順番', 'が', '大事', 'です', '。', '最初', 'に', '名前', 'を', '言って', 'ください', '。'] },
+      { id: ['Selanjutnya, sebutkan keperluannya dalam satu kalimat.', 'Cukup dengan soal penawaran.'], t: ['次', 'に', '、', '何', 'の', '件', 'か', 'を', '一言', 'で', '言います', '。', '「', '見積', 'の', '件', '」', 'で', '十分', 'です', '。'] },
+      { id: ['Setelah itu, sampaikan kapan paling lambat diperlukan.', 'Kalau ada tenggatnya, lawan bicara bisa memprioritaskan.'], t: ['その', 'あと', 'で', '、', 'いつ', 'まで', 'に', '必要', 'か', 'を', '伝えます', '。', '期限', 'が', 'ある', 'と', '、', '相手', 'が', '優先', 'できます', '。'] },
+      { id: ['Terakhir, sebutkan nomor yang ingin dihubungi kembali dengan lambat.', 'Akan membantu kalau sekali saja sudah tersampaikan.'], t: ['最後', 'に', '、', 'かけ', '直して', 'ほしい', '番号', 'を', 'ゆっくり', '言って', 'ください', '。', '一度', 'で', '伝わる', 'と', '助かり', 'ます', '。'] },
+      { id: 'Daripada berbicara panjang, menyebutkan empat hal ini dengan singkat lebih mudah tersampaikan.', t: ['長く', '話す', 'より', '、', 'この', '四つ', 'を', '短く', '言う', '方', 'が', '、', '伝わり', 'ます', '。'] },
     ]
   },
   {
@@ -146,11 +146,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Yang menentukan di sini bukan isi laporannya, melainkan bahwa penelepon memeriksa sambungannya lebih dulu, karena suara kereta sering membuat satu kalimat hilang.',
     noteEn: 'What matters here is not the content of the report but that the caller checks the line first, because train noise often swallows a whole sentence.',
     blocks: [
-      { t: ['もしもし', '、', '今', '、', '電車', 'の', '中', 'なん', 'です', 'が', '、', '聞こえ', 'ます', 'か', '。'] },
-      { t: ['少し', '聞き取りにくい', 'です', '。', '周り', 'の', '音', 'が', '大きい', 'ので', '。'] },
-      { t: ['すみません', '。', '駅', 'に', '着く', 'まで', '、', '少し', '待って', 'いただけ', 'ます', 'か', '。'] },
-      { t: ['かしこまり', 'ました', '。', 'では', '、', '着い', 'たら', 'こちら', 'から', 'かけ', 'ます', '。'] },
-      { t: ['お願い', 'します', '。', '大事', 'な', '話', 'は', '、', '静か', 'な', '場所', 'から', 'かけ', '直します', '。'] },
+      { id: 'Halo, saya sekarang sedang di dalam kereta, apakah terdengar?', t: ['もしもし', '、', '今', '、', '電車', 'の', '中', 'なん', 'です', 'が', '、', '聞こえ', 'ます', 'か', '。'] },
+      { id: ['Agak sulit terdengar.', 'Karena suara di sekitarnya ramai.'], t: ['少し', '聞き取りにくい', 'です', '。', '周り', 'の', '音', 'が', '大きい', 'ので', '。'] },
+      { id: ['Maaf.', 'Bisa menunggu sebentar sampai saya tiba di stasiun?'], t: ['すみません', '。', '駅', 'に', '着く', 'まで', '、', '少し', '待って', 'いただけ', 'ます', 'か', '。'] },
+      { id: ['Baik, saya mengerti.', 'Kalau begitu, nanti saya yang menelepon setelah Anda tiba.'], t: ['かしこまり', 'ました', '。', 'では', '、', '着い', 'たら', 'こちら', 'から', 'かけ', 'ます', '。'] },
+      { id: ['Ya, tolong.', 'Pembicaraan pentingnya saya telepon ulang dari tempat yang tenang.'], t: ['お願い', 'します', '。', '大事', 'な', '話', 'は', '、', '静か', 'な', '場所', 'から', 'かけ', '直します', '。'] },
     ]
   },
   {
@@ -164,11 +164,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Rencana menelepon berguna karena menyebut apa yang harus siap sebelum menelepon.',
     noteEn: 'A plan to call is useful because it says what must be ready beforehand.',
     blocks: [
-      { t: ['さっき', 'の', '件', 'は', '、', '昼', 'の', 'あと', 'で', 'かけ', '直そう', '。'] },
-      { t: ['相手', 'は', '午後', 'の', '方が', '出', 'やすい', 'から', '、', '一時', '過ぎ', 'に', 'する', '。'] },
-      { t: ['私', 'の', '携帯', 'は', '圏外', 'に', 'なる', 'こと', 'が', 'ある', 'ので', '、', '会社', 'の', '番号', 'を', '使う', '。'] },
-      { t: ['かける', '前', 'に', '、', '見積', 'と', '納期', 'の', '紙', 'を', '手元', 'に', '用意', 'して', 'おく', '。'] },
-      { t: ['話した', '内容', 'は', '、', 'その場', 'で', 'メモ', 'して', '、', 'あと', 'で', '二人', 'で', '確認', 'しよう', '。'] },
+      { id: 'Soal tadi, mari saya telepon ulang setelah makan siang.', t: ['さっき', 'の', '件', 'は', '、', '昼', 'の', 'あと', 'で', 'かけ', '直そう', '。'] },
+      { id: 'Lawan bicaranya lebih mudah dihubungi sore, jadi setelah lewat jam satu.', t: ['相手', 'は', '午後', 'の', '方が', '出', 'やすい', 'から', '、', '一時', '過ぎ', 'に', 'する', '。'] },
+      { id: 'Ponsel saya kadang tidak ada sinyal, jadi saya pakai nomor kantor.', t: ['私', 'の', '携帯', 'は', '圏外', 'に', 'なる', 'こと', 'が', 'ある', 'ので', '、', '会社', 'の', '番号', 'を', '使う', '。'] },
+      { id: 'Sebelum menelepon, siapkan dulu kertas penawaran dan tenggatnya di dekat saya.', t: ['かける', '前', 'に', '、', '見積', 'と', '納期', 'の', '紙', 'を', '手元', 'に', '用意', 'して', 'おく', '。'] },
+      { id: 'Isi pembicaraannya saya catat saat itu juga, dan nanti kita periksa berdua.', t: ['話した', '内容', 'は', '、', 'その場', 'で', 'メモ', 'して', '、', 'あと', 'で', '二人', 'で', '確認', 'しよう', '。'] },
     ]
   },
   {
@@ -182,11 +182,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Nasihat yang berguna menyebut alasannya dari sisi yang menerima telepon, bukan dari sisi aturan.',
     noteEn: 'Useful advice gives the reason from the receiver\'s side rather than from the rulebook.',
     blocks: [
-      { t: ['仕事', 'の', '電話', 'は', '、', '九時', 'から', '六時', 'まで', 'の', '間', 'に', 'した', '方', 'が', 'いい', 'よ', '。'] },
-      { t: ['それ', '以外', 'の', '時間', 'は', '、', '出', 'られ', 'ない', 'か', '、', '出て', 'も', '手元', 'に', '資料', 'が', 'ありません', '。'] },
-      { t: ['急ぎ', 'なら', '、', '電話', 'より', 'メッセージ', 'の', '方', 'が', '確か', 'です', '。', 'あと', 'で', '読め', 'ます', 'から', '。'] },
-      { t: ['もし', '夜', 'に', 'なって', 'も', '伝え', 'たい', 'なら、', '「', '明日', 'で', '構い', 'ません', '」', 'と', '添える', 'と', 'いい', '。'] },
-      { t: ['相手', 'の', '都合', 'を', '考えて', 'かける', '人', 'の', '方', 'が', '、', '結局', '信頼', 'されます', '。'] },
+      { id: 'Telepon urusan kerja sebaiknya antara jam sembilan sampai jam enam.', t: ['仕事', 'の', '電話', 'は', '、', '九時', 'から', '六時', 'まで', 'の', '間', 'に', 'した', '方', 'が', 'いい', 'よ', '。'] },
+      { id: 'Di luar waktu itu, orang tidak bisa mengangkat, atau walau diangkat bahannya tidak ada di tangan.', t: ['それ', '以外', 'の', '時間', 'は', '、', '出', 'られ', 'ない', 'か', '、', '出て', 'も', '手元', 'に', '資料', 'が', 'ありません', '。'] },
+      { id: ['Kalau mendesak, pesan lebih pasti daripada telepon.', 'Karena bisa dibaca nanti.'], t: ['急ぎ', 'なら', '、', '電話', 'より', 'メッセージ', 'の', '方', 'が', '確か', 'です', '。', 'あと', 'で', '読め', 'ます', 'から', '。'] },
+      { id: 'Kalau memang ingin menyampaikan malam, tambahkan bahwa besok pun tidak apa-apa.', t: ['もし', '夜', 'に', 'なって', 'も', '伝え', 'たい', 'なら、', '「', '明日', 'で', '構い', 'ません', '」', 'と', '添える', 'と', 'いい', '。'] },
+      { id: 'Orang yang menelepon dengan mempertimbangkan keadaan lawan bicara yang akhirnya lebih dipercaya.', t: ['相手', 'の', '都合', 'を', '考えて', 'かける', '人', 'の', '方', 'が', '、', '結局', '信頼', 'されます', '。'] },
     ]
   },
   {
@@ -200,11 +200,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Permintaan seperti ini diterima karena jamnya pasti, bukan karena kalimatnya sopan panjang.',
     noteEn: 'A request like this is granted because the hour is exact, not because the sentence is long and polite.',
     blocks: [
-      { t: ['お電話', 'ありがとう', 'ございます', '。', 'ただ', '今', '、', '外出', 'して', 'いて', '、', '落ち着いて', '話せ', 'ません', '。'] },
-      { t: ['一', '時間', '後', 'で', 'あれ', 'ば', '、', '席', 'に', '戻って', 'います', '。'] },
-      { t: ['お手数', 'ですが', '、', '十一時', 'ごろ', 'に', 'もう', '一度', 'お電話', 'いただけ', 'ません', 'か', '。'] },
-      { t: ['私', 'から', 'かける', 'こと', 'も', 'できます', 'が', '、', 'そちらの', '都合', 'が', '分から', 'ない', 'ので', '。'] },
-      { t: ['もし', '十一時', 'が', '難しけれ', 'ば', '、', 'ご都合', 'の', 'いい', '時間', 'を', '教えて', 'ください', '。'] },
+      { id: ['Terima kasih teleponnya.', 'Saya sekarang sedang di luar, jadi tidak bisa bicara dengan tenang.'], t: ['お電話', 'ありがとう', 'ございます', '。', 'ただ', '今', '、', '外出', 'して', 'いて', '、', '落ち着いて', '話せ', 'ません', '。'] },
+      { id: 'Kalau satu jam lagi, saya sudah kembali di tempat.', t: ['一', '時間', '後', 'で', 'あれ', 'ば', '、', '席', 'に', '戻って', 'います', '。'] },
+      { id: 'Maaf merepotkan, bisakah Anda menelepon lagi sekitar jam sebelas?', t: ['お手数', 'ですが', '、', '十一時', 'ごろ', 'に', 'もう', '一度', 'お電話', 'いただけ', 'ません', 'か', '。'] },
+      { id: 'Saya sendiri juga bisa menelepon, tetapi saya tidak tahu waktu yang pas untuk Anda.', t: ['私', 'から', 'かける', 'こと', 'も', 'できます', 'が', '、', 'そちらの', '都合', 'が', '分から', 'ない', 'ので', '。'] },
+      { id: 'Kalau jam sebelas sulit, tolong beri tahu waktu yang nyaman bagi Anda.', t: ['もし', '十一時', 'が', '難しけれ', 'ば', '、', 'ご都合', 'の', 'いい', '時間', 'を', '教えて', 'ください', '。'] },
     ]
   },
   {
@@ -218,11 +218,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengalaman yang enak didengar punya tiga bagian: keadaannya, yang terlewat, dan apa yang berubah setelahnya.',
     noteEn: 'A good story has three parts: the situation, what was missed, and what changed afterwards.',
     blocks: [
-      { t: ['去年', '、', '大きい', '打ち合わせ', 'の', '間', '、', '携帯', 'を', 'かばん', 'の', '中', 'に', '入れて', 'いました', '。'] },
-      { t: ['その', '日', 'は', '三', '時間', '続いた', 'ので', '、', '終わって', 'から', '初めて', '気が付き', 'ました', '。'] },
-      { t: ['画面', 'を', '見る', 'と', '、', '取引先', 'から', 'の', '着信', 'が', '一', '件', 'あり', 'ました', '。'] },
-      { t: ['すぐ', 'に', 'かけ', '直した', 'ところ', '、', 'すで', 'に', '他', 'の', '会社', 'に', '決まった', 'と', '言われ', 'ました', '。'] },
-      { t: ['あれ', 'から', 'は', '、', '会議', '中', 'で', 'も', '机', 'の', '上', 'に', '置いて', '、', '震え', 'た', 'ら', '気が付く', 'ように', 'して', 'います', '。'] },
+      { id: 'Tahun lalu, selama rapat besar, ponsel saya taruh di dalam tas.', t: ['去年', '、', '大きい', '打ち合わせ', 'の', '間', '、', '携帯', 'を', 'かばん', 'の', '中', 'に', '入れて', 'いました', '。'] },
+      { id: 'Hari itu rapatnya berlangsung tiga jam, jadi saya baru sadar setelah selesai.', t: ['その', '日', 'は', '三', '時間', '続いた', 'ので', '、', '終わって', 'から', '初めて', '気が付き', 'ました', '。'] },
+      { id: 'Waktu saya lihat layarnya, ada satu panggilan masuk dari mitra.', t: ['画面', 'を', '見る', 'と', '、', '取引先', 'から', 'の', '着信', 'が', '一', '件', 'あり', 'ました', '。'] },
+      { id: 'Begitu saya menelepon balik, saya diberi tahu bahwa pekerjaannya sudah diberikan ke perusahaan lain.', t: ['すぐ', 'に', 'かけ', '直した', 'ところ', '、', 'すで', 'に', '他', 'の', '会社', 'に', '決まった', 'と', '言われ', 'ました', '。'] },
+      { id: 'Sejak itu, walau sedang rapat, saya menaruhnya di atas meja, supaya sadar kalau bergetar.', t: ['あれ', 'から', 'は', '、', '会議', '中', 'で', 'も', '机', 'の', '上', 'に', '置いて', '、', '震え', 'た', 'ら', '気が付く', 'ように', 'して', 'います', '。'] },
     ]
   },
   {
@@ -236,11 +236,11 @@ window.BANK = (window.BANK || []).concat([
     note: 'Pengumuman seperti ini menyebut nama dan tempat mengangkatnya, karena pendengar harus memutuskan dalam dua detik apakah ini untuknya.',
     noteEn: 'An announcement like this gives the name and where to answer, because the listener must decide in two seconds whether it is for them.',
     blocks: [
-      { t: ['お知らせ', 'します', '。', '営業部', 'の', '佐藤', 'さん', '、', 'お電話', 'です', '。'] },
-      { t: ['内線', 'の', '十二番', 'に', 'で', 'ます', 'ので', '、', '近く', 'の', '電話', 'から', 'お取り', 'ください', '。'] },
-      { t: ['お客様', 'が', 'お待ち', 'です', '。', '至急', 'の', 'ご用件', 'だ', 'そう', 'です', '。'] },
-      { t: ['席', 'に', '戻られ', 'ない', '場合', 'は', '、', '受付', 'まで', 'お知らせ', 'ください', '。', '伝言', 'を', 'お受け', 'します', '。'] },
-      { t: ['繰り返します', '。', '営業部', 'の', '佐藤', 'さん', '、', '内線', '十二番', 'です', '。'] },
+      { id: ['Ada pengumuman.', 'Sato dari bagian penjualan, ada telepon untuk Anda.'], t: ['お知らせ', 'します', '。', '営業部', 'の', '佐藤', 'さん', '、', 'お電話', 'です', '。'] },
+      { id: 'Silakan angkat di nomor ekstensi dua belas, dari telepon yang terdekat.', t: ['内線', 'の', '十二番', 'に', 'で', 'ます', 'ので', '、', '近く', 'の', '電話', 'から', 'お取り', 'ください', '。'] },
+      { id: ['Pelanggannya sedang menunggu.', 'Katanya keperluannya mendesak.'], t: ['お客様', 'が', 'お待ち', 'です', '。', '至急', 'の', 'ご用件', 'だ', 'そう', 'です', '。'] },
+      { id: ['Kalau tidak bisa kembali ke tempat, tolong beri tahu resepsionis.', 'Saya akan menerima pesannya.'], t: ['席', 'に', '戻られ', 'ない', '場合', 'は', '、', '受付', 'まで', 'お知らせ', 'ください', '。', '伝言', 'を', 'お受け', 'します', '。'] },
+      { id: ['Saya ulangi.', 'Sato dari bagian penjualan, nomor ekstensi dua belas.'], t: ['繰り返します', '。', '営業部', 'の', '佐藤', 'さん', '、', '内線', '十二番', 'です', '。'] },
     ]
   },
 ]);

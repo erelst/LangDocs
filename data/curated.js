@@ -26,10 +26,10 @@ window.CURATED = [
     note: 'Kalimat pertama tetap seperti aslinya, karena bentuk itu yang jadi patokan mutu deck ini: dua klausa disambung だけど, dengan ん sebagai penjelas. Dua paragraf berikutnya menambahkan yang tidak ada di kalimat pertama: ukuran tempatnya, dan apa yang ingin dilakukan lagi. Tanpa itu, ceritanya berhenti sebelum ada gunanya.',
     noteEn: 'The first sentence stays as it was, because that shape is what the rest of the deck is measured against: two clauses joined by だけど, with ん as the explanatory. The two paragraphs after it add what the single sentence lacked: the size of the place, and what the person wants to do next. Without those, the story stops before it is useful.',
     blocks: [
-      { t: ['昨日、', '駅', 'の', '近く', '安い', 'レストラン', 'で', '友達', 'と', '一緒に', 'ご飯', 'を', '食べた', 'ん', 'だけど、', 'とても', 'おいしかった', 'です。'] },
-      { t: ['店', 'は', 'カウンター', 'だけ', 'の', '小さな', '所', 'で、', '十三時', 'を', '過ぎて', 'いた', 'のに、', '三組', 'も', '並んで', 'いました。'] },
-      { t: ['日替わり', 'が', '千円', '以下', 'だった', 'ので', '頼んで', 'みた', 'のですが、', '思った', 'より', '量', 'が', '多く、', '友達', 'と', '半分', 'ずつ', '交換', 'しました。'] },
-      { t: ['今度', 'は', '空いて', 'いる', '時間', 'に', '行って、', '今週末', 'もう', '一度', '食べ', 'に', '行きたい', 'と', '思って', 'います。'] }
+      { id: 'Kemarin saya makan bersama teman di restoran murah dekat stasiun, dan ternyata sangat enak.', t: ['昨日、', '駅', 'の', '近く', '安い', 'レストラン', 'で', '友達', 'と', '一緒に', 'ご飯', 'を', '食べた', 'ん', 'だけど、', 'とても', 'おいしかった', 'です。'] },
+      { id: 'Tokonya kecil dan hanya ada meja panjang, dan padahal sudah lewat jam satu siang, tiga kelompok ikut mengantre.', t: ['店', 'は', 'カウンター', 'だけ', 'の', '小さな', '所', 'で、', '十三時', 'を', '過ぎて', 'いた', 'のに、', '三組', 'も', '並んで', 'いました。'] },
+      { id: 'Karena menu hariannya di bawah seribu yen, saya coba memesan, tetapi porsinya lebih banyak dari dugaan, jadi saya dan teman bertukar setengah.', t: ['日替わり', 'が', '千円', '以下', 'だった', 'ので', '頼んで', 'みた', 'のですが、', '思った', 'より', '量', 'が', '多く、', '友達', 'と', '半分', 'ずつ', '交換', 'しました。'] },
+      { id: 'Lain kali saya mau pergi saat sepi, dan akhir pekan ini saya ingin makan di sana sekali lagi.', t: ['今度', 'は', '空いて', 'いる', '時間', 'に', '行って、', '今週末', 'もう', '一度', '食べ', 'に', '行きたい', 'と', '思って', 'います。'] }
     ]
   }
 ];

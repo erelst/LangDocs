@@ -175,8 +175,6 @@
     if (!text) { return ''; }
     return '<span class="label">' + tokenSpans(resolve(text.split(' ')), 0) + '</span>';
   }
-  function styleLabel(s) { return labelText('style', styleOf(s)); }
-
   /* ---------------------------------------------------------------- who, and the chip colour
    * A narrative names its relationship; the label and the colour follow from CONST.rel, so no
    * narrative repeats them and the same relationship is worded identically everywhere. */
@@ -213,7 +211,6 @@
   function speakerKey(s, sp) {
     return (s.speakers && s.speakers[sp]) || null;
   }
-  function jenisLabel(s) { return labelText('jenis', s.jenis); }
   /* Every name of every label on this narrative, for the search index. */
   function labelNamesOf(s) {
     var out = [labelNames('jenis', s.jenis), labelNames('style', styleOf(s))];
@@ -222,11 +219,6 @@
     return out;
   }
   function titleOf(s) { return langOf() === 'en' ? (s.judulEn || s.judul) : (s.judul || s.judulEn); }
-  /* The narrative's own line about itself, in the reader's language. It is one line about the
-   * whole piece, not a sentence-by-sentence translation, which is why it is shown once above the
-   * paragraphs rather than pinned to any one of them. */
-  function trOf(s) { return tr(s, 'id'); }
-
   /* The title in the language being learned, rendered through the same token renderer as the
    * paragraphs: same per-word colours, same underlines, same bubble on hover. A title is a
    * sentence, so it gets a sentence's treatment; the chosen-language title stays underneath as
@@ -250,6 +242,17 @@
   function trLine(text, cls) {
     if (!text) { return ''; }
     return '<div class="' + cls + ' tt">' + esc(text) + '</div>';
+  }
+  /* The translation of one paragraph. `block.id` holds one line per Japanese sentence, so the
+   * reader can put each next to the sentence it belongs to; a block written with a single string
+   * is shown as it is. */
+  function blockTrHTML(block) {
+    var v = block.id;
+    if (!v) { return ''; }
+    var lines = Object.prototype.toString.call(v) === '[object Array]' ? v : [v];
+    var out = [];
+    for (var i = 0; i < lines.length; i++) { out.push('<div>' + esc(lines[i]) + '</div>'); }
+    return '<div class="btr tt">' + out.join('') + '</div>';
   }
 
   /* ---------------------------------------------------------------- card pieces */
@@ -345,7 +348,7 @@
       ' style="border-left:' + v.width + ' ' + v.style + ' ' + v.left + ' !important;' +
       'padding-left:12px;">' +
       (sp ? '<span class="speaker" style="background:' + spColour + ' !important;">' +
-        labelSpan('rel', sp) + '</span>' : '') + out.join('') + '</div>';
+        labelSpan('rel', sp) + '</span>' : '') + out.join('') + blockTrHTML(block) + '</div>';
   }
 
   /* The sentences of a paragraph, cut where the punctuation says, so a paragraph renders as
@@ -366,7 +369,7 @@
    * body holds only the piece itself. */
   function narrativeHTML(s) {
     var bs = blocksOf(s);
-    var out = [trLine(trOf(s), 'sum')];
+    var out = [trLine(tr(s, 'id'), 'sum')];
     for (var i = 0; i < bs.length; i++) { out.push(blockHTML(s, bs[i], i)); }
     return out.join('');
   }
