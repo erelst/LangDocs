@@ -137,6 +137,13 @@
   /* A label may be more than one word (a conversation has two speakers, and "a neighbour you just
      met" is two words). Without this they touch and read as one word. */
   .label .tk + .tk { margin-left: 6px; }
+  /* A chip holds three lines now: the Japanese label, its reading, and its meaning. The lines are
+     block-level so they stack, and the chip stops trying to be one line tall. */
+  .label .romaji { font-size: 12px; line-height: 1.4; margin-top: 0; font-style: normal; }
+  .label-mean { display: block; font-size: 11px; line-height: 1.35; color: #94a3b8; }
+  /* The reading of a title and its meaning both sit under the Japanese title line, so the line
+     that says what the title means is pushed away from the reading rather than touching it. */
+  .title-jp .romaji { margin-top: 2px; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: 9px; }
   /* The narrative's own line about itself, in the reader's language. One line for the whole
      piece, which is why it sits above the paragraphs and not next to any of them. */

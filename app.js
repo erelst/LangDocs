@@ -169,11 +169,28 @@
   }
   /* A label rendered as words, so it gets the same colours, underlines and hover bubble as the
    * sentence it describes. A label of more than one word is written with a space between the
-   * words, and each part is looked up on its own. */
+   * words, and each part is looked up on its own.
+   *
+   * A label is Japanese, so it carries a romaji line and a meaning line like the paragraphs do.
+   * It gets both for free because the switch hides a CLASS, not a place in the page: `.romaji` is
+   * the Romaji switch and `.tt` is the Translation switch, wherever they appear. */
   function labelSpan(kind, key) {
     var text = labelText(kind, key);
     if (!text) { return ''; }
-    return '<span class="label">' + tokenSpans(resolve(text.split(' ')), 0) + '</span>';
+    var tokens = resolve(text.split(' '));
+    return '<span class="label">' + tokenSpans(tokens, 0) + romajiSpan(tokens) +
+      '<span class="label-mean tt">' + esc(labelMeaning(kind, key)) + '</span></span>';
+  }
+  /* The romaji line of a piece of Japanese text. It is a span rather than a div because a label
+   * lives inside a chip; `display: block` is on the class, so it breaks the line either way. */
+  function romajiSpan(tokens) {
+    return '<span class="romaji">' + tokenSpans(tokens, 1) + '</span>';
+  }
+  /* The label's meaning in the reader's language, for the Translation switch. */
+  function labelMeaning(kind, key) {
+    var row = labelRow(kind, key);
+    if (!row) { return ''; }
+    return langOf() === 'en' ? (row.en || row.id) : (row.id || row.en);
   }
   /* ---------------------------------------------------------------- who, and the chip colour
    * A narrative names its relationship; the label and the colour follow from CONST.rel, so no
@@ -229,12 +246,17 @@
    * sentence, so it gets a sentence's treatment; the chosen-language title stays underneath as
    * the one line that says what it means.
    *
+   * A title is Japanese, so the Romaji switch has to reach it: without the romaji line the reader
+   * who checked Romaji still saw bare kanji at the top of the page and in every row of the list.
+   * The reading is spelled out on the romaji line, word for word, exactly as a paragraph's is.
+   *
    * It does NOT carry `jp-sent`. That class is the card, and the title already sits inside one,
    * so using it here drew a card inside a card. The bubble no longer depends on it, because the
    * bubble rules are written on `.tk`. */
   function titleSpans(s) {
     if (!s.judulT || !s.judulT.length) { return ''; }
-    return '<div class="title-jp">' + tokenSpans(resolve(s.judulT), 0) + '</div>';
+    var tokens = resolve(s.judulT);
+    return '<div class="title-jp">' + tokenSpans(tokens, 0) + romajiSpan(tokens) + '</div>';
   }
   /* The title list is the only place a title sits in a row of its own, so the one thing that has
    * to be undoed is the first word's indent: the card already supplies the same 16px as padding,

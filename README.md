@@ -105,11 +105,14 @@ Yang menerangkan teks juga berbahasa sasaran dan bisa di-hover: **jenis** (`ä¼šè
 Di atas ada **bar bacaan** yang tetap terlihat saat sebuah judul dibuka: kotak pencarian, pilihan
 ruang lingkup, dan dua sakelar yang keduanya **mati secara bawaan**:
 
-* **Romaji** menampilkan baris romaji di bawah baris kanji.
+* **Romaji** menampilkan baris romaji di bawah baris kanji, di **semua** teks Jepang: paragraf,
+  judul, dan chip label (jenis, gaya bahasa, lawan bicara). Sakelarnya menutup kelas `.romaji`,
+  bukan satu bagian halaman, jadi tidak ada tempat yang perlu didaftarkan satu per satu.
 * **Terjemahan** menampilkan terjemahan **di bawah setiap paragraf**, satu baris per kalimat
   Jepang, ditambah arti judul dan ringkasan narasi. Terjemahan per paragraf itu disimpan di
   `id` **dan** `en` pada tiap blok, bukan diambil dari ringkasan narasi. Keduanya wajib, karena
   halaman hanya menampilkan bahasa yang dipilih pembaca.
+  Chip label juga mendapat baris artinya dari sakelar yang sama.
 
 Tidak ada tombol `?` dan tidak ada panel: balon per kata sudah membawa bacaan dan artinya. Daftar
 judul dimuat bertahap saat digulir.
