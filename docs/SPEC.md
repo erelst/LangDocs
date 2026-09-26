@@ -371,6 +371,35 @@ tersentuh saat menulis narasi:
   `node --check <berkas>` untuk sintaks, dan membuka halaman di browser untuk hal yang tampak.
   Pemeriksa kalimat sudah tidak ada.
 
+### Hasil pemeriksaan sekali pakai atas seluruh 156 narasi (2026-09-26)
+
+Sebelum deck ini diserahkan untuk di-merge, seluruh narasi diperiksa sekali dengan skrip
+sekali-pakai terhadap bagian ketentuan yang **bisa** diukur mesin. Skripnya tidak di-commit,
+karena pemilik proyek meminta deck tanpa berkas pengujian; hasilnya dicatat di sini supaya
+angkanya tidak hilang bersama skripnya.
+
+| Ketentuan | Yang diukur | Hasil |
+|---|---|---|
+| K2 | narasi dengan sedikitnya 3 blok | **155 dari 156**; satu pengecualian, `kurasi06`, sudah ditulis di K2 |
+| K2 | `percakapan` dengan sedikitnya 4 giliran | **13 dari 13** |
+| K2 | `percakapan` yang benar-benar punya dua pembicara | **13 dari 13** |
+| K3 | penanda urutan menyambung klausa tanpa penanda relasi | **0** |
+| K3 | narasi tanpa penanda relasi sama sekali | **0** |
+| K7 | permukaan kata tanpa entri lexicon | **0** |
+| K7 | entri lexicon dengan romaji atau glosa kosong | **0** |
+| K9 | `rel` dan `speakers` yang menunjuk nama tidak dikenal | **0** |
+| K9 | blok `percakapan` tanpa penanda pembicara | **0** |
+| K10 | judul ganda | **0** (156 judul, 156 unik) |
+| K10 | kunci ganda | **0** |
+| K11 | topik yang belum memakai 12 jenis | **0** (13 topik, 12 jenis masing-masing) |
+| T4 | berkas topik yang belum terdaftar di `index.html` | **0** (13 dari 13 terdaftar) |
+
+**Yang tidak bisa diukur dan karena itu tidak ada di tabel ini:** apakah bahasa Jepangnya benar,
+apakah nadanya pantas untuk keadaan itu, dan apakah dua narasi benar-benar membahas hal yang
+berbeda. Ketiganya dipegang oleh pembacaan penulis dan `docs/JUDUL.md`, dan itulah bentuk penjaga
+yang tersisa setelah pengujian dihapus. Tabel di atas menunjukkan bahwa yang **bisa** diperiksa
+memang bersih; ia tidak mengatakan apa pun tentang yang tidak bisa.
+
 **Yang hilang bersama pemeriksanya, disebut di sini supaya tidak dilupakan.** Dulu ada lima skrip
 yang menjaga deck ini: `check.js` (isi dan kelayakan kalimat), `test.js` (DOM yang benar-benar
 dirender), `ui.js` (pencarian, balon, fokus keyboard), `coverage.js` (daftar kata medan makna), dan
