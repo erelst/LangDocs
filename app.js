@@ -236,11 +236,23 @@
     return out;
   }
   function titleOf(s) { return langOf() === 'en' ? (s.judulEn || s.judul) : (s.judul || s.judulEn); }
-  /* The narrative's one-line summary. It is read straight from `en`/`id` rather than through
-   * tr(s, ...): that helper expects a field pair like `sit`/`sitEn`, so asking it for `id` made it
-   * look for `idEn`, which does not exist, and it fell back to the Indonesian `id` in English mode.
-   * The reader picked English and was handed Indonesian, which is the defect V15 exists to stop. */
-  function summaryOf(s) { return langOf() === 'en' ? (s.en || s.id) : (s.id || s.en); }
+  /* The line above the paragraphs, in the reader's language: what the piece is FOR, in one line,
+   * so a reader knows what they are about to read before reading a word of it.
+   *
+   * It shows `sit`/`sitEn`, not `id`/`en`. Both exist and both are one line, but they are not the
+   * same kind of line:
+   *   `sit`  what the piece is for, third person: "Menanyakan ukuran lain dan ditawari pilihan".
+   *   `id`   the writer's own note about the piece, FIRST PERSON, often a compressed retelling:
+   *          "Saya menanyakan ukuran lain, petugas memeriksa di belakang, dan menawarkan versi
+   *          yang sedikit lebih mahal." That is why it read as a translation that was not one and
+   *          why it described the narrative from inside it.
+   * The first-person reading was the thing that did not fit a description printed above the piece,
+   * so what is shown is the field that is already written in the right voice and stored for it.
+   *
+   * Why it is not read through tr(s, ...): that helper looks for a pair like `sit`/`sitEn`, and
+   * asking it for `id` made it look for `idEn`, which does not exist, so it fell back to the
+   * Indonesian in English mode. This reads the pair directly and takes the reader's language. */
+  function summaryOf(s) { return tr(s, 'sit'); }
   /* The title in the language being learned, rendered through the same token renderer as the
    * paragraphs: same per-word colours, same underlines, same bubble on hover. A title is a
    * sentence, so it gets a sentence's treatment; the chosen-language title stays underneath as
@@ -326,8 +338,15 @@
       var text = esc(tokens[i][idx]);
       // display:inline-block keeps each word atomic, so a narrow screen wraps between
       // words and never splits a word in half.
-      out.push('<span class="tk" style="display:inline-block;color:' + colour +
-        ' !important;border-bottom:' + width + ' ' + u + ' ' + colour +
+      /* The colour is written as the FALLBACK of a custom property, not as a plain value. A filled
+       * chip has to be able to take the colour back, and it cannot by restating it: an inline
+       * `!important` beats a stylesheet `!important`, which is why `.speaker .tk { color: ... }`
+       * had never done anything and the speaker chip showed green words on a yellow chip at 1.4:1.
+       * A custom property is inherited and the element sets none of its own, so `--tk` on the chip
+       * reaches every word inside it, and the inline colour steps aside. */
+      var ink = 'var(--tk,' + colour + ')';
+      out.push('<span class="tk" style="display:inline-block;color:' + ink +
+        ' !important;border-bottom:' + width + ' ' + u + ' ' + ink +
         ' !important;padding:0 3px;' +
         /* The indent is inline, so only an inline rule can undo it: that is why the first word
          * of a title carries this and the CSS does not. */

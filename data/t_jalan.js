@@ -133,7 +133,7 @@ window.BANK = (window.BANK || []).concat([
     judulT: ['待ち合わせ', '場所', 'に', '着いた', '連絡'],
     judul: 'Mengabarkan sudah sampai di titik temu', judulEn: 'Reporting that I have arrived at the meeting point',
     rel: 'teman',
-    sit: 'Menelepon untuk memberi tahu sudah sampai dan sedang menunggu', sitEn: 'Calling to say I have arrived and am waiting',
+    sit: 'Menelepon untuk memberi tahu sudah sampai dan sedang menunggu', sitEn: 'Calling to say that the speaker has arrived and is waiting',
     id: 'Saya memberi tahu bahwa saya sudah di depan persimpangan, di mana saya berdiri, dan bahwa tidak perlu terburu-buru.',
     en: 'I report that I am at the crossing, where exactly I am standing, and that there is no need to hurry.',
     note: 'Laporan seperti ini berguna karena menyebut tanda yang bisa dilihat orang lain, bukan hanya nama tempat.',

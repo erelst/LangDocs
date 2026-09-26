@@ -219,8 +219,19 @@
   .tk:hover { background: rgba(56, 189, 248, .18); }
   /* A label inside a filled chip keeps the chip's dark ink. The per-word colours are picked to be
      read on the dark page and disappear on a bright chip, so this is the one place a label's
-     colour is overridden. */
-  .speaker .tk { color: #0b1220 !important; border-bottom-color: #0b1220 !important; }
+     colour is overridden.
+
+     The old rule could not work and did not: it restated the colour with `!important`, and an
+     inline `!important` wins over a stylesheet one, so the per-word colours came through anyway.
+     Measured inside this chip: 1.4:1 for the words, 1.8:1 for the grey. What works is the colour
+     the word carries in `--tk`, because a custom property is inherited and this rule is what
+     decides what it inherits. */
+  .speaker { --tk: #0b1220 !important; }
+  .speaker .tk { border-bottom-color: var(--tk) !important; }
+  /* The reading and the meaning are word spans too, so they take the same ink. 13:1 on this
+     chip, against 1.8:1 before. */
+  .speaker .label-mean,
+  .speaker .romaji .tk { color: var(--tk) !important; border-bottom-color: var(--tk) !important; }
 
   /* The word bubble. It sits above the word it belongs to, pointed at it by a tail, and it
      never repeats the word: the reader is already looking at it, so the space goes to the

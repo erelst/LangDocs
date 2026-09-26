@@ -136,7 +136,7 @@ window.BANK = (window.BANK || []).concat([
     jenis: 'laporan',
     judul: 'Mengabarkan pindah jalur dari dalam bus', judulEn: 'Reporting a change of route from inside the bus',
     rel: 'atasan',
-    sit: 'Mengabarkan bahwa bus berhenti lalu memilih turun dan pindah jalur', sitEn: 'Reporting that the bus stopped and that I got off to take another route',
+    sit: 'Mengabarkan bahwa bus berhenti lalu memilih turun dan pindah jalur', sitEn: 'Reporting that the bus stopped and that the speaker got off to take another route',
     id: 'Saya mengabarkan bahwa bus berhenti karena kecelakaan, memutuskan turun dan mencari jalur lain, dan menyebut tempat saya akan tiba.', en: 'I report that the bus stopped because of an accident, that I decided to get off and find another route, and where I will arrive.',
     note: 'Laporan seperti ini berguna karena menyebut keputusan yang sudah diambil dan tempatnya, bukan hanya bahwa terlambat.',
     noteEn: 'A report like this is useful because it gives the decision already taken and the place, not merely that I am late.',

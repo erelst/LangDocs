@@ -79,8 +79,11 @@ Urutannya tidak boleh dibalik, karena langkah pertama yang menentukan semuanya.
 * `t` berisi kata saja. Romaji dan glosanya diambil dari `data/lexicon.js`, jadi satu kata ditulis
   sekali dan tidak mungkin berbeda ejaan di dua narasi. Tanda baca menempel pada kata sebelumnya
   (`ください。`).
-* Terjemahan (`id`/`en`) dan situasi (`sit`/`sitEn`) ditulis dua bahasa, tetapi halaman hanya
-  menampilkan bahasa yang dipilih di halaman pertama.
+* Dua bidang ditulis dua bahasa, dan halaman menampilkan bahasa yang dipilih di halaman pertama:
+  `sit`/`sitEn`, satu baris di atas paragraf yang menyebut untuk apa narasi ini (orang ketiga,
+  inilah yang dibaca pembaca), dan `id`/`en`, catatan penulis tentang karyanya sendiri dalam orang
+  pertama, yang dipakai untuk pencarian dan **tidak** dicetak. Terjemahan tiap kalimat ada di
+  `id`/`en` milik blok, bukan di sini.
 * **Tidak ada `polite` dan tidak ada `long`.** Gaya bahasa dibaca dari teks narasinya sendiri oleh
   halaman, sehingga tidak bisa terlepas dari apa yang benar-benar ditulis.
 
@@ -109,9 +112,10 @@ ruang lingkup, dan dua sakelar yang keduanya **mati secara bawaan**:
   judul, dan chip label (jenis, gaya bahasa, lawan bicara). Sakelarnya menutup kelas `.romaji`,
   bukan satu bagian halaman, jadi tidak ada tempat yang perlu didaftarkan satu per satu.
 * **Terjemahan** menampilkan terjemahan **di bawah setiap paragraf**, satu baris per kalimat
-  Jepang, ditambah arti judul dan ringkasan narasi. Terjemahan per paragraf itu disimpan di
-  `id` **dan** `en` pada tiap blok, bukan diambil dari ringkasan narasi. Keduanya wajib, karena
-  halaman hanya menampilkan bahasa yang dipilih pembaca.
+  Jepang, ditambah arti judul dan baris di atas paragraf. Terjemahan per paragraf itu disimpan di
+  `id` **dan** `en` pada tiap blok, dan **tidak ada** bidang di tingkat narasi yang berisi
+  terjemahan: `sit`/`sitEn` menyebut untuk apa narasinya, `id`/`en` catatan penulis dalam orang
+  pertama. Keduanya wajib ada di blok, karena halaman hanya menampilkan bahasa yang dipilih.
   Chip label juga mendapat baris artinya dari sakelar yang sama.
 
 Tidak ada tombol `?` dan tidak ada panel: balon per kata sudah membawa bacaan dan artinya. Daftar

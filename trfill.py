@@ -11,9 +11,11 @@ Both languages are required, because the page shows exactly one of them: `block.
 Indonesian reader and `block.en` for an English one. Storing only one is how English mode ended up
 showing Indonesian.
 
-Why a block translation exists at all: the narrative-level `id` is a one-line SUMMARY of the whole
-piece, not a translation. A reader looking at one sentence needs that sentence's meaning, so each
-block carries its own and the Translation switch shows it under the paragraph.
+Why a block translation exists at all: no narrative-level field is a translation. `id`/`en` are the
+writer's own note about the piece, in the first person, and `sit`/`sitEn` are the one-line statement
+of what the piece is for, which is the line printed above the paragraphs (V24). Neither tells a
+reader what one sentence means, so each block carries its own translation and the Translation
+switch shows it under the paragraph.
 
 Re-running is safe: existing translations on the block are replaced, not repeated.
 """
