@@ -111,15 +111,38 @@ window.CONST = {
    * is what the reader hears. `ますか` and `ので` are deliberately absent: they are relation
    * and question markers, not register, and counting them here reported polite sentences as
    * plain, which is a mistake this file used to make. */
+  /* The honour/humble forms, which are a level of their own rather than a flavour of polite.
+   * です・ます says "I am speaking to someone I am not close to"; 敬語 says "I am speaking as the
+   * lower party, or to a customer". Only the second one is written to a superior, a customer, or a
+   * stranger, which is why the chip has to be able to say it: a reader who is told 丁寧 will
+   * address a boss the way they address a shop assistant.
+   *
+   * Deliberately NOT in here: `いただけます`, `くださいます`, `お願いします`. All three are ordinary
+   * polite, and using them as markers made every polite narrative look like keigo. Measuring with
+   * them included moved 9 narratives that are spoken to a friend into this list. */
+  KEIGO_MARK: ['ございます', 'でござい', 'いたします', 'させていただ', 'おります', '承知',
+               'かしこまり', '恐れ入り', '拝見', '存じ', '申し上げ', '申し訳', 'いらっしゃいませ',
+               'いらっしゃる', 'お願いいたし', 'くださいませ', 'お疲れ様でござい'],
   POLITE_MARK: ['です', 'ます', 'ました', 'ません', 'ましょう', 'でしょう', 'ください',
-                'ございます', 'でした', 'お願いします', 'いただけます', 'いらっしゃいませ'],
-  PLAIN_MARK: ['だよ', 'だね', 'だろ', 'じゃん', 'かな', 'だし', 'んだ', 'だぜ', 'だい',
-               'してる', 'してた', 'あるよ', 'ないよ', 'だよな', 'よな', 'のか', 'だって',
-               'だろう', 'おい', 'やつ', 'のは', 'のが'],
+                'でした', 'お願いします'],
+  /* The endings that only a plain sentence has. They are looked for at the END of a clause, not
+   * anywhere in the text, and that is not a detail: `ただし` ends with the plain marker `だし`,
+   * `おいしい` contains `おい`, `だいたい` contains `だい` and `いただい` contains it too, so
+   * matching anywhere reported polite narratives as mixed. `だし`, `おい` and `だい` were the three
+   * that did it and they are gone; the rest are safe once they have to end a clause.
+   *
+   * `のは`, `のか` and `のが` are also gone. They are nominalisers, not register: a subordinate
+   * clause takes the plain form inside a perfectly polite sentence ("安く買えたのはよかったので
+   * す"), so counting them made 45 polite narratives read as mixed. 23 of the 53 `campuran`
+   * verdicts came from `のは` alone. */
+  PLAIN_MARK: ['だよ', 'だね', 'だろ', 'じゃん', 'かな', 'だぜ',
+               'してる', 'してた', 'あるよ', 'ないよ', 'だよな', 'よな', 'だって',
+               'だろう', 'やつ'],
   style: {
     sopan:    { id: 'sopan',    en: 'polite', jp: '丁寧' },
     biasa:    { id: 'biasa',    en: 'casual', jp: '普通' },
-    campuran: { id: 'campuran', en: 'mixed',  jp: '混在' }
+    campuran: { id: 'campuran', en: 'mixed',  jp: '混在' },
+    keigo:    { id: 'hormat',   en: 'honorific', jp: '敬語' }
   },
 
   /* Every word the interface says, in both languages, since the reader picks the language on

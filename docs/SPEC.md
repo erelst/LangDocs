@@ -150,10 +150,31 @@ akan terlihat langsung sebagai chip itu, dan yang salah adalah teksnya, bukan ch
 
 **Gejala pelanggaran.** Percakapan dengan atasan yang memakai `だよ` dan `じゃん`.
 
+**Yang sudah diukur sesudah 敬語 ada (2026-09-26).** 丁寧 dan 普通 memang mengikuti keakraban, dan
+itu terbukti di deck ini: dari **54** narasi yang diucapkan kepada orang jauh (atasan, klien,
+petugas, orang asing), **14 敬語** dan **40 santun**, dan **nol** yang biasa. Tidak ada `だよ` yang
+ditujukan kepada atasan.
+
+Kepada orang dekat, angkanya tidak sesederhana itu: dari **67** narasi, 35 biasa, **28 santun**,
+dan 4 campuran. Yang 28 itu sebagian besar teman (`teman` 32 narasi) dan seluruhnya pasangan
+(`pasangan` 18 narasi: 9 biasa, 9 santun). Formulir pertanyaan KBBI dan KBJT memang santun kepada
+siapa saja (`Kemarin saya makan di restoran murah dekat stasiun`), jadi bentuk itu **tidak**
+melanggar K4; yang melanggar adalah bentuk biasa yang diucapkan kepada orang jauh, dan itu tidak
+ada.
+
+**Dua aturan praktis karena itu:**
+
+1. **`rel: pasangan` tidak wajib berbentuk biasa, tetapi berkas topik boleh mensyaratkan akrab.**
+   `data/t_rumah_santai.js` menyatakannya di komentar kepalanya ("almost all plain speech: nobody
+   says お疲れ様です to their own partner on the sofa"). Narasi yang menyimpang dari keakraban yang
+   jelas itu ditandai, tidak dibiarkan.
+2. **Yang mengikat bukan `<rel>` melainkan seluruh alamat narasi.** Percakapan dua penutur yang
+   salah satunya petugas adalah campuran yang sah (`campuran`), dan itu jawaban yang benar.
+
 ### K5. Gaya bahasa dibaca dari teks, bukan ditulis sebagai label
 
-Chip gaya bahasa (**丁寧**, **普通**, **混在**) dihitung dari teks narasinya setiap kali halaman
-dirender, bukan disimpan sebagai field yang diisi tangan.
+Chip gaya bahasa (**敬語**, **丁寧**, **普通**, **混在**) dihitung dari teks narasinya setiap
+kali halaman dirender, bukan disimpan sebagai field yang diisi tangan.
 
 **Alasan.** Field yang diisi tangan tertinggal begitu teksnya diedit: dulu ada `polite: 1` yang
 tidak lagi benar setelah satu klausa diubah, dan itu tidak terlihat siapa pun. Teks tidak bisa
@@ -163,10 +184,29 @@ diam-diam berbeda dari dirinya sendiri.
 (misalnya pelanggan santun melawan kawan akrab), dan mengakuinya lebih jujur daripada memilih
 salah satu.
 
-**Dijaga oleh.** `app.js` `styleOf()`, memakai daftar `POLITE_MARK` dan `PLAIN_MARK` di
-`const.js`. Daftar itu dijaga sengaja: `ますか` dan `ので` tidak ada di dalamnya karena keduanya
-penanda tanya dan relasi, bukan register, dan menghitungnya membuat kalimat sopan terbaca sebagai
-biasa.
+**Empat tingkat, dan yang keempat menjawab pertanyaan lain.** 丁寧 dan 普通 memisahkan "seberapa
+akrab kita"; **敬語** memisahkan "siapa pihak yang lebih rendah di sini". です・ます saja adalah
+bentuk yang dipakai kepada petugas toko; ございます dan いたします adalah bentuk yang dipakai
+kepada pelanggan atau atasan. Pembaca yang diberi tahu 丁寧 untuk keduanya akan berbicara kepada
+manajer seperti ia berbicara kepada kasir, jadi tingkat ini harus ada.
+
+**Dijaga oleh.** `app.js` `styleOf()`, memakai daftar `KEIGO_MARK`, `POLITE_MARK`, dan
+`PLAIN_MARK` di `const.js`. Tiga aturan menjaga daftar itu, dan ketiganya lahir dari kekeliruan
+yang sudah terjadi dan sudah diukur:
+
+1. **Penanda gaya cocok di akhir klausa, bukan di mana saja.** `ただし` berakhiran penanda biasa
+   `だし`, `おいしい` memuat `おい`, dan `だいたい` serta `いただい` memuat `だい`. Cocok di mana
+   saja melaporkan register yang tidak ada di halaman, jadi `PLAIN_MARK` dicocokkan bersama
+   `[。！？、,]` sesudahnya, bukan dengan `indexOf`.
+2. **Penanda yang bisa muncul di dalam kalimat santun tidak dihitung.** `のは`, `のか`, dan `のが`
+   adalah nominalisator: anak kalimat memakai bentuk biasa **di dalam** kalimat santun
+   (`安く買えたのはよかったのですが`). Menghitungnya membuat 45 narasi santun terbaca campuran,
+   dan 23 dari 53 vonis `campuran` datang dari `のは` saja. Sesudah diperbaiki `campuran` tinggal
+   **4**, dan keempatnya benar-benar memuat dua register (`いいかな。` dan `大丈夫だよ。` di tengah
+   teks santun).
+3. **Bentuk sopan setingkat tidak masuk 敬語.** `いただけます`, `くださいます`, dan `お願いします`
+   adalah bentuk santun biasa. Memasukkannya membuat 9 narasi yang diucapkan kepada kawan terbaca
+   敬語. Yang dihitung hanya bentuk hormat dan rendah hati yang tulen.
 
 ### K6. Waktu lampau harus cocok dengan kata kerja di klausanya sendiri
 
@@ -417,6 +457,7 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V23 | **Setiap teks Jepang yang tampil memuat ketiga barisnya: kanji, romaji, dan arti.** Berlakunya bukan per tempat: sakelar menutup **kelas** (`.romaji` untuk Romaji, `.tt` untuk Terjemahan), bukan satu bagian halaman, jadi judul, chip, label penutur, dan tempat baru mana pun ikut sendiri tanpa didaftarkan. Akibat yang mengikat: **tidak boleh ada kanji yang tampil tanpa pasangan romajinya saat Romaji dicentang**, dan tidak boleh ada arti yang hilang saat Terjemahan dicentang. Satu-satunya pengecualian adalah balon per kata, yang isinya sudah mengikuti bahasa terpilih dan memang dibuka dengan menyorot kata | `app.js` + `index.html` |
 | V24 | **Satu baris di atas paragraf menyebut untuk apa narasi ini, dalam bahasa terjemahan dan dalam orang ketiga.** Isinya `sit`/`sitEn`, **bukan** `id`/`en`. Keduanya satu baris, tetapi bukan hal yang sama: `sit` menerangkan kepada pembaca apa yang akan dibacanya (`Menanyakan ukuran lain dan ditawari pilihan lain`), sedangkan `id`/`en` adalah catatan penulis tentang karyanya sendiri dalam **orang pertama**, sering berupa ringkasan ulang yang dimampatkan (`Saya menanyakan ukuran lain, petugas memeriksa di belakang, dan menawarkan versi yang sedikit lebih mahal`). Yang orang pertama itulah yang tidak cocok dicetak di atas narasi, karena ia berbicara dari dalam narasi dan terbaca sebagai terjemahan yang ternyata bukan terjemahan. Terjemahan per kalimat tetap tugas blok (K12) | `app.js` + `const.js`/`data/*.js` |
 | V25 | **Chip penutur berwarna penuh, dan seluruh isinya harus terbaca di atas warnanya.** Warna kata per kata ditulis sebagai **fallback** sebuah custom property (`var(--tk, <warna>)`), bukan sebagai nilai langsung, karena hanya cara itu chip bisa mengambil alihnya: `!important` sebaris mengalahkan `!important` dari stylesheet, dan aturan lama `.speaker .tk { color: ... !important }` karena itu tidak pernah bekerja, sehingga chip kuning menampilkan kata hijau pada kontras 1.4:1. Ukurannya dijaga: **semua teks di dalam chip minimal 4.5:1** terhadap latar chipnya | `app.js` + `index.html` |
+| V26 | **Chip gaya bahasa punya empat nilai, dan yang keempat bukan hiasan: 敬語 menandai bentuk hormat dan rendah hati.** す・ます polos adalah bentuk kepada petugas toko; ございます dan いたします adalah bentuk kepada pelanggan atau atasan. Urutan pemeriksaannya mengikat: 敬語 lebih dulu, baru 丁寧/普通/campuran, sebab sebuah narasi bisa sopan dan hormat sekaligus dan yang harus terbaca adalah yang paling menentukan. Warnanya dari tabel yang sama (`jenisVisual`), jadi menambah tingkat tidak menambah warna baru | `app.js` + `const.js` |
 
 ---
 

@@ -130,20 +130,38 @@
    * behind when the text is edited; the text cannot disagree with itself.
    *
    * `campuran` is a real answer, not a failure: a conversation between a customer and a friend
-   * is mixed, and saying so is more truthful than choosing one. */
+   * is mixed, and saying so is more truthful than choosing one.
+   *
+   * 敬語 is checked first because it answers a different question than the other three: not "how
+   * far apart are we" but "who is the lower party here". です・ます alone is what one writes to a
+   * shop assistant; ございます and いたします are what one writes to a customer or a boss. A reader
+   * told 丁寧 for both will address a manager the way they address a cashier. */
   function styleOf(s) {
     var text = textOf(s);
+    for (var k = 0; k < C.KEIGO_MARK.length; k++) {
+      if (text.indexOf(C.KEIGO_MARK[k]) !== -1) { return 'keigo'; }
+    }
     var polite = false, plain = false;
     for (var i = 0; i < C.POLITE_MARK.length; i++) {
       if (text.indexOf(C.POLITE_MARK[i]) !== -1) { polite = true; break; }
     }
-    for (var j = 0; j < C.PLAIN_MARK.length; j++) {
-      if (text.indexOf(C.PLAIN_MARK[j]) !== -1) { plain = true; break; }
-    }
+    /* A plain ending is looked for at the END OF A CLAUSE, not anywhere in the text. `ただし` ends
+     * with `だし` and `おいしい` contains `おい`, so matching anywhere reports register that is not
+     * on the page. A clause ends at `。！？` or at a comma, since a plain clause can also end
+     * mid-sentence. The pattern is built once from the table, so the table stays the data. */
+    if (plainEnd().test(text)) { plain = true; }
     if (polite && plain) { return 'campuran'; }
     if (polite) { return 'sopan'; }
     if (plain) { return 'biasa'; }
     return 'biasa';
+  }
+  /* `だよだね…` as a pattern that has to sit at a clause end, built once. */
+  var PLAIN_END = null;
+  function plainEnd() {
+    if (!PLAIN_END) {
+      PLAIN_END = new RegExp('(?:' + C.PLAIN_MARK.join('|') + ')[。！？、,]');
+    }
+    return PLAIN_END;
   }
   /* A label has three names: the Japanese word the page shows, and the two the reader might search
    * with. All three come from the same row of the same table, so a label can never be worded one
