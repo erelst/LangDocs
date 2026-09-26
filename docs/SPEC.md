@@ -385,6 +385,32 @@ ditulis di sini karena berlaku untuk ketentuan mana pun di berkas ini: **kelas y
 berlaku tidak lebih kecil artinya daripada aturannya**, dan ketentuan yang "sudah ada di CSS"
 belum tentu berlaku pada markup yang baru.
 
+### Tiga narasi diganti karena K10, dan kenapa pemeriksaan per topik tidak cukup
+
+Pemeriksaan judul dan isi (K10) selalu dijalankan **di dalam topik** yang sedang ditulis, dan cara
+itu melewatkan tiga narasi yang isinya hampir sama di **tiga topik berbeda**, ketiganya `laporan`:
+
+| Sebelum | Isi yang berulang |
+|---|---|
+| `transportasi` Laporan dari dalam bus yang berhenti | bus/kereta berhenti, sebabnya disebut, perkiraan jam tiba, lalu permintaan agar rapat dimulai tanpa dia |
+| `telepon` Melaporkan dari jalan bahwa akan terlambat | bentuk yang sama, kendaraannya diganti |
+| `waktu_cuaca` Melaporkan keterlambatan karena cuaca | bentuk yang sama, sebabnya diganti hujan |
+
+Ketiganya lolos K10 hanya karena ditulis di topik yang berbeda. Ketiganya ditulis ulang supaya
+isinya benar-benar lain, dan sekarang **tidak ada satu kata pun yang sama** di antara mereka:
+
+| Sesudah | Inti yang berbeda |
+|---|---|
+| `transportasi` Mengabarkan pindah jalur dari dalam bus | keputusan yang sudah diambil: turun di halte sebelumnya dan pindah ke kereta |
+| `telepon` Menelepon dari kereta yang berisik | kesulitan sambungan: memeriksa suara, meminta menunggu, menelepon balik dari tempat tenang |
+| `waktu_cuaca` Laporan pembatalan karena hujan | yang batal, penggantinya, dan yang ditegaskan tidak berubah |
+
+**Pelajaran yang mengubah cara memakai K10.** Membandingkan judul dan isi **hanya di dalam topik
+yang sedang ditulis tidak cukup**. Yang menemukan ketiganya adalah pembacaan **seluruh 156 judul
+sekaligus, dikelompokkan per jenis**, karena pengulangan paling mudah terlihat di antara narasi
+yang bentuknya sama. Pemeriksaan itu karena itu dilakukan sekali lagi secara menyeluruh, bukan per
+topik, dan itulah yang tertulis di tabel berikut.
+
 ### Hasil pemeriksaan sekali pakai atas seluruh 156 narasi (2026-09-26)
 
 Sebelum deck ini diserahkan untuk di-merge, seluruh narasi diperiksa sekali dengan skrip

@@ -127,18 +127,18 @@ window.BANK = (window.BANK || []).concat([
   {
     key: 'transportasi_laporan_terlambat_dari_kendaraan', topic: 'transportasi',
     jenis: 'laporan',
-    judul: 'Laporan dari dalam bus yang berhenti', judulEn: 'A report from a bus that has stopped',
+    judul: 'Mengabarkan pindah jalur dari dalam bus', judulEn: 'Reporting a change of route from inside the bus',
     rel: 'atasan',
-    sit: 'Memberi tahu atasan dari dalam kendaraan bahwa akan terlambat', sitEn: 'Telling a superior from inside a vehicle that you will be late',
-    id: 'Saya melaporkan bahwa bus berhenti karena kecelakaan di depan, perkiraan tiba pukul sepuluh, dan rapat bisa dimulai tanpa saya.', en: 'I am reporting that the bus has stopped because of an accident ahead, that I expect to arrive at ten, and that the meeting can start without me.',
-    note: 'Laporan yang berguna menyebut sebab, perkiraan, dan apa yang orang lain bisa lakukan sekarang.',
-    noteEn: 'A useful report gives the cause, the estimate, and what others can do meanwhile.',
+    sit: 'Mengabarkan bahwa bus berhenti lalu memilih turun dan pindah jalur', sitEn: 'Reporting that the bus stopped and that I got off to take another route',
+    id: 'Saya mengabarkan bahwa bus berhenti karena kecelakaan, memutuskan turun dan mencari jalur lain, dan menyebut tempat saya akan tiba.', en: 'I report that the bus stopped because of an accident, that I decided to get off and find another route, and where I will arrive.',
+    note: 'Laporan seperti ini berguna karena menyebut keputusan yang sudah diambil dan tempatnya, bukan hanya bahwa terlambat.',
+    noteEn: 'A report like this is useful because it gives the decision already taken and the place, not merely that I am late.',
     blocks: [
-      { t: ['おはようございます。', '今、', 'バス', 'の', '中', 'から', '連絡して', 'います。'] },
-      { t: ['この', '先', 'で', '事故', 'が', 'あったら', 'しく、', 'バス', 'が', '十分', '以上', '止まった', 'まま', 'です。'] },
-      { t: ['迂回', 'すると', '運転手', 'さん', 'が', '言って', 'いた', 'ので、', '会社', 'に', '着く', 'のは', '十時', 'ごろ', 'に', 'なります。'] },
-      { t: ['九時半', 'の', '打ち合わせ', 'は、', '私', 'を', '待たず', 'に', '始めて', 'ください。'] },
-      { t: ['資料', 'は', '共有', 'フォルダ', 'に', '入っています', 'ので、', 'そのまま', '使えます。'] },
+      { t: ['おはようございます。', 'バス', 'の', '中', 'から', 'ですが、', '経路', 'を', '変え', 'ます。'] },
+      { t: ['この', '先', 'で', '事故', 'が', 'あって、', 'バス', 'が', '十分', '以上', '動いて', 'いません。'] },
+      { t: ['待つ', 'より', '早い', 'ので、', '一つ前', 'の', '停留所', 'で', '降りて、', '電車', 'に', '乗り換え', 'ます。'] },
+      { t: ['電車', 'なら、', '会社', 'の', '最寄り', 'に', '九時半', 'ごろ', '着き', 'ます。'] },
+      { t: ['着いたら', '改めて', 'ご連絡', 'します', 'ので、', 'それ', 'まで', '席', 'を', '外して', 'おいて', 'ください。'] },
     ]
   },
   {
