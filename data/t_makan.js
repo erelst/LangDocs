@@ -228,4 +228,24 @@ window.BANK = (window.BANK || []).concat([
       { id: 'Wadah untuk dibawa pulang jumlahnya terbatas, jadi akan membantu kalau Anda membawa sendiri.', en: 'Takeaway containers are limited in number, so it would help if you brought your own.', t: ['お持ち帰り', '用', 'の', '入れ物', 'は', '、', '数', 'に', '限り', 'が', 'ございます', 'ので', '、', 'ご持参', 'いただける', 'と', '助かり', 'ます', '。'] },
     ]
   },
+  {
+    key: 'makan_nasihat_anak_makan_sayur', topic: 'makan', jenis: 'nasihat',
+    judulT: ['野菜', 'を', '一口', 'だけ'],
+    judul: 'Sayurnya, sesuap saja', judulEn: 'Just one bite of vegetables',
+    rel: 'anak_kecil',
+    sit: 'Menasihati anak kecil supaya mau makan sayur tanpa memaksanya', sitEn: 'Advising a small child to eat vegetables without forcing them',
+    id: 'Saya menurunkan ukurannya sampai anak itu mau mencoba, lalu membiarkan sisanya.',
+    en: 'I make the ask smaller until the child will try, then leave the rest alone.',
+    note: 'Nasihat yang berhasil kepada anak mengecilkan permintaannya, bukan menambah imbalannya.',
+    noteEn: 'Advice that works on a child makes the request smaller rather than adding a reward.',
+    blocks: [
+      { id: ['Sesuap saja cukup, coba makan dulu.', 'Sekali coba.'], en: ['One bite is enough, just try it.', 'Just once.'], t: ['一口', 'だけ', 'で', 'いい', 'から', '、', '食べて', 'みて', '。', '一度', 'だけ', '。'] },
+      { id: ['Tidak suka pun tidak apa-apa dipaksa makan.', 'Ibu juga begitu.'], en: ['It is all right not to force down something you dislike.', 'I was the same.'], t: ['嫌い', 'な', '物', 'を', '無理', 'に', '食べ', 'なくて', 'も', 'いい', 'ん', 'だ', 'よ', '。', 'お母さん', 'も', 'そう', 'だった', '。'] },
+      { id: 'Ibu waktu kecil juga tidak suka sayur.', en: 'When I was small I did not like vegetables either.', t: ['お母さん', 'も', '小さな', 'とき', 'は', '、', '野菜', 'が', '嫌い', 'だった', '。'] },
+      { id: 'Kalau setengahnya sudah dimakan, sisanya boleh ditaruh dulu.', en: 'If you have eaten half, you can set the rest aside for now.', t: ['半分', 'だけ', '食べ', 'たら', '、', '残り', 'は', '置いて', 'おこう', '。'] },
+      { id: 'Sumpitnya sudah bisa dipegang dengan baik ya.', en: 'You can already hold your chopsticks properly.', t: ['箸', 'を', '上手', 'に', '持てる', 'ね', '。'] },
+      { id: ['Sendok juga boleh.', 'Tumpah pun tidak apa-apa.'], en: ['A spoon is fine too.', 'It is all right if you spill.'], t: ['スプーン', 'で', 'も', 'いい', 'よ', '。', 'こぼして', 'も', '大丈夫', '。'] },
+      { id: 'Mangkoknya taruh di wastafel setelah selesai makan ya.', en: 'Put your bowl in the sink when you have finished.', t: ['茶碗', 'は', '、', '食べ終わったら', '、', '流し', 'に', '置いて', 'ね', '。'] },
+    ]
+  },
 ]);

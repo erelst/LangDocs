@@ -236,4 +236,22 @@ window.BANK = (window.BANK || []).concat([
       { id: 'Selain itu, setelah jam enam sore akan ada lapak dagang, sehingga tidak bisa dilewati.', en: 'Also, after six in the evening there will be street stalls, so you will not be able to pass through.', t: ['なお', '、', '夕方', '六時', '以降', 'は', '露店', 'が', '出', 'ます', 'ので', '、', '通り抜け', 'は', 'でき', 'ません', '。'] },
     ]
   },
+  {
+    key: 'jalan_permintaan_pegang_tangan', topic: 'jalan', jenis: 'permintaan',
+    judulT: ['手', 'を', 'つないで'],
+    judul: 'Pegang tangan ibu', judulEn: 'Hold my hand',
+    rel: 'anak_kecil',
+    sit: 'Meminta anak kecil berpegangan tangan sebelum menyeberang jalan', sitEn: 'Asking a small child to hold hands before crossing the road',
+    id: 'Saya meminta tangannya dipegang, dan menyebut alasan yang bisa dilihatnya sendiri: mobil dan lampu.',
+    en: 'I ask for the hand to be held, and give a reason the child can see for themselves: the cars and the light.',
+    note: 'Permintaan kepada anak dipatuhi kalau alasannya benda yang sedang dilihatnya, bukan aturan yang tidak terlihat.',
+    noteEn: 'A request made to a child is obeyed when the reason is something in sight, not an invisible rule.',
+    blocks: [
+      { id: 'Di sini banyak mobil, jadi pegang tangan dulu.', en: 'There are a lot of cars here, so hold my hand first.', t: ['ここ', 'は', '車', 'が', '多い', 'から', '、', '手', 'を', 'つないで', '。'] },
+      { id: 'Tunggu sampai lampunya hijau.', en: 'Wait until the light turns green.', t: ['青', 'に', 'なる', 'まで', '、', '待って', '。'] },
+      { id: 'Setelah lihat kanan dan kiri, baru menyeberang ya.', en: 'Look right and left, and only then cross.', t: ['右', 'と', '左', 'を', 'よく', '見て', 'から', '、', '渡る', 'ん', 'だ', 'よ', '。'] },
+      { id: ['Kalau lari, bahaya.', 'Soalnya mobil datang dari sini.'], en: ['Running is dangerous.', 'Because cars come from here.'], t: ['走ったら', '、', '危ない', 'よ', '。', '車', 'が', '来る', 'から', 'ね', '。'] },
+      { id: 'Waktu menyeberang, kita selalu bersama ya.', en: 'When we cross, we are always together.', t: ['渡る', 'とき', 'は', '、', 'いつも', '一緒', 'だ', 'よ', '。'] },
+    ]
+  },
 ]);

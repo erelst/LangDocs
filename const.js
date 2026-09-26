@@ -70,6 +70,20 @@ window.CONST = {
      * speaker label is worded and coloured by exactly the same rule as a whole narrative. */
     ibu:             { id: 'ibu', en: 'mother', jp: '母', close: true },
     ayah:            { id: 'ayah', en: 'father', jp: '父', close: true },
+    /* A small child, and the reason this is a row here rather than a fifth language style.
+     *
+     * Speech to a small child really is different, but what changes is not politeness: it is the
+     * addressee. A request is made smaller (`一口だけ`, not `全部食べなさい`), the reason given is
+     * something the child can see (`車が多いから`, not `危ないから`), and the plain form carries the
+     * softness instead of です・ます. None of that is a level of politeness, so putting it in
+     * CONST.style would answer the wrong question: 丁寧/普通 say how close two people are, 敬語 says
+     * who is the lower party, and this says who is being spoken to. It is a relationship, so it is a
+     * relationship row, and the four style levels keep reporting the language exactly as before.
+     *
+     * `子供` alone is the general word for a child of any age; the label says 小さな子 because the
+     * narratives that use this row are all spoken to a child young enough that the wording changes.
+     * Two words with a space, like 新しい 隣人 above, so the split into tokens is explicit. */
+    anak_kecil:      { id: 'anak kecil', en: 'small child', jp: '小さな 子', close: true },
     anak:            { id: 'anak', en: 'child', jp: '子供', close: true },
     kakak:           { id: 'kakak', en: 'older sibling', jp: '姉', close: true },
     adik:            { id: 'adik', en: 'younger sibling', jp: '弟', close: true },

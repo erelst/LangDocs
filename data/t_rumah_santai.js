@@ -242,4 +242,25 @@ window.BANK = (window.BANK || []).concat([
       { id: 'Selama itu akan gelap, jadi mari kita makan malam sedikit lebih awal.', en: 'It\'ll be dark during that time, so let\'s have dinner a little earlier.', t: ['その', '間', 'は', '暗く', 'なる', 'から', '、', '夕飯', 'は', '少し', '早め', 'に', 'しよう', '。'] },
     ]
   },
+  {
+    key: 'rumah_santai_percakapan_menyiapkan_tidur', topic: 'rumah_santai', jenis: 'percakapan',
+    judulT: ['もう', '寝る', '時間', 'だ', 'よ'],
+    judul: 'Sudah waktunya tidur', judulEn: 'It is time for bed',
+    speakers: {'A':'ibu','B':'anak_kecil'},
+    sit: 'Ibu menyiapkan anaknya yang masih kecil untuk tidur, dan anak itu masih ingin bermain', sitEn: 'A mother getting her small child ready for bed, and the child still wanting to play',
+    id: 'Saya menutup hari dengan urutan yang selalu sama, dan menukar satu buku dengan lampu yang dimatikan.',
+    en: 'I close the day in the same order every time, and trade one book for the light going off.',
+    note: 'Yang membuat anak mau tidur bukan perintahnya, melainkan janji yang jelas: satu buku, lalu lampu mati.',
+    noteEn: 'What gets a child to bed is not the order but a clear promise: one book, then the light goes off.',
+    blocks: [
+      { sp: 'A', id: ['Sudah waktunya tidur.', 'Sudah mandi?', 'Giginya sudah digosok?'], en: ['It is time for bed.', 'Have you had your bath?', 'Have you brushed your teeth?'], t: ['もう', '寝る', '時間', 'だ', 'よ', '。', 'お風呂', 'に', '入った', '？', '歯', 'は', '磨いた', '？'] },
+      { sp: 'B', id: ['Aku belum ngantuk.', 'Aku masih mau main sedikit lagi.'], en: ['I am not sleepy yet.', 'I want to play a little more.'], t: ['まだ', '眠く', 'ない', '。', 'もう', '少し', '遊び', 'たい', '。'] },
+      { sp: 'A', id: ['Begitu ya.', 'Kalau begitu, kita baca satu buku saja.'], en: ['Is that so.', 'Then let us read just one book.'], t: ['そう', 'か', '。', 'じゃあ', '、', '絵本', 'を', '一冊', 'だけ', '読もう', '。'] },
+      { sp: 'B', id: 'Dua buku.', en: 'Two books.', t: ['二冊', '。'] },
+      { sp: 'A', id: ['Satu saja.', 'Setelah dibaca, lampunya dimatikan ya.'], en: ['Just one.', 'Once we have read it, the light goes off.'], t: ['一冊', 'だけ', '。', '読んだら', '、', '電気', 'を', '消す', 'よ', '。'] },
+      { sp: 'B', id: 'Ya sudah.', en: 'All right.', t: ['わかった', '。'] },
+      { sp: 'A', id: ['Tutup matanya.', 'Adikmu di sebelah sudah tidur, lho.'], en: ['Close your eyes.', 'Your little sister next to you is already asleep.'], t: ['目', 'を', '閉じて', '。', '隣', 'で', '妹', 'が', 'もう', '寝てる', 'よ', '。'] },
+      { sp: 'B', id: 'Selamat malam.', en: 'Good night.', t: ['おやすみ', '。'] },
+    ]
+  },
 ]);
