@@ -1,19 +1,20 @@
-# Checks for this repository.
+# Syntax guard for this repository.
 #
-# The workflow jcode-workflow-setup installed is stack-agnostic and detects Cargo, Node,
-# Python or Go projects. This repository is none of those: it has no package.json, no build
-# and no dependencies, and it is a static page whose tests are plain node scripts. So the
-# installed file ran nothing at all here, which is the "CI exists but does not check the
-# project" case, and this file replaces it.
+# This repo has no tests, on purpose: the sentences are written by reading them, and every rule
+# that used to be checked by a script now lives in docs/SPEC.md as something the writer keeps.
+# So what is left for CI is the one class of mistake a script can still catch and a reader
+# cannot see: a JavaScript file that does not parse. A page whose data file has a stray comma is
+# a blank page, and that failure is worth catching before it is published.
 #
-# What it runs is what a person runs before pushing:
-#   node check.js   the sentence bank: correctness, and whether it is worth reading
-#   node test.js    renders index.html in a headless browser and checks the real DOM
-#   node ui.js      drives the page: search after scrolling, and the romaji default
+#   node --check <file>   parses the file without running it
 #
-# Both exit non-zero on a finding, so a red run means something a reader would see is wrong.
+# What this deliberately does NOT check: whether a narrative is good, whether a title is unique,
+# whether a kind repeats. Those are the writer's job now, recorded in docs/JUDUL.md.
+#
+# No browser step and no test runner: both existed to check rendered sentences, and the checking
+# is gone.
 
-name: checks
+name: syntax
 
 on:
   push:
@@ -22,34 +23,22 @@ on:
     branches: [main, master]
 
 jobs:
-  checks:
+  syntax:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # 22, not 20: ui.js drives the browser over its debug port using Node's own WebSocket,
-      # which only exists from 22. On 20 the run failed with "WebSocket is not defined" and
-      # was reported as a broken check, while the same file passed locally on 24. ui.js now
-      # names the Node version it needs instead.
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      # The sentences are data, so this is the fast check and it runs first.
-      - name: Check the sentence bank
-        run: node check.js
-
-      # test.js renders the page in a real browser. Installing one is the whole point:
-      # without it the check would skip, and a green run would mean nothing.
-      - uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: stable
-
-      - name: Render the page and check it
-        run: node test.js
-
-      # ui.js drives the same browser over its debug port, so it needs the Chrome above as
-      # well. Two checks, not one, because a rendering bug and an interaction bug are
-      # different failures and a red run should say which one happened.
-      - name: Drive the page and check the interactions
-        run: node ui.js
+      # Every JavaScript file in the repo: the shell's own scripts and every data file. The list
+      # is built by the shell rather than written out, so a data file added later is covered
+      # without anyone remembering to add it here.
+      - name: Parse every JavaScript file
+        run: |
+          set -e
+          files=$(ls *.js data/*.js)
+          echo "checking: $files"
+          for f in $files; do node --check "$f"; done
+          echo "all files parse"
