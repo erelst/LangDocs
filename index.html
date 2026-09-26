@@ -116,17 +116,26 @@
     border-left: 5px solid #38bdf8; border-radius: 12px;
     padding: 14px 16px; font-family: inherit; font-size: 16px;
     transition: border-color .12s ease;
+    /* So a badge's word-bubble is measured against the chip, not against the page. */
+    position: relative;
   }
   .titem:hover, .titem:focus-visible { border-color: #38bdf8; }
   .titem .meta {
     display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center;
     margin-top: 7px; font-size: 12px; color: #94a3b8;
   }
-  .titem .badge {
+  /* The badges are shared: the title list and a narrative's heading show the same three facts
+     about the same piece, so they are one set of rules rather than two that can drift apart. */
+  .badge {
     display: inline-block; border: 1px solid #4a5a72; border-radius: 20px;
     padding: 0 9px; font-size: 11.5px; color: #cbd5e1;
+    position: relative;
   }
-  .titem .badge.style { border-color: #38bdf8; color: #7ab8e8; }
+  .badge.style { border-color: #38bdf8; }
+  /* A label may be more than one word (a conversation has two speakers, and "a neighbour you just
+     met" is two words). Without this they touch and read as one word. */
+  .label .tk + .tk { margin-left: 6px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; margin-top: 9px; }
   /* The narrative's own line about itself, in the reader's language. One line for the whole
      piece, which is why it sits above the paragraphs and not next to any of them. */
   .sum { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: #cbd5e1; }
@@ -151,10 +160,11 @@
     font-size: 13.5px; padding: 0; text-decoration: underline;
   }
   /* The title in the language being learned. Same colours, underlines and hover bubble as the
-     paragraphs, because it is the same renderer; only the size differs. */
-  .narr-title .title-jp,
-  .titem .title-jp { font-size: 20px; font-weight: 600; line-height: 1.9; margin-bottom: 2px; }
-  .titem .title-jp { font-size: 17px; }
+     paragraphs, because it is the same renderer; only the size differs. It deliberately does NOT
+     carry `jp-sent`: that class is the card, so the title would be drawn as a card inside the
+     card the reader is already looking at. */
+  .narr-title .title-jp { font-size: 20px; font-weight: 600; line-height: 1.9; }
+  .titem .title-jp { font-size: 17px; font-weight: 600; line-height: 1.9; }
   .tname { color: #94a3b8; }
   .narr-title .tname { font-size: 15px; font-weight: 400; color: #94a3b8; margin-top: 2px; }
   .jp-sent {
@@ -186,8 +196,15 @@
      reading a word. The colour and font stay the page's; only the shape changes. */
 
 
-  .jp-sent .tk { border-radius: 3px; position: relative; }
-  .jp-sent .tk:hover { background: rgba(56, 189, 248, .18); }
+  /* The word bubble belongs to the word, not to the card. It is written as `.tk` rather than
+     `.jp-sent .tk` so that a title and a label get the same bubble without also becoming cards;
+     `.jp-sent` now means only "this is a card". */
+  .tk { border-radius: 3px; position: relative; }
+  .tk:hover { background: rgba(56, 189, 248, .18); }
+  /* A label inside a filled chip keeps the chip's dark ink. The per-word colours are picked to be
+     read on the dark page and disappear on a bright chip, so this is the one place a label's
+     colour is overridden. */
+  .speaker .tk { color: #0b1220 !important; border-bottom-color: #0b1220 !important; }
 
   /* The word bubble. It sits above the word it belongs to, pointed at it by a tail, and it
      never repeats the word: the reader is already looking at it, so the space goes to the
@@ -196,7 +213,7 @@
 
      Three rows, each with its own mark and colour, because when the reading and the gloss
      were joined by a slash a reader could not tell which was which. */
-  .jp-sent .tk > .tip {
+  .tk > .tip {
     position: absolute;
     bottom: 100%;
     margin-bottom: 6px;
@@ -225,32 +242,32 @@
     white-space: normal;
     pointer-events: none;
   }
-  .jp-sent .tk:hover > .tip,
-  .jp-sent .tk:focus-visible > .tip { display: flex; }
-  .jp-sent .tk > .tip .tr { display: flex; align-items: baseline; white-space: normal; }
+  .tk:hover > .tip,
+  .tk:focus-visible > .tip { display: flex; }
+  .tk > .tip .tr { display: flex; align-items: baseline; white-space: normal; }
   /* Breaking inside a word is switched OFF here, explicitly: the kanji line sets
      `overflow-wrap: anywhere` so a long sentence cannot push the card sideways, and the
      bubble inherits it, which would allow a break inside a gloss. */
-  .jp-sent .tk > .tip,
-  .jp-sent .tk > .tip .tr,
-  .jp-sent .tk > .tip .tx { overflow-wrap: normal; word-break: normal; }
-  .jp-sent .tk > .tip .mk {
+  .tk > .tip,
+  .tk > .tip .tr,
+  .tk > .tip .tx { overflow-wrap: normal; word-break: normal; }
+  .tk > .tip .mk {
     flex: 0 0 auto; min-width: 3.6em; margin-right: 5px;
     font-size: 11px; letter-spacing: .02em; text-transform: uppercase; color: #64748b;
   }
-  .jp-sent .tk > .tip .tx { flex: 0 1 auto; }
-  .jp-sent .tk > .tip .t-kana .tx { font-style: italic; }
-  .jp-sent .tk > .tip .t-id .tx { color: #f8fafc; }
-  .jp-sent .tk > .tip .t-en .tx { color: #cbd5e1; }
+  .tk > .tip .tx { flex: 0 1 auto; }
+  .tk > .tip .t-kana .tx { font-style: italic; }
+  .tk > .tip .t-id .tx { color: #f8fafc; }
+  .tk > .tip .t-en .tx { color: #cbd5e1; }
   /* `below` flips the tail ONLY. The position is moved by script with a transform, never by
      switching top/bottom here: setting both edges on a box with height:auto makes the height
      stretch instead of fitting the content. */
-  .jp-sent .tk > .tip.below::after {
+  .tk > .tip.below::after {
     top: auto; bottom: 100%; margin-top: 0; margin-bottom: -5px;
     border-right: none; border-bottom: none;
     border-left: 1px solid #475569; border-top: 1px solid #475569;
   }
-  .jp-sent .tk > .tip::after {
+  .tk > .tip::after {
     content: "";
     position: absolute;
     top: 100%; left: 14px; margin-top: -5px;
@@ -262,9 +279,9 @@
   /* On a phone the bubble must still be readable in full: no clipping and no sideways
      scrolling, because a bubble the reader has to scroll is a bubble with something hidden. */
   @media (max-width: 520px) {
-    .jp-sent .tk > .tip { max-width: calc(100vw - 24px); font-size: 13px; }
-    .jp-sent .tk > .tip .tr { flex-direction: column; align-items: flex-start; }
-    .jp-sent .tk > .tip .mk { min-width: 0; margin-right: 0; margin-bottom: 1px; }
+    .tk > .tip { max-width: calc(100vw - 24px); font-size: 13px; }
+    .tk > .tip .tr { flex-direction: column; align-items: flex-start; }
+    .tk > .tip .mk { min-width: 0; margin-right: 0; margin-bottom: 1px; }
   }
 
   mark { background: #f59e0b; color: #0b1220; border-radius: 3px; padding: 0 1px; }

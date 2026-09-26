@@ -145,21 +145,42 @@
     if (plain) { return 'biasa'; }
     return 'biasa';
   }
-  function styleLabel(s) {
-    var k = styleOf(s);
-    var v = C.style[k];
-    return v ? (v[langOf()] || v.id) : k;
+  /* A label has three names: the Japanese word the page shows, and the two the reader might search
+   * with. All three come from the same row of the same table, so a label can never be worded one
+   * way in the page and another way in the index. */
+  function labelRow(kind, key) {
+    var table = kind === 'jenis' ? C.jenis : (kind === 'style' ? C.style : C.rel);
+    return (table && table[key]) || null;
   }
+  /* What the page shows: the Japanese word, because the label is about the Japanese text. It falls
+   * back to the reader's own word when a label is added before its word is in the lexicon, so a
+   * new kind shows as `cerita` rather than as nothing. */
+  function labelText(kind, key) {
+    var row = labelRow(kind, key);
+    if (!row) { return ''; }
+    return row.jp || row.id || key || '';
+  }
+  /* What the search index holds: both names the reader might type, in both interface languages.
+   * Showing only Japanese on screen would have left a reader who thinks in "complaint" searching
+   * for a word that appears nowhere. */
+  function labelNames(kind, key) {
+    var row = labelRow(kind, key);
+    return row ? [row.jp, row.id, row.en].filter(Boolean).join(' ') : '';
+  }
+  /* A label rendered as words, so it gets the same colours, underlines and hover bubble as the
+   * sentence it describes. A label of more than one word is written with a space between the
+   * words, and each part is looked up on its own. */
+  function labelSpan(kind, key) {
+    var text = labelText(kind, key);
+    if (!text) { return ''; }
+    return '<span class="label">' + tokenSpans(resolve(text.split(' ')), 0) + '</span>';
+  }
+  function styleLabel(s) { return labelText('style', styleOf(s)); }
 
   /* ---------------------------------------------------------------- who, and the chip colour
    * A narrative names its relationship; the label and the colour follow from CONST.rel, so no
    * narrative repeats them and the same relationship is worded identically everywhere. */
   function relOf(key) { return (C.rel && C.rel[key]) || null; }
-  function relLabel(key) {
-    var r = relOf(key);
-    if (!r) { return ''; }
-    return langOf() === 'en' ? r.en : r.id;
-  }
   function relColour(key) {
     var r = relOf(key);
     return r && r.close ? C.who.dekat : C.who.asing;
@@ -171,34 +192,61 @@
     }
     return s.rel ? [s.rel] : [];
   }
-  function whoLabel(s) {
+  function whoKeysUnique(s) {
     var keys = whoKeys(s);
     var seen = {}, out = [];
     for (var i = 0; i < keys.length; i++) {
-      var l = relLabel(keys[i]);
-      if (l && !seen[l]) { seen[l] = 1; out.push(l); }
+      if (keys[i] && !seen[keys[i]]) { seen[keys[i]] = 1; out.push(keys[i]); }
     }
-    return out.join(', ');
+    return out;
+  }
+  /* The Japanese words for the people this piece is aimed at, one chip each. A conversation has
+   * two speakers, and two chips say "two people" where one chip holding two words reads as one. */
+  function whoChips(s) {
+    var keys = whoKeysUnique(s), out = [];
+    for (var i = 0; i < keys.length; i++) {
+      out.push('<span class="badge">' + labelSpan('rel', keys[i]) + '</span>');
+    }
+    return out.join('');
   }
   /* A conversation names each speaker, so the block label is the speaker's relationship. */
   function speakerKey(s, sp) {
     return (s.speakers && s.speakers[sp]) || null;
   }
-  function jenisLabel(s) {
-    var v = C.jenis[s.jenis];
-    return v ? (v[langOf()] || v.id) : (s.jenis || '');
+  function jenisLabel(s) { return labelText('jenis', s.jenis); }
+  /* Every name of every label on this narrative, for the search index. */
+  function labelNamesOf(s) {
+    var out = [labelNames('jenis', s.jenis), labelNames('style', styleOf(s))];
+    var keys = whoKeysUnique(s);
+    for (var i = 0; i < keys.length; i++) { out.push(labelNames('rel', keys[i])); }
+    return out;
   }
   function titleOf(s) { return langOf() === 'en' ? (s.judulEn || s.judul) : (s.judul || s.judulEn); }
+  /* The narrative's own line about itself, in the reader's language. It is one line about the
+   * whole piece, not a sentence-by-sentence translation, which is why it is shown once above the
+   * paragraphs rather than pinned to any one of them. */
+  function trOf(s) { return tr(s, 'id'); }
 
   /* The title in the language being learned, rendered through the same token renderer as the
    * paragraphs: same per-word colours, same underlines, same bubble on hover. A title is a
    * sentence, so it gets a sentence's treatment; the chosen-language title stays underneath as
-   * the one line that says what it means. */
+   * the one line that says what it means.
+   *
+   * It does NOT carry `jp-sent`. That class is the card, and the title already sits inside one,
+   * so using it here drew a card inside a card. The bubble no longer depends on it, because the
+   * bubble rules are written on `.tk`. */
   function titleSpans(s) {
     if (!s.judulT || !s.judulT.length) { return ''; }
-    return '<div class="title-jp jp-sent">' + tokenSpans(resolve(s.judulT), 0) + '</div>';
+    return '<div class="title-jp">' + tokenSpans(resolve(s.judulT), 0) + '</div>';
   }
-  /* A line in the reader's own language. Marked so the Translation switch can hide it. */
+  /* The title list is the only place a title sits in a row of its own, so the one thing that has
+   * to be undoed is the first word's indent: the card already supplies the same 16px as padding,
+   * and the two together read as a title pushed in from the edge. */
+  function titleSpansFlush(s) {
+    return '<div class="flush">' + titleSpans(s) + '</div>';
+  }
+  /* A line in the reader's own language. Marked so the Translation switch can hide it; the switch
+   * is what makes "everything is Japanese" and "show me what it means" the same page. */
   function trLine(text, cls) {
     if (!text) { return ''; }
     return '<div class="' + cls + ' tt">' + esc(text) + '</div>';
@@ -247,7 +295,10 @@
       // words and never splits a word in half.
       out.push('<span class="tk" style="display:inline-block;color:' + colour +
         ' !important;border-bottom:' + width + ' ' + u + ' ' + colour +
-        ' !important;padding:0 3px;">' + text + bubble(tokens, i, idx) + '</span>');
+        ' !important;padding:0 3px;' +
+        /* The indent is inline, so only an inline rule can undo it: that is why the first word
+         * of a title carries this and the CSS does not. */
+        (i ? '' : 'padding-left:0;') + '">' + text + bubble(tokens, i, idx) + '</span>');
     }
     return out.join('');
   }
@@ -275,7 +326,6 @@
   function blockHTML(s, block, index) {
     var tokens = tokensOfBlock(block);
     var sp = speakerKey(s, block.sp);
-    var spText = sp ? relLabel(sp) : '';
     var spColour = sp ? relColour(sp) : '';
     var sentences = sentencesOf(tokens);
     var out = [];
@@ -294,8 +344,8 @@
       (block.sp ? ' data-sp="' + esc(block.sp) + '"' : '') +
       ' style="border-left:' + v.width + ' ' + v.style + ' ' + v.left + ' !important;' +
       'padding-left:12px;">' +
-      (spText ? '<span class="speaker" style="background:' + spColour + ';">' +
-        esc(spText) + '</span>' : '') + out.join('') + '</div>';
+      (sp ? '<span class="speaker" style="background:' + spColour + ' !important;">' +
+        labelSpan('rel', sp) + '</span>' : '') + out.join('') + '</div>';
   }
 
   /* The sentences of a paragraph, cut where the punctuation says, so a paragraph renders as
@@ -311,12 +361,12 @@
     return out;
   }
 
-  /* The whole narrative: its summary line, then its paragraphs. The summary is what the
-   * Translation switch reveals: it is one line about the whole piece, and the narratives keep no
-   * sentence-by-sentence translation. */
+  /* The whole narrative: its summary line, then its paragraphs. The title is the page heading,
+   * and the Japanese chips for kind, style, and the people addressed live in that heading, so the
+   * body holds only the piece itself. */
   function narrativeHTML(s) {
     var bs = blocksOf(s);
-    var out = [trLine(tr(s, 'id'), 'sum')];
+    var out = [trLine(trOf(s), 'sum')];
     for (var i = 0; i < bs.length; i++) { out.push(blockHTML(s, bs[i], i)); }
     return out.join('');
   }
@@ -365,7 +415,7 @@
       /* judulT is in here because it is now the title the reader sees first. Leaving it out
        * meant the one line a reader is most likely to copy could not be found by searching. */
       var meta = [titleOf(s), s.judul, s.judulEn, (s.judulT || []).join(''),
-                  tr(s, 'sit'), tr(s, 'note'), whoLabel(s), jenisLabel(s)];
+                  tr(s, 'sit'), tr(s, 'note')].concat(labelNamesOf(s));
       everything = everything.concat(meta);
 
       var jpParts = norm(japanese.join(' '));
@@ -471,12 +521,12 @@
         '</div>';
     }
     return '<div class="titem" data-row="' + rowIndex + '" role="button" tabindex="0">' +
-      titleSpans(s) +
+      titleSpansFlush(s) +
       trLine(titleOf(s), 'tname') +
       '<div class="meta">' +
-        '<span class="badge">' + esc(jenisLabel(s)) + '</span>' +
-        '<span class="badge style">' + esc(styleLabel(s)) + '</span>' +
-        (whoLabel(s) ? '<span class="badge">' + esc(whoLabel(s)) + '</span>' : '') +
+        '<span class="badge">' + labelSpan('jenis', s.jenis) + '</span>' +
+        '<span class="badge style">' + labelSpan('style', styleOf(s)) + '</span>' +
+        whoChips(s) +
       '</div>' + snippet +
       (terms.length ? '<button class="readfull" data-row="' + rowIndex + '">' +
         esc(str('readFull')) + ' &ldquo;' + esc(titleOf(s)) + '&rdquo; ' + esc(str('readFullTail')) +
@@ -696,7 +746,12 @@
     paintStaticStrings();
     var s = ROWS[rowIndex].s;
     narrTitleEl.innerHTML = titleSpans(s) +
-      trLine(titleOf(s), 'tname');
+      trLine(titleOf(s), 'tname') +
+      '<div class="chips">' +
+        '<span class="badge">' + labelSpan('jenis', s.jenis) + '</span>' +
+        '<span class="badge style">' + labelSpan('style', styleOf(s)) + '</span>' +
+        whoChips(s) +
+      '</div>';
     narrEl.innerHTML = narrativeHTML(s);
     backBt.setAttribute('data-back', String(rowIndex));
     if (terms && terms.length) { highlight(terms); }

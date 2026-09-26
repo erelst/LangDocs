@@ -208,6 +208,11 @@ akan muncul sebagai peringatan di konsol, sama seperti kalimat biasa.
 saat disorot, atau romaji berbeda untuk kata yang sama. Daftar kata baru ditambahkan lewat
 `node lexadd.js new-words.js`.
 
+**Label juga tunduk pada aturan ini.** Label yang menerangkan teks (jenis, gaya bahasa, lawan
+bicara, penutur) ditulis dalam bahasa sasaran dengan permukaannya di `const.js` dan romaji serta
+glosanya di lexicon yang sama, jadi sebuah label bisa di-hover persis seperti kata di dalam
+kalimat, dan tidak ada satu pun permukaan label yang ditulis terpisah dari lexicon.
+
 ### K8. Setiap topik harus memuat narasi balasan, bukan hanya yang membuka
 
 Bukan hanya narasi yang memulai sesuatu. Harus ada juga yang **menjawab**: menjawab pertanyaan,
@@ -381,7 +386,8 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V14 | Daftar di halaman ketiga berisi **judul**, bukan kalimat; pencarian menemukan kata di dalam narasi dan menawarkan tombol membaca judul itu penuh | `app.js` |
 | V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama | `app.js` |
 | V18 | Setiap jenis punya bentuk yang berbeda, sehingga percakapan bisa dibedakan dari kronologi sebelum satu kata dibaca | `app.js` + CSS |
-| V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan | `app.js` + `const.js` |
+| V19 | Judul tampil dalam **bahasa sasaran** dengan kemampuan yang sama seperti paragraf: warna per kata, garis bawah per kata, dan balon saat disorot atau difokuskan. Judul **tidak** memakai kelas kartu `jp-sent`, karena judul sudah berada di dalam kartu dan memakainya menggambar kartu di dalam kartu | `app.js` + CSS |
+| V20 | Setiap label yang menerangkan teks ditulis dalam **bahasa sasaran** dan **bisa di-hover** untuk melihat romaji dan artinya: jenis, gaya bahasa, lawan bicara, dan label penutur. Warnanya tetap dari tabel yang sama (`jenisVisual`, `who`), jadi makna warnanya tidak berubah | `app.js` + `const.js` |
 | V21 | Ada sakelar **Terjemahan**, bentuknya sama seperti sakelar Romaji dan **mati secara bawaan**: mematikannya menyembunyikan arti judul dan ringkasan narasi, tanpa menyembunyikan judul, chip, label, atau balon | `app.js` + `index.html` |
 | V22 | Kolom pencarian, pilihan ruang lingkup, dan kedua sakelar **tetap ada saat sebuah judul dibuka**: pembaca yang mencari satu kata lalu membaca narasinya tidak perlu kembali hanya untuk mengubah sakelar. Bar bacaan disembunyikan di dua halaman pemilih, karena di sana pertanyaannya belum dijawab | `app.js` + `index.html` |
 
@@ -405,7 +411,9 @@ Waktu blok narasi mulai dipakai, kelas `jp-sent` **tidak ikut** dipasang pada pe
 baris. Akibatnya bukan hiasan yang hilang: seluruh aturan balon saat itu ditulis sebagai
 `.jp-sent .tk > .tip`, jadi balon per kata jatuh ke `position: static` dan **selalu terlihat**.
 Yang dibaca pembaca adalah tiga baris teks menggantung di bawah setiap kata, bukan balon yang
-muncul saat disorot.
+muncul saat disorot. Aturan balon sekarang ditulis pada `.tk` saja, jadi kejadian ini tidak bisa
+terulang: judul dan label bisa berbalon tanpa ikut menjadi kartu, dan `jp-sent` hanya berarti
+"ini kartu".
 
 Yang menemukannya adalah pengukuran, bukan pembacaan: `getComputedStyle(...).position` bernilai
 `static` dan `display` bernilai `inline`, padahal seharusnya `absolute` dan `none`. Pelajarannya
@@ -489,6 +497,7 @@ setelah versi lama dan CSS-nya punya breakpoint sendiri. Yang diperiksa dan hasi
 | Kartu judul muat, tidak meluber | ya (10-350 px) |
 | Baris kanji dan paragraf muat di dalam kartu | ya (25-297 px) |
 | Bar bacaan tetap muat, kotak cari dan kedua sakelar | ya, tidak ada gulir mendatar (360 px dari 360 px) |
+| Balon sebuah label (dua baris: romaji dan arti) | seluruhnya di dalam layar (x 20-116 px, y 200-288 px) |
 | Pencarian menyaring dan tombol `Baca judul ... penuh` muat | ya (tepi kanan 333 px) |
 | Kesalahan konsol | **0** |
 

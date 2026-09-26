@@ -97,6 +97,10 @@ Mode gelap saja, tiga halaman: pilih bahasa antarmuka, pilih bahasa sasaran, lal
 
 Judul dan setiap paragraf ditulis dalam **bahasa sasaran**. Mengarahkan kursor ke satu kata
 memunculkan balon yang menunjuk ke kata itu, berisi romaji dan artinya dalam bahasa yang dipilih.
+Yang menerangkan teks juga berbahasa sasaran dan bisa di-hover: **jenis** (`会話`, `時系列`),
+**gaya bahasa** (`丁寧`, `普通`, `混在`, dihitung dari teksnya, bukan ditulis sebagai label),
+**lawan bicara** (`友達`, `上司`), dan **penutur** di dalam percakapan. Warnanya tetap dari tabel di
+`const.js`, jadi makna warnanya tidak berubah.
 
 Di atas ada **bar bacaan** yang tetap terlihat saat sebuah judul dibuka: kotak pencarian, pilihan
 ruang lingkup, dan dua sakelar yang keduanya **mati secara bawaan**:

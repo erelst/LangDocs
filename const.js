@@ -38,62 +38,67 @@ window.CONST = {
    * A narrative names its relationship ("tetangga") instead of its register, so the same
    * relationship is worded identically wherever it appears.
    *
+   * `jp` is the surface the page shows instead of `id`/`en`: the label is about the Japanese text,
+   * so it is written in the language being learned and carries a bubble like any other word. A
+   * label of more than one word is written with a space between them, so the split is explicit
+   * and never guessed.
+   *
    * close: true -> green (someone you know), false -> yellow (someone you do not). */
   who: { dekat: '#86efac', asing: '#fcd34d' },
   rel: {
-    tetangga:        { id: 'tetangga', en: 'neighbour', close: true },
-    teman:           { id: 'teman', en: 'friend', close: true },
-    teman_dekat:     { id: 'teman dekat', en: 'close friend', close: true },
-    keluarga:        { id: 'keluarga', en: 'family', close: true },
-    pasangan:        { id: 'pasangan', en: 'partner', close: true },
-    rekan:           { id: 'rekan kerja', en: 'colleague', close: true },
-    sekamar:         { id: 'teman sekamar', en: 'roommate', close: true },
-    teman_sekolah:   { id: 'teman sekelas', en: 'classmate', close: true },
-    guru:            { id: 'guru', en: 'teacher', close: false },
-    atasan:          { id: 'atasan', en: 'superior at work', close: false },
-    klien:           { id: 'klien', en: 'client', close: false },
-    orang_asing:     { id: 'orang asing di jalan', en: 'a stranger on the street', close: false },
-    petugas_toko:    { id: 'petugas toko', en: 'shop attendant', close: false },
-    petugas_stasiun: { id: 'petugas stasiun', en: 'station staff', close: false },
-    pelayan:         { id: 'pelayan', en: 'waiting staff', close: false },
-    apoteker:        { id: 'apoteker', en: 'pharmacist', close: false },
-    dokter:          { id: 'dokter', en: 'doctor', close: false },
-    kurir:           { id: 'kurir pengantar', en: 'delivery courier', close: false },
-    tetangga_baru:   { id: 'tetangga yang baru dikenal', en: 'a neighbour you just met', close: false },
+    tetangga:        { id: 'tetangga', en: 'neighbour', jp: '隣人', close: true },
+    teman:           { id: 'teman', en: 'friend', jp: '友達', close: true },
+    teman_dekat:     { id: 'teman dekat', en: 'close friend', jp: '親友', close: true },
+    keluarga:        { id: 'keluarga', en: 'family', jp: '家族', close: true },
+    pasangan:        { id: 'pasangan', en: 'partner', jp: '恋人', close: true },
+    rekan:           { id: 'rekan kerja', en: 'colleague', jp: '同僚', close: true },
+    sekamar:         { id: 'teman sekamar', en: 'roommate', jp: 'ルームメイト', close: true },
+    teman_sekolah:   { id: 'teman sekelas', en: 'classmate', jp: '同級生', close: true },
+    guru:            { id: 'guru', en: 'teacher', jp: '先生', close: false },
+    atasan:          { id: 'atasan', en: 'superior at work', jp: '上司', close: false },
+    klien:           { id: 'klien', en: 'client', jp: '顧客', close: false },
+    orang_asing:     { id: 'orang asing di jalan', en: 'a stranger on the street', jp: '知らない人', close: false },
+    petugas_toko:    { id: 'petugas toko', en: 'shop attendant', jp: '店員', close: false },
+    petugas_stasiun: { id: 'petugas stasiun', en: 'station staff', jp: '駅員', close: false },
+    pelayan:         { id: 'pelayan', en: 'waiting staff', jp: '給仕', close: false },
+    apoteker:        { id: 'apoteker', en: 'pharmacist', jp: '薬剤師', close: false },
+    dokter:          { id: 'dokter', en: 'doctor', jp: '医者', close: false },
+    kurir:           { id: 'kurir pengantar', en: 'delivery courier', jp: '配達員', close: false },
+    tetangga_baru:   { id: 'tetangga yang baru dikenal', en: 'a neighbour you just met', jp: '新しい 隣人', close: false },
 
     /* Speakers only, for the conversations in `percakapan`. Kept in the same table so a
      * speaker label is worded and coloured by exactly the same rule as a whole narrative. */
-    ibu:             { id: 'ibu', en: 'mother', close: true },
-    ayah:            { id: 'ayah', en: 'father', close: true },
-    anak:            { id: 'anak', en: 'child', close: true },
-    kakak:           { id: 'kakak', en: 'older sibling', close: true },
-    adik:            { id: 'adik', en: 'younger sibling', close: true },
-    teman_kerja:     { id: 'rekan kerja', en: 'colleague', close: true },
-    petugas:         { id: 'petugas', en: 'staff member', close: false },
-    tetangga_lama:   { id: 'tetangga lama', en: 'a neighbour of long standing', close: true },
+    ibu:             { id: 'ibu', en: 'mother', jp: '母', close: true },
+    ayah:            { id: 'ayah', en: 'father', jp: '父', close: true },
+    anak:            { id: 'anak', en: 'child', jp: '子供', close: true },
+    kakak:           { id: 'kakak', en: 'older sibling', jp: '姉', close: true },
+    adik:            { id: 'adik', en: 'younger sibling', jp: '弟', close: true },
+    teman_kerja:     { id: 'rekan kerja', en: 'colleague', jp: '同僚', close: true },
+    petugas:         { id: 'petugas', en: 'staff member', jp: '係員', close: false },
+    tetangga_lama:   { id: 'tetangga lama', en: 'a neighbour of long standing', jp: '古い 隣人', close: true },
 
     /* Two speakers that only appear inside a conversation or an announcement. A general
      * announcement is addressed to the passenger, so it is named the same way as a person. */
-    penumpang:       { id: 'penumpang', en: 'passenger', close: true },
-    pasien:          { id: 'pasien', en: 'patient', close: false },
+    penumpang:       { id: 'penumpang', en: 'passenger', jp: '乗客', close: true },
+    pasien:          { id: 'pasien', en: 'patient', jp: '患者', close: false },
   },
 
   /* Kind: what shape the narrative takes. This is the axis a topic is required to move along,
    * so that one topic never becomes the same piece written many times. Open-ended on purpose:
    * a new kind is added here when a narrative genuinely takes a new shape. */
   jenis: {
-    percakapan:  { id: 'percakapan',  en: 'conversation' },
-    cerita:      { id: 'cerita',      en: 'story' },
-    kronologi:   { id: 'kronologi',   en: 'chronology' },
-    curhatan:    { id: 'curhatan',    en: 'venting' },
-    keluhan:     { id: 'keluhan',     en: 'complaint' },
-    penjelasan:  { id: 'penjelasan',  en: 'explanation' },
-    laporan:     { id: 'laporan',     en: 'report' },
-    rencana:     { id: 'rencana',     en: 'plan' },
-    nasihat:     { id: 'nasihat',     en: 'advice' },
-    permintaan:  { id: 'permintaan',  en: 'request' },
-    pengalaman:  { id: 'pengalaman',  en: 'recollection' },
-    pengumuman:  { id: 'pengumuman',  en: 'announcement' }
+    percakapan:  { id: 'percakapan',  en: 'conversation', jp: '会話' },
+    cerita:      { id: 'cerita',      en: 'story',        jp: '話' },
+    kronologi:   { id: 'kronologi',   en: 'chronology',   jp: '時系列' },
+    curhatan:    { id: 'curhatan',    en: 'venting',      jp: '愚痴' },
+    keluhan:     { id: 'keluhan',     en: 'complaint',    jp: '苦情' },
+    penjelasan:  { id: 'penjelasan',  en: 'explanation',  jp: '説明' },
+    laporan:     { id: 'laporan',     en: 'report',       jp: '報告' },
+    rencana:     { id: 'rencana',     en: 'plan',         jp: '計画' },
+    nasihat:     { id: 'nasihat',     en: 'advice',       jp: '助言' },
+    permintaan:  { id: 'permintaan',  en: 'request',      jp: 'お願い' },
+    pengalaman:  { id: 'pengalaman',  en: 'recollection', jp: '経験' },
+    pengumuman:  { id: 'pengumuman',  en: 'announcement', jp: 'お知らせ' }
   },
 
   /* Language style, read OFF the narrative's own text rather than written by hand.
@@ -112,9 +117,9 @@ window.CONST = {
                'してる', 'してた', 'あるよ', 'ないよ', 'だよな', 'よな', 'のか', 'だって',
                'だろう', 'おい', 'やつ', 'のは', 'のが'],
   style: {
-    sopan:    { id: 'sopan',    en: 'polite' },
-    biasa:    { id: 'biasa',    en: 'casual' },
-    campuran: { id: 'campuran', en: 'mixed' }
+    sopan:    { id: 'sopan',    en: 'polite', jp: '丁寧' },
+    biasa:    { id: 'biasa',    en: 'casual', jp: '普通' },
+    campuran: { id: 'campuran', en: 'mixed',  jp: '混在' }
   },
 
   /* Every word the interface says, in both languages, since the reader picks the language on
