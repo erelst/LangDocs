@@ -11,9 +11,10 @@ sekarang **tidak dijaga apa pun**: ia dibaca saat menulis, dan ketentuannya ada 
 
 **Keadaan deck saat halaman ini ditulis, supaya angkanya tidak dibaca sebagai rencana.** Seluruh
 13 topik sudah terisi, masing-masing **12 narasi**, seluruh **12 jenis** terpakai di setiap topik,
-seluruhnya **156 narasi** dan **801 baris**. Jadi tabel di bawah bukan lagi daftar pekerjaan yang
-tersisa, melainkan dasar yang menjelaskan **kenapa** topik yang satu mendapat porsi bahasan lebih
-besar daripada yang lain. Daftar judulnya ada di `JUDUL.md`, dan keadaan itu mudah diperiksa
+seluruhnya **156 narasi**. Setiap narasi berisi **paragraf**, bukan satu kalimat per baris: batas
+kalimat di dalam paragraf dibaca dari tanda baca, dan itu dijelaskan di `SPEC.md` K2. Jadi tabel di
+bawah bukan lagi daftar pekerjaan yang tersisa, melainkan dasar yang menjelaskan **kenapa** topik
+yang satu mendapat porsi bahasan lebih besar daripada yang lain. Daftar judulnya ada di `JUDUL.md`, dan keadaan itu mudah diperiksa
 ulang: jumlah judul di berkas itu harus sama dengan jumlah narasi di `data/`.
 
 ---
