@@ -95,6 +95,17 @@
     return LANGS.indexOf(v) === -1 ? 'id' : v;
   }
   function langOf() { return normLang(state.lang); }
+
+  /* The target language, normalised the same way as the interface language, and for the same
+   * reason. Only Japanese exists today, so anything else in the hash is a typo; leaving it as
+   * typed meant a mistyped `#/read/id/JP` was carried into every link the reader then clicked.
+   * When a second target language is genuinely added, it is added to this list and to the
+   * chooser that `renderChoosers()` builds, in the same change. */
+  var TARGETS = ['jp'];
+  function normTarget(x) {
+    var v = String(x || '').toLowerCase();
+    return TARGETS.indexOf(v) === -1 ? 'jp' : v;
+  }
   /* A field written as `id`/`en` rather than `idId`/`idEn`. */
   function tr(s, base) {
     if (!s) { return ''; }
@@ -621,7 +632,7 @@
     }
     if (parts[0] === 'read') {
       state.lang = normLang(parts[1]);
-      state.target = parts[2] || 'jp';
+      state.target = normTarget(parts[2]);
       if (parts[3]) { openNarrative(decodeURIComponent(parts[3])); return; }
       state.openKey = null;
       show('list');

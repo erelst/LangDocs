@@ -354,6 +354,8 @@ di-parse, jadi berkas yang rusak ketahuan, tetapi berkas yang **lupa didaftarkan
 | V11 | Mencari setelah menggulir menampilkan hasil teratas, bukan posisi gulir lama | `app.js` |
 | V12 | Balon per kata: menunjuk ke katanya, tidak mengulang kata Jepangnya, tidak ada label yang terbelah, tidak ada baris yang terpotong di tengah kata, dan seluruh balon berada di dalam layar di lebar mana pun | `app.js` |
 | V13 | Tiga halaman berurutan: pilih bahasa terjemahan, pilih bahasa sasaran, lalu daftar judul | `app.js` |
+| V16 | Alamat yang salah ketik tidak boleh menghasilkan halaman kosong: rute, bahasa, dan bahasa sasaran yang tidak dikenal dinormalkan, dan kunci narasi yang tidak ada kembali ke daftar judul | `app.js` |
+| V17 | Tombol kembali browser menelusuri ketiga halaman dalam urutan yang dipilih pembaca | `app.js` |
 | V14 | Daftar di halaman ketiga berisi **judul**, bukan kalimat; pencarian menemukan kata di dalam narasi dan menawarkan tombol membaca judul itu penuh | `app.js` |
 | V15 | Bahasa terjemahan tidak disatukan: halaman hanya menampilkan satu bahasa, sesuai pilihan di halaman pertama | `app.js` |
 
@@ -462,6 +464,25 @@ setelah versi lama dan CSS-nya punya breakpoint sendiri. Yang diperiksa dan hasi
 | Baris kanji dan tabel glosa muat setelah panel dibuka | ya (29-297 px dan 42-284 px) |
 | Pencarian menyaring dan tombol `Baca judul ... penuh` muat | ya (tepi kanan 333 px) |
 | Kesalahan konsol | **0** |
+
+**Alamat yang salah ketik juga diuji, karena alamat itu bisa dibagikan orang.** Halaman ini
+seluruhnya dialamatkan lewat hash, jadi pembaca bisa mengetik apa saja. Yang diuji dan hasilnya:
+
+| Alamat yang diuji | Hasil |
+|---|---|
+| `#/garbage`, `#//` | ke pemilih bahasa, halaman tidak kosong |
+| `#/read/`, `#/read/id`, `#/read//jp`, `#/read/id/jp/` | ke daftar judul, 20 judul terisi, 156 dihitung |
+| `#/read/ID/JP` (huruf besar) | dinormalkan: UI `id`, target `jp` |
+| `#/read/id/jp/tidak_ada` | kembali ke daftar judul, bukan narasi kosong |
+| `#/read/id/jp/kurasi06/ekstra` | tetap membuka narasi itu |
+| Tombol kembali browser | `#/lang` → `#/target/id` → `#/read/id/jp` → narasi, dan kembali tiga langkah dengan urutan yang sama |
+
+**Satu cacat nyata ditemukan di sini, dan sudah diperbaiki.** Kode bahasa **antarmuka** sudah
+dinormalkan sejak awal, tetapi kode **bahasa sasaran** tidak: `#/read/id/JP` menyimpan `JP` apa
+adanya, dan kode yang salah ketik itu **ikut terbawa ke setiap tautan** yang diklik pembaca
+berikutnya. Sekarang keduanya dinormalkan oleh fungsi terpisah, `normLang()` dan `normTarget()`,
+dan keduanya menyebut di komentarnya bahwa daftar bahasanya harus ditambah bersamaan dengan
+tombol pilihannya.
 
 **Halaman juga diuji disajikan dari subpath, bukan dari berkas lokal.** Selama pengembangan,
 halaman dibuka sebagai `file://`, dan itu **tidak membuktikan apa pun tentang produksi**: GitHub
